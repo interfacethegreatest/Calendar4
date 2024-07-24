@@ -1,0 +1,193 @@
+/* buttonStyle.module.css */
+
+#submitButton {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    color: aliceblue;
+    height: 38px;
+    border-radius: 24px;
+    border: 2px solid rgba(159, 158, 158, 0.5);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+    margin-bottom: 5%;
+    z-index: 3;
+    background-color: rgba(192, 189, 189, 0.17);
+}
+
+#submitButton:hover {
+    background-color: rgba(77, 187, 150, 0.547);
+    color: aliceblue;
+    
+}
+
+#defaultText, #hoverText {
+    position: absolute;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+#defaultText {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(0);
+    opacity: 1;
+    gap: 5px;
+}
+
+#submitButton:hover #defaultText {
+    transform: translateY(-60%);
+    opacity: 0;
+}
+
+#hoverText {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(-60%);
+    opacity: 0;
+    gap: 5px;
+}
+
+#submitButton:hover #hoverText {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+#googleSocialButton {
+    background-color: #DB4437;
+    display: flex;
+    flex-direction: row;
+    border: 1px solid rgba(128, 128, 128, 0.33);
+    color: #333;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 55px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+  
+#googleSocialButton:hover {
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
+    background-color: #fb2d1a;
+}
+
+#githubSocialButton {
+    background-color: grey;
+    display: flex;
+    flex-direction: row;
+    border: 1px solid rgba(128, 128, 128, 0.33);
+    color: #333;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+  
+#githubSocialButton:hover {
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
+    background-color: rgb(173, 172, 172);
+}
+
+#auth0SocialButton {
+    background-color: #eb5424;
+    display: flex;
+    flex-direction: row;
+    border: 1px solid rgba(128, 128, 128, 0.33);
+    color: #333;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+  
+#auth0SocialButton:hover {
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
+    background-color: #ff3c00;
+}
+
+#discordSocialButton {
+    background-color: #788fe0;
+    display: flex;
+    flex-direction: row;
+    border: 1px solid rgba(128, 128, 128, 0.33);
+    color: #333;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+  
+#discordSocialButton:hover {
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
+    background-color: #4c72fa;
+}
+
+#spotifySocialButton {
+    background-color: #1D8954;
+    display: flex;
+    flex-direction: row;
+    border: 1px solid rgba(128, 128, 128, 0.33);
+    color: #333;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+  
+#spotifySocialButton:hover {
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
+    background-color: #0ce079;
+}
+
+#twitterSocialButton {
+    background-color: #1DA1F2;
+    display: flex;
+    flex-direction: row;
+    border: 1px solid rgba(128, 128, 128, 0.33);
+    color: #333;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+  
+#twitterSocialButton:hover {
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
+    background-color: #039eff;
+}

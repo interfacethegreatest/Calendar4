@@ -1,0 +1,25 @@
+#main{
+    height: 100vh;
+    width: 100vw;
+    background: #18191C;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#authMain{
+    height: 100vh;
+    width: 100vw;
+    background: #18191C;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#title{
+    font-size: 8vh;
+    font-weight: 700;
+    text-align: center;
+}

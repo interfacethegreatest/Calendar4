@@ -1,0 +1,8 @@
+#formStyle{
+    z-index: 2;
+}
+
+#nameStyle{
+    display: flex;
+    justify-content: center;
+}

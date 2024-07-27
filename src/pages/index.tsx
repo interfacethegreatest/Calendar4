@@ -1,7 +1,7 @@
 import Image from "next/image";
 import styles from "./styles.module.css"
 import { IoHome } from "react-icons/io5";
-import TiltCard from "@/components/cards/TiltCard";
+import TiltCard from "@/components/cards/TiltCard/TiltCard";
 import { SlHome } from "react-icons/sl";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import { useSession, signIn, signOut } from "next-auth/react";

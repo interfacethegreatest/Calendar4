@@ -1,11 +1,11 @@
 import React from 'react'
 import styles from './styles.module.css'
-import RegisterForm from '@/components/forms/RegisterForm/RegisterForm'
+import RegisterCard from '@/components/cards/RegisterCard/RegisterCard'
 
 export default function auth() {
   return (
     <div id={styles.authMain}>
-      <RegisterForm title='Sign Up'/>
+      <RegisterCard title='Sign Up'/>
     </div>
   )
 }

@@ -1,6 +1,6 @@
 #main {
   background: linear-gradient(135deg, #1B1B1D 75%, #1e1e1e 100%);
-  width: 486px;
+  width: 411px;
   height: 598px;
   border-radius: 15px;
   cursor: pointer;
@@ -9,6 +9,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Initial shadow */
   position: relative; 
   overflow: hidden;
+  z-index: 1;
 }
 
 #main::before {
@@ -24,6 +25,7 @@
   transition: all 0.3s ease; /* Smooth transition for the effect */
   opacity: 0; /* Start with the glow hidden */
   padding-left: 4px;
+  z-index: 1;
 }
 
 #main:hover::before {
@@ -31,12 +33,14 @@
   width: 400px;
   transform: translate(-52%, -52%);
   opacity: 1; /* Show the glow on hover */
+  z-index: 1;
 }
 
 #main:hover {
   box-shadow: 0 12px 26px rgba(0, 0, 0, 0.4); /* Shadow effect on hover */
   border: 2px solid rgba(149, 149, 149, 0.295);
   background: linear-gradient(135deg, #1B1B1D 75%, #1f1f1f 100%);
+  z-index: 1;
 }
 
 #tiles{
@@ -48,7 +52,8 @@
   margin-left: auto;
   margin-right: auto;
   padding: 1px;
-  height: 60%;
+  height: 40%;
+  z-index: 1;
 }
 
 #tile1 {
@@ -63,11 +68,13 @@
 
 #tile1:hover {
   background-color: rgba(48, 121, 97, 0.036);
+  z-index: 1;
 }
 
 #main:hover #tile1{
   border-bottom: 2px solid rgba(90, 89, 89, 0.17);
   border-right: 2px solid rgba(90, 89, 89, 0.17);
+  z-index: 1;
 }
 
 #tile2 {
@@ -82,10 +89,12 @@
 
 #tile2:hover {
   background-color: rgba(48, 121, 97, 0.036);
+  z-index: 1;
 }
 
 #main:hover #tile2{
   border-bottom: 2px solid rgba(90, 89, 89, 0.17);
+  z-index: 1;
 
 }
 
@@ -100,12 +109,14 @@
 }
 
 #tile3:hover {
+  z-index: 1;
   
 }
 
 #main:hover #tile3{
   border-bottom: 2px solid rgba(90, 89, 89, 0.17);
   background-color: rgba(48, 121, 97, 0.036);
+  z-index: 1;
 }
 
 #tile4 {
@@ -120,9 +131,11 @@
 
 #tile4:hover {
   background-color: rgba(48, 121, 97, 0.036);
+  z-index: 1;
 }
 
 #main:hover #tile4{
+  z-index: 1;
 
 }
 
@@ -138,12 +151,14 @@
 
 #tile5:hover {
   background-color: rgba(48, 121, 97, 0.036);
+  z-index: 1;
 }
 
 #main:hover #tile5{
   border-bottom: 2px solid rgba(90, 89, 89, 0.17);
   border-right: 2px solid rgba(90, 89, 89, 0.17);
   background-color: rgba(48, 121, 97, 0.036);
+  z-index: 1;
 }
 
 #tile6 {
@@ -158,11 +173,12 @@
 
 #tile6:hover {
   background-color: rgba(48, 121, 97, 0.036);
+  z-index: 1;
 }
 
 #main:hover #tile6{
   border-bottom: 2px solid rgba(90, 89, 89, 0.17);
-
+  z-index: 1;
 }
 
 #tile7 {
@@ -177,10 +193,11 @@
 
 #tile7:hover {
   background-color: rgba(48, 121, 97, 0.036);
+  z-index: 1;
 }
 
 #main:hover #tile7{
-
+  z-index: 1;
 }
 
 #tile8 {
@@ -195,10 +212,11 @@
 
 #tile8:hover {
   background-color: rgba(48, 121, 97, 0.036);
+  z-index: 1;
 }
 
 #main:hover #tile8{
-  
+  z-index: 1;
 }
 
 #tile9 {
@@ -215,6 +233,7 @@
   border-bottom: 2px solid rgba(90, 89, 89, 0.17);
   border-right: 2px solid rgba(90, 89, 89, 0.17);
   background-color: rgba(48, 121, 97, 0.036);
+  z-index: 1;
 }
 
 #tile10 {
@@ -229,10 +248,12 @@
 
 #tile10:hover {
   background-color: rgba(48, 121, 97, 0.036);
+  z-index: 1;
 }
 
 #main:hover #tile10{
   border-bottom: 2px solid rgba(90, 89, 89, 0.17);
+  z-index: 1;
 }
 
 #tile11 {
@@ -247,10 +268,11 @@
 
 #tile11:hover {
   background-color: rgba(48, 121, 97, 0.036);
+  z-index: 1;
 }
 
 #main:hover #tile11{
-
+  z-index: 1;
 }
 
 #tile12 {
@@ -265,9 +287,11 @@
 
 #tile12:hover {
   background-color: rgba(48, 121, 97, 0.036);
+  z-index: 1;
 }
 
 #main:hover #tile12{
+  z-index: 1;
 
 }
 
@@ -283,10 +307,11 @@
 
 #tile13:hover {
   background-color: rgba(48, 121, 97, 0.036);
+  z-index: 1;
 }
 
 #main:hover #tile13{
-  
+  z-index: 1;
 
 }
 
@@ -299,14 +324,16 @@
   transition: background-color 0.5s ease;
   z-index: 1;
   height: 200%;
+  z-index: 1;
 }
 
 #tile15:hover {
   background-color: rgba(48, 121, 97, 0.036);
+  z-index: 1;
 }
 
 #main:hover #tile15{
-
+  z-index: 1;
 
 }
 
@@ -316,20 +343,24 @@
   grid-column-end: 5;
   align-self: end;
   margin-right: 23px;
+  z-index: 1;
 }
 
 #main:hover #loader {
   animation: progress .3s linear forwards; /* Adjust duration (5s) as needed */
+  z-index: 1;
 }
 
 @keyframes progress {
   0% {
       width: 0%;
       border: 1px solid rgba(90, 89, 89, 0.17); /* Starting color (e.g., coral) */
+      z-index: 1;
   }
   100% {
       width: 100%;
       border: 1px solid rgba(90, 89, 89, 0.17); /* Ending color (e.g., deep sky blue) */
+      z-index: 1;
   }
 }
 
@@ -337,10 +368,12 @@
   0% {
       width: 0%;
       border: 1px solid rgba(90, 89, 89, 0.17); /* Starting color (e.g., coral) */
+      z-index: 1;
   }
   100% {
       width: 67%;
       border: 1.5px solid rgba(90, 89, 89, 0.09); /* Ending color (e.g., deep sky blue) */
+      z-index: 1;
   }
 }
 
@@ -351,10 +384,12 @@
   grid-column-end: 5;
   align-self: end;
   margin-right: 23px;
+  z-index: 1;
 }
 
 #main:hover #loader2 {
   animation: progress .4s linear forwards; /* Adjust duration (5s) as needed */
+  z-index: 1;
 }
 
 #loader3{
@@ -363,10 +398,12 @@
   grid-column-end: 5;
   align-self: end;
   margin-right: 23px;
+  z-index: 1;
 }
 
 #main:hover #loader3 {
   animation: progress3 .6s linear forwards; /* Adjust duration (5s) as needed */
+  z-index: 1;
 }
 
 #loader4{
@@ -374,21 +411,25 @@
   grid-row-end: 5;
   grid-column-start: 1;
   grid-column-end: 2;
+  z-index: 1;
   
 }
 
 #main:hover #loader4 {
   animation: progress2 .1s linear forwards; /* Adjust duration (5s) as needed */
+  z-index: 1;
 }
 
 @keyframes progress2 {
   0% {
       height: 0%;
       border-right: 2px solid rgba(90, 89, 89, 0.17); /* Starting color (e.g., coral) */
+      z-index: 1;
   }
   100% {
       height: 110%;
       border-right: 3px solid rgba(104, 103, 103, 0.11); /* Ending color (e.g., deep sky blue) */
+      z-index: 1;
   }
 }
 
@@ -397,11 +438,13 @@
   grid-row-end: 5;
   grid-column-start: 2;
   grid-column-end: 3;
+  z-index: 1;
   
 }
 
 #main:hover #loader5 {
   animation: progress2 .3s linear forwards; /* Adjust duration (5s) as needed */
+  z-index: 1;
 }
 
 #loader6{
@@ -409,20 +452,28 @@
   grid-row-end: 5;
   grid-column-start: 3;
   grid-column-end: 4.4;
+  z-index: 1;
   
 }
 
 #main:hover #loader6 {
   animation: progress2 .3s linear forwards; /* Adjust duration (5s) as needed */
+  z-index: 1;
 }
 
 #mainBannerText{
-  color: rgb(101, 105, 108);
+  color: aliceblue;
 }
 
 #titleText {
   color: aliceblue;
   font-size: 250%;
   text-align: center;
-  margin-top: 5%;
+  margin-top: 10%;
+  z-index: 2;
+}
+
+#spanText{
+  color: aliceblue;
+  text-align: center;
 }

@@ -1,4 +1,4 @@
-#inputStyle{
+#inputStyle {
     z-index: 5;
     position: relative;
     background-color: rgba(192, 189, 189, 0);
@@ -7,7 +7,7 @@
     border: none;
     outline: none;
     line-height: 40px;
-    border-radius:2px;
+    border-radius: 2px;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     margin-left: auto;
@@ -17,7 +17,7 @@
     margin-right: 4px;
 }
 
-#inputDiv{
+#inputDiv {
     display: flex;
     border: 1px solid rgba(90, 89, 89, 0.295);
     border-top: 3px solid rgba(159, 158, 158, 0.5);
@@ -33,17 +33,16 @@
     overflow: visible;
 }
 
-
 #inputDiv::after {
     content: '';
     position: absolute;
-    bottom: 0;/* Adjust to align with border-top */
+    bottom: 0;
     left: 0;
-    height: 1px; /* Same height as border-top */
+    height: 1px;
     width: 0;
-    background: rgba(63, 151, 122, 0.172); /* Same color as border-top on click */
+    background: rgba(63, 151, 122, 0.172);
     transition: width 0.3s ease, left 0.3s ease;
-    border-radius: 4px; /* Match border-radius of inputDiv */
+    border-radius: 4px;
     z-index: 1;
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
 }
@@ -53,20 +52,63 @@
     left: 0;
 }
 
-
 #inputDiv.inputClicked {
     border: 1px solid rgba(63, 151, 122, 0.249);
     border-top: 3px solid rgba(63, 151, 122, 0.662);
 }
 
 #inputDiv.inputClicked::after {
-    display: none; /* Hide the pseudo-element when inputDiv is clicked */
+    display: none;
+}
+
+#inputDivError {
+    display: flex;
+    border: 1px solid rgba(90, 89, 89, 0.295);
+    border-top: 3px solid rgba(151, 63, 63, 0.662); /* Red border-top */
+    margin: 3px;
+    height: 48px;
+    padding: 8px;
+    border-radius: 4px;
+    width: 40%;
+    z-index: 4;
+    position: relative;
+    background-color: #1B1B1D;
+    transition: box-shadow 0.1s ease-in-out;
+    overflow: visible;
+}
+
+#inputDivError::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    width: 0;
+    background: rgba(121, 48, 48, 0.153);
+    transition: width 0.3s ease, left 0.3s ease;
+    border-radius: 4px;
+    z-index: 1;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+
+#inputDivError:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+#inputDivError.inputClicked {
+    border: 1px solid rgba(151, 63, 63, 0.249);
+    border-top: 3px solid rgba(151, 63, 63, 0.662);
+}
+
+#inputDivError.inputClicked::after {
+    display: none;
 }
 
 #inputStyle:-webkit-autofill,
 #inputStyle:-webkit-autofill:hover, 
 #inputStyle:-webkit-autofill:focus, 
-#inputStyle:-webkit-autofill:active{
+#inputStyle:-webkit-autofill:active {
     -webkit-background-clip: text;
     -webkit-text-fill-color: #ffffff;
     transition: background-color 5000s ease-in-out 0s;
@@ -81,14 +123,41 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(192, 189, 189, 0.17);;
+    background-color: rgba(192, 189, 189, 0.17);
     z-index: 2;
 }
-  
-#iconStyle{
+
+#iconHolderError {
+    width: 20%;
+    height: 100%;
+    border-radius: 50%;
+    border: 1px solid rgba(159, 158, 158, 0.17);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(192, 189, 189, 0.17);
+    z-index: 2;
+    border: 2px solid rgba(151, 63, 63, 0.416);
+    background-color: rgba(134, 53, 53, 0.19);
+    box-shadow: 0 0 5px rgba(134, 53, 53, 0.5), 0 0 20px rgba(134, 53, 53, 0.3), 0 0 30px rgba(134, 53, 53, 0.2);
+}
+
+#iconStyle {
     margin-right: 1.5%;
     margin-bottom: 5%;
     color: gainsboro;
+    width: 75%;
+    height: 75%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+#iconStyleError {
+    margin-right: 1.5%;
+    margin-bottom: 5%;
+    color: rgb(187, 77, 77);
     width: 75%;
     height: 75%;
     display: flex;
@@ -102,41 +171,50 @@
     background-color: rgba(53, 134, 107, 0.19);
     box-shadow: 0 0 5px rgba(53, 134, 107, 0.5), 0 0 20px rgba(53, 134, 107, 0.3), 0 0 30px rgba(53, 134, 107, 0.2);
 }
-  
-  
+
 #iconStyle:hover {
-    color: rgb(77, 187, 150)
+    color: rgb(77, 187, 150);
 }
 
-#inputDiv.inputClicked{
-    border: 1px solid rgba(63, 151, 122, 0.249);
-    border-top: 3px solid rgba(63, 151, 122, 0.662);
-    
+#iconStyleError:hover {
+    color: rgb(187, 77, 77);
 }
 
 #glowEffect {
     pointer-events: none;
     height: 100%;
-    width: 100%;    
-    position: absolute;  
+    width: 100%;
+    position: absolute;
     top: 50%;
     left: 0%;
     transform: translate(0%, -50%);
 }
 
-#inputDiv.inputClicked #glowEffect{
+#glowEffectError {
+    pointer-events: none;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    transform: translate(0%, -50%);
+}
+
+#inputDiv.inputClicked #glowEffect {
     background: linear-gradient(to right, rgba(48, 121, 97, 0.153) 5%, rgba(48, 121, 97, 0) 95%);
 }
 
-#inputDiv.inputClicked #iconHolder{
- border: 1px solid rgba(240, 248, 255, 0.34);
+#inputDiv.inputClickedError #glowEffectError {
+    background: linear-gradient(to right, rgba(121, 48, 48, 0.153) 5%, rgba(121, 48, 48, 0) 95%);
 }
 
-/*#inputDiv.inputClicked {
-    box-shadow: 0 0 5px rgba(48, 121, 97, 0.658);
-}*/
+#inputDiv.inputClicked #iconHolder {
+    border: 1px solid rgba(240, 248, 255, 0.34);
+}
 
-
+#inputDiv.inputClickedError #iconHolderError {
+    border: 1px solid rgba(240, 248, 255, 0.34);
+}
 
 #placeholder {
     position: absolute;
@@ -147,7 +225,6 @@
     animation: translateYAnimation 0.5s forwards;
     z-index: 6;
     padding: 3px;
-
 }
 
 @keyframes translateYAnimation {

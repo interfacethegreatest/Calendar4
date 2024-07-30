@@ -2,10 +2,7 @@
 import * as React from 'react';
 import styles from './RegisterStyles.module.css';
 import { Poppins } from "next/font/google";
-import SlideButton from "../../buttons/auth/slideButton";
 import Tilt from 'react-parallax-tilt';
-import { GoSignOut } from "react-icons/go";
-import { AiFillLock } from 'react-icons/ai';
 import RegisterForm from '@/components/forms/RegisterForm/RegisterForm';
 
 
@@ -51,16 +48,6 @@ const TiltCard: React.FunctionComponent<ITiltCardProps> = (props) => {
           <h1 id={styles.titleText}>Sign Up</h1>
           <p id={styles.spanText}>Already have an account? <a href="/auth">Sign in</a></p>
           <RegisterForm/>
-          <div>
-            <SlideButton 
-              type="button"
-              slide_text="Secure sign up"
-              text= {"Submit" }
-              icon={<AiFillLock/>} 
-              width="250px"
-              mode="redirect" 
-              />
-          </div>
         </div>
       </Tilt>
     </>

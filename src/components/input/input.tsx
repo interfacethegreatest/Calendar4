@@ -3,6 +3,8 @@ import style from './input.module.css';
 import { Poppins } from 'next/font/google';
 import { useState, useRef, useEffect } from 'react';
 import outsideClick from './outsideClick';
+import { IoAlert } from "react-icons/io5";
+import { CiLock, CiUnlock } from 'react-icons/ci';
 
 const font = Poppins({
   subsets: ["latin"],
@@ -26,7 +28,7 @@ const Input: React.FunctionComponent<IInputProps> = (props) => {
   const spanRef = useRef();
   outsideClick(ref, () => setShowContent(false));
   const [showContent, setShowContent] = useState(false);
-
+  const [showPassword, setShowPassword] = useState(false);
   const inputClass = error ? style.inputClickedError : style.inputClicked;
   const glowEffectClass = error ? style.glowEffectError : style.glowEffect;
   const iconHolderClass = error ? style.iconHolderError : style.iconHolder;
@@ -34,23 +36,34 @@ const Input: React.FunctionComponent<IInputProps> = (props) => {
   const inputDiv = error ? style.inputDivError : style.inputDiv;
 
   return (
-    <div
+    <>
+    <div>
+     <div
       className={showContent ? inputClass : ''}
       id={inputDiv}
       ref={ref}
-    >
-      <div id={iconHolderClass}><div id={iconStyle}>{icon}</div></div>
+     >
+      <div title={error ? error : label} id={iconHolderClass}><div id={iconStyle}>
+        {
+          name == "password" || name == "confirmPassword" ?
+          showPassword ? <CiUnlock onClick={()=> setShowPassword((prev)=>!prev)}/> : <CiLock onClick={()=>setShowPassword((prev)=>!prev)}/>
+          : icon
+        }
+      </div></div>
       <input
         id={style.inputStyle}
-        type={type}
+        type={showPassword ? 'text' : type}
         placeholder={showContent ? '' : placeholder}
         onFocus={() => setShowContent(!showContent)}
         {...register(name)}
         disabled={disabled}
       />
       <span ref={spanRef} id={glowEffectClass}></span>
-      
+     </div>
+     <div id={ error ? style.errorText : style.Text}>
+      {error? error: label}</div>
     </div>
+    </>
   );
 };
 

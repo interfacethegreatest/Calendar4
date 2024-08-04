@@ -56,7 +56,14 @@ const TiltCard: React.FunctionComponent<ITiltCardProps> = (props) => {
               <p>A simple appointment booking alert service!</p>
             </div>
           </div>
-          
+          <SlideButton 
+           type="button"
+           slide_text={ buttonString ? "Continue," : "Login / Create an account"}
+           text= { buttonString ? `Welcome ${buttonString}` : "Welcome!"}
+           icon={<AiOutlineLogin/>} 
+           width="250px"
+           mode="redirect" 
+          />
         </div>
       </Tilt>
     </>

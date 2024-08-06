@@ -1,0 +1,35 @@
+#authMain {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative; 
+    z-index: 3; 
+}
+
+#stars {
+    position: absolute;
+    inset: 0;
+    z-index: 0; 
+    pointer-events: none; 
+}
+
+#stars2 {
+    position: absolute;
+    height: 76vh;
+    width: 36vw;
+    inset: 0;
+    z-index: 0; 
+    pointer-events: none; 
+    right: 0;
+}
+
+#stars3 {
+    position: absolute;
+    height: 76vh;
+    width: 43vw;
+    inset: 0;
+    z-index: 0; 
+    pointer-events: none; 
+}

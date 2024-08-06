@@ -1,5 +1,6 @@
 #main {
   background: linear-gradient(135deg, #1B1B1D 75%, #1e1e1e 100%);
+  height: 374px;
   width: 374px;
   border-radius: 15px;
   cursor: pointer;
@@ -8,6 +9,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Initial shadow */
   position: relative; 
   overflow: hidden;
+  z-index: 5;
 }
 
 #main::before {
@@ -98,9 +100,6 @@
   z-index: 1;
 }
 
-#tile3:hover {
-  
-}
 
 #main:hover #tile3{
   border-bottom: 2px solid rgba(90, 89, 89, 0.17);
@@ -121,9 +120,6 @@
   background-color: rgba(48, 121, 97, 0.036);
 }
 
-#main:hover #tile4{
-
-}
 
 #tile5 {
   grid-row-start: 2;
@@ -178,9 +174,6 @@
   background-color: rgba(48, 121, 97, 0.036);
 }
 
-#main:hover #tile7{
-
-}
 
 #tile8 {
   grid-row-start: 2;
@@ -196,9 +189,7 @@
   background-color: rgba(48, 121, 97, 0.036);
 }
 
-#main:hover #tile8{
-  
-}
+
 
 #tile9 {
   grid-row-start: 3;
@@ -248,9 +239,6 @@
   background-color: rgba(48, 121, 97, 0.036);
 }
 
-#main:hover #tile11{
-
-}
 
 #tile12 {
   grid-row-start: 3;
@@ -266,9 +254,7 @@
   background-color: rgba(48, 121, 97, 0.036);
 }
 
-#main:hover #tile12{
 
-}
 
 #tile13 {
   grid-row-start: 4;
@@ -284,10 +270,6 @@
   background-color: rgba(48, 121, 97, 0.036);
 }
 
-#main:hover #tile13{
-  
-
-}
 
 #tile15 {
   grid-row-start: 4;
@@ -419,7 +401,6 @@
   width: 10%;
   height: 10%;
   border-radius: 50%;
-  border: 2px solid rgba(159, 158, 158, 0.17);
   position: absolute; /* Change to absolute positioning */
   display: flex;
   align-items: center;

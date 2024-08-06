@@ -3,10 +3,19 @@ import * as React from 'react';
 import styles from './tiltStyles.module.css';
 import { Poppins } from "next/font/google";
 import SlideButton from "../../buttons/auth/slideButton";
-import { AiOutlineLogin } from "react-icons/ai";import Tilt from 'react-parallax-tilt';
+import { AiOutlineLogin } from "react-icons/ai";
+import Tilt from 'react-parallax-tilt';
 import { signOut } from 'next-auth/react';
+import { animate, motion, useMotionTemplate, useMotionValue } from 'framer-motion';
+import { useEffect } from 'react';
 
-
+const COLOURS = [
+  'rgba(159, 158, 158, 0.7)',
+  'rgba(159, 158, 158, 0.5)',  
+  'rgba(130, 129, 129, 0.35)', 
+  'rgba(189, 188, 188, 0.2)', 
+  'rgba(159, 158, 158, 0.17)'
+];
 
 const font = Poppins({
   subsets: ["latin"],
@@ -22,6 +31,16 @@ interface ITiltCardProps {
 
 const TiltCard: React.FunctionComponent<ITiltCardProps> = (props) => {
   const { size, icon, title, buttonString } = props;
+  const colour = useMotionValue(COLOURS[0])
+  const border = useMotionTemplate`2px solid ${colour}`
+  useEffect(() => {
+    animate(colour, COLOURS, {
+        ease: "easeInOut",
+        duration: 10,
+        repeat: Infinity,
+        repeatType: "mirror",
+    });
+  }, []);
   return (
     <>
       <Tilt scale={1} tiltMaxAngleX={2} tiltMaxAngleY={2}>
@@ -47,8 +66,8 @@ const TiltCard: React.FunctionComponent<ITiltCardProps> = (props) => {
             <div id={styles.loader6}></div>
           </div>
           {
-            buttonString ? <div title='Sign Out' onClick={()=>signOut()} id={styles.iconHolder}><div id={styles.iconStyle}>{icon}</div></div> : 
-            <div id={styles.iconHolder}><div id={styles.iconStyle}>{icon}</div></div>
+            buttonString ? <motion.div title='Sign Out' onClick={()=>signOut()} id={styles.iconHolder} style={{border}}><div id={styles.iconStyle}>{icon}</div></motion.div> : 
+            <motion.div title='Home' id={styles.iconHolder} style={{border}}><div id={styles.iconStyle}>{icon}</div></motion.div>
           }
           <h1 className={font.className} id={styles.titleText}>{title}</h1>
           <div id={styles.paragraphContainer}>
@@ -62,7 +81,7 @@ const TiltCard: React.FunctionComponent<ITiltCardProps> = (props) => {
            text= { buttonString ? `Welcome ${buttonString}` : "Welcome!"}
            icon={<AiOutlineLogin/>} 
            width="250px"
-           mode="redirect" 
+           mode="signIn" 
           />
         </div>
       </Tilt>

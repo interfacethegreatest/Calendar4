@@ -5,6 +5,8 @@ import { PropagateLoader } from 'react-spinners';
 import { useRouter } from "next/navigation";
 import { Poppins } from "next/font/google"
 import { signIn } from 'next-auth/react';
+import { animate, motion, useMotionTemplate, useMotionValue } from 'framer-motion';
+import { useEffect } from 'react';
 
 const font = Poppins({
     subsets: ["latin"],
@@ -13,7 +15,7 @@ const font = Poppins({
 
 interface ISlideButtonProps {
     type: "submit" | "reset" | "button";
-    mode?: "modal" | "redirect"
+    mode?: "modal" | "signIn"
     asChild?: boolean;
     text: string;
     slide_text: string;
@@ -22,30 +24,44 @@ interface ISlideButtonProps {
     width: string
 }
 
+const COLOURS = [
+    'rgba(159, 158, 158, 0.7)',
+    'rgba(159, 158, 158, 0.5)',  
+    'rgba(130, 129, 129, 0.35)', 
+    'rgba(189, 188, 188, 0.2)', 
+];
+
+
+
 const SlideButton: React.FunctionComponent<ISlideButtonProps> = (props) => {
     const { type, text, slide_text, disabled, icon, width, asChild, mode } = props;
-    const router = useRouter();
+    const colour = useMotionValue(COLOURS[0])
+    const border = useMotionTemplate`2px solid ${colour}`
     const onClick = () => {
-        if (mode === "redirect"){
+        if (mode === "signIn"){
             
             signIn()
         }
 
     }
-    if ( mode === "modal"){
-        return (
-            <span>
-                IMPLEMENT MODAL
-            </span>
-        )
-    }
+    useEffect(() => {
+        animate(colour, COLOURS, {
+            ease: "easeInOut",
+            duration: 10,
+            repeat: Infinity,
+            repeatType: "mirror",
+        });
+    }, []);
     return (
-        <button
+        <motion.button
             type={type}
             disabled={disabled}
             id={styles.submitButton}
             onClick={onClick}
-            style={{width:width}}
+            style={{
+                width:width,
+                border
+            }}
         >
             {disabled? (<PropagateLoader color='white'size={5} style={{display:"flex", justifyContent:"center", alignItems:"center"}}/>) : (
                 <>
@@ -54,7 +70,7 @@ const SlideButton: React.FunctionComponent<ISlideButtonProps> = (props) => {
                 </>
             )}
             
-        </button>
+        </motion.button>
     );
 };
 

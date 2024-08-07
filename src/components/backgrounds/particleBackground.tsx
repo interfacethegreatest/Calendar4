@@ -56,7 +56,7 @@ const ParticleBackground: React.FunctionComponent<React.PropsWithChildren<IParti
         </div>
         <div id={style.stars2} style={{width : starsWidth, height:'85vh'}}>
           <Canvas>
-            <Stars radius={500} count={17500} factor={5} fade speed={2}/>
+            <Stars radius={500} count={17500} factor={4} fade speed={2}/>
           </Canvas>
         </div>
         <div id={style.stars3} style={{ width:'40%', marginLeft:stars3Padding}}>

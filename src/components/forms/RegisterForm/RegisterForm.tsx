@@ -4,13 +4,15 @@ import Input from '../../input/input'
 import { CiLock, CiUser } from 'react-icons/ci';
 import SlideButton from "../../buttons/auth/slideButton";
 import { AiFillLock } from 'react-icons/ai';
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { ClimbingBoxLoader } from 'react-spinners';
 import { array, z } from 'zod';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CiMail } from "react-icons/ci";
 import { useState, useEffect } from 'react';
 import zxcvbn from 'zxcvbn';
+import { toast } from 'react-toastify';
+import axios from 'axios'
 
 interface IRegisterFormProps {
 
@@ -46,11 +48,24 @@ const RegisterForm: React.FunctionComponent<IRegisterFormProps> = (props) => {
    register,
    handleSubmit,
    watch,
+   reset,
    formState : { errors, isSubmitting}
   } = useForm<FormSchemaType>({
     resolver: zodResolver(FormSchema)
   });
-  const onSubmit = (data : any) => console.log(data);
+  const onSubmit: SubmitHandler<FormSchemaType>=async(values)=>{
+    try {
+      const { data } = await axios.post('/api/auth/signup', {
+        ...values,
+      });
+      reset();
+      toast.success(data.message);
+    } catch (error: any) {
+      toast.error(error.response.data.message);
+      reset({password:'', confirmPassword:''});
+      
+    }
+  }
   const validatePasswordStrength =()=>{
     let password = watch().password;
     return zxcvbn(password? password : "").score;
@@ -172,7 +187,7 @@ const RegisterForm: React.FunctionComponent<IRegisterFormProps> = (props) => {
     <div id={styles.checkBoxDesign}>
       <input type="checkbox" id='accept' {...register("accept")}/>
       <div id={styles.Text}>I accept the&nbsp;<a href="" target='_blank'>terms</a>&nbsp;and&nbsp;<a href="" target='_blank'>privacy policy</a></div>
-    </div>
+    </div>http://localhost:3000/auth?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2F
     <div id={styles.errorText}>
       {errors.accept?.message}</div>
       <SlideButton 
@@ -181,6 +196,7 @@ const RegisterForm: React.FunctionComponent<IRegisterFormProps> = (props) => {
        text= {"Submit"}
        icon={<AiFillLock/>} 
        width="250px"
+       disabled={isSubmitting}
        />
   </form>
   </>;

@@ -18,15 +18,11 @@ const userSchema = new mongoose.Schema({
     password :{
         type: String,
         required : true,
-        minlength: 6,
+        minlength: 7,
     },
     emailVerified :{
         type: Boolean,
         default: false,
-    },
-    phone :{
-        type: String,
-        required: true,
     },
     role :{
         type: String,

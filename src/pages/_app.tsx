@@ -3,7 +3,6 @@ import type { AppProps } from "next/app";
 import { SessionProvider } from "next-auth/react"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ToastContainer, toast } from 'react-toastify';
-
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function App({ Component, pageProps:{session, ...pageProps} }: AppProps) {
@@ -19,7 +18,7 @@ export default function App({ Component, pageProps:{session, ...pageProps} }: Ap
      pauseOnFocusLoss
      draggable
      pauseOnHover
-     theme="colored"
+     theme="dark"
     />
     <ToastContainer />
     <Component {...pageProps} />

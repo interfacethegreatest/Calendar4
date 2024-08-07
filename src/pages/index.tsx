@@ -6,6 +6,8 @@ import { SlHome } from "react-icons/sl";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import { useSession, signIn, signOut } from "next-auth/react";
 import ParticleBackground from "@/components/backgrounds/particleBackground";
+import { Canvas } from "@react-three/fiber";
+import { Stars } from "@react-three/drei";
 
 
 export default function Home() {

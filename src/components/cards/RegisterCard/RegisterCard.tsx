@@ -22,7 +22,9 @@ const TiltCard: React.FunctionComponent<ITiltCardProps> = (props) => {
   const { size, title, buttonString } = props;
   return (
     <>
-    <h1 id={styles.mainBannerText} className={font.className}>Make the most of your professional career.</h1>
+      <h1 id={styles.mainBannerText} className={font.className}>Make the most of your professional career.</h1>
+      <br />
+      <br />
       <Tilt scale={1} tiltMaxAngleX={2} tiltMaxAngleY={2}>
         <div id={styles.main}>
           <div id={styles.tiles}>

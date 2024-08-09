@@ -4,9 +4,10 @@ import styles from "./buttonStyle.module.css";
 import { PropagateLoader } from 'react-spinners';
 import { useRouter } from "next/navigation";
 import { Poppins } from "next/font/google"
-import { signIn } from 'next-auth/react';
+import { signIn, signOut, } from 'next-auth/react';
 import { animate, motion, useMotionTemplate, useMotionValue } from 'framer-motion';
 import { useEffect } from 'react';
+import Home from '@/pages';
 
 const font = Poppins({
     subsets: ["latin"],
@@ -15,7 +16,7 @@ const font = Poppins({
 
 interface ISlideButtonProps {
     type: "submit" | "reset" | "button";
-    mode?: "modal" | "signIn"
+    mode?: string;
     asChild?: boolean;
     text: string;
     slide_text: string;
@@ -39,10 +40,11 @@ const SlideButton: React.FunctionComponent<ISlideButtonProps> = (props) => {
     const border = useMotionTemplate`2px solid ${colour}`
     const onClick = () => {
         if (mode === "signIn"){
-            
             signIn()
         }
-
+        if  (mode == "home") {
+            signOut()
+        }
     }
     useEffect(() => {
         animate(colour, COLOURS, {

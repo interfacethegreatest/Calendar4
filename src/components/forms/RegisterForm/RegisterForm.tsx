@@ -62,8 +62,6 @@ const RegisterForm: React.FunctionComponent<IRegisterFormProps> = (props) => {
       toast.success(data.message);
     } catch (error: any) {
       toast.error(error.response.data.message);
-      reset({password:'', confirmPassword:''});
-      
     }
   }
   const validatePasswordStrength =()=>{
@@ -187,7 +185,7 @@ const RegisterForm: React.FunctionComponent<IRegisterFormProps> = (props) => {
     <div id={styles.checkBoxDesign}>
       <input type="checkbox" id='accept' {...register("accept")}/>
       <div id={styles.Text}>I accept the&nbsp;<a href="" target='_blank'>terms</a>&nbsp;and&nbsp;<a href="" target='_blank'>privacy policy</a></div>
-    </div>http://localhost:3000/auth?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2F
+    </div>
     <div id={styles.errorText}>
       {errors.accept?.message}</div>
       <SlideButton 

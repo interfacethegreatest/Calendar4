@@ -8,6 +8,7 @@ import Tilt from 'react-parallax-tilt';
 import { signOut } from 'next-auth/react';
 import { animate, motion, useMotionTemplate, useMotionValue } from 'framer-motion';
 import { useEffect } from 'react';
+import { Router, useRouter } from 'next/router';
 
 const COLOURS = [
   'rgba(159, 158, 158, 0.7)',
@@ -26,13 +27,20 @@ interface ITiltCardProps {
   size?: string;
   icon: JSX.Element;
   title: string;
-  buttonString? : string;
+  buttonString : string;
+  slideText : string;
+  paragraph? : string;
+  buttonMode? : string;
 }
 
 const TiltCard: React.FunctionComponent<ITiltCardProps> = (props) => {
-  const { size, icon, title, buttonString } = props;
+  const { slideText, buttonMode, paragraph, size, icon, title, buttonString } = props;
   const colour = useMotionValue(COLOURS[0])
-  const border = useMotionTemplate`2px solid ${colour}`
+  const border = useMotionTemplate`2px solid ${colour}`;
+  const router = useRouter();
+  const handleHome = () => {
+    router.push('/')
+  }
   useEffect(() => {
     animate(colour, COLOURS, {
         ease: "easeInOut",
@@ -67,21 +75,21 @@ const TiltCard: React.FunctionComponent<ITiltCardProps> = (props) => {
           </div>
           {
             buttonString ? <motion.div title='Sign Out' onClick={()=>signOut()} id={styles.iconHolder} style={{border}}><div id={styles.iconStyle}>{icon}</div></motion.div> : 
-            <motion.div title='Home' id={styles.iconHolder} style={{border}}><div id={styles.iconStyle}>{icon}</div></motion.div>
+            <motion.div onClick={()=>{handleHome()}} title='Home' id={styles.iconHolder} style={{border}}><div id={styles.iconStyle}>{icon}</div></motion.div>
           }
           <h1 className={font.className} id={styles.titleText}>{title}</h1>
           <div id={styles.paragraphContainer}>
             <div id={styles.textDiv}>
-              <p>A simple appointment booking alert service!</p>
+              <p>{paragraph? paragraph : "A simple appointment booking alert service!"}</p>
             </div>
           </div>
           <SlideButton 
-           type="button"
-           slide_text={ buttonString ? "Continue," : "Login / Create an account"}
-           text= { buttonString ? `Welcome ${buttonString}` : "Welcome!"}
+           type= {"button"}
+           slide_text={ slideText }
+           text= { buttonString }
            icon={<AiOutlineLogin/>} 
            width="250px"
-           mode="signIn" 
+           mode={buttonMode}
           />
         </div>
       </Tilt>

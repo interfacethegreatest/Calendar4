@@ -1,23 +1,27 @@
 "use client";
 import * as React from 'react';
-import styles from './RegisterStyles.module.css';
+import styles from './LoginStyles.module.css';
 import { Poppins } from "next/font/google";
 import Tilt from 'react-parallax-tilt';
-import RegisterForm from '@/components/forms/RegisterForm/RegisterForm';
+import LoginForm from '@/components/forms/LoginForm/LoginForm';
+import { useRouter } from 'next/router';
+
+
 
 const font = Poppins({
   subsets: ["latin"],
   weight: ["600"],
 });
 
-interface ITiltCardProps {
+interface ILoginCardProps {
   size?: string;
   title: string;
   buttonString? : string;
 }
 
-const TiltCard: React.FunctionComponent<ITiltCardProps> = (props) => {
-  const { size, title, buttonString } = props;
+const LoginCard: React.FunctionComponent<ILoginCardProps> = (props) => {
+  const router = useRouter();
+  const path = router.pathname;
   return (
     <>
       <h1 id={styles.mainBannerText} className={font.className}>Make the most of your professional career.</h1>
@@ -46,12 +50,19 @@ const TiltCard: React.FunctionComponent<ITiltCardProps> = (props) => {
             <div id={styles.loader6}></div>
           </div>
           <h1 id={styles.titleText}>Sign Up</h1>
-          <p id={styles.spanText}>Already have an account? <a style={{position:"relative", zIndex:8}} href="/auth">Sign in</a></p>
-          <RegisterForm/>
+          <p id={styles.spanText}>Don't have an account? <a style={{ textDecoration: "underline", color: "blue", cursor: "pointer", zIndex:8, position:"relative" }} onClick={() => {
+            router.push({
+              pathname: path,
+              query: {
+                tab: 'signup',
+              }
+            })
+          }}>Sign up.</a></p>
+          <LoginForm/>
         </div>
       </Tilt>
     </>
   );
 };
 
-export default TiltCard;
+export default LoginCard;

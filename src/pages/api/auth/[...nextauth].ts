@@ -6,11 +6,45 @@ import clientPromise from '@/lib/mongodb';
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
 import { JWT } from 'next-auth/jwt';
 import { Adapter } from 'next-auth/adapters';
+import CredentialsProvider from "next-auth/providers/credentials";
+import Email from 'next-auth/providers/email';
+import connectDB from '@/utils/connectDB';
+import UserModal from '@/models/User';
+import bcrypt from 'bcryptjs';
 
 export default NextAuth({
   adapter: MongoDBAdapter(clientPromise),
   providers: [
-    // OAuth authentication providers...
+    CredentialsProvider({
+      name: 'Credentials',
+      credentials : {
+        email: {
+          label : 'Name',
+          type : 'text'
+        },
+        password : {
+          label : 'Password',
+          type: 'password'
+        }
+      },
+      async authorize(credentials) {
+        await connectDB();
+        const user = await UserModal.findOne({
+          email : credentials!.email
+        })
+        if(!user){
+          throw new Error('Email is not registrered.');
+        }
+        const isPasswordCorrect = await bcrypt.compare(
+          credentials!.password,
+          user.password
+        );
+        if(!isPasswordCorrect){
+          throw new Error("Password is incorrect.");
+        }
+        return user;
+      },
+    }),
     GoogleProvider({
       clientId: process.env.GOOGLE_ID as string,
       clientSecret: process.env.GOOGLE_SECRET as string,

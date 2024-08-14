@@ -17,9 +17,12 @@ interface ILoginCardProps {
   size?: string;
   title: string;
   buttonString? : string;
+  callbackUrl : string;
+  csrfToken: string;
 }
 
 const LoginCard: React.FunctionComponent<ILoginCardProps> = (props) => {
+  const { callbackUrl, csrfToken} = props;
   const router = useRouter();
   const path = router.pathname;
   return (
@@ -58,7 +61,7 @@ const LoginCard: React.FunctionComponent<ILoginCardProps> = (props) => {
               }
             })
           }}>Sign up.</a></p>
-          <LoginForm/>
+          <LoginForm csrfToken={csrfToken} callbackUrl={callbackUrl}/>
         </div>
       </Tilt>
     </>

@@ -8,10 +8,13 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from 'zod';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CiMail } from "react-icons/ci";
-
+import { toast } from 'react-toastify';
+import { signIn } from 'next-auth/react';
+import { router } from 'next/router';
 
 interface ILoginFormProps {
-
+  callbackUrl:string;
+  csrfToken:string;
 }
 
 const FormSchema = z.object({
@@ -22,6 +25,7 @@ const FormSchema = z.object({
 type FormSchemaType=z.infer<typeof FormSchema>;
 
 const LoginForm: React.FunctionComponent<ILoginFormProps> = (props) => {
+  const { callbackUrl, csrfToken } = props;
   const {
    register,
    handleSubmit,
@@ -30,10 +34,21 @@ const LoginForm: React.FunctionComponent<ILoginFormProps> = (props) => {
     resolver: zodResolver(FormSchema)
   });
   const onSubmit: SubmitHandler<FormSchemaType>=async(values)=>{
-    
+   const res: any = await signIn('credentials', {
+    redirect: false,
+    email: values.email,
+    password: values.password,
+    callbackUrl,
+   });
+   if(res.error){
+    return toast.error(res.error)
+   }else{
+    return router.push('/')
+   }
   }
   return <>
-  <form id={styles.formStyle} action="" onSubmit={handleSubmit(onSubmit)}>
+  <form id={styles.formStyle} method="post" action="/api/auth/signin/email" onSubmit={handleSubmit(onSubmit)}>
+    <input type="hidden" name='csrfToken' defaultValue={csrfToken} />
     <Input
       name="email"
       label="Email address"

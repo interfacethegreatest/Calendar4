@@ -8,6 +8,7 @@ import { JWT } from 'next-auth/jwt';
 import { Adapter } from 'next-auth/adapters';
 import CredentialsProvider from "next-auth/providers/credentials";
 import Email from 'next-auth/providers/email';
+import AppleProvider from "next-auth/providers/apple";
 import connectDB from '@/utils/connectDB';
 import UserModal from '@/models/User';
 import bcrypt from 'bcryptjs';

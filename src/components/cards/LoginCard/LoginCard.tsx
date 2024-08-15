@@ -19,10 +19,11 @@ interface ILoginCardProps {
   buttonString? : string;
   callbackUrl : string;
   csrfToken: string;
+  providers:any;
 }
 
 const LoginCard: React.FunctionComponent<ILoginCardProps> = (props) => {
-  const { callbackUrl, csrfToken} = props;
+  const {title, providers, callbackUrl, csrfToken} = props;
   const router = useRouter();
   const path = router.pathname;
   return (
@@ -52,7 +53,7 @@ const LoginCard: React.FunctionComponent<ILoginCardProps> = (props) => {
             <div id={styles.loader5}></div>
             <div id={styles.loader6}></div>
           </div>
-          <h1 id={styles.titleText}>Sign Up</h1>
+          <h1 id={styles.titleText}>{title}</h1>
           <p id={styles.spanText}>Don't have an account? <a style={{ textDecoration: "underline", color: "blue", cursor: "pointer", zIndex:8, position:"relative" }} onClick={() => {
             router.push({
               pathname: path,
@@ -61,7 +62,7 @@ const LoginCard: React.FunctionComponent<ILoginCardProps> = (props) => {
               }
             })
           }}>Sign up.</a></p>
-          <LoginForm csrfToken={csrfToken} callbackUrl={callbackUrl}/>
+          <LoginForm providers={providers} csrfToken={csrfToken} callbackUrl={callbackUrl}/>
         </div>
       </Tilt>
     </>

@@ -6,16 +6,23 @@ import SlideButton from "../../buttons/auth/slideButton";
 import { AiFillLock } from 'react-icons/ai';
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ClimbingBoxLoader } from 'react-spinners';
-import { array, z } from 'zod';
+import { z } from 'zod';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CiMail } from "react-icons/ci";
 import { useState, useEffect } from 'react';
 import zxcvbn from 'zxcvbn';
 import { toast } from 'react-toastify';
-import axios from 'axios'
+import axios from 'axios';
+import SocialButton from '@/components/buttons/auth/socialButton';
+import { FaDiscord } from 'react-icons/fa';
+import { FcGoogle } from 'react-icons/fc';
+import { RxGithubLogo } from 'react-icons/rx';
+
 
 interface IRegisterFormProps {
-
+  callbackUrl:string;
+  csrfToken:string;
+  providers: any
 }
 
 const FormSchema = z.object({
@@ -42,6 +49,7 @@ const FormSchema = z.object({
 type FormSchemaType=z.infer<typeof FormSchema>;
 
 const RegisterForm: React.FunctionComponent<IRegisterFormProps> = (props) => {
+  const { providers, callbackUrl, csrfToken } = props;
   const [ passwordScore, setPasswordScore ] = useState(0)
   const [ confirmPasswordScore, setConfirmPasswordScore ] = useState(0)
   const {
@@ -54,12 +62,14 @@ const RegisterForm: React.FunctionComponent<IRegisterFormProps> = (props) => {
     resolver: zodResolver(FormSchema)
   });
   const onSubmit: SubmitHandler<FormSchemaType>=async(values)=>{
+    console.log(values)
     try {
       const { data } = await axios.post('/api/auth/signup', {
         ...values,
       });
       reset();
       toast.success(data.message);
+
     } catch (error: any) {
       toast.error(error.response.data.message);
     }
@@ -197,6 +207,32 @@ const RegisterForm: React.FunctionComponent<IRegisterFormProps> = (props) => {
        disabled={isSubmitting}
        />
   </form>
+     <div id={styles.socialDiv}>
+      <SocialButton
+       type="submit"
+       providerKey={providers['google'].id}
+       csrfToken={csrfToken}
+       text={providers['google'].name}
+       icon={<FcGoogle />}
+       width='45px'
+      />
+      <SocialButton
+       type="submit"
+       providerKey={providers["github"].id}
+       csrfToken={csrfToken}
+       text={providers["github"].name}
+       icon={<RxGithubLogo />}
+       width='45px'
+      />
+      <SocialButton
+       type="submit"
+       providerKey={providers["discord"].id}
+       csrfToken={csrfToken}
+       text={providers["discord"].name}
+       icon={<FaDiscord/>}
+       width='45px'
+      />
+     </div>
   </>;
 };
 

@@ -14,10 +14,13 @@ interface ITiltCardProps {
   size?: string;
   title: string;
   buttonString? : string;
+  callbackUrl : string;
+  csrfToken: string;
+  providers:any;
 }
 
 const TiltCard: React.FunctionComponent<ITiltCardProps> = (props) => {
-  const { size, title, buttonString } = props;
+  const { size, title, buttonString, providers, callbackUrl, csrfToken} = props;
   return (
     <>
       <h1 id={styles.mainBannerText} className={font.className}>Make the most of your professional career.</h1>
@@ -47,7 +50,7 @@ const TiltCard: React.FunctionComponent<ITiltCardProps> = (props) => {
           </div>
           <h1 id={styles.titleText}>Sign Up</h1>
           <p id={styles.spanText}>Already have an account? <a style={{position:"relative", zIndex:8}} href="/auth">Sign in</a></p>
-          <RegisterForm/>
+          <RegisterForm providers={providers} csrfToken={csrfToken} callbackUrl={callbackUrl}/>
         </div>
       </Tilt>
     </>

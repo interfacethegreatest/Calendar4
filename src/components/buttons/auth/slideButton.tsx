@@ -8,6 +8,7 @@ import { signIn, signOut, } from 'next-auth/react';
 import { animate, motion, useMotionTemplate, useMotionValue } from 'framer-motion';
 import { useEffect } from 'react';
 import Home from '@/pages';
+import { constants } from 'buffer';
 
 const font = Poppins({
     subsets: ["latin"],
@@ -38,12 +39,13 @@ const SlideButton: React.FunctionComponent<ISlideButtonProps> = (props) => {
     const { type, text, slide_text, disabled, icon, width, asChild, mode } = props;
     const colour = useMotionValue(COLOURS[0])
     const border = useMotionTemplate`2px solid ${colour}`
-    const onClick = () => {
+    const router = useRouter();
+    const onClick = async() => {
         if (mode === "signIn"){
-            signIn()
+            await signIn()
         }
         if  (mode == "home") {
-            signOut()
+            router.push('/');
         }
     }
     useEffect(() => {

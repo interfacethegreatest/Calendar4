@@ -11,10 +11,15 @@ import { CiMail } from "react-icons/ci";
 import { toast } from 'react-toastify';
 import { signIn } from 'next-auth/react';
 import { router } from 'next/router';
+import SocialButton from '@/components/buttons/auth/socialButton';
+import { FcGoogle } from "react-icons/fc";
+import { RxGithubLogo } from "react-icons/rx";
+import { FaDiscord } from "react-icons/fa";
 
 interface ILoginFormProps {
   callbackUrl:string;
   csrfToken:string;
+  providers: any
 }
 
 const FormSchema = z.object({
@@ -25,7 +30,7 @@ const FormSchema = z.object({
 type FormSchemaType=z.infer<typeof FormSchema>;
 
 const LoginForm: React.FunctionComponent<ILoginFormProps> = (props) => {
-  const { callbackUrl, csrfToken } = props;
+  const { providers, callbackUrl, csrfToken } = props;
   const {
    register,
    handleSubmit,
@@ -46,6 +51,7 @@ const LoginForm: React.FunctionComponent<ILoginFormProps> = (props) => {
     return router.push('/')
    }
   }
+  console.log(providers);
   return <>
   <form id={styles.formStyle} method="post" action="/api/auth/signin/email" onSubmit={handleSubmit(onSubmit)}>
     <input type="hidden" name='csrfToken' defaultValue={csrfToken} />
@@ -70,7 +76,6 @@ const LoginForm: React.FunctionComponent<ILoginFormProps> = (props) => {
       error={errors?.password?.message}
       disabled={isSubmitting}
      />
-     <br />
       <SlideButton 
        type="submit"
        slide_text="Secure sign in"
@@ -80,6 +85,33 @@ const LoginForm: React.FunctionComponent<ILoginFormProps> = (props) => {
        disabled={isSubmitting}
        />
   </form>
+  <br />
+     <div id={styles.socialDiv}>
+      <SocialButton
+       type="submit"
+       providerKey={providers['google'].id}
+       csrfToken={csrfToken}
+       text={providers['google'].name}
+       icon={<FcGoogle />}
+       width='45px'
+      />
+      <SocialButton
+       type="submit"
+       providerKey={providers["github"].id}
+       csrfToken={csrfToken}
+       text={providers["github"].name}
+       icon={<RxGithubLogo />}
+       width='45px'
+      />
+      <SocialButton
+       type="submit"
+       providerKey={providers["discord"].id}
+       csrfToken={csrfToken}
+       text={providers["discord"].name}
+       icon={<FaDiscord/>}
+       width='45px'
+      />
+     </div>
   </>;
 };
 

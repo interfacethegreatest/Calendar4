@@ -49,6 +49,7 @@ const SocialButton: React.FunctionComponent<ISocialButtonProps> = (props) => {
                 id={styles.submitSocialButton}
                 style={{ width, border }}
                 onClick={()=> signIn(providerKey)}
+                title={text}
             >
                 <span id={styles.defaultTextSocial} className={font.className}>{icon}</span>
             </motion.button>

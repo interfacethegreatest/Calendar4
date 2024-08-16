@@ -10,11 +10,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CiMail } from "react-icons/ci";
 import { toast } from 'react-toastify';
 import { signIn } from 'next-auth/react';
-import { router } from 'next/router';
 import SocialButton from '@/components/buttons/auth/socialButton';
 import { FcGoogle } from "react-icons/fc";
 import { RxGithubLogo } from "react-icons/rx";
 import { FaDiscord } from "react-icons/fa";
+import { useRouter } from 'next/router';
 
 interface ILoginFormProps {
   callbackUrl:string;
@@ -31,6 +31,7 @@ type FormSchemaType=z.infer<typeof FormSchema>;
 
 const LoginForm: React.FunctionComponent<ILoginFormProps> = (props) => {
   const { providers, callbackUrl, csrfToken } = props;
+  const router = useRouter();
   const {
    register,
    handleSubmit,
@@ -51,7 +52,6 @@ const LoginForm: React.FunctionComponent<ILoginFormProps> = (props) => {
     return router.push('/')
    }
   }
-  console.log(providers);
   return <>
   <form id={styles.formStyle} method="post" action="/api/auth/signin/email" onSubmit={handleSubmit(onSubmit)}>
     <input type="hidden" name='csrfToken' defaultValue={csrfToken} />
@@ -75,17 +75,19 @@ const LoginForm: React.FunctionComponent<ILoginFormProps> = (props) => {
       register={register}
       error={errors?.password?.message}
       disabled={isSubmitting}
-     />
-      <SlideButton 
-       type="submit"
-       slide_text="Secure sign in"
-       text= {"Sign in"}
-       icon={<AiFillLock/>} 
-       width="250px"
-       disabled={isSubmitting}
-       />
+    />
+    <div id={styles.forgotPasswordDiv}>
+     <a id={styles.forgotPasswordText} href="/forgot">Forgot Password?</a>
+    </div>
+    <SlideButton 
+     type="submit"
+     slide_text="Secure sign in"
+     text= {"Sign in"}
+     icon={<AiFillLock/>} 
+     width="250px"
+     disabled={isSubmitting}
+    />
   </form>
-  <br />
      <div id={styles.socialDiv}>
       <SocialButton
        type="submit"

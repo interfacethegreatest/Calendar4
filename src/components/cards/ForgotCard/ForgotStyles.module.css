@@ -7,11 +7,14 @@
 }
 
 #main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   aspect-ratio: 411 / 548; /* Maintain the same proportion */
-  max-width: 370px; /* Max width of the container */
-  max-height: 400px; /* Max height of the container */
+  max-width: 337px; /* Max width of the container */
+  max-height: 307px; /* Max height of the container */
   width: 96vw; /* Width as a percentage of the viewport */
-  height: auto; /* Height will be calculated automatically based on aspect ratio */
+  height: 100%; /* Height will be calculated automatically based on aspect ratio */
   background: linear-gradient(135deg, #1B1B1D 75%, #1e1e1e 100%);
   box-sizing: border-box;
   border-radius: 15px;
@@ -21,7 +24,6 @@
   box-shadow: 0 4px 8px rgba(31, 17, 17, 0.2);
   position: relative;
   overflow: hidden;
-
   margin-bottom: 30%;
 }
 
@@ -55,15 +57,15 @@
 }
 
 #tiles{
-  position: absolute;
   display: grid;
+  position: absolute;
   grid-template-rows: 18% 33% 33% 9%;
   grid-template-columns: 25% 25% 25% 25%;
   width: 100%;
   margin-left: auto;
   margin-right: auto;
   padding: 1px;
-  height: 40%;
+  height: 60%;
 }
 
 #tile1 {
@@ -92,6 +94,7 @@
   grid-column-end: 3; /* Corrected: end at column 2 */
   cursor: pointer;
   transition: background-color 0.5s ease;
+  position: relative;
   z-index: 1;
 }
 
@@ -114,12 +117,13 @@
 }
 
 #tile3:hover {
-
+  
 }
 
 #main:hover #tile3{
   border-bottom: 2px solid rgba(90, 89, 89, 0.17);
   background-color: rgba(48, 121, 97, 0.036);
+  z-index: 1;
 }
 
 #tile4 {
@@ -134,10 +138,10 @@
 
 #tile4:hover {
   background-color: rgba(48, 121, 97, 0.036);
-
 }
 
 #main:hover #tile4{
+  z-index: 1;
 
 }
 
@@ -159,6 +163,7 @@
   border-bottom: 2px solid rgba(90, 89, 89, 0.17);
   border-right: 2px solid rgba(90, 89, 89, 0.17);
   background-color: rgba(48, 121, 97, 0.036);
+  z-index: 1;
 }
 
 #tile6 {
@@ -173,10 +178,12 @@
 
 #tile6:hover {
   background-color: rgba(48, 121, 97, 0.036);
+  z-index: 1;
 }
 
 #main:hover #tile6{
   border-bottom: 2px solid rgba(90, 89, 89, 0.17);
+  z-index: 1;
 }
 
 #tile7 {
@@ -191,10 +198,11 @@
 
 #tile7:hover {
   background-color: rgba(48, 121, 97, 0.036);
+  z-index: 1;
 }
 
 #main:hover #tile7{
-
+  z-index: 1;
 }
 
 #tile8 {
@@ -209,9 +217,11 @@
 
 #tile8:hover {
   background-color: rgba(48, 121, 97, 0.036);
+  z-index: 1;
 }
 
 #main:hover #tile8{
+  z-index: 1;
 }
 
 #tile9 {
@@ -228,6 +238,7 @@
   border-bottom: 2px solid rgba(90, 89, 89, 0.17);
   border-right: 2px solid rgba(90, 89, 89, 0.17);
   background-color: rgba(48, 121, 97, 0.036);
+  z-index: 1;
 }
 
 #tile10 {
@@ -242,12 +253,12 @@
 
 #tile10:hover {
   background-color: rgba(48, 121, 97, 0.036);
-
+  z-index: 1;
 }
 
 #main:hover #tile10{
   border-bottom: 2px solid rgba(90, 89, 89, 0.17);
-
+  z-index: 1;
 }
 
 #tile11 {
@@ -262,9 +273,11 @@
 
 #tile11:hover {
   background-color: rgba(48, 121, 97, 0.036);
+  z-index: 1;
 }
 
 #main:hover #tile11{
+  z-index: 1;
 }
 
 #tile12 {
@@ -279,10 +292,12 @@
 
 #tile12:hover {
   background-color: rgba(48, 121, 97, 0.036);
-
+  z-index: 1;
 }
 
 #main:hover #tile12{
+  position: relative;
+  z-index: 2;
 
 }
 
@@ -298,10 +313,11 @@
 
 #tile13:hover {
   background-color: rgba(48, 121, 97, 0.036);
+  z-index: 1;
 }
 
 #main:hover #tile13{
-
+  position: relative;
 }
 
 #tile15 {
@@ -313,16 +329,12 @@
   transition: background-color 0.5s ease;
   z-index: 1;
   height: 200%;
-  z-index: 1;
 }
 
 #tile15:hover {
   background-color: rgba(48, 121, 97, 0.036);
 }
 
-#main:hover #tile15{
-
-}
 
 #loader{
   grid-row-start: 1;
@@ -334,16 +346,19 @@
 
 #main:hover #loader {
   animation: progress .3s linear forwards; /* Adjust duration (5s) as needed */
+  z-index: 1;
 }
 
 @keyframes progress {
   0% {
       width: 0%;
       border: 1px solid rgba(90, 89, 89, 0.17); /* Starting color (e.g., coral) */
+      z-index: 1;
   }
   100% {
       width: 100%;
       border: 1px solid rgba(90, 89, 89, 0.17); /* Ending color (e.g., deep sky blue) */
+      z-index: 1;
   }
 }
 
@@ -351,10 +366,12 @@
   0% {
       width: 0%;
       border: 1px solid rgba(90, 89, 89, 0.17); /* Starting color (e.g., coral) */
+      z-index: 1;
   }
   100% {
       width: 67%;
       border: 1.5px solid rgba(90, 89, 89, 0.09); /* Ending color (e.g., deep sky blue) */
+      z-index: 1;
   }
 }
 
@@ -388,6 +405,7 @@
   grid-row-end: 5;
   grid-column-start: 1;
   grid-column-end: 2;
+  
 }
 
 #main:hover #loader4 {
@@ -420,7 +438,7 @@
   grid-row-start: 1;
   grid-row-end: 5;
   grid-column-start: 3;
-  grid-column-end: 4.4;
+  grid-column-end: 4;
 }
 
 #main:hover #loader6 {
@@ -435,12 +453,21 @@
 
 #titleText {
   color: aliceblue;
-  font-size: 250%;
+  font-size: 175%;
   text-align: center;
-  margin-top: 10%;
+  z-index: 2;
 }
 
 #spanText{
   color: aliceblue;
   text-align: center;
+  margin-bottom: 30px;
+  margin-top: 5px;
+}
+
+#forgotDiv{
+  justify-content: center;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20%;
 }

@@ -1,29 +1,22 @@
 "use client";
 import * as React from 'react';
-import styles from './LoginStyles.module.css'
+import styles from './ForgotStyles.module.css';
 import { Poppins } from "next/font/google";
 import Tilt from 'react-parallax-tilt';
-import LoginForm from '@/components/forms/LoginForm/LoginForm';
+import ForgotForm from '@/components/forms/ForgotForm/ForgotForm';
 import { useRouter } from 'next/router';
-
-
 
 const font = Poppins({
   subsets: ["latin"],
   weight: ["600"],
 });
 
-interface ILoginCardProps {
-  size?: string;
+interface IForgotCardProps {
   title: string;
-  buttonString? : string;
-  callbackUrl : string;
-  csrfToken: string;
-  providers:any;
 }
 
-const LoginCard: React.FunctionComponent<ILoginCardProps> = (props) => {
-  const {title, providers, callbackUrl, csrfToken} = props;
+const ForgotCard: React.FunctionComponent<IForgotCardProps> = (props) => {
+  const { title } = props;
   const router = useRouter();
   const path = router.pathname;
   return (
@@ -53,20 +46,17 @@ const LoginCard: React.FunctionComponent<ILoginCardProps> = (props) => {
             <div id={styles.loader5}></div>
             <div id={styles.loader6}></div>
           </div>
-          <h1 id={styles.titleText}>{title}</h1>
-          <p id={styles.spanText}>Don't have an account? <a style={{ textDecoration: "underline", color: "blue", cursor: "pointer", zIndex:8, position:"relative" }} onClick={() => {
-            router.push({
-              pathname: path,
-              query: {
-                tab: 'signup',
-              }
-            })
-          }}>Sign up.</a></p>
-          <LoginForm providers={providers} csrfToken={csrfToken} callbackUrl={callbackUrl}/>
+          <div id={styles.forgotDiv}>
+           <h1 id={styles.titleText}>{title}</h1>
+           <p id={styles.spanText}>Back to <a style={{ textDecoration: "underline", color: "blue", cursor: "pointer", zIndex:8, position:"relative" }} onClick={() => {
+             router.push('/auth');
+           }}>Sign in.</a></p>
+           <ForgotForm/>
+          </div>
         </div>
       </Tilt>
     </>
   );
 };
 
-export default LoginCard;
+export default ForgotCard;

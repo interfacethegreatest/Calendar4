@@ -5,6 +5,7 @@ import { useState, useRef, useEffect } from 'react';
 import outsideClick from './outsideClick';
 import { IoAlert } from "react-icons/io5";
 import { CiLock, CiUnlock } from 'react-icons/ci';
+import Tilt from 'react-parallax-tilt';
 
 const font = Poppins({
   subsets: ["latin"],

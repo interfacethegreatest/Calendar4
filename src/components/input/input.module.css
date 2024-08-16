@@ -3,7 +3,6 @@
     position: relative;
     background-color: rgba(192, 189, 189, 0);
     color: aliceblue;
-    width: 80%;
     border: none;
     outline: none;
     line-height: 40px;
@@ -12,7 +11,7 @@
     border-bottom-left-radius: 0;
     margin-left: 10.250px;
     box-shadow: none;
-    width: 70%;
+    width: 85%;
     z-index: 7;
     pointer-events: auto;
 }
@@ -170,6 +169,7 @@
     justify-content: center;
     align-items: center;
     z-index: 2;
+    margin-left: 1px;
 }
 
 #iconHolder:hover {

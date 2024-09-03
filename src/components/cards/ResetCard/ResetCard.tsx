@@ -1,17 +1,16 @@
 "use client";
 import * as React from 'react';
-import styles from './LoginStyles.module.css'
+import styles from './ResetStyles.module.css';
 import { Poppins } from "next/font/google";
 import Tilt from 'react-parallax-tilt';
-import LoginForm from '@/components/forms/LoginForm/LoginForm';
-import { useRouter } from 'next/router';
+import ResetForm from '@/components/forms/ResetForm/ResetForm';
 
 const font = Poppins({
   subsets: ["latin"],
   weight: ["600"],
 });
 
-interface ILoginCardProps {
+interface IResetCardProps {
   size?: string;
   title: string;
   buttonString? : string;
@@ -20,10 +19,8 @@ interface ILoginCardProps {
   providers:any;
 }
 
-const LoginCard: React.FunctionComponent<ILoginCardProps> = (props) => {
-  const {title, providers, callbackUrl, csrfToken} = props;
-  const router = useRouter();
-  const path = router.pathname;
+const ResetCard: React.FunctionComponent<IResetCardProps> = (props) => {
+  const { size, title, buttonString, providers, callbackUrl, csrfToken} = props;
   return (
     <>
       <h1 id={styles.mainBannerText} className={font.className}>Make the most of your professional career.</h1>
@@ -51,20 +48,13 @@ const LoginCard: React.FunctionComponent<ILoginCardProps> = (props) => {
             <div id={styles.loader5}></div>
             <div id={styles.loader6}></div>
           </div>
-          <h1 id={styles.titleText}>{title}</h1>
-          <p id={styles.spanText}>Don't have an account? <a style={{ textDecoration: "underline", color: "blue", cursor: "pointer", zIndex:8, position:"relative" }} onClick={() => {
-            router.push({
-              pathname: path,
-              query: {
-                tab: 'signup',
-              }
-            })
-          }}>Sign up.</a></p>
-          <LoginForm providers={providers} csrfToken={csrfToken} callbackUrl={callbackUrl}/>
+          <h1 id={styles.titleText}>Reset Password</h1>
+          <p id={styles.spanText}>Sign in instead? <a style={{position:"relative", zIndex:8}} href="/auth">Sign in</a></p>
+          <ResetForm providers={providers} csrfToken={csrfToken} callbackUrl={callbackUrl}/>
         </div>
       </Tilt>
     </>
   );
 };
 
-export default LoginCard;
+export default ResetCard;

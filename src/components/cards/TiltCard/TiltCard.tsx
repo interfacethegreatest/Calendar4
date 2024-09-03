@@ -49,6 +49,7 @@ const TiltCard: React.FunctionComponent<ITiltCardProps> = (props) => {
         repeatType: "mirror",
     });
   }, []);
+  console.log(buttonString)
   return (
     <>
       <Tilt scale={1} tiltMaxAngleX={2} tiltMaxAngleY={2}>
@@ -74,7 +75,7 @@ const TiltCard: React.FunctionComponent<ITiltCardProps> = (props) => {
             <div id={styles.loader6}></div>
           </div>
           {
-            buttonString ? <motion.div title='Sign Out' onClick={()=>signOut()} id={styles.iconHolder} style={{border}}><div id={styles.iconStyle}>{icon}</div></motion.div> : 
+            buttonString != "Welcome!" ? <motion.div title='Log Out' onClick={()=>signOut()} id={styles.iconHolder} style={{border}}><div id={styles.iconStyle}>{icon}</div></motion.div> : 
             <motion.div onClick={()=>{handleHome()}} title='Home' id={styles.iconHolder} style={{border}}><div id={styles.iconStyle}>{icon}</div></motion.div>
           }
           <h1 className={font.className} id={styles.titleText}>{title}</h1>

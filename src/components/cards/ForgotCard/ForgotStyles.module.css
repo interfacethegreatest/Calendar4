@@ -453,7 +453,7 @@
 
 #titleText {
   color: aliceblue;
-  font-size: 175%;
+  font-size: 195%;
   text-align: center;
   z-index: 2;
 }
@@ -469,5 +469,5 @@
   justify-content: center;
   align-items: center;
   justify-content: center;
-  margin-top: 20%;
+  margin-top: 16%;
 }

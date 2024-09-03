@@ -7,24 +7,18 @@
 }
 
 #main {
-  aspect-ratio: 411 / 548; /* Maintain the same proportion */
-  max-width: 370px; /* Max width of the container */
-  max-height: 400px; /* Max height of the container */
-  width: 96vw; /* Width as a percentage of the viewport */
-  height: auto; /* Height will be calculated automatically based on aspect ratio */
   background: linear-gradient(135deg, #1B1B1D 75%, #1e1e1e 100%);
-  box-sizing: border-box;
+  max-width: 411px;
+  height: 598px;
   border-radius: 15px;
   cursor: pointer;
   border: 2px solid rgba(90, 89, 89, 0.295);
-  transition: box-shadow 0.3s ease, border 0.3s ease;
-  box-shadow: 0 4px 8px rgba(31, 17, 17, 0.2);
-  position: relative;
+  transition: box-shadow 0.3s ease, border 0.3s ease; /* Add transition for smooth shadow and border effect */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Initial shadow */
+  position: relative; 
   overflow: hidden;
-
-  margin-bottom: 30%;
+  margin-bottom: 40%;
 }
-
 
 #main::before {
   content: '';
@@ -63,7 +57,7 @@
   margin-left: auto;
   margin-right: auto;
   padding: 1px;
-  height: 50%;
+  height: 40%;
 }
 
 #tile1 {
@@ -114,7 +108,6 @@
 }
 
 #tile3:hover {
-
 }
 
 #main:hover #tile3{
@@ -134,11 +127,9 @@
 
 #tile4:hover {
   background-color: rgba(48, 121, 97, 0.036);
-
 }
 
 #main:hover #tile4{
-
 }
 
 #tile5 {
@@ -194,7 +185,6 @@
 }
 
 #main:hover #tile7{
-
 }
 
 #tile8 {
@@ -242,12 +232,10 @@
 
 #tile10:hover {
   background-color: rgba(48, 121, 97, 0.036);
-
 }
 
 #main:hover #tile10{
   border-bottom: 2px solid rgba(90, 89, 89, 0.17);
-
 }
 
 #tile11 {
@@ -279,11 +267,9 @@
 
 #tile12:hover {
   background-color: rgba(48, 121, 97, 0.036);
-
 }
 
 #main:hover #tile12{
-
 }
 
 #tile13 {
@@ -301,7 +287,6 @@
 }
 
 #main:hover #tile13{
-
 }
 
 #tile15 {
@@ -321,7 +306,6 @@
 }
 
 #main:hover #tile15{
-
 }
 
 #loader{
@@ -392,6 +376,7 @@
 
 #main:hover #loader4 {
   animation: progress2 .1s linear forwards; /* Adjust duration (5s) as needed */
+  z-index: 1;
 }
 
 @keyframes progress2 {

@@ -6,6 +6,7 @@ import { SlHome } from "react-icons/sl";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import { useSession, signIn, signOut } from "next-auth/react";
 import ParticleBackground from "@/components/backgrounds/particleBackground";
+import Scene from "@/components/backgrounds/starsBackground/Scene";
 
 
 export default function Home() {
@@ -14,7 +15,8 @@ export default function Home() {
   return (
     <>
     <main id={styles.main}>
-      <ParticleBackground tileHeight={374} tileWidth={374} height="100vh" width="100vw" backgroundColor="#18191C">
+      {/*<ParticleBackground tileHeight={374} tileWidth={374} height="100vh" width="100vw" backgroundColor="#18191C">*/}
+       <Scene/>
        <TiltCard 
         buttonString={session?.user?.name?.split(' ')[0] ? `Welcome ${session?.user?.name?.split(' ')[0]}` : "Welcome!"}
         title="Calendar" 
@@ -22,7 +24,7 @@ export default function Home() {
         slideText={session?.user?.name?.split(' ')[0] ? "Continue," : "Login / Create an account"}
         buttonMode="signIn"
         />
-      </ParticleBackground>
+      {/*</ParticleBackground>*/}
     </main>
     </>
 

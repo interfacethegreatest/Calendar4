@@ -791,7 +791,7 @@ export const resetPasswordEmail = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 
                                         >
                                           <a
                                             target="_blank"
-                                            href="https://www.facebook.com/medhajji07"
+                                            href="https://www.facebook.com/"
                                             style="
                                               -webkit-text-size-adjust: none;
                                               -ms-text-size-adjust: none;
@@ -826,7 +826,7 @@ export const resetPasswordEmail = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 
                                         >
                                           <a
                                             target="_blank"
-                                            href="https://www.instagram.com/med_hajji7/"
+                                            href="https://www.instagram.com/"
                                             style="
                                               -webkit-text-size-adjust: none;
                                               -ms-text-size-adjust: none;
@@ -861,7 +861,7 @@ export const resetPasswordEmail = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 
                                         >
                                           <a
                                             target="_blank"
-                                            href="https://www.youtube.com/channel/UC-w5hcIcVX5IzP8537CYSBg"
+                                            href=""
                                             style="
                                               -webkit-text-size-adjust: none;
                                               -ms-text-size-adjust: none;
@@ -892,7 +892,7 @@ export const resetPasswordEmail = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 
                                         >
                                           <a
                                             target="_blank"
-                                            href="https://www.linkedin.com/in/medhajji/"
+                                            href="https://www.linkedin.com/in/"
                                             style="
                                               -webkit-text-size-adjust: none;
                                               -ms-text-size-adjust: none;

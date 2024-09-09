@@ -5,6 +5,7 @@ import { Poppins } from 'next/font/google';
 import LoginCard from '@/components/cards/LoginCard/LoginCard';
 import { NextPageContext } from 'next';
 import { getCsrfToken, getProviders } from 'next-auth/react';
+import Scene from '@/components/backgrounds/starsBackground/Scene';
 
 const font = Poppins({
   subsets: ["latin"],
@@ -14,6 +15,7 @@ const font = Poppins({
   export default function auth({providers, tab, callbackUrl, csrfToken }:{providers:any, tab : string, callbackUrl:string, csrfToken:string}) {
   return (<>
      <div id={styles.authMain}>
+      <Scene/>
       {
         tab == "signin" ?
          <LoginCard providers={providers} csrfToken={csrfToken} callbackUrl={callbackUrl} title='Sign In'/> :

@@ -23,9 +23,6 @@ const ResetCard: React.FunctionComponent<IResetCardProps> = (props) => {
   const { size, title, buttonString, providers, callbackUrl, csrfToken} = props;
   return (
     <>
-      <h1 id={styles.mainBannerText} className={font.className}>Make the most of your professional career.</h1>
-      <br />
-      <br />
       <Tilt scale={1} tiltMaxAngleX={2} tiltMaxAngleY={2}>
         <div id={styles.main}>
           <div id={styles.tiles}>
@@ -50,7 +47,7 @@ const ResetCard: React.FunctionComponent<IResetCardProps> = (props) => {
           </div>
           <h1 id={styles.titleText}>Reset Password</h1>
           <p id={styles.spanText}>Sign in instead? <a style={{position:"relative", zIndex:8}} href="/auth">Sign in</a></p>
-          <ResetForm providers={providers} csrfToken={csrfToken} callbackUrl={callbackUrl}/>
+          <ResetForm  csrfToken={csrfToken} />
         </div>
       </Tilt>
     </>

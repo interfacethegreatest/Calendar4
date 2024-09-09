@@ -9,6 +9,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Initial shadow */
   position: relative; 
   overflow: hidden;
+  z-index: 1; 
 }
 
 #main::before {

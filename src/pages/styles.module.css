@@ -11,13 +11,20 @@
 #main{
     position: relative;
     background-color: black;
+    max-height: 100vh;
+    max-width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
 #authMain{
     max-height: 100vh;
     max-width: 100vw;
     min-height: 100vh;
-    background: #18191C;
+    background: black;
     display: flex;
     align-items: center;
     justify-content: center;

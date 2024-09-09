@@ -4,6 +4,7 @@ import styles from './RegisterStyles.module.css';
 import { Poppins } from "next/font/google";
 import Tilt from 'react-parallax-tilt';
 import RegisterForm from '@/components/forms/RegisterForm/RegisterForm';
+import ResetForm from '@/components/forms/ResetForm/ResetForm';
 
 const font = Poppins({
   subsets: ["latin"],
@@ -48,8 +49,8 @@ const TiltCard: React.FunctionComponent<ITiltCardProps> = (props) => {
             <div id={styles.loader5}></div>
             <div id={styles.loader6}></div>
           </div>
-          <h1 id={styles.titleText}>Sign Up</h1>
-          <p id={styles.spanText}>Already have an account? <a style={{position:"relative", zIndex:8}} href="/auth">Sign in</a></p>
+          <h1 id={styles.titleText}>Reset Password</h1>
+          <p id={styles.spanText}>Sign in instead? <a style={{position:"relative", zIndex:8}} href="/auth">Sign in</a></p>
           <RegisterForm providers={providers} csrfToken={csrfToken} callbackUrl={callbackUrl}/>
         </div>
       </Tilt>

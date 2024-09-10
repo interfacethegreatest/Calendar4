@@ -1,3 +1,4 @@
+import { Session } from "inspector";
 import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -11,12 +12,13 @@ export async function middleware(req:NextRequest){
     });
     if(pathname==="/auth"){
         if (session){
+            session.isNewUser = false;
+            console.log("hello" + session.isNewUser)
             return NextResponse.redirect(`${origin}`);
         }
     }
     if(pathname.startsWith('/admin')){
         if (!session) return NextResponse.redirect(`${origin}`);
         if (session.role =="admin") return NextResponse.redirect(`${origin}`);
-        
     }
 }

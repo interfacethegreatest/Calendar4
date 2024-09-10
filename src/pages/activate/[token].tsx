@@ -1,10 +1,10 @@
 import { NextPageContext } from "next";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import ParticleBackground from "@/components/backgrounds/particleBackground";
 import TiltCard from "@/components/cards/TiltCard/TiltCard";
 import styles from '../styles.module.css';
 import { SlHome } from "react-icons/sl";
+import Scene from "@/components/backgrounds/starsBackground/Scene";
 
 export default function activate({ token }:{ token : string }) {
   const [error, setError] = useState("");
@@ -26,7 +26,7 @@ export default function activate({ token }:{ token : string }) {
         error &&
          <>
           <main id={styles.main}>
-           <ParticleBackground tileHeight={374} tileWidth={374} height="100vh" width="100vw" backgroundColor="#18191C">
+            <Scene/>
             <TiltCard 
              buttonString={"Failed login"}
              slideText="Please try again!"
@@ -35,7 +35,6 @@ export default function activate({ token }:{ token : string }) {
              icon={ <SlHome/>}
              buttonMode="home"
              />
-           </ParticleBackground>
           </main>
         </>
       }
@@ -43,7 +42,7 @@ export default function activate({ token }:{ token : string }) {
         success && 
         <>
          <main id={styles.main}>
-           <ParticleBackground tileHeight={374} tileWidth={374} height="100vh" width="100vw" backgroundColor="#18191C">
+            <Scene/>
             <TiltCard 
              buttonString={"Sign In"}
              slideText="Continue"
@@ -51,7 +50,6 @@ export default function activate({ token }:{ token : string }) {
              title="Success!" 
              icon={ <SlHome/>}
              buttonMode="signIn"/>
-           </ParticleBackground>
           </main>
         </>
       }

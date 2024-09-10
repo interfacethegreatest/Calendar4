@@ -28,7 +28,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "user",
     },
-
+    isFirstSignIn :{
+        type:Boolean,
+        default: true,
+    }
 });
 
 const User = mongoose.models.User || mongoose.model("User", userSchema);

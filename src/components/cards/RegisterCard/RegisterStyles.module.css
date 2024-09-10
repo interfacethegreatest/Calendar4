@@ -7,7 +7,7 @@
 }
 
 #main {
-  background: linear-gradient(135deg, #1B1B1D 75%, #1e1e1e 100%);
+  background: linear-gradient(135deg, #1b1b1d1e 75%, #1e1e1e1e 100%);
   max-width: 411px;
   height: 598px;
   border-radius: 15px;
@@ -45,7 +45,7 @@
 #main:hover {
   box-shadow: 0 12px 26px rgba(0, 0, 0, 0.4); /* Shadow effect on hover */
   border: 2px solid rgba(149, 149, 149, 0.295);
-  background: linear-gradient(135deg, #1B1B1D 75%, #1f1f1f 100%);
+  background: linear-gradient(135deg, #1b1b1d1e 75%, #1e1e1e1e 100%);
 }
 
 #tiles{

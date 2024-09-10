@@ -12,7 +12,7 @@
   max-height: 400px; /* Max height of the container */
   width: 96vw; /* Width as a percentage of the viewport */
   height: auto; /* Height will be calculated automatically based on aspect ratio */
-  background: linear-gradient(135deg, #1B1B1D 75%, #1e1e1e 100%);
+  background: linear-gradient(135deg, #1b1b1d1e 75%, #1e1e1e1e 100%);
   box-sizing: border-box;
   border-radius: 15px;
   cursor: pointer;
@@ -21,7 +21,7 @@
   box-shadow: 0 4px 8px rgba(31, 17, 17, 0.2);
   position: relative;
   overflow: hidden;
-
+  backdrop-filter: blur(20px);
   margin-bottom: 30%;
 }
 
@@ -51,7 +51,7 @@
 #main:hover {
   box-shadow: 0 12px 26px rgba(0, 0, 0, 0.4); /* Shadow effect on hover */
   border: 2px solid rgba(149, 149, 149, 0.295);
-  background: linear-gradient(135deg, #1B1B1D 75%, #1f1f1f 100%);
+  background: linear-gradient(135deg, #1b1b1d1e 75%, #1e1e1e1e 100%);
 }
 
 #tiles{

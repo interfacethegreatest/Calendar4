@@ -1,6 +1,9 @@
 import { Session } from "inspector";
 import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
+import connectDB from "./utils/connectDB";
+import UserModal from '@/models/User';
+import User from "@/models/User";
 
 export async function middleware(req:NextRequest){
     const {pathname, origin} = req.nextUrl
@@ -12,8 +15,6 @@ export async function middleware(req:NextRequest){
     });
     if(pathname==="/auth"){
         if (session){
-            session.isNewUser = false;
-            console.log("hello" + session.isNewUser)
             return NextResponse.redirect(`${origin}`);
         }
     }

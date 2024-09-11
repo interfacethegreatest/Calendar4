@@ -5,7 +5,6 @@ import TiltCard from "@/components/cards/TiltCard/TiltCard";
 import { SlHome } from "react-icons/sl";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import { useSession, signIn, signOut } from "next-auth/react";
-import ParticleBackground from "@/components/backgrounds/particleBackground";
 import Scene from "@/components/backgrounds/starsBackground/Scene";
 
 

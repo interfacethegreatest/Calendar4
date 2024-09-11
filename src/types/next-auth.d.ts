@@ -8,6 +8,7 @@ declare module "next-auth" {
             email: string;
             image: string;
             provider: string;
+            isNewUser: bool;
         };
     }
 }

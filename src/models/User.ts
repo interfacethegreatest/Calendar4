@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { number } from "zod";
 
 const userSchema = new mongoose.Schema({
     name :{
@@ -21,17 +22,13 @@ const userSchema = new mongoose.Schema({
         minlength: 7,
     },
     emailVerified :{
-        type: Boolean,
+        type: Number,
         default: false,
     },
     role :{
         type: String,
         default: "user",
     },
-    isFirstSignIn :{
-        type:Boolean,
-        default: true,
-    }
 });
 
 const User = mongoose.models.User || mongoose.model("User", userSchema);

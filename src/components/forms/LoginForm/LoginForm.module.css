@@ -101,7 +101,8 @@
 
 #forgotPasswordText{
     font-size: 0.6rem;
-    margin-left: 74%;
+    margin-left: 72%;
+    white-space: nowrap;
     
 }
 

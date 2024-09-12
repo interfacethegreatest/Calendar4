@@ -73,20 +73,20 @@ export default NextAuth({
       if (user) {
         token.provider = account?.provider;
       }
-      console.log(token);
+      //console.log(token);
       return token;
     },
     async session({ session, token }: { session: any; token: any }) {
-      console.log(token);
+      //console.log(token);
       if (session.user) {
         session.token = token;
         try {
           await connectDB();
           const userDB = await UserModal.findById(token.sub);
-          if (userDB && userDB.emailVerified <=1) {
-            await UserModal.findByIdAndUpdate(userDB.id, { emailVerified: 2 });
+          if (userDB ) {
+            token.verified = userDB.verified;
           }
-          session.emailVerified = userDB.emailVerified;
+          
         } catch (error: any) {
           console.log(error.message);
         }

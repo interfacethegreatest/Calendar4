@@ -49,10 +49,9 @@ const LoginForm: React.FunctionComponent<ILoginFormProps> = (props) => {
    if(res.error){
     return toast.error(res.error)
    }else{
-    return router.push('/')
+    return router.push('/auth')
    }
   }
-  console.log(errors)
   return <>
   <form id={styles.formStyle} method="post" action="/api/auth/signin/email" onSubmit={handleSubmit(onSubmit)}>
     <input type="hidden" name='csrfToken' defaultValue={csrfToken} />

@@ -22,7 +22,11 @@ try{
         .status(400)
         .json({message:'Email address already verified!'})
     }
-    await User.findByIdAndUpdate(userDB.id, { emailVerified: true})
+    await User.findByIdAndUpdate(
+        userDB.id, 
+        { $set: { 'verified.emailVerified': true } }, 
+        { new: true }  // Returns the updated document
+    );
     res.json({
     message: 'Your account has been successfully verified!'}) 
 

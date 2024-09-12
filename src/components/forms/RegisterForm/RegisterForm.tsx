@@ -62,7 +62,6 @@ const RegisterForm: React.FunctionComponent<IRegisterFormProps> = (props) => {
     resolver: zodResolver(FormSchema)
   });
   const onSubmit: SubmitHandler<FormSchemaType>=async(values)=>{
-    console.log(values)
     try {
       const { data } = await axios.post('/api/auth/signup', {
         ...values,

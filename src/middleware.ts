@@ -1,9 +1,5 @@
-import { Session } from "inspector";
 import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
-import connectDB from "./utils/connectDB";
-import UserModal from '@/models/User';
-import User from "@/models/User";
 
 export async function middleware(req:NextRequest){
     const {pathname, origin} = req.nextUrl
@@ -14,8 +10,11 @@ export async function middleware(req:NextRequest){
 
     });
     if(pathname==="/auth"){
-        if (session){
-            return NextResponse.redirect(`${origin}`);
+        if (session && session.verified?.isNewUser){
+            return NextResponse.redirect(`${origin}/new`);
+        }
+        if(session) {
+            return NextResponse.redirect(`${origin}/new`);
         }
     }
     if(pathname.startsWith('/admin')){

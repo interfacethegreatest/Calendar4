@@ -1,0 +1,559 @@
+#main {
+  background: linear-gradient(135deg, #1b1b1d1e 75%, #1e1e1e1e 100%);
+  height: 374px;
+  width: 374px;
+  border-radius: 15px;
+  cursor: pointer;
+  border: 2px solid rgba(90, 89, 89, 0.295);
+  transition: box-shadow 0.3s ease, border 0.3s ease; /* Add transition for smooth shadow and border effect */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Initial shadow */
+  position: relative; 
+  overflow: hidden;
+  z-index: 1; 
+  backdrop-filter: blur(20px);
+}
+
+#main::before {
+  content: '';
+  position: absolute;
+  top: 2;
+  left: 2;
+  height: 100px;
+  width: 100px;
+  background: radial-gradient(circle, rgba(48, 121, 97, 0.153), transparent, transparent);
+  border-radius: 30%;
+  transform: translate(-65%, -65%);
+  transition: all 0.3s ease; /* Smooth transition for the effect */
+  opacity: 0; /* Start with the glow hidden */
+  padding-left: 4px;
+  overflow: hidden;
+}
+
+#main:hover::before {
+  height: 400px;
+  width: 400px;
+  transform: translate(-52%, -52%);
+  opacity: 1; /* Show the glow on hover */
+}
+
+#main:hover {
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.4); /* Shadow effect on hover */
+  border: 2px solid rgba(149, 149, 149, 0.295);
+  background: linear-gradient(135deg, #1b1b1d1e 75%, #1f1f1f1e 100%);
+  backdrop-filter: blur(20px);
+}
+
+#tiles{
+  position: absolute;
+  display: grid;
+  grid-template-rows: 18% 33% 33% 9%;
+  grid-template-columns: 25% 25% 25% 25%;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1px;
+  height: 60%;
+}
+
+#tile1 {
+  grid-row-start: 1;
+  grid-row-end: 2; /* Corrected: end at row 2 */
+  grid-column-start: 1;
+  grid-column-end: 2; /* Corrected: end at column 2 */
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+  z-index: 1;
+}
+
+#tile1:hover {
+  background-color: rgba(48, 121, 97, 0.036);
+}
+
+#main:hover #tile1{
+  border-bottom: 2px solid rgba(90, 89, 89, 0.17);
+  border-right: 2px solid rgba(90, 89, 89, 0.17);
+}
+
+#tile2 {
+  grid-row-start: 1;
+  grid-row-end: 2; /* Corrected: end at row 2 */
+  grid-column-start: 2;
+  grid-column-end: 3; /* Corrected: end at column 2 */
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+  z-index: 1;
+}
+
+#tile2:hover {
+  background-color: rgba(48, 121, 97, 0.036);
+}
+
+#main:hover #tile2{
+  border-bottom: 2px solid rgba(90, 89, 89, 0.17);
+
+}
+
+#tile3 {
+  grid-row-start: 1;
+  grid-row-end: 2; /* Corrected: end at row 2 */
+  grid-column-start: 3;
+  grid-column-end: 4; /* Corrected: end at column 2 */
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+  z-index: 1;
+}
+
+
+#main:hover #tile3{
+  border-bottom: 2px solid rgba(90, 89, 89, 0.17);
+  background-color: rgba(48, 121, 97, 0.036);
+}
+
+#tile4 {
+  grid-row-start: 1;
+  grid-row-end: 3; /* Corrected: end at row 2 */
+  grid-column-start: 4;
+  grid-column-end: 5; /* Corrected: end at column 2 */
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+  z-index: 1;
+}
+
+#tile4:hover {
+  background-color: rgba(48, 121, 97, 0.036);
+}
+
+
+#tile5 {
+  grid-row-start: 2;
+  grid-row-end: 3; /* Corrected: end at row 2 */
+  grid-column-start: 1;
+  grid-column-end: 2; /* Corrected: end at column 2 */
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+  z-index: 1;
+}
+
+#tile5:hover {
+  background-color: rgba(48, 121, 97, 0.036);
+}
+
+#main:hover #tile5{
+  border-bottom: 2px solid rgba(90, 89, 89, 0.17);
+  border-right: 2px solid rgba(90, 89, 89, 0.17);
+  background-color: rgba(48, 121, 97, 0.036);
+}
+
+#tile6 {
+  grid-row-start: 2;
+  grid-row-end: 3; /* Corrected: end at row 2 */
+  grid-column-start: 2;
+  grid-column-end: 3; /* Corrected: end at column 2 */
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+  z-index: 1;
+}
+
+#tile6:hover {
+  background-color: rgba(48, 121, 97, 0.036);
+}
+
+#main:hover #tile6{
+  border-bottom: 2px solid rgba(90, 89, 89, 0.17);
+
+}
+
+#tile7 {
+  grid-row-start: 2;
+  grid-row-end: 3; /* Corrected: end at row 2 */
+  grid-column-start: 3;
+  grid-column-end: 4; /* Corrected: end at column 2 */
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+  z-index: 1;
+}
+
+#tile7:hover {
+  background-color: rgba(48, 121, 97, 0.036);
+}
+
+
+#tile8 {
+  grid-row-start: 2;
+  grid-row-end: 3; /* Corrected: end at row 2 */
+  grid-column-start: 4;
+  grid-column-end: 5; /* Corrected: end at column 2 */
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+  z-index: 1;
+}
+
+#tile8:hover {
+  background-color: rgba(48, 121, 97, 0.036);
+}
+
+
+
+#tile9 {
+  grid-row-start: 3;
+  grid-row-end: 4; /* Corrected: end at row 2 */
+  grid-column-start: 1;
+  grid-column-end: 2; /* Corrected: end at column 2 */
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+  z-index: 1;
+}
+
+#main:hover #tile9{
+  border-bottom: 2px solid rgba(90, 89, 89, 0.17);
+  border-right: 2px solid rgba(90, 89, 89, 0.17);
+  background-color: rgba(48, 121, 97, 0.036);
+}
+
+#tile10 {
+  grid-row-start: 3;
+  grid-row-end: 4; /* Corrected: end at row 2 */
+  grid-column-start: 2;
+  grid-column-end: 4; /* Corrected: end at column 2 */
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+  z-index: 1;
+}
+
+#tile10:hover {
+  background-color: rgba(48, 121, 97, 0.036);
+}
+
+#main:hover #tile10{
+  border-bottom: 2px solid rgba(90, 89, 89, 0.17);
+}
+
+#tile11 {
+  grid-row-start: 3;
+  grid-row-end: 4; /* Corrected: end at row 2 */
+  grid-column-start: 3;
+  grid-column-end: 4; /* Corrected: end at column 2 */
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+  z-index: 1;
+}
+
+#tile11:hover {
+  background-color: rgba(48, 121, 97, 0.036);
+}
+
+
+#tile12 {
+  grid-row-start: 3;
+  grid-row-end: 4; /* Corrected: end at row 2 */
+  grid-column-start: 4;
+  grid-column-end: 5; /* Corrected: end at column 2 */
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+  z-index: 1;
+}
+
+#tile12:hover {
+  background-color: rgba(48, 121, 97, 0.036);
+}
+
+
+
+#tile13 {
+  grid-row-start: 4;
+  grid-row-end: 5; /* Corrected: end at row 2 */
+  grid-column-start: 1;
+  grid-column-end: 2; /* Corrected: end at column 2 */
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+  z-index: 1;
+}
+
+#tile13:hover {
+  background-color: rgba(48, 121, 97, 0.036);
+}
+
+
+#tile15 {
+  grid-row-start: 4;
+  grid-row-end: 5; /* Corrected: end at row 2 */
+  grid-column-start: 3;
+  grid-column-end: 4; /* Corrected: end at column 2 */
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+  z-index: 1;
+  height: 200%;
+}
+
+#tile15:hover {
+  background-color: rgba(48, 121, 97, 0.036);
+}
+
+#main:hover #tile15{
+
+
+}
+
+#loader{
+  grid-row-start: 1;
+  grid-column-start: 4;
+  grid-column-end: 5;
+  align-self: end;
+  margin-right: 23px;
+}
+
+#main:hover #loader {
+  animation: progress .3s linear forwards; /* Adjust duration (5s) as needed */
+}
+
+@keyframes progress {
+  0% {
+      width: 0%;
+      border: 1px solid rgba(90, 89, 89, 0.17); /* Starting color (e.g., coral) */
+  }
+  100% {
+      width: 100%;
+      border: 1px solid rgba(90, 89, 89, 0.17); /* Ending color (e.g., deep sky blue) */
+  }
+}
+
+@keyframes progress3 {
+  0% {
+      width: 0%;
+      border: 1px solid rgba(90, 89, 89, 0.17); /* Starting color (e.g., coral) */
+  }
+  100% {
+      width: 67%;
+      border: 1.5px solid rgba(90, 89, 89, 0.09); /* Ending color (e.g., deep sky blue) */
+  }
+}
+
+
+#loader2{
+  grid-row-start: 2;
+  grid-column-start: 3;
+  grid-column-end: 5;
+  align-self: end;
+  margin-right: 23px;
+}
+
+#main:hover #loader2 {
+  animation: progress .4s linear forwards; /* Adjust duration (5s) as needed */
+}
+
+#loader3{
+  grid-row-start: 3;
+  grid-column-start: 4;
+  grid-column-end: 5;
+  align-self: end;
+  margin-right: 23px;
+}
+
+#main:hover #loader3 {
+  animation: progress3 .6s linear forwards; /* Adjust duration (5s) as needed */
+}
+
+#loader4{
+  grid-row-start: 4;
+  grid-row-end: 5;
+  grid-column-start: 1;
+  grid-column-end: 2;
+  
+}
+
+#main:hover #loader4 {
+  animation: progress2 .1s linear forwards; /* Adjust duration (5s) as needed */
+}
+
+@keyframes progress2 {
+  0% {
+      height: 0%;
+      border-right: 2px solid rgba(90, 89, 89, 0.17); /* Starting color (e.g., coral) */
+  }
+  100% {
+      height: 110%;
+      border-right: 3px solid rgba(104, 103, 103, 0.11); /* Ending color (e.g., deep sky blue) */
+  }
+}
+
+#loader5{
+  grid-row-start: 1;
+  grid-row-end: 5;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  
+}
+
+#main:hover #loader5 {
+  animation: progress2 .3s linear forwards; /* Adjust duration (5s) as needed */
+}
+
+#loader6{
+  grid-row-start: 1;
+  grid-row-end: 5;
+  grid-column-start: 3;
+  grid-column-end: 4.4;
+  
+}
+
+#main:hover #loader6 {
+  animation: progress2 .3s linear forwards; /* Adjust duration (5s) as needed */
+}
+
+#iconHolder {
+  width: 10%;
+  height: 10%;
+  border-radius: 50%;
+  position: absolute; /* Change to absolute positioning */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 26%;
+  margin-left: 5%;
+  background-color: rgb(27, 27, 27);
+  z-index: 2;
+}
+
+#iconStyle{
+  margin-right: 1.5%;
+  margin-bottom: 5%;
+  color: gainsboro;
+  position: relative;
+  width: 75%;
+  height: 75%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+}
+
+#main:hover #iconHolder{
+  border: 2px solid rgba(63, 151, 122, 0.416);
+  background-color: rgb(10, 24, 19);
+  box-shadow: 0 0 10px rgba(53, 134, 107, 0.5), 0 0 20px rgba(53, 134, 107, 0.3), 0 0 30px rgba(53, 134, 107, 0.2);
+}
+
+
+#main:hover #iconStyle{
+  color: rgb(77, 187, 150)
+}
+
+#titleText {
+  position: absolute;
+  top:9.75%; 
+  left: 54%; 
+  transform: translateX(-50%); 
+  z-index: 0;
+  color: aliceblue;
+  font-size: 220%;
+  white-space: nowrap;
+  user-select: none;       
+  -webkit-user-select: none; 
+  -moz-user-select: none;    
+  -ms-user-select: none;     
+  pointer-events: none;    
+  -webkit-user-drag: none; 
+  animation: fadeInLeft2 .15s forwards; /* 2s is the duration of the animation */   
+}
+
+#paragraphContainer {
+  width: 100%;
+  display: flex;
+  margin-top: 15%;
+  padding: 5% 5% 5%;
+  height: 82%;
+  position: relative;
+  z-index: 1;
+  flex-direction: column;
+}
+
+#textDiv{
+  display: flex;
+  width: 100%;
+  font-size: 85%;
+  text-align: center;
+  z-index: 2;
+  font-weight: 500;
+  color: aliceblue;
+}
+
+#textDiv p{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#glowDiv{
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    color: aliceblue;
+    height: 38px;
+    border-radius: 24px;
+    border: 2px solid rgba(159, 158, 158, 0.5);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+    margin-bottom: 5%;
+    z-index: 3;
+}
+
+#planetContainer{
+  position: fixed;
+  background-color: #030304;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  transform: translate(321%,-26px);
+  z-index: 1;
+  border: 2px solid rgba(131, 130, 130, 0.295);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#planet{
+width: 100%;
+height: 100%;
+position: relative;
+border-radius: 50%;
+box-shadow: 1px 1px 1px 1px rgba(255, 255, 0, 0.185);
+}
+
+
+#untouchable {
+  user-select: none;       
+  -webkit-user-select: none; 
+  -moz-user-select: none;    
+  -ms-user-select: none;     
+  pointer-events: none;    
+  -webkit-user-drag: none;   
+  opacity: 0;
+  animation: fadeInLeft .15s forwards; /* 2s is the duration of the animation */
+}
+
+@keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-200%);
+  }
+  100% {
+    opacity: .5;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInLeft2 {
+  0% {
+    opacity: 0;
+    transform: translateX(-200%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%);
+  }
+}

@@ -107,7 +107,7 @@
     border-bottom-right-radius: 15px;
     border-top-right-radius: 5px;
     border-top-left-radius: 15px;
-    border-bottom-left-radius: 15px;
+    border-bottom-left-radius: 5px;
 }
 
 #newUserMiddleButton:hover #glowEffectClass {
@@ -237,7 +237,6 @@
     overflow: hidden; /* Ensure the expanding circle stays within the button */
     border-bottom-right-radius: 15px;
     border-top-right-radius: 5px;
-    border-top-left-radius: 15px;
     box-shadow: 1px 1px 1px 1px rgba(255, 217, 0, 0.075);
     z-index: 3;
 }
@@ -272,9 +271,8 @@
 
 #inputDiv{
     width: 100%;
-    margin-left: 3px;
-    margin-right: 0px;
-    margin-bottom: 2px;
+    margin-left: 6px;
+    margin-right: 4px;
     margin-top: 2px;
     height: 100%;
     position: relative;
@@ -283,8 +281,6 @@
     border-top-left-radius: 10px;
     transform: translateX(200%);
     opacity: 0;
-    margin-left: 15px;
-    margin-right: 15px;
 }
 
 #newUserButtonBottom:hover #inputDiv {
@@ -320,9 +316,8 @@
 
 #inputDivClicked{
     width: 100%;
-    margin-left: 3px;
-    margin-right: 0px;
-    margin-bottom: 2px;
+    margin-left: 6px;
+    margin-right: 4px;
     margin-top: 2px;
     height: 100%;
     position: relative;
@@ -331,4 +326,15 @@
     border-top-left-radius: 10px;
     opacity: 1;
     animation: fadeInRight 0.625s ease-in-out forwards;
+}
+
+#searchButton{
+    height: 28px;
+    width: 28px;
+    margin-left: 9px;
+    top: 19%;
+    z-index: 4;
+    position: absolute;
+    border-radius: 50%;
+    background-color: transparent;
 }

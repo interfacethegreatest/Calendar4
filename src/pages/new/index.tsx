@@ -1,13 +1,14 @@
 import React from 'react';
 import style from './styles.module.css';
-import NewUserCard from '../../components/cards/newUserCard/newUserCard'
+import NewUserCard from '../../components/cards/newUserCard/NewUserCard'
 import { useSession } from 'next-auth/react';
 import { SlHome } from 'react-icons/sl';
 import Scene from '@/components/backgrounds/starsBackground/Scene';
+import { getCsrfToken, getProviders } from 'next-auth/react';
 
-
-export default function index() {
+export default function index({csrfToken }:{csrfToken:string}) {
   const { data: session } = useSession();
+  console.log( session )
   console.log(session)
   return (
     <main id={style.main}>
@@ -17,6 +18,7 @@ export default function index() {
        title="User Navigation" 
        icon={<SlHome/>}
        paragraph='Where would you like to go...'
+       csrfToken={csrfToken}
       />
     </main>
   )

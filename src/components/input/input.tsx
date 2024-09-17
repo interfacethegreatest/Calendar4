@@ -21,10 +21,11 @@ interface IInputProps {
   register: any;
   error: any;
   disabled: boolean;
+  autoComplete? : boolean; 
 }
 
 const Input: React.FunctionComponent<IInputProps> = (props) => {
-  const { name, label, type, icon, placeholder, register, disabled, error } = props;
+  const { name, label, type, icon, placeholder, register, disabled, error, autoComplete } = props;
   const ref = useRef();
   const spanRef = useRef();
   outsideClick(ref, () => setShowContent(false));
@@ -58,6 +59,7 @@ const Input: React.FunctionComponent<IInputProps> = (props) => {
         onFocus={() => setShowContent(!showContent)}
         {...register(name)}
         disabled={disabled}
+        style={autoComplete ? {autocomplete : "off"} : null}
       />
       <span ref={spanRef} id={glowEffectClass}></span>
      </div>

@@ -84,7 +84,7 @@ export default NextAuth({
           await connectDB();
           const userDB = await UserModal.findById(token.sub);
           if (userDB ) {
-            token.verified = userDB.verified;
+            token.emailVerified = userDB.emailVerified;
           }
           
         } catch (error: any) {

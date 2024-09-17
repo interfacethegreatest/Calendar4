@@ -19,8 +19,15 @@ const userSchema = new mongoose.Schema({
         required: true,
         minlength: 7,
     },
-    verified: { 
-        emailVerified: {
+    emailVerified :{
+        type: Boolean,
+        default: false,
+    },
+    //emailVerified: { 
+        //type: Boolean,
+        //required: true,
+        //default: true,
+        /*emailVerified: {
             type: Boolean,
             default: false,
         },
@@ -35,8 +42,8 @@ const userSchema = new mongoose.Schema({
         calenderVerified: {
             type: Boolean,
             default: false,
-        },
-    },
+        },*/
+    //},
     role: {
         type: String,
         default: "user",

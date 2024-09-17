@@ -4,7 +4,7 @@ import styles from './newUser.module.css';
 import { Poppins } from "next/font/google";
 import { AiOutlineLogin } from "react-icons/ai";
 import Tilt from 'react-parallax-tilt';
-import { signOut } from 'next-auth/react';
+import { getCsrfToken, signOut } from 'next-auth/react';
 import { animate, motion, useMotionTemplate, useMotionValue } from 'framer-motion';
 import { useEffect } from 'react';
 import { Router, useRouter } from 'next/router';
@@ -32,7 +32,7 @@ interface INewUserCardProps {
 }
 
 const NewUserCard: React.FunctionComponent<INewUserCardProps> = (props) => {
-  const {paragraph, icon, title, buttonString } = props;
+  const {paragraph, icon, title } = props;
   const colour = useMotionValue(COLOURS[0])
   const border = useMotionTemplate`2px solid ${colour}`;
   const router = useRouter();
@@ -47,7 +47,6 @@ const NewUserCard: React.FunctionComponent<INewUserCardProps> = (props) => {
         repeatType: "mirror",
     });
   }, []);
-  console.log(buttonString)
   return (
     <>
       <Tilt scale={1} tiltMaxAngleX={2} tiltMaxAngleY={2}>

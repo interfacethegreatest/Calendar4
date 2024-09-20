@@ -41,6 +41,28 @@ try{
     name :`${first_name + " " +last_name}`,
     email,
     password : cryptedPassword,
+    emailVerfied : {
+      emailVerified: {
+         type: Boolean,
+         default: false,
+     },
+     isNewUser: {
+         type: Boolean,
+         default: true,
+     },
+     profileVisited: {
+         type: Boolean,
+         default: false,
+     },
+     calenderVisited: {
+         type: Boolean,
+         default: false,
+     },
+     location: {
+         type: Boolean,
+         default: false,
+     },
+    }
  });
  await newuser.save()
  const activation_token= createActivationToken({

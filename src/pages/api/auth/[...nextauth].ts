@@ -10,6 +10,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import connectDB from '@/utils/connectDB';
 import UserModal from '@/models/User';
 import bcrypt from 'bcryptjs';
+import axios from 'axios';
 
 export default NextAuth({
   adapter: MongoDBAdapter(clientPromise),
@@ -80,11 +81,16 @@ export default NextAuth({
       //console.log(token);
       if (session.user) {
         session.token = token;
+        console.log("Session token "+ token.sub)
         try {
           await connectDB();
           const userDB = await UserModal.findById(token.sub);
           if (userDB ) {
-            token.emailVerified = userDB.emailVerified;
+            console.log("Hello World");
+            console.log("EMAIL VERIFIED EXISTS CHECK : ");
+            console.log(userDB.emailVerfified === null);
+             userDB.emailVerfified === null ? await axios.post(`${process.env.NEXTAUTH_URL}/api/auth/checkUser`, { token: token.sub })
+             : null;
           }
           
         } catch (error: any) {

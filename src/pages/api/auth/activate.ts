@@ -24,7 +24,7 @@ try{
     }
     await User.findByIdAndUpdate(
         userDB.id, 
-        { $set: { 'verified.emailVerified': true } }, 
+        { $set: { 'emailVerified.emailVerified': true } }, 
         { new: true }  // Returns the updated document
     );
     res.json({

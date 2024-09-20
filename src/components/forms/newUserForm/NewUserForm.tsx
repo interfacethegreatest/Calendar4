@@ -15,76 +15,83 @@ const font = Poppins({
   weight: ['600'],
 });
 
-interface INewUserFormProps {
-  csrfToken: string;
-}
+interface INewUserFormProps {}
 
 const FormSchema = z.object({
-  //goToProfile: z.boolean().optional(),  // Optional because only one can be true
-  //goToCalender: z.boolean().optional(),
-  goToUserCalender: z.string().min(16, 'URL too short!'),
-})//.refine(
-  //(data) => data.goToProfile || data.goToCalender || data.goToUserCalender,
-  //{ message: 'You must submit either a button or the calendar URL' }
-//);
+  goToProfile: z.boolean().default(false),
+  goToCalender: z.boolean().default(false),
+  goToUserCalender: z.union([z.string().min(16, 'URL too short!'), z.null()]).optional(),
+});
 
 type FormSchemaType = z.infer<typeof FormSchema>;
 
-const NewUserForm: React.FunctionComponent<INewUserFormProps> = (props) => {
-  const { csrfToken } = props;
+const NewUserForm: React.FunctionComponent<INewUserFormProps> = () => {
   const [showContent, setShowContent] = useState(false);
   const ref = useRef();
 
   // Call useOutsideClick after defining ref
   useOutsideClick(ref, () => setShowContent(false));
 
-  function handleClick() {
-    setShowContent(prev => !prev);
-  }
-
   const {
-   register,
-   handleSubmit,
-   setError,
-   formState: { errors },
+    register,
+    handleSubmit,
+    setError,
+    setValue,
+    formState: { errors },
   } = useForm<FormSchemaType>({
     resolver: zodResolver(FormSchema),
   });
 
   const onSubmit: SubmitHandler<FormSchemaType> = async (values) => {
-   try {
-    console.log(values.goToUserCalender);
-    const { data } = await axios.post('/api/auth/newUser', {
-      ...values,
-      csrfToken
-    });
-   } catch (error: any) {
-    console.error(error);
-    setError('goToUserCalender', {
-      type: 'manual',
-      message: error.response?.data?.message || 'An unexpected error occurred',
-    });
-   }
+    console.log('Form Submitted', values);
+    try {
+      const { data } = await axios.post('/api/auth/newUser', {
+        ...values,
+      });
+      console.log('Success:', data);
+    } catch (error: any) {
+      console.error('Error:', error);
+      setError('goToUserCalender', {
+        type: 'manual',
+        message: error.response?.data?.message || 'An unexpected error occurred',
+      });
+    }
   };
+
+  function handleClick() {
+    setShowContent((prev) => !prev);
+  }
+
+  function calenderButton() {
+    setValue('goToCalender', true);
+    setValue('goToUserCalender', null);
+    handleSubmit(onSubmit)(); 
+  }
+
+  function profileButton(){
+    setValue("goToProfile", true);
+    setValue('goToUserCalender', null);
+    handleSubmit(onSubmit)();
+  }
 
   return (
     <div id={style.formMain}>
-      <form id={style.formStyle} action="">
-        <button type="button" id={style.newUserButton}>
+      <form id={style.formStyle}>
+        <button type="button" id={style.newUserButton} onClick={profileButton}>
           <div id={style.buttonLeft}></div>
           <h6>
             <u>Customise your profile.</u>
           </h6>
           <span id={style.glowEffectClass}></span>
         </button>
-        <button type="button" id={style.newUserMiddleButton}>
+        <button type="button" onClick={calenderButton} id={style.newUserMiddleButton}>
           <div id={style.buttonLeft}></div>
           <h6>
             <u>Customize your calendar!</u>
           </h6>
           <span id={style.glowEffectClass}></span>
         </button>
-        <div ref={ref} onClick={()=>handleClick()} id={showContent ? style.newUserButtonBottomClicked : style.newUserButtonBottom}>
+        <div ref={ref} onClick={handleClick} id={showContent ? style.newUserButtonBottomClicked : style.newUserButtonBottom}>
           <div id={style.buttonLeft}></div>
           {showContent ? null : (
             <h6 id={style.searchTitle}>
@@ -92,18 +99,18 @@ const NewUserForm: React.FunctionComponent<INewUserFormProps> = (props) => {
             </h6>
           )}
           <div id={showContent ? style.inputDivClicked : style.inputDiv}>
-          <Input
-           name="goToUserCalender"
-           label="Click search button"
-           type="text"
-           icon={<IoSearch />}
-           placeholder="Enter User Code"
-           register={register}
-           error={errors?.goToUserCalender?.message}
-           disabled={false}
-           autoComplete={true}
-          />
-          <button title='Search' type='submit' onClick={handleSubmit(onSubmit)} id={style.searchButton}></button>
+            <Input
+              name="goToUserCalender"
+              label="Click search button"
+              type="text"
+              icon={<IoSearch />}
+              placeholder="Enter User Code"
+              register={register}
+              error={errors?.goToUserCalender?.message}
+              disabled={false}
+              autoComplete={true}
+            />
+            <button type="submit" title="Search" onClick={handleSubmit(onSubmit)} id={style.searchButton}></button>
           </div>
           <span id={style.glowEffectClass}></span>
         </div>

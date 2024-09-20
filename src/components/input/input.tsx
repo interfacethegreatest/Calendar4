@@ -60,6 +60,7 @@ const Input: React.FunctionComponent<IInputProps> = (props) => {
         {...register(name)}
         disabled={disabled}
         style={autoComplete ? {autocomplete : "off"} : null}
+        autoComplete="off"
       />
       <span ref={spanRef} id={glowEffectClass}></span>
      </div>

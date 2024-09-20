@@ -336,5 +336,5 @@
     z-index: 4;
     position: absolute;
     border-radius: 50%;
-    background-color: rgba(255, 0, 0, 0.308);
+    background-color: transparent;
 }

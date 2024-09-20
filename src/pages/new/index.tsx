@@ -6,9 +6,8 @@ import { SlHome } from 'react-icons/sl';
 import Scene from '@/components/backgrounds/starsBackground/Scene';
 import { getCsrfToken, getProviders } from 'next-auth/react';
 
-export default function index({csrfToken }:{csrfToken:string}) {
+export default function index({providers, tab, callbackUrl, csrfToken }:{providers:any, tab : string, callbackUrl:string, csrfToken:string}) {
   const { data: session } = useSession();
-  console.log( session )
   console.log(session)
   return (
     <main id={style.main}>

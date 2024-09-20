@@ -92,6 +92,7 @@ export default NextAuth({
              userDB.emailVerfified === null ? await axios.post(`${process.env.NEXTAUTH_URL}/api/auth/checkUser`, { token: token.sub })
              : null;
           }
+          session.Id = userDB.id;
           
         } catch (error: any) {
           console.log(error.message);

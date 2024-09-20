@@ -9,6 +9,8 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IoSearch } from 'react-icons/io5';
 import axios from 'axios';
+import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
 
 const font = Poppins({
   subsets: ['latin'],
@@ -20,15 +22,16 @@ interface INewUserFormProps {}
 const FormSchema = z.object({
   goToProfile: z.boolean().default(false),
   goToCalender: z.boolean().default(false),
-  goToUserCalender: z.union([z.string().min(16, 'URL too short!'), z.null()]).optional(),
+  goToUserCalender: z.union([z.string().min(24, 'URL too short!').max(24, "URL too long!").regex(new RegExp("^[a-zA-Z0-9]{24}$"), "No special characters or spaces allowed."), z.null()]).optional(),
 });
 
 type FormSchemaType = z.infer<typeof FormSchema>;
 
 const NewUserForm: React.FunctionComponent<INewUserFormProps> = () => {
+  const router = useRouter();
   const [showContent, setShowContent] = useState(false);
   const ref = useRef();
-
+  const { data: session } = useSession();
   // Call useOutsideClick after defining ref
   useOutsideClick(ref, () => setShowContent(false));
 
@@ -48,7 +51,11 @@ const NewUserForm: React.FunctionComponent<INewUserFormProps> = () => {
       const { data } = await axios.post('/api/auth/newUser', {
         ...values,
       });
-      console.log('Success:', data);
+      console.log('Success: ', data.message);
+      if ( data.message == "userProfile"){
+        //router.push('/user/'+session)
+        router.push('/user/'+session.Id)
+      }
     } catch (error: any) {
       console.error('Error:', error);
       setError('goToUserCalender', {

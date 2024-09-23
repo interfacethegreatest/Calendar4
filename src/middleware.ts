@@ -10,12 +10,17 @@ export async function middleware(req:NextRequest){
 
     });
     if(pathname==="/auth"){
-        if (session && session.verified?.isNewUser){
+        if (session && session.emailVerified?.isNewUser){
             return NextResponse.redirect(`${origin}/new`);
+        }
+        if(session && !session.emailVerified?.isNewUser){
+            //implement
+            //return NextResponse.redirect(`${origin}/`)
         }
         if(session) {
             return NextResponse.redirect(`${origin}/new`);
         }
+
     }
     if(pathname==="/new"){
         if (!session) {

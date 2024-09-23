@@ -54,7 +54,12 @@ const NewUserForm: React.FunctionComponent<INewUserFormProps> = () => {
       console.log('Success: ', data.message);
       if ( data.message == "userProfile"){
         //router.push('/user/'+session)
-        router.push('/user/'+session.Id)
+        router.push({
+          pathname: `/user/${session.id}`, // Use session.id as userId in the URL
+          query: {
+              userId : session?.id,
+          },
+         });
       }
     } catch (error: any) {
       console.error('Error:', error);

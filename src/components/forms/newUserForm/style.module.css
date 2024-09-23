@@ -22,7 +22,7 @@
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     border: 2px solid rgba(90, 89, 89, 0.295);
-    animation: fadeInLeft 0.225s forwards;
+    animation: fadeInLeft 0.425s forwards;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -42,7 +42,7 @@
     background-color: rgba(149, 149, 149, 0.082); /* Circle color */
     border-radius: 50%;
     transform: translate(-50%, -80%);
-    transition: width 0.3s ease-in-out, height 0.4s ease-in-out;
+    transition: width 0.3s ease-in-out, height 0.8s ease-in-out;
     z-index: 2; 
 }
 
@@ -124,7 +124,7 @@
     background-color: rgba(149, 149, 149, 0.082); /* Circle color */
     border-radius: 50%;
     transform: translate(-50%, -80%);
-    transition: width 0.3s ease-in-out, height 0.4s ease-in-out;
+    transition: width 0.3s ease-in-out, height 0.8s ease-in-out;
     z-index: 2; /* Behind text, but above background */
 }
 
@@ -172,7 +172,7 @@
     background-color: rgba(149, 149, 149, 0.082); /* Circle color */
     border-radius: 50%;
     transform: translate(-50%, -80%);
-    transition: width 0.3s ease-in-out, height 0.4s ease-in-out;
+    transition: width 0.3s ease-in-out, height 0.8s ease-in-out;
     z-index: 2; /* Behind text, but above background */
 }
 
@@ -191,11 +191,11 @@
 }
 
 #newUserButtonBottom:hover #searchTitle {
-    animation: fadeOutLeft 0.225s ease-in-out forwards;
+    animation: fadeOutLeft 0.425s ease-in-out forwards;
 }
 
 #newUserButtonBottom #searchTitle {
-    animation: fadeInRight 0.225s ease-in-out forwards;
+    animation: fadeInRight 0.425s ease-in-out forwards;
 }
 
 @keyframes fadeOutLeft {
@@ -255,7 +255,7 @@
     background-color: rgba(149, 149, 149, 0.082); /* Circle color */
     border-radius: 50%;
     transform: translate(-50%, -80%);
-    transition: width 0.3s ease-in-out, height 0.4s ease-in-out;
+    transition: width 0.3s ease-in-out, height 0.8s ease-in-out;
     z-index: 2; /* Behind text, but above background */
 }
 
@@ -284,7 +284,7 @@
 }
 
 #newUserButtonBottom:hover #inputDiv {
-    animation: fadeInRight 0.625s ease-in-out forwards;
+    animation: fadeInRight 1.225s ease-in-out forwards;
 }
 
 #newUserButtonBottom #inputDiv {
@@ -325,7 +325,7 @@
     border-bottom-right-radius: 15px;
     border-top-left-radius: 10px;
     opacity: 1;
-    animation: fadeInRight 0.625s ease-in-out forwards;
+    animation: fadeInRight 1.225s ease-in-out forwards;
 }
 
 #searchButton{

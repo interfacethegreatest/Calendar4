@@ -27,7 +27,6 @@ const userSchema = new mongoose.Schema({
       calenderVisited: { type: Boolean, default: false },  // Consider renaming to "calendarVisited"
       location: { type: Boolean, default: false },
     }),
-    default: {},  // Provide a default value for the whole object
   },
   role: {
     type: String,

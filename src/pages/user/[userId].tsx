@@ -29,10 +29,10 @@ export default function forgot({userId}:{userId:string}) {
             <h6 id={style.location}>Location, i.e. London, Enfield, Great Britain</h6>
             <div id={style.social}>
               <div id={style.socials}>
-                 <a href="">0</a><h6 id={style.location}>Following</h6>
+                 <a href="">0</a><h6 id={style.location} style={{color:"GrayText"}}><u>Following</u></h6>
               </div>
               <div id={style.socials}>
-                 <a href="">0</a><h6 id={style.location}>Followers</h6>
+                 <a href="">0</a><h6 id={style.location} style={{color:"GrayText"}}><u>Followers</u></h6>
               </div>
               
             </div>

@@ -6,26 +6,35 @@
 
 #body {
     max-width: 925px;
-    width: 95%; /* Default to 95% width */
+    width: 65%; /* Default to 95% width */
     height: 100vh;
     margin-left: auto;
     margin-right: auto;
     position: relative;
     z-index: 1;
-    border-left: 1px solid aliceblue;
+    border-left: 1px solid rgba(103, 103, 104, 0.219);
+    border-right: 1px solid rgba(103, 103, 104, 0.329);
+    padding: 5px;
+    transform: translateX(-20%);
+    
 }
 
 
 
 @media (min-width: 925px) {
     #body {
-        width: 925px; /* Fixed width for larger screens */
+        width: 65%; /* Fixed width for larger screens */
+    }
+
+    #description{
+        margin-top: 0px;
+        margin: 0px;
     }
 }
 
 #profile{
     width: max;
-    height: 170px;
+    height: 124px;
     border: 2px solid rgba(90, 89, 89, 0.44);
     border-left: 2px solid rgba(90, 89, 89, 0.44);;
     border-radius: 7px;
@@ -34,6 +43,8 @@
     display: flex;
     flex-direction: row;
     gap: 10px;
+    justify-content: center;
+    margin-top: 35px;
 }
 
 #profileImage{
@@ -52,23 +63,21 @@
 }
 
 #name{
-    margin-top: 18px;
     color: aliceblue;
-    font-size: 2.2rem;
+    font-size: 1.6rem;
     margin-bottom: 0;
 }
 
 #description{
     margin: 0;
-    font-size: 1.1rem;
+    font-size: .95rem;
     color: aliceblue;
-    margin-top: 5px;
-    margin-bottom: 5px;
 }
 
 #location{
     color: gray;
     margin-bottom: 4px;
+    font-size: .85rem;
 }
 
 #social{
@@ -105,7 +114,26 @@
     margin-left: 4px;
 }
 
-@media (max-width: 525px) {
+#selectorText{
+    color: aliceblue;
+    margin: 0;
+    padding: 0;
+    font-size: 1.3rem;
+}
+
+#selectorText:hover{
+  text-decoration: underline;
+}
+
+#selectedText{
+    color: aliceblue;
+    margin: 0;
+    padding: 0;
+    font-size: 1.3rem;
+    text-decoration: underline;
+}
+
+@media (max-width: 665px) {
     #profile {
         height:360px;
         display: flex;
@@ -127,47 +155,54 @@
     }
     
     #name{
-        margin-top: 5px;
-        font-size: clamp(16px, 7vw, 10vw)
+        font-size: clamp(16px, 5vw, 10vw)
+
     }
 
     #description{
-        font-size: clamp(15px, 3vw, 4vw)
+        font-size: clamp(12px, 3vw, 4vw)
     }
 
     #location{
-        font-size: clamp(13px, 3vw, 3vw)
+        font-size: clamp(12px, 3vw, 3vw)
     }
 
     #selector{
-        gap: clamp(5px, 15px, 22px);
+        gap: clamp(5px, 11px, 22px);
     }
 
     #social{
         display: flex;
         justify-content: center;
         align-items: center;
+        gap: 5px;
+    }
+
+    #socials{
+        margin-bottom: 0;
+        margin-right: 0;
+    }
+
+    #selectorText{
+        font-size: 1.44rem;
+    }
+
+    #selectedText{
+        font-size: 1.44rem;
     }
 }
 
-#selectorText{
-    color: aliceblue;
-    margin: 0;
-    padding: 0;
-    font-size: 1.3rem;
+
+@media (max-width: 494px) {
+    #selectedText{
+        font-size: 1rem
+    }
+    #selectorText{
+        font-size: 1rem;
+    }
+
 }
 
-#selectorText:hover{
-  text-decoration: underline;
-}
-
-#selectedText{
-    color: aliceblue;
-    margin: 0;
-    padding: 0;
-    font-size: 1.3rem;
-    text-decoration: underline;
-}
 
 #information{
     width: 100%;

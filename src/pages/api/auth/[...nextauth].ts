@@ -93,7 +93,6 @@ export default NextAuth({
              : null;
           }
           session.id = userDB.id;
-          console.log("email verified is new user = "+userDB.emailVerified.isNewUser)
           session.isNewUser = userDB.emailVerified.isNewUser;
         } catch (error: any) {
           console.log(error.message);

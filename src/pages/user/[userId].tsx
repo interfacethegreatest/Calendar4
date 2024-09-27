@@ -4,6 +4,7 @@ import { NextPageContext } from 'next';
 import Scene from '@/components/backgrounds/starsBackground/Scene';
 import { useSession } from 'next-auth/react';
 import style from './style.module.css'
+import { IoSearch } from 'react-icons/io5';
 
 export default function forgot({userId}:{userId:string}) {
   const { data : session } = useSession();
@@ -34,7 +35,6 @@ export default function forgot({userId}:{userId:string}) {
               <div id={style.socials}>
                  <a href="">0</a><h6 id={style.location} style={{color:"GrayText"}}><u>Followers</u></h6>
               </div>
-              
             </div>
            </div>
           </div>
@@ -59,18 +59,31 @@ export default function forgot({userId}:{userId:string}) {
               selection[0] ? 
               <div id={style.about}>
                 <h3>About me</h3>
+                <br />
                 <p> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Explicabo alias sint natus neque quibusdam obcaecati. Nesciunt illum at voluptates laboriosam nihil. Tenetur tempore fugiat hic maxime est quo magni alias.
                 Eveniet sint debitis optio culpa accusantium eligendi voluptate deleniti distinctio totam sunt ea consectetur, adipisci quos aliquid quisquam impedit recusandae consequuntur tempora perferendis! Tempora culpa perferendis iste commodi necessitatibus labore.</p>
                 <br />
                 <div id={style.documents}>
                   <h3>Documents</h3>
-
                 </div>
               </div>
               : null
             }
 
           </div>
+
+         </div>
+         {/* complete form */}
+         <div id={style.search}>
+          <form style={{display:"flex", width:"100%"}} action="">
+            <button>
+            <IoSearch id={style.searchIcon} />
+            </button>
+            <input id={style.searchInput} type="text" 
+            placeholder='search'
+            autoComplete='off'
+            />
+          </form>
 
          </div>
      </div>

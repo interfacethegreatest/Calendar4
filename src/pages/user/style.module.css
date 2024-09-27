@@ -2,21 +2,23 @@
     height: 100vh;
     width: 100vw;
     background-color: black;
+    display: flex;
+    flex-direction: row;
 }
 
 #body {
     max-width: 925px;
     width: 65%; /* Default to 95% width */
     height: 100vh;
-    margin-left: auto;
-    margin-right: auto;
     position: relative;
     z-index: 1;
     border-left: 1px solid rgba(103, 103, 104, 0.219);
-    border-right: 1px solid rgba(103, 103, 104, 0.329);
-    padding: 5px;
-    transform: translateX(-20%);
-    
+    border-right: 1px solid rgba(103, 103, 104, 0.219);
+    padding: 0px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: rgb(0, 0, 0);
+    margin-left: 8%;
 }
 
 
@@ -35,16 +37,21 @@
 #profile{
     width: max;
     height: 124px;
-    border: 2px solid rgba(90, 89, 89, 0.44);
-    border-left: 2px solid rgba(90, 89, 89, 0.44);;
-    border-radius: 7px;
-    background-color: rgba(90, 89, 89, 0.14);
-    box-shadow: 1px 1px 1px rgba(240, 248, 255, 0.164);
+    border: 1px solid rgba(90, 89, 89, 0.884);
+    border-left: 2px solid rgba(90, 89, 89, 0.44);
+    border-radius: 3px;
+    background-color: rgb(10, 10, 10);
+    /*box-shadow: 1px 1px 1px rgba(240, 248, 255, 0.164);*/
     display: flex;
     flex-direction: row;
-    gap: 10px;
+    gap: 20px;
     justify-content: center;
     margin-top: 35px;
+    padding-top: 5px;
+}
+
+#profile:hover{
+    background-color: rgb(15, 15, 15);
 }
 
 #profileImage{
@@ -84,6 +91,9 @@
     width: 100%;
     display: flex;
     flex-direction: row;
+    position: relative;
+    height: 20px;
+    bottom: 0;
 }
 
 #selector{
@@ -206,10 +216,14 @@
 
 #information{
     width: 100%;
-    border: 2px solid rgba(90, 89, 89, 0.44);
+    border: 1px solid rgba(90, 89, 89, 0.884);
     padding: 10px;
-    background-color: rgba(90, 89, 89, 0.14);
-    border-radius: 7px;
+    background-color: rgb(10, 10, 10);
+    border-radius: 3px;
+}
+
+#information:hover{
+    background-color: rgb(11, 11, 11);
 }
 
 #about{
@@ -226,4 +240,41 @@
 
 #documents{
 
+}
+
+#search{
+    width: 21%;
+    height: 48px;
+    border-radius: 25px;
+    background-color: rgb(20, 20, 20);
+    position: relative;
+    z-index: 1;
+    margin-top: 12px;
+    border: 1px solid rgba(90, 89, 89, 0.884);
+    cursor: pointer;
+    margin-left: 4px;
+    display: flex;
+    flex-direction: row;
+    padding-right: .9%;
+}
+
+#search button{
+height: 100%;
+}
+
+#searchIcon{
+    height: 70%;
+    width: 70%;
+    position: relative;
+    left: 5px;
+    color: rgba(90, 89, 89, 0.884);
+}
+
+#searchInput{
+    background-color: transparent;
+    height: 46px;
+    width: 90%;
+    padding-bottom: 3px;
+    color: aliceblue;
+    outline: transparent;
 }

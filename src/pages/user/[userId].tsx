@@ -1,15 +1,34 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ResetCard from '@/components/cards/ResetCard/ResetCard';
 import { NextPageContext } from 'next';
 import Scene from '@/components/backgrounds/starsBackground/Scene';
 import { useSession } from 'next-auth/react';
 import style from './style.module.css'
 import { IoSearch } from 'react-icons/io5';
+import { animate, motion, useMotionTemplate, useMotionValue } from 'framer-motion';
+
+const COLOURS = [
+  'rgba(159, 158, 158, 0.7)',
+  'rgba(159, 158, 158, 0.5)',  
+  'rgba(130, 129, 129, 0.35)', 
+  'rgba(189, 188, 188, 0.2)', 
+  'rgba(159, 158, 158, 0.17)'
+];
 
 export default function forgot({userId}:{userId:string}) {
+  const colour = useMotionValue(COLOURS[0])
+  const border = useMotionTemplate`2px solid ${colour}`;
   const { data : session } = useSession();
+  console.log(session)
   const [ selection, setSelection ] = useState([true, false, false, false]);
-  console.log(session);
+  useEffect(() => {
+    animate(colour, COLOURS, {
+        ease: "easeInOut",
+        duration: 10,
+        repeat: Infinity,
+        repeatType: "mirror",
+    });
+  }, []);
 
   function handleClick(arg0: number) {
     var newSelection = [false, false, false,false]
@@ -21,23 +40,19 @@ export default function forgot({userId}:{userId:string}) {
      <div id={style.main}>
       <Scene/>
          <div id={style.body}>
-          <br />
-          <div id={style.profile}>
-           <img id={style.profileImage} src={session?.user.image} alt="Profile Image" />
-           <div id={style.titleText}>
-            <h1 id={style.name}>{session?.user.name}</h1>
-            <p id={style.description}>Description, i.e. Forensics, Web development and AI Enthusiast, Aspiring Entrepeneur.</p>
-            <h6 id={style.location}>Location, i.e. London, Enfield, Great Britain</h6>
-            <div id={style.social}>
-              <div id={style.socials}>
-                 <a href="">0</a><h6 id={style.location} style={{color:"GrayText"}}><u>Following</u></h6>
+          <motion.div id={style.profile}>
+            <div id={style.profileHeader}>
+              <div id={style.loader}>
               </div>
-              <div id={style.socials}>
-                 <a href="">0</a><h6 id={style.location} style={{color:"GrayText"}}><u>Followers</u></h6>
+              <div id={style.profileImage}>
+                <img id={style.image} src={session?.user.image} alt="" />
               </div>
             </div>
-           </div>
-          </div>
+            <motion.div id={style.profileBody}>
+
+            </motion.div>
+          </motion.div>
+          <br />
           <br />
           <div id={style.selector}>
             {

@@ -30,7 +30,7 @@ function Model() {
       <mesh>
         <ambientLight intensity={1}/>
         {/*<ShootingStar/>*/}
-        <Stars radius={500} count={7500} factor={4} fade ref={stars} />
+        <Stars color="red" radius={200} count={7500} factor={4} fade ref={stars} />
         <EffectComposer>
         <Bloom mipmapBlur luminanceThreshold={1} />
         </EffectComposer>

@@ -1,6 +1,6 @@
 #main{
-    height: 100vh;
-    width: 100vw;
+    height: 200vh;
+    width: 100%;
     background-color: black;
     display: flex;
     flex-direction: row;
@@ -12,16 +12,84 @@
     height: 100vh;
     position: relative;
     z-index: 1;
-    border-left: 1px solid rgba(103, 103, 104, 0.219);
-    border-right: 1px solid rgba(103, 103, 104, 0.219);
+    /*border-left: 1px solid rgba(103, 103, 104, 0.219);
+    border-right: 1px solid rgba(103, 103, 104, 0.219);*/
     padding: 0px;
     padding-top: 5px;
     padding-bottom: 5px;
-    background-color: rgb(0, 0, 0);
-    margin-left: 8%;
+    background-color: rgba(0, 0, 0, 0.329);
+    margin-left: 18%;
 }
 
+#profile{
+    width: 89%;
+    border-radius: 10px;
+    margin-top: 1%;
+    height: 65%;
+    margin-left: auto;
+    margin-right: auto;
+}
 
+#profileHeader{
+    width: 100%;
+    height: 42%;
+    display: flex;
+    flex-direction: column-reverse;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    background-color: rgba(0, 0, 0, 0.863);
+}
+
+#loader {
+    width: 0; /* Initially set width to 0% */
+    height: 1px;
+    background: #067a0b;
+    position: relative;
+    z-index: 1;
+    transition: width .3s ease-in-out, background 0.3s ease; /* Smooth expansion and color transition */
+    margin-right: 7px;
+}
+
+#profile:hover #profileHeader{
+    background: linear-gradient(135deg, #1b1b1d00 85%,   rgba(48, 121, 97, 0.016));
+
+}
+
+#profile:hover  #loader{
+    width: 100%; /* Expands to 100% width on hover */
+    background: #067a0ccb; /* Slightly greener on hover */
+}
+
+#profileImage{
+    height: 202px;
+    width: 202px;
+    border: 1px dotted rgba(240, 248, 255, 0.016);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 9px;
+    margin-left: 5%;
+}
+
+#image{
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#profileBody{
+    height: 58%;
+    width: 100%;
+    background-color: rgb(10, 10, 10);
+    background: linear-gradient(135deg, rgb(2, 2, 2) 1%,   rgb(10, 10, 10));
+    border-bottom: 1px solid rgba(90, 89, 89, 0.884);
+    border-left: 1px solid rgba(90, 89, 89, 0.884);
+    border-right: 1px solid rgba(90, 89, 89, 0.884);
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
 
 @media (min-width: 925px) {
     #body {
@@ -34,67 +102,6 @@
     }
 }
 
-#profile{
-    width: max;
-    height: 124px;
-    border: 1px solid rgba(90, 89, 89, 0.884);
-    border-left: 2px solid rgba(90, 89, 89, 0.44);
-    border-radius: 3px;
-    background-color: rgb(10, 10, 10);
-    /*box-shadow: 1px 1px 1px rgba(240, 248, 255, 0.164);*/
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    justify-content: center;
-    margin-top: 35px;
-    padding-top: 5px;
-}
-
-#profile:hover{
-    background-color: rgb(15, 15, 15);
-}
-
-#profileImage{
-    border-radius: 50%;
-    height: 75%;
-    padding: 0;
-    position: relative;
-    transform: translateY(16%);
-    margin-left: 10px;
-}
-
-#titleText{
-    height: 100%;
-    width: 100%;
-    padding-right: 5px;
-}
-
-#name{
-    color: aliceblue;
-    font-size: 1.6rem;
-    margin-bottom: 0;
-}
-
-#description{
-    margin: 0;
-    font-size: .95rem;
-    color: aliceblue;
-}
-
-#location{
-    color: gray;
-    margin-bottom: 4px;
-    font-size: .85rem;
-}
-
-#social{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    position: relative;
-    height: 20px;
-    bottom: 0;
-}
 
 #selector{
     width: 60%;
@@ -144,37 +151,22 @@
 }
 
 @media (max-width: 665px) {
-    #profile {
-        height:360px;
-        display: flex;
-        flex-direction: column;
-        padding: 5px;
+
+    #profile{
+        margin-top: 35%;
     }
 
+    #profileHeader{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
     #profileImage{
-        border-radius: 50%;
-        height: 190px;
-        width: 190px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    #titleText{
-        text-align: center;
-    }
-    
-    #name{
-        font-size: clamp(16px, 5vw, 10vw)
-
-    }
-
-    #description{
-        font-size: clamp(12px, 3vw, 4vw)
-    }
-
-    #location{
-        font-size: clamp(12px, 3vw, 3vw)
+        max-height: 180px;
+        max-width: 180px;
+        margin-bottom: 0px;
+        margin-left: 0%;
     }
 
     #selector{

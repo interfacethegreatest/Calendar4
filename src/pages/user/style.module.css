@@ -25,7 +25,7 @@
     width: 89%;
     border-radius: 10px;
     margin-top: 1%;
-    height: 65%;
+    height: 55%;
     margin-left: auto;
     margin-right: auto;
 }
@@ -36,17 +36,17 @@
     display: flex;
     flex-direction: column-reverse;
     border-top-right-radius: 15px;
-    border-bottom-left-radius: 15px;
-    background-color: rgba(0, 0, 0, 0.863);
+    border-top-left-radius: 15px;
+    background-color: rgba(10, 10, 10, 0.208);
+    border-bottom: none;
 }
 
 #loader {
-    width: 0; /* Initially set width to 0% */
-    height: 1px;
+    width: 100%; /* Initially set width to 0% */
+    height: 2px;
     background: #067a0b;
     position: relative;
-    z-index: 1;
-    transition: width .3s ease-in-out, background 0.3s ease; /* Smooth expansion and color transition */
+    z-index: 3;
     margin-right: 7px;
 }
 
@@ -55,21 +55,18 @@
 
 }
 
-#profile:hover  #loader{
-    width: 100%; /* Expands to 100% width on hover */
-    background: #067a0ccb; /* Slightly greener on hover */
-}
 
 #profileImage{
     height: 202px;
     width: 202px;
-    border: 1px dotted rgba(240, 248, 255, 0.016);
+    border: 1px dotted rgba(240, 248, 255, 0.032);
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 9px;
     margin-left: 5%;
+    
 }
 
 #image{
@@ -84,11 +81,18 @@
     width: 100%;
     background-color: rgb(10, 10, 10);
     background: linear-gradient(135deg, rgb(2, 2, 2) 1%,   rgb(10, 10, 10));
-    border-bottom: 1px solid rgba(90, 89, 89, 0.884);
-    border-left: 1px solid rgba(90, 89, 89, 0.884);
-    border-right: 1px solid rgba(90, 89, 89, 0.884);
+    /*border: 2px solid rgba(90, 89, 89, 0.295);*/
+    border-left: 1px solid rgba(90, 89, 89, 0.284);
+    border-right: 1px solid rgba(90, 89, 89, 0.284);
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
+    padding: 15px;
+    padding-left: 40px;
+}
+
+#profileTitle{
+    color: aliceblue;
+    
 }
 
 @media (min-width: 925px) {
@@ -158,8 +162,8 @@
 
     #profileHeader{
         display: flex;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
     }
 
     #profileImage{
@@ -191,6 +195,11 @@
 
     #selectedText{
         font-size: 1.44rem;
+    }
+
+    #loader{
+        position: relative;
+        bottom: 0;
     }
 }
 
@@ -270,3 +279,11 @@ height: 100%;
     color: aliceblue;
     outline: transparent;
 }
+
+
+#text{
+    color: rgb(129, 129, 129);
+    
+    
+}
+

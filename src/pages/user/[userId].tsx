@@ -49,6 +49,9 @@ export default function forgot({userId}:{userId:string}) {
               </div>
             </div>
             <motion.div id={style.profileBody}>
+              <h1 id={style.profileTitle}>{session?.user.name}</h1>
+              <h6 id={style.text}><u>Description</u></h6>
+              <p id={style.text}>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto vero, reprehenderit culpa quidem odit excepturi nobis nihil ipsam incidunt, minima modi in libero omnis eaque. Suscipit assumenda accusantium eveniet corrupti.</p>
 
             </motion.div>
           </motion.div>
@@ -75,7 +78,7 @@ export default function forgot({userId}:{userId:string}) {
               <div id={style.about}>
                 <h3>About me</h3>
                 <br />
-                <p> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Explicabo alias sint natus neque quibusdam obcaecati. Nesciunt illum at voluptates laboriosam nihil. Tenetur tempore fugiat hic maxime est quo magni alias.
+                <p id={style.descriptionText}> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Explicabo alias sint natus neque quibusdam obcaecati. Nesciunt illum at voluptates laboriosam nihil. Tenetur tempore fugiat hic maxime est quo magni alias.
                 Eveniet sint debitis optio culpa accusantium eligendi voluptate deleniti distinctio totam sunt ea consectetur, adipisci quos aliquid quisquam impedit recusandae consequuntur tempora perferendis! Tempora culpa perferendis iste commodi necessitatibus labore.</p>
                 <br />
                 <div id={style.documents}>

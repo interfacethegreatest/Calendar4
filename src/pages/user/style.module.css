@@ -37,7 +37,7 @@
     flex-direction: column-reverse;
     border-top-right-radius: 15px;
     border-top-left-radius: 15px;
-    background-color: rgba(10, 10, 10, 0.208);
+    background-color: rgba(10, 10, 10, 0.608);
     border: 2px solid rgba(90, 89, 89, 0.17);
     border-bottom: none;
 }
@@ -48,7 +48,6 @@
     background: #067a0b;
     position: absolute;
     z-index: 3;
-    margin-right: 7px;
 }
 
 #profile:hover #profileHeader{
@@ -187,6 +186,10 @@
 
 }
 
+#editProfile:hover{
+    background-color: rgb(40, 40, 40);
+}
+
 #titleLine{
     display: flex;
     flex-direction: row;
@@ -248,7 +251,7 @@
     }
 
     #text{
-        font-size: clamp(.6rem, 2vw, 1.2rem);
+        font-size: clamp(.8rem, 2vw, 1.2rem);
         margin-bottom: 0;
     }
 
@@ -303,10 +306,11 @@
 
 #information{
     width: 100%;
-    border: 1px solid rgba(90, 89, 89, 0.884);
+    border: 2px solid rgba(90, 89, 89, 0.17);
     padding: 10px;
     background-color: rgb(10, 10, 10);
     border-radius: 3px;
+    background: linear-gradient(135deg, rgb(2, 2, 2) 1%,   rgb(10, 10, 10));
 }
 
 #information:hover{

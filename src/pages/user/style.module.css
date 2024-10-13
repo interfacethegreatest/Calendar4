@@ -38,14 +38,15 @@
     border-top-right-radius: 15px;
     border-top-left-radius: 15px;
     background-color: rgba(10, 10, 10, 0.208);
+    border: 2px solid rgba(90, 89, 89, 0.17);
     border-bottom: none;
 }
 
 #loader {
-    width: 100%; /* Initially set width to 0% */
+    width: 88.7%; /* Initially set width to 0% */
     height: 2px;
     background: #067a0b;
-    position: relative;
+    position: absolute;
     z-index: 3;
     margin-right: 7px;
 }
@@ -64,7 +65,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 9px;
     margin-left: 5%;
     
 }
@@ -82,16 +82,19 @@
     background-color: rgb(10, 10, 10);
     background: linear-gradient(135deg, rgb(2, 2, 2) 1%,   rgb(10, 10, 10));
     /*border: 2px solid rgba(90, 89, 89, 0.295);*/
-    border-left: 1px solid rgba(90, 89, 89, 0.284);
-    border-right: 1px solid rgba(90, 89, 89, 0.284);
+    border-right: 2px solid rgba(90, 89, 89, 0.17);
+    border-left: 2px solid rgba(90, 89, 89, 0.17);
+    border-bottom: 2px solid rgba(90, 89, 89, 0.17);
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
     padding: 15px;
     padding-left: 40px;
+    font-size: .96rem;
 }
 
 #profileTitle{
     color: aliceblue;
+    margin-bottom: 5px;
     
 }
 
@@ -125,14 +128,21 @@
     margin-bottom: 25px;
     margin-right: 25px;
 }
+
+#social{
+    display: flex;
+    flex-direction: row;
+    margin-right: 10px;
+    gap: 4px;
+}
 #socials a{
     color: aliceblue;
     margin-bottom: 5px;
 }
 
 #socials h6{
-    margin-top: 2px;
-    margin-left: 4px;
+    margin-top: 3px;
+    font-size: .96rem;
 }
 
 #selectorText{
@@ -152,6 +162,34 @@
     padding: 0;
     font-size: 1.3rem;
     text-decoration: underline;
+}
+
+#socials {
+    
+}
+
+#editProfile{
+    width: 84px;
+    height: 48px;
+    border-radius: 25px;
+    background-color: rgb(20, 20, 20);
+    z-index: 1;
+    border: 1px solid aliceblue;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: aliceblue;
+    margin-left: auto;
+    margin-left: auto;
+
+}
+
+#titleLine{
+    display: flex;
+    flex-direction: row;
 }
 
 @media (max-width: 665px) {
@@ -199,7 +237,39 @@
 
     #loader{
         position: relative;
-        bottom: 0;
+        margin-top: 10px;
+        margin-left: 7px;
+        width: 100%;
+    }
+
+    #profileTitle{
+        font-size: clamp(1.6rem, 3.5vw, 1.5rem);
+        margin-bottom: 0;
+    }
+
+    #text{
+        font-size: clamp(.6rem, 2vw, 1.2rem);
+        margin-bottom: 0;
+    }
+
+    #social{
+        font-size: clamp(.8rem, 2.3vw, 1.3rem);
+    }
+
+    #social h6{
+        font-size: clamp(.8rem, 2.3vw, 1.3rem);
+    }
+
+    #social a{
+        margin-bottom: 0;
+    }
+
+    #editProfile{
+        font-size: clamp(.6rem, 1.7vw, 1.2rem);
+        height: 36px;
+        width:56px;
+        position: relative;
+        right: 0;
     }
 }
 
@@ -210,6 +280,22 @@
     }
     #selectorText{
         font-size: 1rem;
+    }
+
+    #socials{
+        margin-right: 10px;
+    }
+
+    #profileBody{
+        padding-left: 10px;
+    }
+
+    #text{
+        font-size: .444rem;
+    }
+
+    #social h6{
+        font-size: .5rem ;
     }
 
 }
@@ -282,8 +368,10 @@ height: 100%;
 
 
 #text{
-    color: rgb(129, 129, 129);
+    color: rgba(247, 243, 243, 0.562);
     
     
 }
+
+
 

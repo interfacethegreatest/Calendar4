@@ -49,10 +49,12 @@ export default function forgot({userId}:{userId:string}) {
               </div>
             </div>
             <motion.div id={style.profileBody}>
-              <h1 id={style.profileTitle}>{session?.user.name}</h1>
+              
+              <div id={style.titleLine}><h1 id={style.profileTitle}>{session?.user.name}</h1><div style={{display: "flex", marginLeft:"auto"}}><button id={style.editProfile}>Edit profile</button></div></div>
               <h6 id={style.text}><u>Description</u></h6>
               <p id={style.text}>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto vero, reprehenderit culpa quidem odit excepturi nobis nihil ipsam incidunt, minima modi in libero omnis eaque. Suscipit assumenda accusantium eveniet corrupti.</p>
-
+              <div id={style.socials}><div id={style.social}><a href="">0</a><h6 id={style.location} style={{color:"GrayText"}}><u>Following</u></h6></div><div id={style.social}><a href="">0</a><h6 id={style.location} style={{color:"GrayText"}}><u>Following</u></h6></div></div>
+              
             </motion.div>
           </motion.div>
           <br />
@@ -78,7 +80,7 @@ export default function forgot({userId}:{userId:string}) {
               <div id={style.about}>
                 <h3>About me</h3>
                 <br />
-                <p id={style.descriptionText}> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Explicabo alias sint natus neque quibusdam obcaecati. Nesciunt illum at voluptates laboriosam nihil. Tenetur tempore fugiat hic maxime est quo magni alias.
+                <p style={{color: "rgba(247, 243, 243, 0.562);"}} id={style.descriptionText}> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Explicabo alias sint natus neque quibusdam obcaecati. Nesciunt illum at voluptates laboriosam nihil. Tenetur tempore fugiat hic maxime est quo magni alias.
                 Eveniet sint debitis optio culpa accusantium eligendi voluptate deleniti distinctio totam sunt ea consectetur, adipisci quos aliquid quisquam impedit recusandae consequuntur tempora perferendis! Tempora culpa perferendis iste commodi necessitatibus labore.</p>
                 <br />
                 <div id={style.documents}>

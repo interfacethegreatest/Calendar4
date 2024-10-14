@@ -1,5 +1,6 @@
 #main{
-    height: 200vh;
+    min-height: 200vh;
+    max-height: 500vh;
     width: 100%;
     background-color: black;
     display: flex;
@@ -167,32 +168,137 @@
     
 }
 
-#editProfile{
-    width: 84px;
-    height: 48px;
-    border-radius: 25px;
-    background-color: rgb(20, 20, 20);
-    z-index: 1;
-    border: 1px solid aliceblue;
-    cursor: pointer;
-    display: flex;
-    flex-direction: row;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: aliceblue;
-    margin-left: auto;
-    margin-left: auto;
 
-}
-
-#editProfile:hover{
-    background-color: rgb(40, 40, 40);
-}
 
 #titleLine{
     display: flex;
     flex-direction: row;
+}
+
+
+
+@media (max-width: 494px) {
+    #selectedText{
+        font-size: 1rem
+    }
+    #selectorText{
+        font-size: 1rem;
+    }
+
+    #socials{
+        margin-right: 10px;
+    }
+
+    #profileBody{
+        padding-left: 10px;
+    }
+
+    #text{
+        font-size: .444rem;
+    }
+
+    #social h6{
+        font-size: .5rem ;
+    }
+
+}
+
+
+#information{
+    width: 100%;
+    border: 2px solid rgba(90, 89, 89, 0.17);
+    padding: 10px;
+    background-color: rgb(10, 10, 10);
+    border-radius: 3px;
+    background: linear-gradient(135deg, rgb(2, 2, 2) 1%,   rgb(10, 10, 10));
+}
+
+#information:hover{
+    background-color: rgb(11, 11, 11);
+}
+
+#about{
+ color: aliceblue;
+}
+
+#about h3{
+    text-align: center;
+}
+
+#about p{
+    color: rgba(240, 248, 255, 0.5);
+}
+
+#documents h3{
+  text-align: left;
+}
+
+#search{
+    width: 21%;
+    height: 48px;
+    border-radius: 25px;
+    background-color: rgb(20, 20, 20);
+    position: relative;
+    z-index: 1;
+    margin-top: 12px;
+    border: 1px solid rgba(90, 89, 89, 0.884);
+    cursor: pointer;
+    margin-left: 4px;
+    display: flex;
+    flex-direction: row;
+    padding-right: .9%;
+}
+
+#search button{
+height: 100%;
+}
+
+#searchIcon{
+    height: 70%;
+    width: 70%;
+    position: relative;
+    left: 5px;
+    color: rgba(90, 89, 89, 0.884);
+}
+
+#searchInput{
+    background-color: transparent;
+    height: 46px;
+    width: 90%;
+    padding-bottom: 3px;
+    color: aliceblue;
+    outline: transparent;
+}
+
+
+#text{
+    color: rgba(247, 243, 243, 0.562);
+}
+
+#documentSection{
+    display: flex;
+    flex-direction: row;
+}
+
+#transcriptSection{
+    width: 50%;
+}
+
+#sectionText{
+    font-size: .79rem;
+    display: flex;
+    flex-direction:column;
+    gap: 3px;
+}
+
+#entry{
+    height: 20px;
+    display: inline-flex;
+    gap: 5px;
+}
+
+#sectionText a{
+    text-decoration: solid;
 }
 
 @media (max-width: 665px) {
@@ -274,108 +380,19 @@
         position: relative;
         right: 0;
     }
-}
 
-
-@media (max-width: 494px) {
-    #selectedText{
-        font-size: 1rem
+    #documentSection{
+        display: flex;
+        flex-direction: column;
     }
-    #selectorText{
-        font-size: 1rem;
-    }
-
-    #socials{
-        margin-right: 10px;
-    }
-
-    #profileBody{
-        padding-left: 10px;
-    }
-
-    #text{
-        font-size: .444rem;
-    }
-
-    #social h6{
-        font-size: .5rem ;
-    }
-
-}
-
-
-#information{
-    width: 100%;
-    border: 2px solid rgba(90, 89, 89, 0.17);
-    padding: 10px;
-    background-color: rgb(10, 10, 10);
-    border-radius: 3px;
-    background: linear-gradient(135deg, rgb(2, 2, 2) 1%,   rgb(10, 10, 10));
-}
-
-#information:hover{
-    background-color: rgb(11, 11, 11);
-}
-
-#about{
- color: aliceblue;
-}
-
-#about h3{
-    text-align: center;
-}
-
-#about p{
-    color: rgba(240, 248, 255, 0.5);
-}
-
-#documents{
-
-}
-
-#search{
-    width: 21%;
-    height: 48px;
-    border-radius: 25px;
-    background-color: rgb(20, 20, 20);
-    position: relative;
-    z-index: 1;
-    margin-top: 12px;
-    border: 1px solid rgba(90, 89, 89, 0.884);
-    cursor: pointer;
-    margin-left: 4px;
-    display: flex;
-    flex-direction: row;
-    padding-right: .9%;
-}
-
-#search button{
-height: 100%;
-}
-
-#searchIcon{
-    height: 70%;
-    width: 70%;
-    position: relative;
-    left: 5px;
-    color: rgba(90, 89, 89, 0.884);
-}
-
-#searchInput{
-    background-color: transparent;
-    height: 46px;
-    width: 90%;
-    padding-bottom: 3px;
-    color: aliceblue;
-    outline: transparent;
-}
-
-
-#text{
-    color: rgba(247, 243, 243, 0.562);
     
-    
+
+    #transcriptSection{
+        width: 100%;
+    }
+
+    #entry{
+        flex-direction: row;
+    }
 }
-
-
 

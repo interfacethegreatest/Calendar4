@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/react';
 import style from './style.module.css'
 import { IoSearch } from 'react-icons/io5';
 import { animate, motion, useMotionTemplate, useMotionValue } from 'framer-motion';
+import GenerateModal from '@/components/buttons/generateModal/generateModal';
 
 const COLOURS = [
   'rgba(159, 158, 158, 0.7)',
@@ -16,6 +17,8 @@ const COLOURS = [
 ];
 
 export default function forgot({userId}:{userId:string}) {
+  const [profileData , setProfileData] = useState({});
+  const [documentData, setDocumentData] = useState(null);
   const colour = useMotionValue(COLOURS[0])
   const border = useMotionTemplate`2px solid ${colour}`;
   const { data : session } = useSession();
@@ -50,9 +53,9 @@ export default function forgot({userId}:{userId:string}) {
             </div>
             <motion.div id={style.profileBody}>
               
-              <div id={style.titleLine}><h1 id={style.profileTitle}>{session?.user.name}</h1><div style={{display: "flex", marginLeft:"auto"}}><button id={style.editProfile}>Edit profile</button></div></div>
+              <div id={style.titleLine}><h1 id={style.profileTitle}>{session?.user.name}</h1><div style={{display: "flex", marginLeft:"auto"}}><GenerateModal fields='Edit Profile'/></div></div>
               <h6 id={style.text}><u>Description</u></h6>
-              <p id={style.text}>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto vero, reprehenderit culpa quidem odit excepturi nobis nihil ipsam incidunt, minima modi in libero omnis eaque. Suscipit assumenda accusantium eveniet corrupti.</p>
+              <p id={style.text}>@{session?.user.name}</p>
               <div id={style.socials}><div id={style.social}><a href="">0</a><h6 id={style.location} style={{color:"GrayText"}}><u>Following</u></h6></div><div id={style.social}><a href="">0</a><h6 id={style.location} style={{color:"GrayText"}}><u>Following</u></h6></div></div>
               
             </motion.div>
@@ -83,6 +86,42 @@ export default function forgot({userId}:{userId:string}) {
                 <br />
                 <div id={style.documents}>
                   <h3>Documents</h3>
+                  <br />
+                  <div id={style.documentSection}>
+                  <div id={style.transcriptSection}>
+                  <h6>Transcripts</h6>
+                  {
+                    documentData ? null :
+                    <div id={style.sectionText}>
+                      <div id={style.entry}><a href="">Transcript</a><p>Last Updated: 2024-08-13</p></div>
+                      <div id={style.entry}><a href="">Transcript</a><p>Last Updated: 2024-08-13</p></div>
+                    </div>
+                  }
+                  </div>
+                  <div id={style.transcriptSection}>
+                    <h6>Professional</h6>
+                    <div id={style.sectionText}>
+                     <div id={style.entry}><a href="">Resumé</a><p>Last Updated: 2024-08-13</p></div>
+                    </div>
+                  </div>
+                  <div>
+                  </div>
+                  </div>
+                  <br />
+                  <h3>Work Experience</h3>
+                  <br />
+                  <h5>Buisness</h5>
+                  <h6>Job role</h6>
+                  <p style={{fontSize:".8rem"}}>May 2019 - Aug 2024</p>
+                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea, sunt similique omnis pariatur minima laborum corrupti, nostrum perspiciatis aliquid eaque id recusandae facere libero est maxime atque, fugit dolorum dignissimos.
+                  Obcaecati, quisquam tempore! Provident, excepturi, incidunt distinctio error cupiditate sint, iure eaque non veritatis obcaecati ullam! Commodi quo, illo architecto quia dolor iusto officiis libero facere quis soluta deleniti ad?
+                  Autem ipsa quidem assumenda voluptates dolorum, dicta magnam. Vero recusandae quod nostrum quasi. Tenetur veniam, aliquid deserunt hic mollitia temporibus blanditiis sequi consectetur ipsam amet, sit aliquam numquam vero nobis.</p>
+                  <br />
+                  <h3>Education</h3>
+                  <br />
+                  <h5>University of Broomfield</h5>
+                  <p style={{fontSize:".8rem"}}>May 2019 - Aug 2024</p>
+                  <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illum eveniet alias cumque numquam repellat autem in explicabo blanditiis ea asperiores. Ea quis non soluta exercitationem qui consectetur delectus suscipit tenetur.</p>
                 </div>
               </div>
               : null

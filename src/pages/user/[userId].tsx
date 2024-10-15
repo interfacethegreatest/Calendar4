@@ -7,6 +7,7 @@ import style from './style.module.css'
 import { IoSearch } from 'react-icons/io5';
 import { animate, motion, useMotionTemplate, useMotionValue } from 'framer-motion';
 import GenerateModal from '@/components/buttons/generateModal/generateModal';
+import { z } from 'zod';
 
 const COLOURS = [
   'rgba(159, 158, 158, 0.7)',
@@ -15,6 +16,15 @@ const COLOURS = [
   'rgba(189, 188, 188, 0.2)', 
   'rgba(159, 158, 158, 0.17)'
 ];
+
+const formSchemaProfile = z.object({
+  name:z.string().min(2, "Must be atleast 2 characters.")
+  .max(26, "Must be less than 26 characters.")
+  .regex(new RegExp("^[a-zA-z]+$"), "No special characters allowed."),
+  description: z.string().min(7, "Must be atleast.").max(250, "Must be at maximum 250 characters.")
+  
+
+})
 
 export default function forgot({userId}:{userId:string}) {
   const [profileData , setProfileData] = useState({});

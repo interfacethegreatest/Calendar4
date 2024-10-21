@@ -1,5 +1,7 @@
 import * as React from 'react';
 import style from './style.module.css'
+import { useRef, useState } from 'react';
+import outsideClick from './outsideClick';
 
 interface IGenerateModalProps {
     fields: "Edit Profile" | "Edit Documents";
@@ -10,9 +12,16 @@ interface IGenerateModalProps {
 }
 
 const GenerateModal: React.FunctionComponent<IGenerateModalProps> = (props) => {
+  const [showContent, setShowContent] = useState(false)
+  const ref = useRef();
+  outsideClick(ref, ()=>setShowContent(false))
   const { fields } = props;
+
   return<>
-  <button id={style.editProfile}>{fields == "Edit Documents" ? "Edit": fields}</button>
+   {
+    showContent ? <div id={style.modal} ref={ref}></div> : null
+   }
+  <button id={style.editProfile} onClick={()=>setShowContent(true)}>{fields == "Edit Documents" ? "Edit": fields}</button>
   </> ;
 };
 

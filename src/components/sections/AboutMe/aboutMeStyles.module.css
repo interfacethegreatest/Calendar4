@@ -405,3 +405,12 @@ height: 100%;
     }
 }
 
+
+#inner{
+    border: 1px solid aliceblue;
+    width: 100%;
+    padding: 20px;
+    border: 2px solid rgba(90, 89, 89, 0.17);
+    border-radius: 1px;
+
+}

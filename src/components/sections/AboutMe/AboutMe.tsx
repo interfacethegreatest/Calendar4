@@ -68,6 +68,7 @@ const AboutMe: React.FunctionComponent<IAboutMeProps> = (props) => {
   }
   return<>
   <div id={style.about}>
+  <div id={style.inner}>
   <div><h3><u>About me</u></h3><GenerateModal fields={'Edit Documents'} register={register} onSubmit={onSubmit} handleSubmit={handleSubmit} errors={errors}></GenerateModal></div>
   <br />
   <p style={{color: "rgba(247, 243, 243, 0.562);"}} id={style.descriptionText}><u>This is yet to be completed.</u></p>
@@ -110,6 +111,7 @@ const AboutMe: React.FunctionComponent<IAboutMeProps> = (props) => {
     <h5>University of Broomfield</h5>
     <p style={{fontSize:".8rem"}}>May 2019 - Aug 2024</p>
     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illum eveniet alias cumque numquam repellat autem in explicabo blanditiis ea asperiores. Ea quis non soluta exercitationem qui consectetur delectus suscipit tenetur.</p>
+  </div>
   </div>
 </div>
 </> ;

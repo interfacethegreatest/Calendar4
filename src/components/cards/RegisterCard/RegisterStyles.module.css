@@ -7,7 +7,7 @@
 }
 
 #main {
-  background: linear-gradient(135deg, #1b1b1d1e 75%, #1e1e1e1e 100%);
+  background: black;
   max-width: 411px;
   height: 598px;
   border-radius: 15px;
@@ -17,7 +17,9 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Initial shadow */
   position: relative; 
   overflow: hidden;
-  margin-bottom: 40%;
+  margin-bottom: 0; /*set 2 zero*/
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #main::before {
@@ -45,7 +47,7 @@
 #main:hover {
   box-shadow: 0 12px 26px rgba(0, 0, 0, 0.4); /* Shadow effect on hover */
   border: 2px solid rgba(149, 149, 149, 0.295);
-  background: linear-gradient(135deg, #1b1b1d1e 75%, #1e1e1e1e 100%);
+  background: black;
 }
 
 #tiles{
@@ -412,11 +414,6 @@
   animation: progress2 .3s linear forwards; /* Adjust duration (5s) as needed */
 }
 
-#mainBannerText{
-  color: aliceblue;
-  min-width: fit-content;
-  text-align: center;
-}
 
 #titleText {
   color: aliceblue;

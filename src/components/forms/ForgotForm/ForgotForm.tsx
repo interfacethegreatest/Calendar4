@@ -11,7 +11,6 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 
 interface IForgotFormProps {
-
 }
 
 const FormSchema = z.object({

@@ -5,6 +5,8 @@ import { Poppins } from "next/font/google";
 import Tilt from 'react-parallax-tilt';
 import RegisterForm from '@/components/forms/RegisterForm/RegisterForm';
 import ResetForm from '@/components/forms/ResetForm/ResetForm';
+import { motion } from 'framer-motion';
+import { useState } from 'react';
 
 const font = Poppins({
   subsets: ["latin"],
@@ -18,15 +20,27 @@ interface ITiltCardProps {
   callbackUrl : string;
   csrfToken: string;
   providers:any;
+  changeScene:Function;
 }
 
 const TiltCard: React.FunctionComponent<ITiltCardProps> = (props) => {
-  const { size, title, buttonString, providers, callbackUrl, csrfToken} = props;
+  const { size, title, buttonString, providers, callbackUrl, csrfToken, changeScene} = props;
+  const [clicked, setClicked] = useState(false); // State to track if the slide-out is triggered
+  const handleSlideOut = () => {
+    setClicked(true); // Set the state to true to trigger the slide-out effect
+  };
   return (
     <>
-      <h1 id={styles.mainBannerText} className={font.className}>Make the most of your professional career.</h1>
+    <motion.div
+      initial={{ x: "-100vw" }} 
+      animate={{ x: clicked ? "-100vw" : 0 }} // Slide out when clicked
+      transition={{ type: "spring", stiffness: 70, damping: 20 }}
+    >
+      <h1 id={styles.mainBannerText} className={font.className}>
+          Make the most of your professional career.
+      </h1>
       <br />
-      <br />
+      <div>
       <Tilt scale={1} tiltMaxAngleX={2} tiltMaxAngleY={2}>
         <div id={styles.main}>
           <div id={styles.tiles}>
@@ -50,10 +64,19 @@ const TiltCard: React.FunctionComponent<ITiltCardProps> = (props) => {
             <div id={styles.loader6}></div>
           </div>
           <h1 id={styles.titleText}>Reset Password</h1>
-          <p id={styles.spanText}>Sign in instead? <a style={{position:"relative", zIndex:8}} href="/auth">Sign in</a></p>
+          <p id={styles.spanText}>Sign in instead? <a
+           onClick={()=>{
+            handleSlideOut();
+            setTimeout(() => {
+              changeScene(1);
+            }, 1000); // Delay the state change by 1 second (or however long the animation lasts)
+           }}
+           style={{position:"relative", zIndex:8, color:"blue", textDecoration:"underline"}}>Sign in</a></p>
           <RegisterForm providers={providers} csrfToken={csrfToken} callbackUrl={callbackUrl}/>
         </div>
       </Tilt>
+      </div>
+      </motion.div>
     </>
   );
 };

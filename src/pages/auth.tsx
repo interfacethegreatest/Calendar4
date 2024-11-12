@@ -18,7 +18,7 @@ const font = Poppins({
       <Scene/>
       {
         tab == "signin" ?
-         <LoginCard providers={providers} csrfToken={csrfToken} callbackUrl={callbackUrl} title='Sign In'/> :
+         <LoginCard providers={providers} csrfToken={csrfToken} callbackUrl={callbackUrl} title='Sign In' clicked={false}/> :
          <RegisterCard providers={providers} csrfToken={csrfToken} callbackUrl={callbackUrl} title='Sign Up'/>
       }
      </div>

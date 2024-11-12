@@ -20,6 +20,8 @@ interface ILoginFormProps {
   callbackUrl:string;
   csrfToken:string;
   providers: any
+  animation:Function;
+  changeScene: Function;
 }
 
 const FormSchema = z.object({
@@ -30,7 +32,7 @@ const FormSchema = z.object({
 type FormSchemaType=z.infer<typeof FormSchema>;
 
 const LoginForm: React.FunctionComponent<ILoginFormProps> = (props) => {
-  const { providers, callbackUrl, csrfToken } = props;
+  const { providers, callbackUrl, csrfToken, animation, changeScene } = props;
   const router = useRouter();
   const {
    register,
@@ -77,7 +79,14 @@ const LoginForm: React.FunctionComponent<ILoginFormProps> = (props) => {
       disabled={isSubmitting}
     />
     <div id={styles.forgotPasswordDiv}>
-     <a id={styles.forgotPasswordText} href="/forgot">Forgot Password?</a>
+     <a
+     onClick={()=>{
+      animation(!true);
+      setTimeout(() => {
+        changeScene(3);
+      }, 1000); // Delay the state change by 1 second (or however long the animation lasts)
+     }}
+      id={styles.forgotPasswordText}>Forgot Password?</a>
     </div>
     <SlideButton 
      type="submit"
@@ -86,6 +95,7 @@ const LoginForm: React.FunctionComponent<ILoginFormProps> = (props) => {
      icon={<AiFillLock/>} 
      width="250px"
      disabled={isSubmitting}
+     animation={animation}
     />
   </form>
      <div id={styles.socialDiv}>

@@ -103,7 +103,8 @@
     font-size: 0.6rem;
     margin-left: 72%;
     white-space: nowrap;
-    
+    color: blue;
+    text-decoration: underline;
 }
 
 #forgotPasswordDiv{

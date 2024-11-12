@@ -6,7 +6,7 @@ import { AiOutlineLogin } from "react-icons/ai";
 import Tilt from 'react-parallax-tilt';
 import { getCsrfToken, signOut } from 'next-auth/react';
 import { animate, motion, useMotionTemplate, useMotionValue } from 'framer-motion';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Router, useRouter } from 'next/router';
 import SunScene from '../../react three fibre/sunScene/SunScene'
 import NewUserForm from '@/components/forms/newUserForm/newUserForm';
@@ -36,6 +36,16 @@ const NewUserCard: React.FunctionComponent<INewUserCardProps> = (props) => {
   const colour = useMotionValue(COLOURS[0])
   const border = useMotionTemplate`2px solid ${colour}`;
   const router = useRouter();
+  const [sceneLoaded, setSceneLoaded] = useState(false);
+
+  useEffect(() => {
+    // Mock scene loading complete after a delay
+    const timer = setTimeout(() => {
+      setSceneLoaded(true); // Set to true when Scene has "loaded"
+    }, 500); // Adjust delay as needed based on actual loading time
+
+    return () => clearTimeout(timer); // Clean up the timer
+  }, []);
   const handleHome = () => {
     router.push('/')
   }
@@ -77,7 +87,11 @@ const NewUserCard: React.FunctionComponent<INewUserCardProps> = (props) => {
             <div id={styles.textDiv}>
               <p id={styles.untouchable}>{paragraph? paragraph : "A simple appointment booking alert service!"}</p>
             </div>
-            <NewUserForm/>
+            {
+              sceneLoaded && (
+                <NewUserForm/>
+              )
+            }
           </div>
         </div>
         <div id={styles.planetContainer}>

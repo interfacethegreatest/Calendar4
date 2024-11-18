@@ -6,6 +6,7 @@ export default function outsideClick(ref , handler) {
 
         function listener(event : Event){
             if (!ref.current || ref.current.contains(event.target)){
+                console.log('123')
                 return
             }
 

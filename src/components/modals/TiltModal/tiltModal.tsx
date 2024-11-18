@@ -33,11 +33,11 @@ interface ITiltModalProps {
   buttonMode? : string;
   changeScene : Function;
   session : Boolean;
-  ref :
+  ref : React.MutableRefObject<undefined>
 }
 
 const TiltModal: React.FunctionComponent<ITiltCardProps> = (props) => {
-  const { slideText, buttonMode, paragraph, size, icon, title, buttonString, changeScene, session } = props;
+  const { slideText, buttonMode, paragraph, size, icon, title, buttonString, changeScene, session, ref } = props;
   const [clicked, setClicked] = useState(false); // State to track if the slide-out is triggered
   const colour = useMotionValue(COLOURS[0]);
   const border = useMotionTemplate`2px solid ${colour}`;
@@ -65,6 +65,7 @@ const TiltModal: React.FunctionComponent<ITiltCardProps> = (props) => {
       initial={{ x: "-100vw" }} 
       animate={{ x: clicked ? "-100vw" : 0 }} // Slide out when clicked
       transition={{ type: "spring", stiffness: 70, damping: 20 }}
+      ref={ref}
     >
       <Tilt scale={1} tiltMaxAngleX={2} tiltMaxAngleY={2}>
         <div id={styles.main}>
@@ -97,12 +98,6 @@ const TiltModal: React.FunctionComponent<ITiltCardProps> = (props) => {
               <div id={styles.iconStyle}>{icon}</div>
             </motion.div>
           }
-          <h1 className={font.className} id={styles.titleText}>{title}</h1>
-          <div id={styles.paragraphContainer}>
-            <div id={styles.textDiv}>
-              <p>{paragraph || "A simple appointment booking alert service!"}</p>
-            </div>
-          </div>
 
           {/* Pass the handleSlideOut function to SlideButton */}
           <SlideButton 

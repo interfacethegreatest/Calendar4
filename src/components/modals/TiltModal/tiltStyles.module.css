@@ -1,5 +1,5 @@
 #main {
-  background: linear-gradient(135deg, #1b1b1d1e 75%, #1e1e1e1e 100%);
+  background: black;
   height: 374px;
   width: 374px;
   border-radius: 15px;
@@ -7,10 +7,11 @@
   border: 2px solid rgba(90, 89, 89, 0.295);
   transition: box-shadow 0.3s ease, border 0.3s ease; /* Add transition for smooth shadow and border effect */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Initial shadow */
-  position: relative; 
+  position: absolute; 
   overflow: hidden;
-  z-index: 1; 
+  z-index: 2; 
   backdrop-filter: blur(20px);
+  position: fixed;
 }
 
 #main::before {

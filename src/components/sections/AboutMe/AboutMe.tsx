@@ -87,6 +87,7 @@ const AboutMe: React.FunctionComponent<IAboutMeProps> = (props) => {
       </div>
     }
     </div>
+    <br />
     <div id={style.transcriptSection}>
       <h6>Professional</h6>
       <div id={style.sectionText}>

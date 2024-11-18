@@ -88,7 +88,7 @@ export default function user({userId}:{userId:string}) {
               </div>
             </div>
             <motion.div id={style.profileBody}>
-              <div id={style.titleLine}><h1 id={style.profileTitle}>{session?.user.name}</h1><div style={{display: "flex", marginLeft:"auto"}}><GenerateModal wid icon={<MdOutlineEdit/>} text='Edit Profile' slide_text='Edit profile here' errors={errors} register={register} handleSubmit={handleSubmit} onSubmit={onSubmit} fields='Edit Profile'/></div></div>
+              <div id={style.titleLine}><h1 id={style.profileTitle}>{session?.user.name}</h1><div style={{display: "flex", marginLeft:"auto"}}><GenerateModal errors={errors} register={register} handleSubmit={handleSubmit} onSubmit={onSubmit} fields='Edit Profile'/></div></div>
               <p id={style.text}>@{session?.user.name}</p>
               <h6 id={style.text}><u>Description</u></h6>
               <p style={{color:"aliceblue"}}>This user has not provided a description.</p>

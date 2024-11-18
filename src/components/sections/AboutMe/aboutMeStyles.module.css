@@ -243,7 +243,7 @@
     position: relative;
     z-index: 1;
     margin-top: 12px;
-    border: 1px solid rgba(90, 89, 89, 0.884);
+    border: 2px solid rgba(90, 89, 89, 0.884);
     cursor: pointer;
     margin-left: 4px;
     display: flex;
@@ -305,7 +305,7 @@ height: 100%;
     text-decoration: solid;
 }
 
-@media (max-width: 665px) {
+@media (max-width: 885px) {
 
     #profile{
         margin-top: 35%;
@@ -407,7 +407,7 @@ height: 100%;
 
 
 #inner{
-    border: 1px solid aliceblue;
+    border: 2px solid aliceblue;
     width: 100%;
     padding: 20px;
     border: 2px solid rgba(90, 89, 89, 0.17);

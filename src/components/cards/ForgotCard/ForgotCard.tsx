@@ -78,7 +78,7 @@ const ForgotCard: React.FunctionComponent<IForgotCardProps> = (props) => {
                   });*/
                   handleSlideOut();
                   setTimeout(() => {
-                    changeScene(2);
+                    changeScene(1);
                  }, 1000); // Delay the state change by 1 second (or however long the animation lasts)
                 }}
               >

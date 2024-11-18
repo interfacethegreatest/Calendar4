@@ -23,7 +23,7 @@ const font = Poppins({
   weight: ["600"],
 });
 
-interface ITiltCardProps {
+interface ITiltModalProps {
   size?: string;
   icon: JSX.Element;
   title: string;
@@ -33,9 +33,10 @@ interface ITiltCardProps {
   buttonMode? : string;
   changeScene : Function;
   session : Boolean;
+  ref :
 }
 
-const TiltCard: React.FunctionComponent<ITiltCardProps> = (props) => {
+const TiltModal: React.FunctionComponent<ITiltCardProps> = (props) => {
   const { slideText, buttonMode, paragraph, size, icon, title, buttonString, changeScene, session } = props;
   const [clicked, setClicked] = useState(false); // State to track if the slide-out is triggered
   const colour = useMotionValue(COLOURS[0]);
@@ -121,4 +122,4 @@ const TiltCard: React.FunctionComponent<ITiltCardProps> = (props) => {
   );
 };
 
-export default TiltCard;
+export default TiltModal;

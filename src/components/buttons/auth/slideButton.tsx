@@ -41,15 +41,18 @@ const SlideButton: React.FunctionComponent<ISlideButtonProps> = (props) => {
 
     const onClick = async () => {
         // Run the animation first
-        animation();
+        
+        if (type === "submit"){
+            //animation();
+        }
 
         // After animation completes, update the state to change the scene
-        if (!session){
+        if (!session && type === "button"){
          setTimeout(() => {
             setScene(1);
          }, 1000); // Delay the state change by 1 second (or however long the animation lasts)
         }else{
-            await signIn();
+            //await signIn();
         }
     }
 

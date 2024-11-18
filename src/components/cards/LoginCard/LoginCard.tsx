@@ -109,7 +109,7 @@ const LoginCard: React.FunctionComponent<ILoginCardProps> = (props) => {
                 Sign up.
               </a>
             </p>
-            <LoginForm changeScene={changeScene} animation={setClicked} providers={providers} csrfToken={csrfToken} callbackUrl={callbackUrl} />
+            <LoginForm changeScene={changeScene} animation={handleSlideOut} providers={providers} csrfToken={csrfToken} callbackUrl={callbackUrl} />
           </div>
         </Tilt>
       </motion.div>

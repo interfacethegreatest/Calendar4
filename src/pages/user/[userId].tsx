@@ -11,6 +11,7 @@ import { z } from 'zod';
 import AboutMe from '@/components/sections/AboutMe/AboutMe';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { MdOutlineEdit } from "react-icons/md";
 import axios from 'axios';
 
 const COLOURS = [
@@ -87,9 +88,10 @@ export default function user({userId}:{userId:string}) {
               </div>
             </div>
             <motion.div id={style.profileBody}>
-              <div id={style.titleLine}><h1 id={style.profileTitle}>{session?.user.name}</h1><div style={{display: "flex", marginLeft:"auto"}}><GenerateModal errors={errors} register={register} handleSubmit={handleSubmit} onSubmit={onSubmit} fields='Edit Profile'/></div></div>
-              <h6 id={style.text}><u>Description</u></h6>
+              <div id={style.titleLine}><h1 id={style.profileTitle}>{session?.user.name}</h1><div style={{display: "flex", marginLeft:"auto"}}><GenerateModal wid icon={<MdOutlineEdit/>} text='Edit Profile' slide_text='Edit profile here' errors={errors} register={register} handleSubmit={handleSubmit} onSubmit={onSubmit} fields='Edit Profile'/></div></div>
               <p id={style.text}>@{session?.user.name}</p>
+              <h6 id={style.text}><u>Description</u></h6>
+              <p style={{color:"aliceblue"}}>This user has not provided a description.</p>
               <div id={style.socials}><div id={style.social}><a href="">0</a><h6 id={style.location} style={{color:"GrayText"}}><u>Following</u></h6></div><div id={style.social}><a href="">0</a><h6 id={style.location} style={{color:"GrayText"}}><u>Following</u></h6></div></div>
             </motion.div>
           </motion.div>

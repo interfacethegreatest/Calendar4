@@ -42,7 +42,7 @@ const LoginForm: React.FunctionComponent<ILoginFormProps> = (props) => {
     resolver: zodResolver(FormSchema)
   });
   const onSubmit: SubmitHandler<FormSchemaType>=async(values)=>{
-   const res: any = await signIn('credentials', {
+    const res: any = await signIn('credentials', {
     redirect: false,
     email: values.email,
     password: values.password,

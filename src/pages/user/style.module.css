@@ -5,6 +5,8 @@
     background-color: black;
     display: flex;
     flex-direction: row;
+    position: absolute;
+    z-index: 0;
 }
 
 #body {
@@ -47,7 +49,7 @@
     height: 3px;
     background: #067a0b;
     position: absolute;
-    z-index: 3;
+    z-index: 0;
 }
 
 #profile:hover #profileHeader{
@@ -399,3 +401,11 @@ height: 100%;
     }
 }
 
+
+#modalBacking{
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 255, 255, 0.3);
+    position: fixed;
+    overflow: hidden;
+}

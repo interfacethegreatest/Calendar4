@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import ResetCard from '@/components/cards/ResetCard/ResetCard';
 import { NextPageContext } from 'next';
 import Scene from '@/components/backgrounds/starsBackground/Scene';
@@ -13,6 +13,8 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { MdOutlineEdit } from "react-icons/md";
 import axios from 'axios';
+import outsideClick from '@/components/input/outsideClick';
+import TiltModal from '@/components/modals/TiltModal/tiltModal';
 
 const COLOURS = [
   'rgba(159, 158, 158, 0.7)',
@@ -60,6 +62,9 @@ export default function user({userId}:{userId:string}) {
   const { data : session } = useSession();
   console.log(session)
   const [ selection, setSelection ] = useState([true, false, false, false]);
+  const [showContent, setShowContent] = useState(false)
+  const ref = useRef();
+  outsideClick(ref, ()=>setShowContent(false))
   useEffect(() => {
     animate(colour, COLOURS, {
         ease: "easeInOut",
@@ -88,7 +93,7 @@ export default function user({userId}:{userId:string}) {
               </div>
             </div>
             <motion.div id={style.profileBody}>
-              <div id={style.titleLine}><h1 id={style.profileTitle}>{session?.user.name}</h1><div style={{display: "flex", marginLeft:"auto"}}><GenerateModal errors={errors} register={register} handleSubmit={handleSubmit} onSubmit={onSubmit} fields='Edit Profile'/></div></div>
+              <div id={style.titleLine}><h1 id={style.profileTitle}>{session?.user.name}</h1><div style={{display: "flex", marginLeft:"auto"}}><GenerateModal showModal={setShowContent}errors={errors} register={register} handleSubmit={handleSubmit} onSubmit={onSubmit} fields='Edit Profile'/></div></div>
               <p id={style.text}>@{session?.user.name}</p>
               <h6 id={style.text}><u>Description</u></h6>
               <p style={{color:"aliceblue"}}>This user has not provided a description.</p>
@@ -121,6 +126,9 @@ export default function user({userId}:{userId:string}) {
 
          </div>
      </div>
+     {
+            showContent ? <div id={style.modalBacking}><TiltModal/></div> : null
+     }
     </>
   )
 }

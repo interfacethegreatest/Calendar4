@@ -1,7 +1,7 @@
 #main {
   background: black;
-  height: 374px;
-  width: 374px;
+  height: 420px;
+  width: 420px;
   border-radius: 15px;
   cursor: pointer;
   border: 2px solid rgba(90, 89, 89, 0.295);
@@ -12,6 +12,9 @@
   z-index: 2; 
   backdrop-filter: blur(20px);
   position: fixed;
+  background-color: black;
+  top: 100%;
+  left: 35%;
 }
 
 #main::before {

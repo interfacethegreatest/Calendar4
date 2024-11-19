@@ -81,7 +81,7 @@ export default function user({userId}:{userId:string}) {
   }
 
   return (<>
-     <div id={style.main}>
+     <div style={showContent? {overflow:"hidden"} : {overflow:"auto"}} id={style.main}>
       <Scene/>
          <div id={style.body}>
           <motion.div id={style.profile}>

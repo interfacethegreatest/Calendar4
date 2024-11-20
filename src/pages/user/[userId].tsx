@@ -11,7 +11,7 @@ import { z } from 'zod';
 import AboutMe from '@/components/sections/AboutMe/AboutMe';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { MdOutlineEdit } from "react-icons/md";
+import { MdOutlineClose, MdOutlineEdit } from "react-icons/md";
 import axios from 'axios';
 import outsideClick from '@/components/input/outsideClick';
 import TiltModal from '@/components/modals/TiltModal/tiltModal';
@@ -80,8 +80,16 @@ export default function user({userId}:{userId:string}) {
     setSelection(newSelection)
   }
 
+  useEffect(() => {
+    if (showContent) {
+      document.body.style.overflow = "hidden"; // Disable scrolling
+    } else {
+      document.body.style.overflow = "auto"; // Enable scrolling
+    }
+  })
+
   return (<>
-     <div style={showContent? {overflow:"hidden"} : {overflow:"auto"}} id={style.main}>
+     <div id={style.main}>
       <Scene/>
          <div id={style.body}>
           <motion.div id={style.profile}>
@@ -127,7 +135,7 @@ export default function user({userId}:{userId:string}) {
          </div>
      </div>
      {
-            showContent ? <div id={style.modalBacking}><TiltModal/></div> : null
+            showContent ? <div id={style.modalBacking}><TiltModal icon={<MdOutlineClose/>}/></div> : null
      }
     </>
   )

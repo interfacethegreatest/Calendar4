@@ -36,7 +36,7 @@ interface ITiltModalProps {
   ref : React.MutableRefObject<undefined>
 }
 
-const TiltModal: React.FunctionComponent<ITiltCardProps> = (props) => {
+const TiltModal: React.FunctionComponent<ITiltModalProps> = (props) => {
   const { slideText, buttonMode, paragraph, size, icon, title, buttonString, changeScene, session, ref } = props;
   const [clicked, setClicked] = useState(false); // State to track if the slide-out is triggered
   const colour = useMotionValue(COLOURS[0]);

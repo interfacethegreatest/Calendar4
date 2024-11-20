@@ -1,7 +1,7 @@
 #main {
   background: black;
-  height: 420px;
-  width: 420px;
+  height: 90vh;
+  width: 45vw;
   border-radius: 15px;
   cursor: pointer;
   border: 2px solid rgba(90, 89, 89, 0.295);
@@ -13,8 +13,10 @@
   backdrop-filter: blur(20px);
   position: fixed;
   background-color: black;
-  top: 100%;
-  left: 35%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  border: 2px solid rgba(90, 89, 89, 0.295);
 }
 
 #main::before {
@@ -42,8 +44,7 @@
 #main:hover {
   box-shadow: 0 12px 26px rgba(0, 0, 0, 0.4); /* Shadow effect on hover */
   border: 2px solid rgba(149, 149, 149, 0.295);
-  background: linear-gradient(135deg, #1b1b1d1e 75%, #1f1f1f1e 100%);
-  backdrop-filter: blur(20px);
+  
 }
 
 #tiles{
@@ -404,8 +405,8 @@
 }
 
 #iconHolder {
-  width: 10%;
   height: 10%;
+  width: 10%;
   border-radius: 50%;
   position: absolute; /* Change to absolute positioning */
   display: flex;

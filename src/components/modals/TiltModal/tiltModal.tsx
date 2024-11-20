@@ -10,6 +10,7 @@ import { animate, motion, useMotionTemplate, useMotionValue } from 'framer-motio
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
+
 const COLOURS = [
   'rgba(159, 158, 158, 0.7)',
   'rgba(159, 158, 158, 0.5)',  
@@ -34,10 +35,11 @@ interface ITiltModalProps {
   changeScene : Function;
   session : Boolean;
   ref : React.MutableRefObject<undefined>
+  closeModal : Function;
 }
 
 const TiltModal: React.FunctionComponent<ITiltModalProps> = (props) => {
-  const { slideText, buttonMode, paragraph, size, icon, title, buttonString, changeScene, session, ref } = props;
+  const { slideText, buttonMode, paragraph, size, icon, title, buttonString, changeScene, session, ref, closeModal } = props;
   const [clicked, setClicked] = useState(false); // State to track if the slide-out is triggered
   const colour = useMotionValue(COLOURS[0]);
   const border = useMotionTemplate`2px solid ${colour}`;
@@ -68,7 +70,7 @@ const TiltModal: React.FunctionComponent<ITiltModalProps> = (props) => {
       ref={ref}
     >
       <Tilt scale={1} tiltMaxAngleX={2} tiltMaxAngleY={2}>
-        <div id={styles.main}>
+        <div style={{border}} id={styles.main}>
         <div id={styles.tiles}>
               <div id={styles.tile1}></div>
               <div id={styles.tile2}></div>
@@ -89,16 +91,9 @@ const TiltModal: React.FunctionComponent<ITiltModalProps> = (props) => {
               <div id={styles.loader5}></div>
               <div id={styles.loader6}></div>
             </div>
-          {
-            buttonString !== "Welcome!" ? 
-            <motion.div title='Log Out' onClick={() => signOut()} id={styles.iconHolder} style={{ border }}>
-              <div id={styles.iconStyle}>{icon}</div>
-            </motion.div> : 
-            <motion.div onClick={handleHome} title='Home' id={styles.iconHolder} style={{ border }}>
+            <motion.div title='Close down' onClick={() => closeModal(false)} id={styles.iconHolder} style={{ border }}>
               <div id={styles.iconStyle}>{icon}</div>
             </motion.div>
-          }
-
           {/* Pass the handleSlideOut function to SlideButton */}
           <SlideButton 
             type="button"

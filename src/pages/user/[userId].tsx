@@ -35,6 +35,10 @@ type FormSchemaType = z.infer<typeof formSchemaProfile>
 
 
 export default function user({userId}:{userId:string}) {
+  const [windowSize, setWindowSize] = useState({
+    width: 0,
+    height: 0,
+  });
   const {
     register,
     handleSubmit,
@@ -66,12 +70,32 @@ export default function user({userId}:{userId:string}) {
   const ref = useRef();
   outsideClick(ref, ()=>setShowContent(false))
   useEffect(() => {
+    console.log(document.documentElement.clientWidth)
     animate(colour, COLOURS, {
         ease: "easeInOut",
         duration: 10,
         repeat: Infinity,
         repeatType: "mirror",
     });
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = document.documentElement.clientWidth;
+      const height = document.documentElement.clientHeight;
+
+      setWindowSize({ width, height });
+      console.log(width); // Log the width on every resize event
+    };
+
+    // Attach the resize event listener
+    window.addEventListener("resize", handleResize);
+
+    // Call the function immediately to log the initial size
+    handleResize();
+
+    // Cleanup the event listener on component unmount
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   function handleClick(arg0: number) {

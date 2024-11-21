@@ -36,10 +36,12 @@ interface ITiltModalProps {
   session : Boolean;
   ref : React.MutableRefObject<undefined>
   closeModal : Function;
+  height: number;
+  width: number;
 }
 
 const TiltModal: React.FunctionComponent<ITiltModalProps> = (props) => {
-  const { slideText, buttonMode, paragraph, size, icon, title, buttonString, changeScene, session, ref, closeModal } = props;
+  const { slideText, buttonMode, paragraph, size, icon, title, buttonString, changeScene, session, ref, closeModal, width, height } = props;
   const [clicked, setClicked] = useState(false); // State to track if the slide-out is triggered
   const colour = useMotionValue(COLOURS[0]);
   const border = useMotionTemplate`2px solid ${colour}`;
@@ -70,7 +72,7 @@ const TiltModal: React.FunctionComponent<ITiltModalProps> = (props) => {
       ref={ref}
     >
       <Tilt scale={1} tiltMaxAngleX={2} tiltMaxAngleY={2}>
-        <div style={{border}} id={styles.main}>
+        <div style={{height:height, width:width}} id={styles.main}>
         <div id={styles.tiles}>
               <div id={styles.tile1}></div>
               <div id={styles.tile2}></div>
@@ -94,11 +96,14 @@ const TiltModal: React.FunctionComponent<ITiltModalProps> = (props) => {
             <motion.div title='Close down' onClick={() => closeModal(false)} id={styles.iconHolder} style={{ border }}>
               <div id={styles.iconStyle}>{icon}</div>
             </motion.div>
-          {/* Pass the handleSlideOut function to SlideButton */}
+          {/* Inner */}
+          <div id={styles.inner}>
+
+          </div>
           <SlideButton 
             type="button"
             slide_text={slideText}
-            text={buttonString}
+            text={"Skip for now"}
             icon={<AiOutlineLogin/>} 
             width="250px"
             mode={buttonMode}

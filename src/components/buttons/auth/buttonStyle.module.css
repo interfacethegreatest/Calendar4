@@ -17,7 +17,7 @@
     margin-top: 2px;
     margin-bottom: 5%;
     z-index: 3;
-    background-color: rgba(192, 189, 189, 0.17);
+    background-color: rgb(48, 48, 48);
 }
 
 #submitSocialButton {
@@ -37,13 +37,13 @@
 }
 
 #submitSocialButton:hover {
-    background-color: rgba(77, 187, 150, 0.547);
+    background-color: rgba(57, 137, 111, 0.942);
     color: aliceblue;
     
 }
 
 #submitButton:hover {
-    background-color: rgba(77, 187, 150, 0.547);
+    background-color: rgb(56, 137, 110);
     color: aliceblue;
     
 }

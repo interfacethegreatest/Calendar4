@@ -1,7 +1,7 @@
 #main {
   background: black;
-  height: 90vh;
-  width: 45vw;
+  height: 620px;
+  width: 620px;
   border-radius: 15px;
   cursor: pointer;
   border: 2px solid rgba(90, 89, 89, 0.295);
@@ -17,6 +17,10 @@
   left: 50%;
   transform: translate(-50%, 5%);
   border: 2px solid rgba(90, 89, 89, 0.295);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 0;
 }
 
 #main::before {
@@ -28,10 +32,12 @@
   width: 100px;
   background: radial-gradient(circle, rgba(48, 121, 97, 0.153), transparent, transparent);
   border-radius: 30%;
-  transform: translate(-65%, -65%);
+  transform: translate(-40%, -65%);
   transition: all 0.3s ease; /* Smooth transition for the effect */
   opacity: 0; /* Start with the glow hidden */
-  padding-left: 4px;
+  padding-left: 0px;
+  margin-right: 10px;
+  z-index: 0;
 }
 
 #main:hover::before {
@@ -412,10 +418,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  top: 3%;
+  top: 5%;
   right: 5%;
-  background-color: rgba(192, 189, 189, 0.17);;
-  z-index: 2;
+  background-color: rgb(44, 44, 44);;
+  z-index: 3;
 }
 
 #iconStyle{
@@ -427,12 +433,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 2;
+  z-index: 3;
 }
 
 #main:hover #iconHolder{
   border: 2px solid rgba(63, 151, 122, 0.416);
-  background-color: rgba(53, 134, 107, 0.19);
+  background-color: rgb(22, 60, 47);
   box-shadow: 0 0 10px rgba(53, 134, 107, 0.5), 0 0 20px rgba(53, 134, 107, 0.3), 0 0 30px rgba(53, 134, 107, 0.2);
 }
 
@@ -492,4 +498,15 @@
     margin-top: 2px;
     margin-bottom: 5%;
     z-index: 3;
+}
+
+#inner{
+  height: 85%;
+  width: 85%;
+  border: 2px solid rgba(56, 137, 110, 0.704);
+  position: absolute;
+  z-index: -1;
+  padding-top: 10px;
+  border-radius: 3px;
+
 }

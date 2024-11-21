@@ -9,7 +9,7 @@ import { SessionContext, signOut } from 'next-auth/react';
 import { animate, motion, useMotionTemplate, useMotionValue } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-
+import { TbLetterD } from "react-icons/tb";
 
 const COLOURS = [
   'rgba(159, 158, 158, 0.7)',
@@ -42,6 +42,7 @@ interface ITiltModalProps {
 
 const TiltModal: React.FunctionComponent<ITiltModalProps> = (props) => {
   const { slideText, buttonMode, paragraph, size, icon, title, buttonString, changeScene, session, ref, closeModal, width, height } = props;
+  const [ selection, setSelection ] = useState([true, false, false, false]);
   const [clicked, setClicked] = useState(false); // State to track if the slide-out is triggered
   const colour = useMotionValue(COLOURS[0]);
   const border = useMotionTemplate`2px solid ${colour}`;
@@ -72,7 +73,7 @@ const TiltModal: React.FunctionComponent<ITiltModalProps> = (props) => {
       ref={ref}
     >
       <Tilt scale={1} tiltMaxAngleX={2} tiltMaxAngleY={2}>
-        <div style={{height:height, width:width}} id={styles.main}>
+        <div style={{height:height, width:width, border: border}} id={styles.main}>
         <div id={styles.tiles}>
               <div id={styles.tile1}></div>
               <div id={styles.tile2}></div>
@@ -98,12 +99,33 @@ const TiltModal: React.FunctionComponent<ITiltModalProps> = (props) => {
             </motion.div>
           {/* Inner */}
           <div id={styles.inner}>
+            <motion.div id={styles.logo}>
+            <TbLetterD style={{position:"absolute", height:"100%", zIndex:"2", color:"aliceblue"}} />
+            </motion.div>
+            {
+              selection[0] ? <>
+              <div id={styles.imageContainer}>
+
+              </div>
+              <div style={{display:"flex", flexDirection:"column"}}>
+                <h1 id={styles.modalTitle} className={font.className}>
+                  <b>
+                    Pick a Profile Picture
+                  </b>
+                </h1>
+                <p id={styles.innerText}>
+                  Please upload a favourite selfie. Upload below.
+                </p>
+              </div>
+              </> : null
+            }
+            
 
           </div>
           <SlideButton 
             type="button"
             slide_text={slideText}
-            text={"Skip for now"}
+            text={"Skip For Now"}
             icon={<AiOutlineLogin/>} 
             width="250px"
             mode={buttonMode}

@@ -159,7 +159,7 @@ export default function user({userId}:{userId:string}) {
          </div>
      </div>
      {
-            showContent ? <div id={style.modalBacking}><TiltModal closeModal={setShowContent} icon={<MdOutlineClose/>}/></div> : null
+            showContent ? <div id={style.modalBacking}><TiltModal slideText={"Next,"} closeModal={setShowContent} icon={<MdOutlineClose/>}/></div> : null
      }
     </>
   )

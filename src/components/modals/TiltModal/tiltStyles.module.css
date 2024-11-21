@@ -63,6 +63,7 @@
   margin-right: auto;
   padding: 1px;
   height: 60%;
+  top: 0;
 }
 
 #tile1 {
@@ -503,10 +504,46 @@
 #inner{
   height: 85%;
   width: 85%;
-  border: 2px solid rgba(56, 137, 110, 0.704);
+  border: 2px solid rgb(22, 60, 47);
   position: absolute;
   z-index: -1;
   padding-top: 10px;
   border-radius: 3px;
+  padding-left: 8%;
+  padding-top: 5%;
+}
+
+#logo{
+  background-color: rgba(240, 248, 255, 0.092);
+  border: 2px solid rgb(22, 60, 47);
+  border-radius: 50%;
+  height: 48px;
+  width: 48px;
+  position: absolute;
+  top: -9.5%;
+  right: 45%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+#modalTitle{
+  color: aliceblue;
+  font-size: 2rem;
+  margin-bottom: 0;
+}
+
+#innerText{
+  color: rgb(119, 120, 120);
+}
+
+#imageContainer{
+  height: 50%;
+  width: 50%;
+  border-radius: 50%;
+  border: 2px solid aliceblue;
+  position: absolute;
+  transform: translate(30%,50%);
 
 }

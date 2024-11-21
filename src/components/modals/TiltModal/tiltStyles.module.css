@@ -514,18 +514,16 @@
 }
 
 #logo{
-  background-color: rgba(240, 248, 255, 0.092);
   border: 2px solid rgb(22, 60, 47);
   border-radius: 50%;
   height: 48px;
   width: 48px;
   position: absolute;
   top: -9.5%;
-  right: 45%;
+  right: 45.5%;
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 
 #modalTitle{
@@ -545,5 +543,38 @@
   border: 2px solid aliceblue;
   position: absolute;
   transform: translate(30%,50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
 
+#imageContainer img{
+  height: 90%;
+  width: 90%;
+  overflow: hidden;
+  border-radius: 50%;
+  opacity: 15%;
+  position: relative;
+}
+
+#clickableContainer {
+  height: 15%;
+  width: 15%;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.584);
+  position: absolute;
+  z-index: 4; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#correct{
+  height: 20px;
+  width: 20px;
+  background-color: blueviolet;
+  position: fixed;
+  left: -20%;
+  z-index: 10;
 }

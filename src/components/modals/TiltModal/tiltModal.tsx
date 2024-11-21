@@ -11,6 +11,9 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { TbLetterD } from "react-icons/tb";
 
+import GetProfileImage from './modalComponents/GetProfileImage';
+
+
 const COLOURS = [
   'rgba(159, 158, 158, 0.7)',
   'rgba(159, 158, 158, 0.5)',  
@@ -65,6 +68,10 @@ const TiltModal: React.FunctionComponent<ITiltModalProps> = (props) => {
     setClicked(true); // Set the state to true to trigger the slide-out effect
   };
 
+  function handleChildSlide(moveObject : Function){
+     moveObject(false);
+  }
+
   return (
     <motion.div
       initial={{ x: "-100vw" }} 
@@ -97,26 +104,16 @@ const TiltModal: React.FunctionComponent<ITiltModalProps> = (props) => {
             <motion.div title='Close down' onClick={() => closeModal(false)} id={styles.iconHolder} style={{ border }}>
               <div id={styles.iconStyle}>{icon}</div>
             </motion.div>
+            <motion.div title='Close down' onClick={() => alert('hello')} id={styles.iconHolder} style={{ position:"fixed", left:"46.6%",top:"52%", zIndex:10, opacity:"0"  }}>
+              <div id={styles.iconStyle}>{icon}</div>
+            </motion.div>
           {/* Inner */}
           <div id={styles.inner}>
             <motion.div id={styles.logo}>
             <TbLetterD style={{position:"absolute", height:"100%", zIndex:"2", color:"aliceblue"}} />
             </motion.div>
             {
-              selection[0] ? <>
-              <div id={styles.imageContainer}>
-
-              </div>
-              <div style={{display:"flex", flexDirection:"column"}}>
-                <h1 id={styles.modalTitle} className={font.className}>
-                  <b>
-                    Pick a Profile Picture
-                  </b>
-                </h1>
-                <p id={styles.innerText}>
-                  Please upload a favourite selfie. Upload below.
-                </p>
-              </div>
+              selection[0] ? <> <GetProfileImage moveObject={handleChildSlide}/>
               </> : null
             }
             

@@ -85,7 +85,6 @@ export default function user({userId}:{userId:string}) {
       const height = document.documentElement.clientHeight;
 
       setWindowSize({ width, height });
-      console.log(width); // Log the width on every resize event
     };
 
     // Attach the resize event listener

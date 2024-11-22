@@ -45,15 +45,16 @@ const SlideButton: React.FunctionComponent<ISlideButtonProps> = (props) => {
         if (type === "submit"){
             //animation();
         }
+        animation()
 
         // After animation completes, update the state to change the scene
-        if (!session && type === "button"){
+        /*if (!session && type === "button"){
          setTimeout(() => {
             setScene(1);
          }, 1000); // Delay the state change by 1 second (or however long the animation lasts)
         }else{
             //await signIn();
-        }
+        }*/
     }
 
     useEffect(() => {

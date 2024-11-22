@@ -519,11 +519,13 @@
   height: 48px;
   width: 48px;
   position: absolute;
-  top: -9.5%;
+  top: -4.7%;
   right: 45.5%;
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 3;
+  background-color: black;
 }
 
 #modalTitle{

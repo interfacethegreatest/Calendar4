@@ -102,7 +102,7 @@ export default function user({userId}:{userId:string}) {
     newSelection[arg0] = true;
     setSelection(newSelection)
   }
-
+  const [clicked, setClicked] = useState(false)
   useEffect(() => {
     if (showContent) {
       document.body.style.overflow = "hidden"; // Disable scrolling
@@ -124,7 +124,7 @@ export default function user({userId}:{userId:string}) {
               </div>
             </div>
             <motion.div id={style.profileBody}>
-              <div id={style.titleLine}><h1 id={style.profileTitle}>{session?.user.name}</h1><div style={{display: "flex", marginLeft:"auto"}}><GenerateModal showModal={setShowContent}errors={errors} register={register} handleSubmit={handleSubmit} onSubmit={onSubmit} fields='Edit Profile'/></div></div>
+              <div id={style.titleLine}><h1 id={style.profileTitle}>{session?.user.name}</h1><div style={{display: "flex", marginLeft:"auto"}}><GenerateModal setShowContent={setShowContent} errors={errors} register={register} handleSubmit={handleSubmit} onSubmit={onSubmit} fields='Edit Profile'/></div></div>
               <p id={style.text}>@{session?.user.name}</p>
               <h6 id={style.text}><u>Description</u></h6>
               <p style={{color:"aliceblue"}}>This user has not provided a description.</p>
@@ -158,7 +158,13 @@ export default function user({userId}:{userId:string}) {
          </div>
      </div>
      {
-            showContent ? <div id={style.modalBacking}><TiltModal slideText={"Next,"} closeModal={setShowContent} icon={<MdOutlineClose/>}/></div> : null
+            showContent ? <motion.div
+            initial={{ x: "-100vw" }} 
+            animate={{ x: clicked ? "-100vw" : 0 }} // Slide out when clicked
+            transition={{ type: "spring", stiffness: 70, damping: 20 }}
+             id={style.modalBacking}>
+              <TiltModal setShowContent={setShowContent}  closeModal={setClicked} icon={<MdOutlineClose/>}/>
+            </motion.div> : null
      }
     </>
   )

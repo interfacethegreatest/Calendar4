@@ -14,7 +14,7 @@ interface IGenerateModalProps {
     onSubmit : Function;
     handleSubmit: Function;
     errors : any;
-    showModal : Function;
+    setShowContent : Function;
 }
 
 const font = Poppins({
@@ -33,12 +33,12 @@ const GenerateModal: React.FunctionComponent<IGenerateModalProps> = (props) => {
   //const [showContent, setShowContent] = useState(false)
   //const ref = useRef();
   //outsideClick(ref, ()=>setShowContent(false))
-  const { fields, showModal } = props;
+  const { fields, setShowContent } = props;
   const colour = useMotionValue(COLOURS[0]);
   const border = useMotionTemplate`2px solid ${colour}`
 
   return<>
-    <motion.button style={{border, position:"relative", zIndex:1}} className={font.className} id={style.editProfile} onClick={()=>showModal(true)}>
+    <motion.button style={{border, position:"relative", zIndex:1}} className={font.className} id={style.editProfile} onClick={()=>setShowContent(true)}>
     <span id={style.mainText}>{fields == "Edit Documents" ? "Edit": fields}</span>
     <span id={style.clickableText}><MdEdit style={{position:"absolute", right:"64px", marginTop:"4px"}}/>Edit text</span>
     </motion.button>

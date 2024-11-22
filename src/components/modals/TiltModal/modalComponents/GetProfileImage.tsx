@@ -6,7 +6,6 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 
 interface IGetProfileImageProps {
-    moveObject: Function
 }
 
 const font = Poppins({
@@ -15,12 +14,7 @@ const font = Poppins({
 });
 
 const GetProfileImage: React.FunctionComponent<IGetProfileImageProps> = (props) => {
-const {moveObject} = props;
-const [clicked, setClicked] = useState(true); // State to track if the slide-out is triggered
-// Function to trigger slide-out animation
-  const handleSlideOut = () => {
-    setClicked(true); // Set the state to true to trigger the slide-out effect
-  };
+  const [clicked, setClicked] = useState(false);
   return (
   <motion.div
    initial={{ x: "0vw" }} 

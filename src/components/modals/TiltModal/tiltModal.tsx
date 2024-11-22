@@ -116,13 +116,13 @@ const TiltModal: React.FunctionComponent<ITiltModalProps> = (props) => {
             </motion.div>
             {
               selection[0] ? <>
-               <motion.div
+              {/* <motion.div
                 initial={{ x: "-100vw" }} 
                 animate={{ x: clicked ? "-100vw" : 0 }} // Slide out when clicked
                 transition={{ type: "spring", stiffness: 70, damping: 20 }}
-               >
+               >*/}
                 <GetProfileImage/>
-              </motion.div>
+              {/*</motion.div>*/}
               </> : null
             }
             

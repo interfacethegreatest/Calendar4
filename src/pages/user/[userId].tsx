@@ -105,6 +105,7 @@ export default function user({userId}:{userId:string}) {
   const [clicked, setClicked] = useState(false)
   useEffect(() => {
     if (showContent) {
+      window.scrollTo(0,0)
       document.body.style.overflow = "hidden"; // Disable scrolling
     } else {
       document.body.style.overflow = "auto"; // Enable scrolling
@@ -158,13 +159,16 @@ export default function user({userId}:{userId:string}) {
          </div>
      </div>
      {
-            showContent ? <motion.div
+            showContent ? 
+              <div id={style.modalBacking}>
+                <motion.div
             initial={{ x: "-100vw" }} 
             animate={{ x: clicked ? "-100vw" : 0 }} // Slide out when clicked
-            transition={{ type: "spring", stiffness: 70, damping: 20 }}
-             id={style.modalBacking}>
+            transition={{ type: "spring", stiffness: 70, damping: 20 }}>
               <TiltModal setShowContent={setShowContent}  closeModal={setClicked} icon={<MdOutlineClose/>}/>
-            </motion.div> : null
+              </motion.div>
+              </div>
+             : null
      }
     </>
   )

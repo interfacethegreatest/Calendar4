@@ -14,7 +14,7 @@ const font = Poppins({
 });
 
 const GetProfileImage: React.FunctionComponent<IGetProfileImageProps> = (props) => {
-  const [clicked, setClicked] = useState(false);
+  const [clicked, setClicked] = useState(true);
   return (
   <motion.div
    initial={{ x: "0vw" }} 

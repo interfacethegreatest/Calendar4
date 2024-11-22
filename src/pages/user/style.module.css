@@ -403,10 +403,12 @@ height: 100%;
 
 
 #modalBacking{
-    height: 100vh;
+    height: 300vh;
     width: 100vw;
     background-color: rgba(222, 225, 225, 0.359);
     position: relative;
     overflow: hidden;
     z-index: auto;
+    display:flex ;
+    justify-content: center;
 }

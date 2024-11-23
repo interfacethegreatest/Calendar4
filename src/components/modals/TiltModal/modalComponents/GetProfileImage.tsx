@@ -27,13 +27,11 @@ const GetProfileImage: React.FunctionComponent<IGetProfileImageProps> = (props) 
   <div id={styles.imageContainer} onClick={()=>{}}>
     {
       imagePreview ? 
-      <img src={imagePreview} alt="Preview" width={100} height={100} style={{zIndex:1}}/>
+      <img src={imagePreview} alt="Preview" width={100} height={100} style={{zIndex:3, position:"absolute", objectFit:"cover"}}/>
       :
       <img style={{zIndex:"1"}} src="/default-profile.jpg" alt="Default Profile" width={100} height={100} />
     }
-    <div onClick={()=>alert('321')} id={styles.clickableContainer}>
      <BiSolidCameraPlus style={{cursor:"pointer", zIndex:"4"}} onClick={()=>alert('123')} size={"25px"}/>
-    </div>
    </div>
     <div style={{display:"flex", flexDirection:"column"}}>
     <h1 id={styles.modalTitle} className={font.className}>

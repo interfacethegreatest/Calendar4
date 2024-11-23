@@ -38,6 +38,7 @@ const SlideButton: React.FunctionComponent<ISlideButtonProps> = (props) => {
     const { type, text, slide_text, disabled, icon, width, animation, setScene, session } = props;
     const colour = useMotionValue(COLOURS[0])
     const border = useMotionTemplate`2px solid ${colour}`
+    const router = useRouter();
 
     const onClick = async () => {
         // Run the animation first
@@ -48,6 +49,12 @@ const SlideButton: React.FunctionComponent<ISlideButtonProps> = (props) => {
 
         if ( type == "modalSkip"){
             animation(true);
+        }
+
+        if ( session ) {
+            disabled == true;
+            router.push(`/new`) 
+
         }
         
 

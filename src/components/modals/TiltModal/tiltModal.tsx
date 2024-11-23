@@ -130,9 +130,12 @@ const TiltModal: React.FunctionComponent<ITiltModalProps> = (props) => {
             <motion.div title='Close down' onClick={() => setShowContent(false)} id={styles.iconHolder} style={{ border }}>
               <div id={styles.iconStyle}>{icon}</div>
             </motion.div>
-            <motion.div title='Close down' id={styles.iconHolder} style={{ position:"fixed", left:"46.6%",top:"52%", zIndex:10, opacity:"0"}}>
+            { selection[0] ? 
+            <motion.div title='Close down' id={styles.iconHolder} style={{ position:"fixed", left:"46.6%",top:"52%", zIndex:10, opacity:"0", cursor:"pointer"}}>
               <input type="file" name='file' onChange={handleFileInputChange} />
             </motion.div>
+            : null
+            }
           {/* Inner */}
           <div id={styles.inner}>
             <motion.div id={styles.logo}>

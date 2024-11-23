@@ -102,7 +102,6 @@ const TiltCard: React.FunctionComponent<ITiltCardProps> = (props) => {
               <p>{paragraph || "A simple appointment booking alert service!"}</p>
             </div>
           </div>
-
           {/* Pass the handleSlideOut function to SlideButton */}
           <SlideButton 
             type="button"

@@ -147,7 +147,7 @@ const TiltModal: React.FunctionComponent<ITiltModalProps> = (props) => {
                <motion.div
                 style={{ width: "525px", height: "525px" }} // Set appropriate dimensions
                 initial={{ x: "-100vw" }}
-                animate={{ x: moveModal ? "100vw" : 0 }}
+                animate={{ x: moveModal ? "-100vw" : 0 }}
                 transition={{ type: "spring", stiffness: 70, damping: 20 }}
                >
                 <GetProfileImage imagePreview={imagePreview} />

@@ -10,7 +10,7 @@ import { animate, motion, useMotionTemplate, useMotionValue } from 'framer-motio
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { TbLetterD } from "react-icons/tb";
-
+import fileTypeChecker from "file-type-checker";
 import GetProfileImage from './modalComponents/GetProfileImage';
 
 
@@ -46,6 +46,7 @@ const TiltModal: React.FunctionComponent<ITiltModalProps> = (props) => {
   const { slideText, buttonMode, paragraph, size, icon, title, buttonString, changeScene, session, ref, setShowContent, width, height } = props;
   const [ selection, setSelection ] = useState([true, false, false, false]);
   const [clicked, setClicked] = useState(false); // State to track if the slide-out is triggered
+  const [moveModal, setModalMove] = useState(false)
   const colour = useMotionValue(COLOURS[0]);
   const border = `useMotionTemplate2px solid ${colour}`;
   const router = useRouter();
@@ -71,6 +72,29 @@ const TiltModal: React.FunctionComponent<ITiltModalProps> = (props) => {
   function handleChildSlide(){
      setClicked(false);
   }
+  const [image, setImage] = useState('');
+  const [imagePreview, setImagePreview] = useState(''); // Store preview URL here
+
+  const handleFileInputChange = (event) => {
+    try {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+
+      // When the file is loaded, detect its type (this part assumes you have a `fileTypeChecker`).
+      reader.onload = () => {
+        const detectedFile = fileTypeChecker.detectFile(reader.result);
+        console.log(detectedFile); 
+        setImage(file);
+        setImagePreview(URL.createObjectURL(file)); // Create a URL for preview
+      };
+
+      reader.readAsArrayBuffer(file); // Use the FileReader API to read the file as an ArrayBuffer
+    } catch (err) {
+      console.error("Error: ", err.message);
+    }
+  };
 
   console.log(closeWindow)
 
@@ -106,8 +130,8 @@ const TiltModal: React.FunctionComponent<ITiltModalProps> = (props) => {
             <motion.div title='Close down' onClick={() => setShowContent(false)} id={styles.iconHolder} style={{ border }}>
               <div id={styles.iconStyle}>{icon}</div>
             </motion.div>
-            <motion.div title='Close down' onClick={() => handleChildSlide()} id={styles.iconHolder} style={{ position:"fixed", left:"46.6%",top:"52%", zIndex:10, opacity:"0"  }}>
-              <div id={styles.iconStyle}>{icon}</div>
+            <motion.div title='Close down' id={styles.iconHolder} style={{ position:"fixed", left:"46.6%",top:"52%", zIndex:10, opacity:"0"}}>
+              <input type="file" name='file' onChange={handleFileInputChange} />
             </motion.div>
           {/* Inner */}
           <div id={styles.inner}>
@@ -115,27 +139,28 @@ const TiltModal: React.FunctionComponent<ITiltModalProps> = (props) => {
             <TbLetterD style={{position:"absolute", height:"100%", zIndex:"2", color:"aliceblue"}} />
             </motion.div>
             {
-              selection[0] ? <>
-              {/* <motion.div
-                initial={{ x: "-100vw" }} 
-                animate={{ x: clicked ? "-100vw" : 0 }} // Slide out when clicked
+              selection[0] ?
+               <>
+               <motion.div
+                style={{ width: "525px", height: "525px" }} // Set appropriate dimensions
+                initial={{ x: "-100vw" }}
+                animate={{ x: moveModal ? "100vw" : 0 }}
                 transition={{ type: "spring", stiffness: 70, damping: 20 }}
-               >*/}
-                <GetProfileImage/>
-              {/*</motion.div>*/}
+               >
+                <GetProfileImage imagePreview={imagePreview} />
+               </motion.div>
               </> : null
             }
-            
 
           </div>
           <SlideButton 
-            type="button"
+            type="modalSkip"
             slide_text={slideText}
             text={"Skip For Now"}
             icon={<AiOutlineLogin/>} 
             width="250px"
             mode={buttonMode}
-            animation={handleChildSlide} // animate leave of screen
+            animation={setModalMove} // animate leave of screen
             setScene={changeScene}
             session={session}
           />

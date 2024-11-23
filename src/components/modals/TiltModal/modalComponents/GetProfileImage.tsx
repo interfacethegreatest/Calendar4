@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 
 interface IGetProfileImageProps {
+  imagePreview: string | null;
 }
 
 const font = Poppins({
@@ -14,7 +15,9 @@ const font = Poppins({
 });
 
 const GetProfileImage: React.FunctionComponent<IGetProfileImageProps> = (props) => {
+  const { imagePreview } = props; 
   const [clicked, setClicked] = useState(true);
+
   return (
   <motion.div
    initial={{ x: "0vw" }} 
@@ -22,7 +25,12 @@ const GetProfileImage: React.FunctionComponent<IGetProfileImageProps> = (props) 
    transition={{ type: "spring", stiffness: 70, damping: 20 }}
   >
   <div id={styles.imageContainer} onClick={()=>{}}>
-    <img style={{zIndex:"1"}} src="/default-profile.jpg" alt="Default Profile" width={100} height={100} />
+    {
+      imagePreview ? 
+      <img src={imagePreview} alt="Preview" width={100} height={100} style={{zIndex:1}}/>
+      :
+      <img style={{zIndex:"1"}} src="/default-profile.jpg" alt="Default Profile" width={100} height={100} />
+    }
     <div onClick={()=>alert('321')} id={styles.clickableContainer}>
      <BiSolidCameraPlus style={{cursor:"pointer", zIndex:"4"}} onClick={()=>alert('123')} size={"25px"}/>
     </div>

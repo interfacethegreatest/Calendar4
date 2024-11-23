@@ -14,7 +14,7 @@ const font = Poppins({
 })
 
 interface ISlideButtonProps {
-    type: "submit" | "reset" | "button";
+    type: "submit" | "reset" | "button" | "modalSkip";
     mode?: string;
     asChild?: boolean;
     text: string;
@@ -22,7 +22,7 @@ interface ISlideButtonProps {
     disabled?: boolean;
     icon: JSX.Element;
     width: string
-    animation: () => void; // animation is now a function that doesn't return state
+    animation: any; // animation is now a function that doesn't return state
     setScene: (scene: number) => void;
     session: Boolean;
 }
@@ -45,7 +45,11 @@ const SlideButton: React.FunctionComponent<ISlideButtonProps> = (props) => {
         if (type === "submit"){
             //animation();
         }
-        animation()
+
+        if ( type == "modalSkip"){
+            animation(true);
+        }
+        
 
         // After animation completes, update the state to change the scene
         /*if (!session && type === "button"){

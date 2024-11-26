@@ -32,7 +32,6 @@ interface ITiltCardProps {
   paragraph? : string;
   buttonMode? : string;
   changeScene : Function;
-  session : Boolean;
 }
 
 const TiltCard: React.FunctionComponent<ITiltCardProps> = (props) => {
@@ -112,7 +111,6 @@ const TiltCard: React.FunctionComponent<ITiltCardProps> = (props) => {
             mode={buttonMode}
             animation={handleSlideOut} // animate leave of screen
             setScene={changeScene}
-            session={session}
           />
         </div>
       </Tilt>

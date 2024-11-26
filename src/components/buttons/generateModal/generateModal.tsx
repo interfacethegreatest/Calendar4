@@ -4,7 +4,7 @@ import { useRef, useState } from 'react';
 import outsideClick from './outsideClick';
 import { Poppins } from 'next/font/google';
 import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
-import TiltModal from '@/components/modals/TiltModal/tiltModal';
+import TiltModal from '@/components/modals/tiltModal/tiltModal';
 import { MdEdit } from "react-icons/md";
 
 

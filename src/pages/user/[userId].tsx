@@ -14,7 +14,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { MdOutlineClose, MdOutlineEdit } from "react-icons/md";
 import axios from 'axios';
 import outsideClick from '@/components/input/outsideClick';
-import TiltModal from '@/components/modals/TiltModal/tiltModal';
+import TiltModal from '@/components/modals/tiltModal/tiltModal';
 
 const COLOURS = [
   'rgba(159, 158, 158, 0.7)',

@@ -4,7 +4,7 @@ import styles from "./buttonStyle.module.css";
 import { PropagateLoader } from 'react-spinners';
 import { useRouter } from "next/navigation";
 import { Poppins } from "next/font/google"
-import { signIn, signOut } from 'next-auth/react';
+import { signIn, signOut, useSession } from 'next-auth/react';
 import { animate, motion, useMotionTemplate, useMotionValue } from 'framer-motion';
 import { useEffect } from 'react';
 
@@ -18,13 +18,11 @@ interface ISlideButtonProps {
     mode?: string;
     asChild?: boolean;
     text: string;
-    slide_text: string;
+    slide_text: string | null;
     disabled?: boolean;
-    icon: JSX.Element;
-    width: string
+    icon: JSX.Element;   width: string
     animation: any; // animation is now a function that doesn't return state
-    setScene: (scene: number) => void;
-    session: Boolean;
+    setScene: Function;
 }
 
 const COLOURS = [
@@ -35,10 +33,11 @@ const COLOURS = [
 ];
 
 const SlideButton: React.FunctionComponent<ISlideButtonProps> = (props) => {
-    const { type, text, slide_text, disabled, icon, width, animation, setScene, session } = props;
+    const { type, text, slide_text, disabled, icon, width, animation, setScene } = props;
     const colour = useMotionValue(COLOURS[0])
     const border = useMotionTemplate`2px solid ${colour}`
     const router = useRouter();
+    const { data: session } = useSession();
 
     const onClick = async () => {
         // Run the animation first
@@ -48,12 +47,12 @@ const SlideButton: React.FunctionComponent<ISlideButtonProps> = (props) => {
         }
 
         if ( type == "modalSkip"){
-            animation(true);
+            setScene();
         }
 
         if ( session ) {
             disabled == true;
-            router.push(`/new`) 
+            router.push(`/user/${session.id}`) 
 
         }
         

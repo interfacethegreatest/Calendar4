@@ -311,6 +311,7 @@
   grid-column-end: 5;
   align-self: end;
   margin-right: 23px;
+  display: flex;
 }
 
 #main:hover #loader {
@@ -346,6 +347,7 @@
   grid-column-end: 5;
   align-self: end;
   margin-right: 23px;
+  display: flex;
 }
 
 #main:hover #loader2 {
@@ -357,6 +359,7 @@
   grid-column-start: 4;
   grid-column-end: 5;
   align-self: end;
+  display: flex;
   margin-right: 23px;
 }
 
@@ -369,6 +372,7 @@
   grid-row-end: 5;
   grid-column-start: 1;
   grid-column-end: 2;
+  display: flex;
   
 }
 

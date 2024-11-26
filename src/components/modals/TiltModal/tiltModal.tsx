@@ -14,6 +14,7 @@ import { TbLetterD } from "react-icons/tb";
 import fileTypeChecker from "file-type-checker";
 import GetProfileImage from "./modalComponents/GetProfileImage";
 import { Slide } from "react-toastify";
+import GetProfileBio from "./modalComponents/GetProfileBio";
 
 const COLOURS = [
   "rgba(159, 158, 158, 0.7)",
@@ -117,14 +118,26 @@ const TiltModal = forwardRef<HTMLDivElement, ITiltModalProps>((props, ref) => {
     >
       <Tilt scale={1} tiltMaxAngleX={2} tiltMaxAngleY={2}>
         <div style={{ height, width, border }} id={styles.main}>
-          <div id={styles.tiles}>
-            {/* Render tiles */}
-            {[...Array(16)].map((_, idx) => (
-              <div key={idx} id={`${styles[`tile${idx + 1}`]}`} />
-            ))}
-            <div id={styles.loader}></div>
-          </div>
-
+        <div id={styles.tiles}>
+              <div id={styles.tile1}></div>
+              <div id={styles.tile2}></div>
+              <div id={styles.tile3}></div>
+              <div id={styles.tile4}></div>
+              <div id={styles.tile5}></div>
+              <div id={styles.tile6}></div>
+              <div id={styles.tile7}></div>
+              <div id={styles.tile9}></div>
+              <div id={styles.tile10}></div>
+              <div id={styles.tile12}></div>
+              <div id={styles.tile13}></div>
+              <div id={styles.tile15}></div>
+              <div id={styles.loader}></div>
+              <div id={styles.loader2}></div>
+              <div id={styles.loader3}></div>
+              <div id={styles.loader4}></div>
+              <div id={styles.loader5}></div>
+              <div id={styles.loader6}></div>
+            </div>
           <motion.div title="Close down" onClick={closeWindow} id={styles.iconHolder} style={{ border }}>
             <div id={styles.iconStyle}>{icon}</div>
           </motion.div>
@@ -151,8 +164,8 @@ const TiltModal = forwardRef<HTMLDivElement, ITiltModalProps>((props, ref) => {
                 </div>
                 <SlideButton
                   type="modalSkip"
-                  text={image ? "Next," : "Skip For Now"}
-                  slide_text={image ? "Continue to bio," : undefined}
+                  text={image === null ? "Skip - Continue Editing": "Next," }
+                  slide_text={image === null ? "Continue," : "Continue to bio,"}
                   icon={<AiOutlineLogin />}
                   width="250px"
                   mode={buttonMode}

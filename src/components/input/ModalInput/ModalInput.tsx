@@ -45,7 +45,7 @@ const ModalInput: React.FunctionComponent<IModalInputProps> = (props) => {
         initial={{ x: 0, y: "50%", fontSize: "1.1rem", color: "rgb(22, 60, 47)" }}
         animate={
           clicked
-            ? { x: 0, y: "-20%", fontSize: "0.65rem", color: "rgb(57, 148, 116)"}
+            ? { x: 0, y: "-20%", fontSize: "0.65rem", color: "rgb(42, 111, 87)"}
             : { x: 0, y: "0%", fontSize: "1.1rem", color: "rgb(106, 106, 106)" }
         }
         transition={{ duration: 0.1 }}

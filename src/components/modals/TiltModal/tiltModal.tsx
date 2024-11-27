@@ -154,7 +154,7 @@ const TiltModal = forwardRef<HTMLDivElement, ITiltModalProps>((props, ref) => {
 
           <div id={styles.inner}>
             <motion.div id={styles.logo}>
-              <TbLetterD style={{ position: "absolute", height: "100%", zIndex: "2", color: "aliceblue" }} />
+              <TbLetterD style={{ position: "absolute", height: "100%", zIndex: "2", color: "aliceblue", cursor:"pointer" }} />
             </motion.div>
 
             {selection[0] ? (

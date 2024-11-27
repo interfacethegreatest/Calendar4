@@ -427,7 +427,9 @@
   top: 5%;
   right: 5%;
   background-color: rgb(44, 44, 44);;
-  z-index: 3;
+  z-index: 4;
+  cursor:pointer;
+  pointer-events: all;
 }
 
 #iconStyle{
@@ -519,7 +521,7 @@
 }
 
 #logo{
-  border: 2px solid rgb(22, 60, 47);
+  border: 2px solid rgb(57, 148, 116);
   border-radius: 50%;
   height: 48px;
   width: 48px;

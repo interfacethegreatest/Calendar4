@@ -21,6 +21,7 @@
   justify-content: center;
   align-items: center;
   z-index: 0;
+  pointer-events: none;
 }
 
 #main::before {
@@ -570,7 +571,7 @@
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.584);
   position: absolute;
-  z-index: 4; 
+  z-index: 3; 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -582,5 +583,5 @@
   background-color: blueviolet;
   position: fixed;
   left: -20%;
-  z-index: 10;
+  z-index: 3;
 }

@@ -4,6 +4,7 @@ import style from "../tiltStyles.module.css"
 import { Poppins } from 'next/font/google';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import { CiMail } from 'react-icons/ci';
 
 interface IGetProfileBioProps {
 }
@@ -29,11 +30,16 @@ const GetProfileBio: React.FunctionComponent<IGetProfileBioProps> = (props) => {
   <p id={style.innerText} className={font.className}>
     ..Fill out all the relative information. Then submit.
   </p>
+  {
+    //start input design
+  }
+  <br />
   <ModalInput
-   name={''}
-   label={''} 
-   type={''} icon={undefined} 
-   placeholder={''} 
+   name="email"
+   label="Email address"
+   type="text"
+   icon={<CiMail/>}
+   placeholder="example@example.com"
    register={undefined} 
    error={undefined} 
    disabled={false}/>

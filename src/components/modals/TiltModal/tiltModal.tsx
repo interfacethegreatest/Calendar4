@@ -195,6 +195,6 @@ const TiltModal = forwardRef<HTMLDivElement, ITiltModalProps>((props, ref) => {
   );
 });
 
-TiltModal.displayName = "TiltModal"; // Add a display name for forwardRef component
+TiltModal.displayName = "TiltModal";
 
 export default TiltModal;

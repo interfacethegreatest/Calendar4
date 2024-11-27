@@ -1,0 +1,22 @@
+#inputContainer{
+    width: 90%;
+    height: 50px;
+    background-color: transparent;
+    border: 1px solid rgb(106, 106, 106);
+    border-radius: 6px;
+    margin-right: 5px;
+    padding-left: 2.5%;
+    padding-top: 2%;
+    position: relative;
+    z-index: 4;
+    pointer-events: auto;
+}
+
+#inputLabel{
+    font-weight: normal;
+    color: rgb(106, 106, 106);
+    font-size: 1.1rem;
+    position: relative;
+    z-index: 4;
+    pointer-events: auto;
+}

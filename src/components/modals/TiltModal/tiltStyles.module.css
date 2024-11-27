@@ -44,7 +44,7 @@
 #main:hover::before {
   height: 400px;
   width: 400px;
-  transform: translate(-52%, -52%);
+  transform: translate(-62%, -62%);
   opacity: 1; /* Show the glow on hover */
 }
 
@@ -521,7 +521,7 @@
 }
 
 #logo{
-  border: 2px solid rgb(57, 148, 116);
+  border: 2px solid rgb(22, 60, 47);
   border-radius: 50%;
   height: 48px;
   width: 48px;

@@ -5,6 +5,7 @@ import { useRef, useState } from 'react';
 import { styleText } from 'util';
 import style from "./ModalInput.module.css"
 import outsideClick from './outsideClick';
+import user from '@/pages/auth';
 
 const font = Poppins({
   subsets: ["latin"],
@@ -21,17 +22,27 @@ interface IModalInputProps {
   error: any;
   disabled: boolean;
   autoComplete?: boolean; 
+  height: number | null;
 }
 
 const ModalInput: React.FunctionComponent<IModalInputProps> = (props) => {
-  const { name, label } = props;
+  const { name, label, type, icon, placeholder, register, error, disabled, height } = props;
   const [clicked, setClicked] = useState(false);
-
+  const [text, setText] = useState("");
+  const inputRef = useRef(null);
+  const handleInputChange = (event : any) => {
+    setText(event.target.value);
+  };
   const handleClickedContent = () => {
-    setClicked(true); // Toggle state
+    setClicked(true); 
+    inputRef.current.focus();
   };
   function unclickContent(){
-    setClicked(false);
+    if (text.trim() === ""){
+      setClicked(false);
+    }else{
+      return
+    }
   };
   const ref = useRef();
   outsideClick(ref, () => unclickContent());
@@ -40,6 +51,9 @@ const ModalInput: React.FunctionComponent<IModalInputProps> = (props) => {
       onClick={handleClickedContent}
       id={clicked ? style.glowingInputContainer : style.inputContainer}
       ref={ref}
+      style={{
+        height: height ? `${height}px` : undefined
+      }}
     >
       <motion.span
         initial={{ x: 0, y: "50%", fontSize: "1.1rem", color: "rgb(22, 60, 47)" }}
@@ -58,6 +72,15 @@ const ModalInput: React.FunctionComponent<IModalInputProps> = (props) => {
       >
         {label}
       </motion.span>
+      <textarea
+        id={style.inputStyle}
+        ref={inputRef}
+        type={type}
+        /*{...register(name)}*/
+        disabled={disabled}
+        autoComplete="off"
+        onChange={handleInputChange}
+      />
     </div>
   );
 };

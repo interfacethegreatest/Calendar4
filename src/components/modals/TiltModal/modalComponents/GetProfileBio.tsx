@@ -5,6 +5,7 @@ import { Poppins } from 'next/font/google';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { CiMail } from 'react-icons/ci';
+import { useSession } from 'next-auth/react';
 
 interface IGetProfileBioProps {
 }
@@ -16,6 +17,8 @@ const font = Poppins({
 
 const GetProfileBio: React.FunctionComponent<IGetProfileBioProps> = (props) => {
   const [ animation, setAnimation ] = useState(true);
+  const { data : session } = useSession();
+  console.log(session)
   return <>
   <motion.div
    initial={{ x: "-100vw" }} 
@@ -35,15 +38,27 @@ const GetProfileBio: React.FunctionComponent<IGetProfileBioProps> = (props) => {
   }
   <br />
   <ModalInput
-   name="email"
-   label="Email address"
+   name="username"
+   label="Username"
    type="text"
-   icon={<CiMail/>}
-   placeholder="example@example.com"
-   register={undefined} 
-   error={undefined} 
-   disabled={false}/>
-   </motion.div>
+   icon={<CiMail />}
+   register={undefined}
+   error={undefined}
+   disabled={false} 
+   placeholder={''} 
+   height={null}/>
+  <br />
+  <ModalInput
+   name="descrition"
+   label="Description"
+   type="text"
+   icon={<CiMail />}
+   register={undefined}
+   error={undefined}
+   disabled={false} 
+   placeholder={''} 
+   height={150}/>
+  </motion.div>
   </> ;
 };
 

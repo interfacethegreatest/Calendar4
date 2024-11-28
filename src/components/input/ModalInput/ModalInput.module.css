@@ -16,7 +16,7 @@
     width: 90%;
     height: 50px;
     background-color: transparent;
-    border: 2px solid rgb(76, 196, 154);
+    border: 2px solid rgb(42, 111, 87);
     border-radius: 6px;
     margin-right: 5px;
     padding-left: 2.5%;
@@ -31,16 +31,32 @@
     color: rgb(106, 106, 106);
     font-size: 1.1rem;
     position: relative;
-    z-index: 4;
+    z-index: 0;
     pointer-events: auto;
 }
 
 #inputLabelOnClick{
     font-weight: normal;
-    color: rgb(22, 60, 47);
+    color: rgb(42, 111, 87);
     font-size: .55rem;
     position: relative;
     z-index: 4;
     pointer-events: auto;
     top: 0;
+    z-index: 0;
+    pointer-events: none;
 }
+
+#inputStyle{
+    position: absolute;
+    bottom: 0;
+    width: 90%;
+    background-color: transparent;
+    color: aliceblue;
+    /*border: 1px solid aliceblue;*/
+    outline: none;
+    margin-bottom: 2px;
+    z-index: 2;
+    top: 37.5%;
+}
+

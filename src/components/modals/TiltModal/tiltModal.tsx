@@ -6,14 +6,12 @@ import { Poppins } from "next/font/google";
 import SlideButton from "../../buttons/auth/slideButton";
 import { AiOutlineLogin } from "react-icons/ai";
 import Tilt from "react-parallax-tilt";
-import { signOut } from "next-auth/react";
 import { animate, motion, useMotionTemplate, useMotionValue } from "framer-motion";
 import { useState, useEffect, forwardRef } from "react";
 import { useRouter } from "next/router";
 import { TbLetterD } from "react-icons/tb";
 import fileTypeChecker from "file-type-checker";
 import GetProfileImage from "./modalComponents/GetProfileImage";
-import { Slide } from "react-toastify";
 import GetProfileBio from "./modalComponents/GetProfileBio";
 
 const COLOURS = [
@@ -37,7 +35,6 @@ interface ITiltModalProps {
   slideText: string;
   paragraph?: string;
   buttonMode?: string;
-  session: boolean;
   height: number;
   width: number;
   setShowContent: (value: boolean) => void;

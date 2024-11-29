@@ -23,15 +23,21 @@ interface IModalInputProps {
   disabled: boolean;
   autoComplete?: boolean; 
   height: number | null;
+  topLocation: string | null;
+  inputLength: number;
 }
 
 const ModalInput: React.FunctionComponent<IModalInputProps> = (props) => {
-  const { name, label, type, icon, placeholder, register, error, disabled, height } = props;
+  const { name, label, type, icon, placeholder, register, error, disabled, height, topLocation, inputLength } = props;
   const [clicked, setClicked] = useState(false);
   const [text, setText] = useState("");
+  const [textCount, setTextCount] = useState(0)
   const inputRef = useRef(null);
   const handleInputChange = (event : any) => {
     setText(event.target.value);
+    const string = event.target.value;
+    const length = string.length;
+    setTextCount(length);
   };
   const handleClickedContent = () => {
     setClicked(true); 
@@ -40,6 +46,7 @@ const ModalInput: React.FunctionComponent<IModalInputProps> = (props) => {
   function unclickContent(){
     if (text.trim() === ""){
       setClicked(false);
+      
     }else{
       return
     }
@@ -70,7 +77,7 @@ const ModalInput: React.FunctionComponent<IModalInputProps> = (props) => {
         }}
         id={style.inputLabel}
       >
-        {label}
+        {label} 
       </motion.span>
       <textarea
         id={style.inputStyle}
@@ -80,7 +87,12 @@ const ModalInput: React.FunctionComponent<IModalInputProps> = (props) => {
         disabled={disabled}
         autoComplete="off"
         onChange={handleInputChange}
+        style={{ top: topLocation!}}
       />
+
+      <h6 id={style.textCount}>
+        {textCount} / {inputLength}
+      </h6>
     </div>
   );
 };

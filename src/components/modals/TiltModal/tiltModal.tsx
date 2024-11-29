@@ -64,15 +64,6 @@ const TiltModal = forwardRef<HTMLDivElement, ITiltModalProps>((props, ref) => {
   const [image, setImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState(""); // Store preview URL here
 
-  useEffect(() => {
-    animate(colour, COLOURS, {
-      ease: "easeInOut",
-      duration: 10,
-      repeat: Infinity,
-      repeatType: "mirror",
-    });
-  }, []);
-
   const closeWindow = () => {
     setShowContent(false); // Trigger slide-out effect
   };
@@ -135,7 +126,7 @@ const TiltModal = forwardRef<HTMLDivElement, ITiltModalProps>((props, ref) => {
               <div id={styles.loader5}></div>
               <div id={styles.loader6}></div>
             </div>
-          <motion.div title="Close down" onClick={closeWindow} id={styles.iconHolder} style={{ border }}>
+          <motion.div title="Close down" onClick={closeWindow} id={styles.iconHolder}>
             <div id={styles.iconStyle}>{icon}</div>
           </motion.div>
 

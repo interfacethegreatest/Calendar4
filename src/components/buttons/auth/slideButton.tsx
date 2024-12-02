@@ -14,7 +14,7 @@ const font = Poppins({
 })
 
 interface ISlideButtonProps {
-    type: "submit" | "reset" | "button" | "modalSkip";
+    type: "submit" | "reset" | "button" | "modalSkip" | "modalSave";
     mode?: string;
     asChild?: boolean;
     text: string;

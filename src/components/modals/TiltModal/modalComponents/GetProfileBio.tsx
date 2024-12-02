@@ -38,16 +38,16 @@ const GetProfileBio: React.FunctionComponent<IGetProfileBioProps> = (props) => {
   }
   <br />
   <ModalInput
-   name="username"
-   label="Username"
-   type="text"
-   icon={<CiMail />}
-   register={undefined}
-   error={undefined}
-   disabled={false} 
-   placeholder={''} 
-   height={null}
-   inputLength={20}/>
+        name="username"
+        label="Username"
+        type="text"
+        icon={<CiMail />}
+        register={undefined}
+        error={undefined}
+        disabled={false}
+        placeholder={''}
+        height={null}
+        inputLength={20} topLocation={null}/>
   <br />
   <ModalInput
    name="descrition"
@@ -64,15 +64,15 @@ const GetProfileBio: React.FunctionComponent<IGetProfileBioProps> = (props) => {
    <br />
   <ModalInput
    name="website"
-   label="Website"
+   label="Website URL"
    type="text"
    icon={<CiMail />}
    register={undefined}
    error={undefined}
-   disabled={false} 
-   placeholder={''} 
+   disabled={false}
+   placeholder={''}
    height={null}
-   inputLength={20}/>
+   inputLength={20} topLocation={null}/>
   </motion.div>
   </> ;
 };

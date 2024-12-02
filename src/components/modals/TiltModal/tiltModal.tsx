@@ -6,13 +6,14 @@ import { Poppins } from "next/font/google";
 import SlideButton from "../../buttons/auth/slideButton";
 import { AiOutlineLogin } from "react-icons/ai";
 import Tilt from "react-parallax-tilt";
-import { animate, motion, useMotionTemplate, useMotionValue } from "framer-motion";
-import { useState, useEffect, forwardRef } from "react";
+import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
+import { useState, forwardRef } from "react";
 import { useRouter } from "next/router";
 import { TbLetterD } from "react-icons/tb";
 import fileTypeChecker from "file-type-checker";
 import GetProfileImage from "./modalComponents/GetProfileImage";
-import GetProfileBio from "./modalComponents/GetProfileBio";
+import { z } from "zod";
+import ProfileForm from "@/components/forms/profileForm/ProfileForm";
 
 const COLOURS = [
   "rgba(159, 158, 158, 0.7)",
@@ -163,17 +164,7 @@ const TiltModal = forwardRef<HTMLDivElement, ITiltModalProps>((props, ref) => {
               </>
             ) : (
               <>
-                <GetProfileBio/>
-                <SlideButton
-                  type="modalSave"
-                  text="Save!"
-                  slide_text="Save your bio,"
-                  icon={<AiOutlineLogin />}
-                  width="250px"
-                  mode={buttonMode}
-                  animation={null}
-                  setScene={null}
-                />
+                <ProfileForm/>
               </>
             )}
           </div>

@@ -63,20 +63,20 @@ const GetProfileBio: React.FunctionComponent<IGetProfileBioProps> = (props) => {
         placeholder={''}
         height={null}
         inputLength={20} topLocation={null}
-        watch={watch().username}/>
+        watch={watch}/>
   <br />
   <ModalInput
-   name="descrition"
-   label="Description"
-   type="text"
-   icon={<CiMail />}
-   register={register}
-   error={undefined}
-   disabled={false} 
-   placeholder={''} 
-   height={150}
-   topLocation={"15%"}
-   inputLength={150}/>
+        name="description"
+        label="Description"
+        type="text"
+        icon={<CiMail />}
+        register={register}
+        error={undefined}
+        disabled={false}
+        placeholder={''}
+        height={150}
+        topLocation={"15%"}
+        inputLength={150} watch={{}}/>
    <br />
   <ModalInput
    name="website"

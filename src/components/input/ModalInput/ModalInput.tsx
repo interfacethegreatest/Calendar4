@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { motion } from 'framer-motion';
 import { Poppins } from 'next/font/google';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { styleText } from 'util';
 import style from "./ModalInput.module.css"
 import outsideClick from './outsideClick';
 import user from '@/pages/auth';
+import { UseFormWatch } from 'react-hook-form';
 
 const font = Poppins({
   subsets: ["latin"],
@@ -25,12 +26,17 @@ interface IModalInputProps {
   height: number | null;
   topLocation: string | null;
   inputLength: number;
-  watch : string;
+  watch: UseFormWatch<{
+    username: string;
+    description: string;
+    website?: string | undefined;
+}>;
 }
 
 const ModalInput: React.FunctionComponent<IModalInputProps> = (props) => {
   const { name, label, type, icon, placeholder, register, error, disabled, height, topLocation, inputLength, watch } = props;
   const [clicked, setClicked] = useState(false);
+  const [ isDisabled, setIsDisabled ] = useState(false);
   const [text, setText] = useState("");
   const [textCount, setTextCount] = useState(0)
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -38,12 +44,17 @@ const ModalInput: React.FunctionComponent<IModalInputProps> = (props) => {
     setText(event.target.value);
     const string = event.target.value;
     const length = string.length;
-    setTextCount(length);
+    if ( string.length >= inputLength+1 ) {
+      setIsDisabled(true);
+    }else{
+      setIsDisabled(!true);
+      setTextCount(length);
+    }
   };
   //onclick, change styling??
   const handleClickedContent = () => {
     setClicked(true); 
-    inputRef.current.focus();
+    //inputRef.current.focus();
   }
   function unclickContent(){
     if (text.trim() === ""){
@@ -55,6 +66,9 @@ const ModalInput: React.FunctionComponent<IModalInputProps> = (props) => {
   };
   const ref = useRef();
   outsideClick(ref, () => unclickContent());
+  useEffect(() => {
+    console.log(`Watched value for ${name}:`, watchedValue);
+  }, [watch().username]);
   return (
     <div
       onClick={handleClickedContent}
@@ -81,15 +95,14 @@ const ModalInput: React.FunctionComponent<IModalInputProps> = (props) => {
       >
         {label} 
       </motion.span>
-      <textarea
+      <input
         id={style.inputStyle}
-        ref={inputRef}
         type={type}
         {...register(name)}
-        /*disabled={}*/
         autoComplete="off"
         onChange={handleInputChange}
         style={{ top: topLocation!}}
+        disabled={isDisabled}
       />
 
       <h6 id={style.textCount}>

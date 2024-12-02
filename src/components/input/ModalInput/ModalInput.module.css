@@ -61,6 +61,7 @@
     margin-bottom: 2px;
     z-index: 2;
     top: 37.5%;
+    word-break: break-word;
 }
 
 #textCount{

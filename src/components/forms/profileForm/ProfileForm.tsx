@@ -2,7 +2,7 @@ import SlideButton from '@/components/buttons/auth/slideButton';
 import GetProfileBio from '@/components/modals/tiltModal/modalComponents/GetProfileBio';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as React from 'react';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { AiOutlineLogin } from 'react-icons/ai';
 import { z } from 'zod';

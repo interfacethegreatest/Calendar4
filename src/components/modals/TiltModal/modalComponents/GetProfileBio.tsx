@@ -6,8 +6,22 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { CiMail } from 'react-icons/ci';
 import { useSession } from 'next-auth/react';
+import { UseFormRegister, UseFormWatch } from 'react-hook-form';
+import { watch } from 'fs';
 
 interface IGetProfileBioProps {
+  register: UseFormRegister<{
+    username: string;
+    description: string;
+    website?: string | undefined;
+  }>,
+  watch: UseFormWatch<{
+      username: string;
+      description: string;
+      website?: string | undefined;
+  }>
+
+
 }
 
 const font = Poppins({
@@ -16,6 +30,7 @@ const font = Poppins({
 });
 
 const GetProfileBio: React.FunctionComponent<IGetProfileBioProps> = (props) => {
+  const { register, watch } = props;
   const [ animation, setAnimation ] = useState(true);
   const { data : session } = useSession();
   console.log(session)
@@ -42,19 +57,20 @@ const GetProfileBio: React.FunctionComponent<IGetProfileBioProps> = (props) => {
         label="Username"
         type="text"
         icon={<CiMail />}
-        register={undefined}
+        register={register}
         error={undefined}
         disabled={false}
         placeholder={''}
         height={null}
-        inputLength={20} topLocation={null}/>
+        inputLength={20} topLocation={null}
+        watch={watch().username}/>
   <br />
   <ModalInput
    name="descrition"
    label="Description"
    type="text"
    icon={<CiMail />}
-   register={undefined}
+   register={register}
    error={undefined}
    disabled={false} 
    placeholder={''} 
@@ -67,7 +83,7 @@ const GetProfileBio: React.FunctionComponent<IGetProfileBioProps> = (props) => {
    label="Website URL"
    type="text"
    icon={<CiMail />}
-   register={undefined}
+   register={register}
    error={undefined}
    disabled={false}
    placeholder={''}

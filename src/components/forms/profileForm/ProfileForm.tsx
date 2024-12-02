@@ -1,8 +1,9 @@
 import SlideButton from '@/components/buttons/auth/slideButton';
 import GetProfileBio from '@/components/modals/tiltModal/modalComponents/GetProfileBio';
+import { zodResolver } from '@hookform/resolvers/zod';
 import * as React from 'react';
 import { ReactNode } from 'react';
-import { SubmitHandler } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { AiOutlineLogin } from 'react-icons/ai';
 import { z } from 'zod';
 
@@ -37,15 +38,26 @@ const onSubmit: SubmitHandler<FormSchemaType>=async(values)=>{
 }
 
 const App: React.FunctionComponent<IAppProps> = (props) => {
+  
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState : { errors, isSubmitting}
+   } = useForm<FormSchemaType>({
+     resolver: zodResolver(FormSchema)
+   });
+  
   return (
     <>
-    <form action="">
-      <GetProfileBio/>
+    <form method="post" action="/api/auth/signin/email" onSubmit={handleSubmit(onSubmit)}>
+      <GetProfileBio register={register} watch={watch}/>
       <SlideButton
        type="modalSave"
        text="Save!"
        slide_text="Save your bio,"
        icon={<AiOutlineLogin />}
+       disabled={isSubmitting}
        width="250px"
        animation={null}
        setScene={null}

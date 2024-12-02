@@ -25,24 +25,26 @@ interface IModalInputProps {
   height: number | null;
   topLocation: string | null;
   inputLength: number;
+  watch : string;
 }
 
 const ModalInput: React.FunctionComponent<IModalInputProps> = (props) => {
-  const { name, label, type, icon, placeholder, register, error, disabled, height, topLocation, inputLength } = props;
+  const { name, label, type, icon, placeholder, register, error, disabled, height, topLocation, inputLength, watch } = props;
   const [clicked, setClicked] = useState(false);
   const [text, setText] = useState("");
   const [textCount, setTextCount] = useState(0)
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const handleInputChange = (event : any) => {
     setText(event.target.value);
     const string = event.target.value;
     const length = string.length;
     setTextCount(length);
   };
+  //onclick, change styling??
   const handleClickedContent = () => {
     setClicked(true); 
     inputRef.current.focus();
-  };
+  }
   function unclickContent(){
     if (text.trim() === ""){
       setClicked(false);
@@ -83,8 +85,8 @@ const ModalInput: React.FunctionComponent<IModalInputProps> = (props) => {
         id={style.inputStyle}
         ref={inputRef}
         type={type}
-        /*{...register(name)}*/
-        disabled={disabled}
+        {...register(name)}
+        /*disabled={}*/
         autoComplete="off"
         onChange={handleInputChange}
         style={{ top: topLocation!}}

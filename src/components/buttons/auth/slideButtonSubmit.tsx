@@ -23,6 +23,7 @@ interface ISlideButtonProps {
     icon: JSX.Element;   width: string
     animation: any; // animation is now a function that doesn't return state
     setScene: Function;
+    onClick?: Function; 
 }
 
 const COLOURS = [
@@ -40,34 +41,6 @@ const SlideButton: React.FunctionComponent<ISlideButtonProps> = (props) => {
     const { data: session } = useSession();
     console.log(session + "slidebutton")
 
-    const onClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
-
-
-        // Run the animation 
-        if ( type === "modalSkip"){
-            console.log("type = modalSkip")
-            e.preventDefault();    
-            setScene();
-            return;
-        }
-
-        if ( session && type ==="button" ) {
-            disabled == true;
-            router.push(`/user/${session.id}`) 
-
-        }
-
-        // After animation completes, update the state to change the scene
-        if (!session && type === "button"){
-         setTimeout(() => {
-            setScene(1);
-         }, 1000); // Delay the state change by 1 second (or however long the animation lasts)
-        }else{
-            console.log('SIGN IN! 67 slidebutton')
-            await signIn();
-        }
-    }
-
     useEffect(() => {
         animate(colour, COLOURS, {
             ease: "easeInOut",
@@ -79,10 +52,9 @@ const SlideButton: React.FunctionComponent<ISlideButtonProps> = (props) => {
 
     return (
         <motion.button
-            type={type}
+            type={"submit"}
             disabled={disabled}
             id={styles.submitButton}
-            onClick={onClick}
             style={{
                 width: width,
                 border

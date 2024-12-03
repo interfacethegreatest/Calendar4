@@ -32,7 +32,7 @@ export default function Home({providers, callbackUrl, csrfToken }:{providers:any
   return (
     <>
       <main id={styles.main}>
-        <Scene />
+        {/*<Scene />*/}
         {sceneLoaded && scene === 0 && (
           <TiltCard 
             buttonString={session?.user?.name?.split(' ')[0] ? `Welcome ${session?.user?.name?.split(' ')[0]}` : "Welcome!"}

@@ -1,4 +1,5 @@
 import { getToken } from "next-auth/jwt";
+import { signIn } from "next-auth/react";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function middleware(req:NextRequest){
@@ -10,22 +11,8 @@ export async function middleware(req:NextRequest){
 
     });
     if(pathname==="/auth"){
-        if (session && session.emailVerified?.isNewUser){
-            return NextResponse.redirect(`${origin}/new`);
-        }
-        if(session && !session.emailVerified?.isNewUser){
-            //implement
-            //return NextResponse.redirect(`${origin}/`)
-        }
-        if(session) {
-            return NextResponse.redirect(`${origin}/new`);
-        }
+        return NextResponse.redirect(`${origin}/new`)
 
-    }
-    if(pathname==="/new"){
-        if (!session) {
-            return NextResponse.redirect(`${origin}`)
-        }
     }
     if(pathname.startsWith('/admin')){
         if (!session) return NextResponse.redirect(`${origin}`);

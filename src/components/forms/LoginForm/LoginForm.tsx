@@ -2,7 +2,6 @@ import * as React from 'react';
 import styles from './LoginForm.module.css'
 import Input from '../../input/input'
 import { CiLock} from 'react-icons/ci';
-import SlideButton from "../../buttons/auth/slideButton";
 import { AiFillLock } from 'react-icons/ai';
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from 'zod';
@@ -15,6 +14,7 @@ import { FcGoogle } from "react-icons/fc";
 import { RxGithubLogo } from "react-icons/rx";
 import { FaDiscord } from "react-icons/fa";
 import { useRouter } from 'next/router';
+import SlideButtonSubmit from '@/components/buttons/auth/slideButtonSubmit';
 
 interface ILoginFormProps {
   callbackUrl:string;
@@ -88,7 +88,7 @@ const LoginForm: React.FunctionComponent<ILoginFormProps> = (props) => {
      }}
       id={styles.forgotPasswordText}>Forgot Password?</a>
     </div>
-    <SlideButton 
+    <SlideButtonSubmit
      type="submit"
      slide_text="Secure sign in"
      text= {"Sign in"}

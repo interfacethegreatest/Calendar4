@@ -30,66 +30,10 @@ const font = Poppins({
 });
 
 const GetProfileBio: React.FunctionComponent<IGetProfileBioProps> = (props) => {
-  const { register, watch } = props;
-  const [ animation, setAnimation ] = useState(true);
-  const { data : session } = useSession();
+ 
   console.log(session)
   return <>
-  <motion.div
-   initial={{ x: "-100vw" }} 
-   animate={{ x: animation ? 0 : "-100vw" }} // Slide out when clicked
-   transition={{ type: "spring", stiffness: 70, damping: 20 }}
-   >
-  <h1 id={style.modalTitle} className={font.className}>
-    <b>
-     Please Complete Your Bio
-    </b>    
-  </h1>
-  <p id={style.innerText} className={font.className}>
-    ..Fill out all the relative information. Then submit.
-  </p>
-  {
-    //start input design
-  }
-  <br />
-  <ModalInput
-        name="username"
-        label="Username"
-        type="text"
-        icon={<CiMail />}
-        register={register}
-        error={undefined}
-        disabled={false}
-        placeholder={''}
-        height={null}
-        inputLength={20} topLocation={null}
-        watch={watch}/>
-  <br />
-  <ModalInput
-        name="description"
-        label="Description"
-        type="text"
-        icon={<CiMail />}
-        register={register}
-        error={undefined}
-        disabled={false}
-        placeholder={''}
-        height={150}
-        topLocation={"15%"}
-        inputLength={150} watch={{}}/>
-   <br />
-  <ModalInput
-   name="website"
-   label="Website URL"
-   type="text"
-   icon={<CiMail />}
-   register={register}
-   error={undefined}
-   disabled={false}
-   placeholder={''}
-   height={null}
-   inputLength={20} topLocation={null}/>
-  </motion.div>
+  
   </> ;
 };
 

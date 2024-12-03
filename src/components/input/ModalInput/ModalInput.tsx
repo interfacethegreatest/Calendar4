@@ -44,12 +44,7 @@ const ModalInput: React.FunctionComponent<IModalInputProps> = (props) => {
     setText(event.target.value);
     const string = event.target.value;
     const length = string.length;
-    if ( string.length >= inputLength+1 ) {
-      setIsDisabled(true);
-    }else{
-      setIsDisabled(!true);
-      setTextCount(length);
-    }
+    setTextCount(length);
   };
   //onclick, change styling??
   const handleClickedContent = () => {
@@ -66,9 +61,6 @@ const ModalInput: React.FunctionComponent<IModalInputProps> = (props) => {
   };
   const ref = useRef();
   outsideClick(ref, () => unclickContent());
-  useEffect(() => {
-    console.log(`Watched value for ${name}:`, watchedValue);
-  }, [watch().username]);
   return (
     <div
       onClick={handleClickedContent}

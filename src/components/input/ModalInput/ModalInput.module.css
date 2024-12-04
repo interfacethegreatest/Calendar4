@@ -27,9 +27,34 @@
     background-color: black;
 }
 
+#glowingInputContainerError{
+    width: 90%;
+    height: 50px;
+    border: 2px solid rgb(200, 60, 60);
+    border-radius: 6px;
+    margin-right: 5px;
+    padding-left: 2.5%;
+    padding-top: 2%;
+    position: relative;
+    z-index: 4;
+    pointer-events: auto;
+    background-color: black;
+}
+
 #inputLabel{
     font-weight: normal;
     color: rgb(106, 106, 106);
+    font-size: 1.1rem;
+    position: relative;
+    z-index: 0;
+    pointer-events: auto;
+    display: flex;
+    flex-direction: row;
+}
+
+#inputLabelError{
+    font-weight: normal;
+    color: rgb(129, 1, 1);
     font-size: 1.1rem;
     position: relative;
     z-index: 0;
@@ -72,3 +97,10 @@
     color: rgb(42, 111, 87);
 }
 
+#textCountError{
+    position: absolute;
+    right: 2%;
+    font-size: .6rem;
+    top: 8.5%;
+    color: rgb(200, 60, 60);
+}

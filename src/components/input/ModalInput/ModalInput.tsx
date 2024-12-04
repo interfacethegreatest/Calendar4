@@ -64,7 +64,11 @@ const ModalInput: React.FunctionComponent<IModalInputProps> = (props) => {
   return (
     <div
       onClick={handleClickedContent}
-      id={clicked ? style.glowingInputContainer : style.inputContainer}
+      id={clicked ? error ?
+        style.glowingInputContainerError
+        :
+        style.glowingInputContainer 
+        : style.inputContainer}
       ref={ref}
       style={{
         height: height ? `${height}px` : undefined
@@ -74,7 +78,10 @@ const ModalInput: React.FunctionComponent<IModalInputProps> = (props) => {
         initial={{ x: 0, y: "50%", fontSize: "1.1rem", color: "rgb(22, 60, 47)" }}
         animate={
           clicked
-            ? { x: 0, y: "-20%", fontSize: "0.65rem", color: "rgb(42, 111, 87)"}
+            ? error ?
+            { x: 0, y: "-20%", fontSize: "0.65rem", color: "rgb(200, 60, 60)"}
+            :
+            { x: 0, y: "-20%", fontSize: "0.65rem", color: "rgb(42, 111, 87)"}
             : { x: 0, y: "0%", fontSize: "1.1rem", color: "rgb(106, 106, 106)" }
         }
         transition={{ duration: 0.1 }}
@@ -97,7 +104,7 @@ const ModalInput: React.FunctionComponent<IModalInputProps> = (props) => {
         disabled={isDisabled}
       />
 
-      <h6 id={style.textCount}>
+      <h6 id={ error ? style.textCountError : style.textCount}>
         {textCount} / {inputLength}
       </h6>
     </div>

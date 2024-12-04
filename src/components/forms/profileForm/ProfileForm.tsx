@@ -32,11 +32,6 @@ const FormSchema = z.object({
     .string()
     .min(1, { message: "Description is required" })
     .max(150, { message: "Description must not exceed 150 characters" }),
-  website: z
-    .string()
-    .max(20, { message: "Website must not exceed 20 characters" }) // Apply max constraint
-    .url({ message: "Please enter a valid URL" }) // Validate URL format
-    .optional(), // Make the field optional
 });
 
 type FormSchemaType = z.infer<typeof FormSchema>;
@@ -80,9 +75,8 @@ const ProfileForm: React.FunctionComponent<IProfileFormProps> = (props) => {
         label="Username"
         type="text"
         icon={<CiMail />}
-        placeholder="example@example.com"
         register={register}
-        error={errors?.email?.message}
+        error={errors?.username?.message}
         disabled={isSubmitting} height={null} topLocation={null} inputLength={20} watch={{}}     />
     <br />
     <ModalInput
@@ -90,20 +84,10 @@ const ProfileForm: React.FunctionComponent<IProfileFormProps> = (props) => {
         label="Description"
         type="text"
         icon={<CiLock />}
-        placeholder="**********"
         register={register}
         error={errors?.password?.message}
         disabled={isSubmitting} height={150} topLocation={20} inputLength={150} watch={{}}     />
         <br />
-    <ModalInput
-        name="password"
-        label="Password"
-        type="password"
-        icon={<CiLock />}
-        placeholder="**********"
-        register={register}
-        error={errors?.password?.message}
-        disabled={isSubmitting} height={null} topLocation={null} inputLength={20} watch={{}}     />
     <br />
     <SlideButtonSubmit
      type="submit"

@@ -85,9 +85,9 @@ const ModalInput: React.FunctionComponent<IModalInputProps> = (props) => {
         }}
         id={style.inputLabel}
       >
-        {label} 
+        { error ? error : label} 
       </motion.span>
-      <input
+      <textarea
         id={style.inputStyle}
         type={type}
         {...register(name)}

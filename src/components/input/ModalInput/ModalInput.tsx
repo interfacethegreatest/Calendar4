@@ -26,11 +26,6 @@ interface IModalInputProps {
   height: number | null;
   topLocation: string | null;
   inputLength: number;
-  watch: UseFormWatch<{
-    username: string;
-    description: string;
-    website?: string | undefined;
-}>;
 }
 
 const ModalInput: React.FunctionComponent<IModalInputProps> = (props) => {

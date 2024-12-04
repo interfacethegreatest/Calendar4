@@ -26,12 +26,18 @@ const font = Poppins({
 const FormSchema = z.object({
   username: z
     .string()
-    .min(1, { message: "Username is required" })
-    .max(20, { message: "Username must not exceed 20 characters" }),
+    .min(1, { message: "Username is required." })
+    .max(20, { message: "Username must not exceed 20 characters." }),
+  
   description: z
     .string()
-    .min(1, { message: "Description is required" })
-    .max(150, { message: "Description must not exceed 150 characters" }),
+    .min(1, { message: "Description is required." })
+    .max(150, { message: "Description must not exceed 150 characters." }),
+
+  website: z
+    .string()
+    .url({ message: "Website must be a valid URL." })
+    .optional(), // This makes the website field optional
 });
 
 type FormSchemaType = z.infer<typeof FormSchema>;
@@ -60,44 +66,51 @@ const ProfileForm: React.FunctionComponent<IProfileFormProps> = (props) => {
    });
   
   return (<>
-    <h1 id={styles.modalTitle} className={font.className}>
-       <b>
-        Please Complete Your Bio
-       </b>    
-      </h1>
+   <h1 id={styles.modalTitle} className={font.className}>
+    <b>
+      Please Complete Your Bio
+    </b>    
+    </h1>
       <p id={styles.innerText} className={font.className}>
-       ..Fill out all the relative information. Then submit.
+         ..Fill out all the relative information. Then submit.
       </p>
-      <br />
-      <form id={styles.formStyle} method="post" action="/api/auth/signin/email" onSubmit={handleSubmit(onSubmit)}>
+    <br />
+   <form id={styles.formStyle} method="post" action="/api/auth/signin/email" onSubmit={handleSubmit(onSubmit)}>
     <ModalInput
-        name="username"
-        label="Username"
-        type="text"
-        icon={<CiMail />}
-        register={register}
-        error={errors?.username?.message}
-        disabled={isSubmitting} height={null} topLocation={null} inputLength={20} watch={{}}     />
+      name="username"
+      label="Username"
+      type="text"
+      icon={<CiMail />}
+      register={register}
+      error={errors?.username?.message}
+      disabled={isSubmitting} height={null} topLocation={null} inputLength={20}/>
     <br />
     <ModalInput
-        name="description"
-        label="Description"
-        type="text"
-        icon={<CiLock />}
-        register={register}
-        error={errors?.password?.message}
-        disabled={isSubmitting} height={150} topLocation={20} inputLength={150} watch={{}}     />
-        <br />
+      name="description"
+      label="Description"
+      type="text"
+      icon={<CiLock />}
+      register={register}
+      error={errors?.description?.message}
+      disabled={isSubmitting} height={150} topLocation={20} inputLength={150}/>
+    <br />
+    <ModalInput
+      name="website"
+      label="Website URL (optional)"
+      type="text"
+      icon={<CiMail />}
+      register={register}
+      error={errors?.website?.message}
+      disabled={isSubmitting} height={null} topLocation={null} inputLength={60}/>
     <br />
     <SlideButtonSubmit
-     type="submit"
-     slide_text="Secure sign in"
-     text= {"Sign in"}
-     icon={<AiFillLock/>} 
-     width="250px"
-     disabled={isSubmitting}
-     animation={animation}
-    />
+        type="submit"
+        slide_text="Secure sign in"
+        text={"Sign in"}
+        icon={<AiFillLock />}
+        width="250px"
+        disabled={isSubmitting}
+        animation={animation}/>
   </form>
     </>
   );

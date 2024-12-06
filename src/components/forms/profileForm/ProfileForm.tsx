@@ -16,6 +16,7 @@ import SlideButton from '@/components/buttons/auth/slideButton';
 import Input from '@/components/input/input';
 
 interface IProfileFormProps {
+  image: File | null
 }
 
 const font = Poppins({
@@ -39,6 +40,12 @@ const FormSchema = z.object({
     .url({message:"Please submit a valid URL."})
     .optional()
     .or(z.literal('')),
+
+      // Optional file input for image
+    image: z
+    .instanceof(File)  // Expecting a File object if provided
+    .optional()  // Mark the file input as optional
+    .or(z.literal('')),  // Allow it to be an empty string (if not provided)
 });
 
 type FormSchemaType = z.infer<typeof FormSchema>;

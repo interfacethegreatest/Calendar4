@@ -164,7 +164,7 @@ const TiltModal = forwardRef<HTMLDivElement, ITiltModalProps>((props, ref) => {
               </>
             ) : (
               <>
-                <ProfileForm/>
+                <ProfileForm image={image}/>
               </>
             )}
           </div>

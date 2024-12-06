@@ -87,7 +87,8 @@ const TiltModal = forwardRef<HTMLDivElement, ITiltModalProps>((props, ref) => {
       const reader = new FileReader();
       reader.onload = () => {
         const detectedFile = fileTypeChecker.detectFile(reader.result as ArrayBuffer);
-        console.log(detectedFile);
+        //console.log(detectedFile);
+        console.log(file)
         setImage(file);
         setImagePreview(URL.createObjectURL(file)); // Create a URL for preview
       };

@@ -34,10 +34,11 @@ const FormSchema = z.object({
     .min(1, { message: "Description is required." })
     .max(150, { message: "Description must not exceed 150 characters." }),
 
-  website: z
+    website: z
     .string()
-    .url({ message: "Website must be a valid URL." })
-    .optional(), // This makes the website field optional
+    .url({message:"Please submit a valid URL."})
+    .optional()
+    .or(z.literal('')),
 });
 
 type FormSchemaType = z.infer<typeof FormSchema>;

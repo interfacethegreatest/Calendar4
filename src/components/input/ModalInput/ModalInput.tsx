@@ -97,6 +97,7 @@ const ModalInput: React.FunctionComponent<IModalInputProps> = (props) => {
         onChange={handleInputChange}
         style={{ top: topLocation!}}
         disabled={isDisabled}
+        onFocus={handleClickedContent}
       />
 
       <h6 id={ error ? style.textCountError : style.textCount}>

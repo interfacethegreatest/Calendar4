@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import ModalInput from '@/components/input/ModalInput/ModalInput';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { motion } from 'framer-motion';
@@ -5,14 +6,13 @@ import { useSession } from 'next-auth/react';
 import * as React from 'react';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { AiFillLock, AiOutlineLogin } from 'react-icons/ai';
+import { AiFillLock } from 'react-icons/ai';
+import { CiLock, CiMail } from 'react-icons/ci';
+import SlideButtonSubmit from '@/components/buttons/auth/slideButtonSubmit';
 import { z } from 'zod';
 import styles from './tiltStyles.module.css';
 import { Poppins } from 'next/font/google';
-import { CiLock, CiMail } from 'react-icons/ci';
-import SlideButtonSubmit from '@/components/buttons/auth/slideButtonSubmit';
-import SlideButton from '@/components/buttons/auth/slideButton';
-import Input from '@/components/input/input';
+import axios from 'axios';
 
 interface IProfileFormProps {
   image: File | null;
@@ -22,6 +22,14 @@ const font = Poppins({
   subsets: ["latin"],
   weight: ["600"],
 });
+
+const MAX_FILE_SIZE = 2000000;
+const ACCEPTED_IMAGE_TYPES = [
+  'image/jpeg',
+  'image/jpg',
+  'image/png',
+  'image/webp',
+];
 
 const FormSchema = z.object({
   username: z
@@ -40,35 +48,37 @@ const FormSchema = z.object({
     .optional()
     .or(z.literal('')),
 
-  image: z
-    .instanceof(File)  // Expecting a File object if provided
-    .optional()  // Mark the file input as optional
-    .or(z.literal('')),  // Allow it to be an empty string (if not provided)
+  imageSchema: z.any().optional()
+    .refine(file => file?.length === 1 ? ACCEPTED_IMAGE_TYPES.includes(file?.[0]?.type) : true, 'Invalid file. Choose either JPEG or PNG image.')
+    .refine(file => file?.length === 1 ? file[0]?.size <= MAX_FILE_SIZE : true, 'Max file size allowed is 2MB.')
 });
 
 type FormSchemaType = z.infer<typeof FormSchema>;
 
-const onSubmit: SubmitHandler<FormSchemaType> = async (values, { setValue }) => {
+const onSubmit: SubmitHandler<FormSchemaType> = async (values) => {
   try {
-    // If image is passed via props, we set it into the form value
-    if (!values.image && props.image) {
-      // Set the image in form schema using setValue
-      setValue('image', props.image);  // Update the 'image' field in the form schema
-      console.log("Image set to form schema:", props.image);
+    const formData = new FormData();
+    formData.append('username', values.username);
+    formData.append('description', values.description);
+    formData.append('website', values.website || '');
+    
+    if (values.imageSchema) {
+      formData.append('imageSchema', values.imageSchema);
     }
 
-    // Log the updated form values
-    console.log("After setting image:", values);
-
-    // Success text
+    const { data } = await axios.post('/api/auth/uploadProfile', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',  // Ensure this header is set
+      },
+    });
+    
+    // Success handling
     alert("Submit success");
-
   } catch (error: any) {
     // Error handling
     console.error("Error during submit:", error);
   }
 }
-
 const ProfileForm: React.FunctionComponent<IProfileFormProps> = (props) => {
   const [animation, setAnimation] = useState(true);
   const { data: session } = useSession();
@@ -81,9 +91,17 @@ const ProfileForm: React.FunctionComponent<IProfileFormProps> = (props) => {
   } = useForm<FormSchemaType>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      image: props.image || null,  // Initialize image field with prop or null
+      imageSchema: props.image || null,  // Initialize image field with prop or null
     },
   });
+
+  // Use useEffect to set the image when the component is mounted or the image prop changes
+  useEffect(() => {
+    if (props.image) {
+      setValue('imageSchema', props.image);
+      console.log("Image set via setValue:", props.image);
+    }
+  }, [props.image, setValue]);
 
   return (
     <>
@@ -105,8 +123,7 @@ const ProfileForm: React.FunctionComponent<IProfileFormProps> = (props) => {
           disabled={isSubmitting}
           height={null}
           topLocation={null}
-          inputLength={20}
-        />
+          inputLength={20} placeholder={''}/>
         <br />
         <ModalInput
           name="description"
@@ -118,8 +135,7 @@ const ProfileForm: React.FunctionComponent<IProfileFormProps> = (props) => {
           disabled={isSubmitting}
           height={150}
           topLocation={20}
-          inputLength={150}
-        />
+          inputLength={150} placeholder={''}        />
         <br />
         <ModalInput
           name="website"
@@ -131,8 +147,7 @@ const ProfileForm: React.FunctionComponent<IProfileFormProps> = (props) => {
           disabled={isSubmitting}
           height={null}
           topLocation={null}
-          inputLength={60}
-        />
+          inputLength={60} placeholder={''}        />
         <br />
         <SlideButtonSubmit
           type="submit"
@@ -141,8 +156,7 @@ const ProfileForm: React.FunctionComponent<IProfileFormProps> = (props) => {
           icon={<AiFillLock />}
           width="250px"
           disabled={isSubmitting}
-          animation={animation}
-        />
+          animation={animation} setScene={()=> null}        />
       </form>
     </>
   );

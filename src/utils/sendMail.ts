@@ -27,6 +27,9 @@ export default async function sendMail(
         auth:{
             user: MAILING_EMAIL,
             pass: MAILING_PASSWORD,
+        },
+        tls: {
+            rejectUnauthorized: false,
         }
     });
 

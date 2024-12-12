@@ -33,15 +33,20 @@ const COLOURS = [
 ];
 
 const SlideButton: React.FunctionComponent<ISlideButtonProps> = (props) => {
-    const { type, text, slide_text, disabled, icon, width, animation, setScene } = props;
+    const { type, mode, text, slide_text, disabled, icon, width, animation, setScene } = props;
     const colour = useMotionValue(COLOURS[0])
     const border = useMotionTemplate`2px solid ${colour}`
     const router = useRouter();
     const { data: session } = useSession();
     console.log(session + "slidebutton")
+    console.log("type :" + type)
 
     const onClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
-
+        // if user is attempting to register their account, send them home.
+        if (mode === "signIn" || mode === "home") {
+            router.push('/');
+            return;
+        }
 
         // Run the animation 
         if ( type === "modalSkip"){
@@ -63,8 +68,8 @@ const SlideButton: React.FunctionComponent<ISlideButtonProps> = (props) => {
             setScene(1);
          }, 1000); // Delay the state change by 1 second (or however long the animation lasts)
         }else{
-            console.log('SIGN IN! 67 slidebutton')
-            await signIn();
+            //console.log('SIGN IN! 67 slidebutton')
+            //await signIn();
         }
     }
 

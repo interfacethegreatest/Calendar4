@@ -24,6 +24,7 @@
     "bcryptjs": "^2.4.3",
     "bootstrap": "^5.3.3",
     "classnames": "^2.5.1",
+    "cloudinary": "^2.5.1",
     "file-type-checker": "^1.1.2",
     "framer-motion": "^11.3.21",
     "handlebars": "^4.7.8",

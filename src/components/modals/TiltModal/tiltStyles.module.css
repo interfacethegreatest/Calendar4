@@ -402,6 +402,7 @@
 
 #main:hover #loader5 {
   animation: progress2 .3s linear forwards; /* Adjust duration (5s) as needed */
+  z-index: 0;
 }
 
 #loader6{
@@ -518,6 +519,7 @@
   border-radius: 3px;
   padding-left: 8%;
   padding-top: 5%;
+  z-index: 2;
 }
 
 #logo{

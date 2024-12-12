@@ -9,6 +9,7 @@ import Scene from "@/components/backgrounds/starsBackground/Scene";
 export default function activate({ token }:{ token : string }) {
   const [error, setError] = useState("");
   const [ success, setSuccess ] = useState("");
+  const [scene , setScene] = useState(0);
   useEffect(()=>{
     activateAccount()
   }, [token]);
@@ -44,12 +45,12 @@ export default function activate({ token }:{ token : string }) {
          <main id={styles.main}>
             <Scene/>
             <TiltCard 
-             buttonString={"Sign In"}
-             slideText="Continue"
-             paragraph={success}
-             title="Success!" 
-             icon={ <SlHome/>}
-             buttonMode="signIn"/>
+              buttonString={"Sign In"}
+              slideText="Continue"
+              paragraph={success}
+              title="Success!"
+              icon={<SlHome />}
+              buttonMode="signIn" changeScene={undefined}/>
           </main>
         </>
       }

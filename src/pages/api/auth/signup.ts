@@ -12,8 +12,9 @@ import { activateTemplateEmail } from "@/emailTemplates/activate";
 
 export default async function handler(req: NextApiRequest, res:NextApiResponse){
 try{
-
-    await connectDB();
+console.log('hello')
+ await connectDB();
+ console.log('connection success')
  const {first_name, last_name, email, password} = req.body;
 
  if(!first_name || !last_name || !email || !password) {
@@ -38,37 +39,30 @@ try{
 
  const cryptedPassword = await bcrypt.hash(password, 12);
  const newuser = new User({
-    name :`${first_name + " " +last_name}`,
-    email,
-    password : cryptedPassword,
-    emailVerfied : {
-      emailVerified: {
-         type: Boolean,
-         default: false,
-     },
-     isNewUser: {
-         type: Boolean,
-         default: true,
-     },
-     profileVisited: {
-         type: Boolean,
-         default: false,
-     },
-     calenderVisited: {
-         type: Boolean,
-         default: false,
-     },
-     location: {
-         type: Boolean,
-         default: false,
-     },
-    }
- });
+   name: `${first_name + " " + last_name}`,
+   email,
+   password: cryptedPassword,
+   emailVerified: { // Correctly initialize emailVerified field
+       emailVerified: false,
+       isNewUser: true,
+       profileVisited: false,
+       calendarVisited: false, // Corrected spelling
+       location: false,
+   },
+   Biography: "This user has not provided a description.", // Default Biography
+   followers: 0, // Default value
+   following: 0, // Default value
+   role: "user", // Default role
+});
+ console.log('AWAIT NEWUSER SAVE');
  await newuser.save()
+ console.log('Newuser Save Successfull')
+ console.log('create activation token')
  const activation_token= createActivationToken({
    id: newuser._id.toString(),
  });
  const url = `${process.env.NEXTAUTH_URL}/activate/${activation_token}`
+ console.log('ACTIVATION TOKEN.')
  await sendMail(
    newuser.email, 
    newuser.name,

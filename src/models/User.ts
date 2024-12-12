@@ -19,14 +19,26 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlength: 7,
   },
-  emailVerified: {  // Define this as an object
+  emailVerified: { // Define this as an object
     type: new mongoose.Schema({
       emailVerified: { type: Boolean, default: false },
       isNewUser: { type: Boolean, default: true },
       profileVisited: { type: Boolean, default: false },
-      calenderVisited: { type: Boolean, default: false },  // Consider renaming to "calendarVisited"
+      calendarVisited: { type: Boolean, default: false }, // Corrected spelling
       location: { type: Boolean, default: false },
     }),
+  },
+  Biography: {
+    type: String,
+    default: "This user has not provided a description.",
+  },
+  followers: {
+    type: Number,
+    default: 0, // Default value for new users
+  },
+  following: {
+    type: Number,
+    default: 0, // Default value for new users
   },
   role: {
     type: String,

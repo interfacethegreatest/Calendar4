@@ -31,10 +31,24 @@
   #editProfile{
       font-size: clamp(.6rem, 1.7vw, 1.2rem);
       height: 36px;
-      width:56px;
+      width: 64px;
       position: relative;
       right: 0;
+      padding: 5px;
+      gap: 5px;
   }
+
+  #mainText{
+    font-size: 1.7vw;
+  }
+
+  #clickableText{
+    padding-left: 5px;
+  }
+
+  /*Bind mainText to id variable, 
+  adjust right when at this width*/
+  
 
 }
 
@@ -57,8 +71,10 @@
   transform: translateX(50px);
   position: absolute;
   opacity: 0;
-  font-size: .7rem;
   pointer-events: none; /* Prevent accidental hover triggers */
+  display: flex;
+  flex-direction: row;
+  padding-left: 4px;
 }
 
 #editProfile:hover #clickableText {

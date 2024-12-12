@@ -9,7 +9,7 @@ import Tilt from "react-parallax-tilt";
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 import { useState, forwardRef } from "react";
 import { useRouter } from "next/router";
-import { TbLetterD } from "react-icons/tb";
+import { TbLetterC } from "react-icons/tb";
 import fileTypeChecker from "file-type-checker";
 import GetProfileImage from "./modalComponents/GetProfileImage";
 import { z } from "zod";
@@ -144,7 +144,7 @@ const TiltModal = forwardRef<HTMLDivElement, ITiltModalProps>((props, ref) => {
 
           <div id={styles.inner}>
             <motion.div id={styles.logo}>
-              <TbLetterD style={{ position: "absolute", height: "100%", zIndex: "2", color: "aliceblue", cursor:"pointer" }} />
+              <TbLetterC style={{ position: "absolute", height: "100%", zIndex: "2", color: "aliceblue", cursor:"pointer" }} />
             </motion.div>
 
             {selection[0] ? (

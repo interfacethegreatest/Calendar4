@@ -40,7 +40,7 @@ const GenerateModal: React.FunctionComponent<IGenerateModalProps> = (props) => {
   return<>
     <motion.button style={{border, position:"relative", zIndex:1}} className={font.className} id={style.editProfile} onClick={()=>setShowContent(true)}>
     <span id={style.mainText}>{fields == "Edit Documents" ? "Edit": fields}</span>
-    <span id={style.clickableText}><MdEdit style={{position:"absolute", right:"64px", marginTop:"4px"}}/>Edit text</span>
+    <span id={style.clickableText}><MdEdit style={{ marginRight:"4px", marginTop:"4px"}}/>Edit</span>
     </motion.button>
   </> ;
 };

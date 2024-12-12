@@ -1,7 +1,6 @@
 #inputContainer{
     width: 90%;
     height: 50px;
-
     border: 1px solid rgb(106, 106, 106);
     border-radius: 6px;
     margin-right: 5px;
@@ -10,7 +9,7 @@
     position: relative;
     z-index: 4;
     pointer-events: auto;
-    background-color: black;
+    background: black;
 }
 
 #glowingInputContainer{
@@ -24,7 +23,7 @@
     position: relative;
     z-index: 4;
     pointer-events: auto;
-    background-color: black;
+    background: black;
 }
 
 #glowingInputContainerError{
@@ -50,6 +49,7 @@
     pointer-events: auto;
     display: flex;
     flex-direction: row;
+    background-color: black;
 }
 
 #inputLabelError{

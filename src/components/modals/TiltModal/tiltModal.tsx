@@ -6,7 +6,7 @@ import { Poppins } from "next/font/google";
 import SlideButton from "../../buttons/auth/slideButton";
 import { AiOutlineLogin } from "react-icons/ai";
 import Tilt from "react-parallax-tilt";
-import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
+import { motion, progress, useMotionTemplate, useMotionValue } from "framer-motion";
 import { useState, forwardRef } from "react";
 import { useRouter } from "next/router";
 import { TbLetterC } from "react-icons/tb";
@@ -14,6 +14,7 @@ import fileTypeChecker from "file-type-checker";
 import GetProfileImage from "./modalComponents/GetProfileImage";
 import { z } from "zod";
 import ProfileForm from "@/components/forms/profileForm/ProfileForm";
+import { useEdgeStore } from "@/lib/edgestore";
 
 const COLOURS = [
   "rgba(159, 158, 158, 0.7)",
@@ -64,6 +65,7 @@ const TiltModal = forwardRef<HTMLDivElement, ITiltModalProps>((props, ref) => {
   const router = useRouter();
   const [image, setImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState(""); // Store preview URL here
+  const { edgestore } = useEdgeStore();
 
   const closeWindow = () => {
     setShowContent(false); // Trigger slide-out effect
@@ -73,7 +75,7 @@ const TiltModal = forwardRef<HTMLDivElement, ITiltModalProps>((props, ref) => {
     setSelection([false, true]);
   };
 
-  const handleFileInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     try {
       const file = event.target.files?.[0];
       if (!file) return;
@@ -92,6 +94,14 @@ const TiltModal = forwardRef<HTMLDivElement, ITiltModalProps>((props, ref) => {
         setImage(file);
         setImagePreview(URL.createObjectURL(file)); // Create a URL for preview
       };
+
+      const res = await edgestore.myPublicImages.upload({
+        file,
+        onProgressChange: (progress) =>{
+          console.log(progress)
+        }
+      })
+      console.log(res);
 
       reader.readAsArrayBuffer(file);
     } catch (err: any) {

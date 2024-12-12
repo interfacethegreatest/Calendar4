@@ -4,6 +4,7 @@ import { SessionProvider } from "next-auth/react"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { EdgeStoreProvider } from "@/lib/edgestore";
 
 export default function App({ Component, pageProps:{session, ...pageProps} }: AppProps) {
   return (
@@ -21,7 +22,9 @@ export default function App({ Component, pageProps:{session, ...pageProps} }: Ap
      theme="dark"
     />
     <ToastContainer />
+    <EdgeStoreProvider>
     <Component {...pageProps} />
+    </EdgeStoreProvider>
   </SessionProvider>
   );
 }

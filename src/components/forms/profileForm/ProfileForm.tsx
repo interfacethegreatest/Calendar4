@@ -13,6 +13,8 @@ import { z } from 'zod';
 import styles from './tiltStyles.module.css';
 import { Poppins } from 'next/font/google';
 import axios from 'axios';
+import { useEdgeStore } from '@/lib/edgestore';
+import { toast } from 'react-toastify';
 
 interface IProfileFormProps {
   image: File | null;
@@ -22,7 +24,7 @@ const font = Poppins({
   subsets: ["latin"],
   weight: ["600"],
 });
-
+//accepted front end image constraints
 const MAX_FILE_SIZE = 2000000;
 const ACCEPTED_IMAGE_TYPES = [
   'image/jpeg',
@@ -30,7 +32,7 @@ const ACCEPTED_IMAGE_TYPES = [
   'image/png',
   'image/webp',
 ];
-
+//formSchema with frontend trimming of data
 const FormSchema = z.object({
   username: z
     .string()
@@ -41,48 +43,41 @@ const FormSchema = z.object({
     .string()
     .min(1, { message: "Description is required." })
     .max(150, { message: "Description must not exceed 150 characters." }),
-
+   // optional schema.
   website: z
     .string()
     .url({ message: "Please submit a valid URL." })
     .optional()
     .or(z.literal('')),
 
-  imageSchema: z.any().optional()
-    .refine(file => file?.length === 1 ? ACCEPTED_IMAGE_TYPES.includes(file?.[0]?.type) : true, 'Invalid file. Choose either JPEG or PNG image.')
-    .refine(file => file?.length === 1 ? file[0]?.size <= MAX_FILE_SIZE : true, 'Max file size allowed is 2MB.')
+    imageSchema: z
+    .string()
+    .url({ message: "Please submit a valid URL." })
+    .optional()
+    .or(z.literal('')),
 });
 
 type FormSchemaType = z.infer<typeof FormSchema>;
 
 const onSubmit: SubmitHandler<FormSchemaType> = async (values) => {
+  // handle onsubmit functrion
   try {
-    const formData = new FormData();
-    formData.append('username', values.username);
-    formData.append('description', values.description);
-    formData.append('website', values.website || '');
-    
-    if (values.imageSchema) {
-      formData.append('imageSchema', values.imageSchema);
-    }
+    // Success handling
+    console.log(values);
 
-    const { data } = await axios.post('/api/auth/uploadProfile', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',  // Ensure this header is set
-      },
+    const { data } = await axios.post('/api/auth/uploadProfile',{
+      ...values,
     });
     
-    // Success handling
-    alert("Submit success");
+    toast.success(data.message);
   } catch (error: any) {
     // Error handling
-    console.error("Error during submit:", error);
+    alert("Error during submit: "+ error);
   }
 }
 const ProfileForm: React.FunctionComponent<IProfileFormProps> = (props) => {
   const [animation, setAnimation] = useState(true);
-  const { data: session } = useSession();
-
+  const { edgestore } = useEdgeStore()
   const {
     register,
     handleSubmit,
@@ -90,18 +85,33 @@ const ProfileForm: React.FunctionComponent<IProfileFormProps> = (props) => {
     formState: { errors, isSubmitting },
   } = useForm<FormSchemaType>({
     resolver: zodResolver(FormSchema),
-    defaultValues: {
-      imageSchema: props.image || null,  // Initialize image field with prop or null
-    },
   });
+  const { image } = props ;
 
   // Use useEffect to set the image when the component is mounted or the image prop changes
   useEffect(() => {
-    if (props.image) {
-      setValue('imageSchema', props.image);
-      console.log("Image set via setValue:", props.image);
-    }
-  }, [props.image, setValue]);
+    const uploadImage = async () => {
+      //if an image has been uploaded....
+      if (image) {
+        try {
+          const res = await edgestore.myPublicImages.upload({
+            file: image, // Ensure `file` is the actual image file
+            onProgressChange: (progress) => {
+              console.log(progress);
+            },
+          });
+          setValue('imageSchema', res.url); // Set the uploaded image URL
+        } catch (error) {
+          console.error("Error uploading image:", error);
+        }
+      }else{
+        return;
+      }
+    };
+  
+    uploadImage(); // Call the function
+  }, [image, setValue]);
+  
 
   return (
     <>

@@ -1,48 +1,56 @@
-import multer from 'multer';
+import User from '@/models/User';
+import connectDB from '@/utils/connectDB';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/pages/api/auth/[...nextauth]'; // Adjust the path to your `next-auth` configuration
+import validator from 'validator';
 
-// Set up multer storage in memory
-const storage = multer.memoryStorage(); // Store file in memory
-const upload = multer({ storage });
-
-// Disable default body parser
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  
-  const uploadMiddleware = upload.single('imageSchema'); // Expect a single file
-
-  uploadMiddleware(req, res, (err: any) => {
-    if (err) {
-      console.error('Error during file upload:', err);
-      return res.status(500).json({ message: 'File upload failed', error: err });
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ message: 'Method Not Allowed' });
+  }
+  try {
+    await connectDB();
+    console.log('Connection to database successful');
+    //Query for false data on the backend,
+    //first retrieve session data to pull my user data
+    const session = await getServerSession(req, res, authOptions);
+    if (!session) {
+      return res.status(401).json({ message: 'Unauthorized. Please sign in.' });
     }
 
-    // Access the file buffer
-    const fileBuffer = req.file?.buffer; // File stored in memory as a buffer
+    const { description, imageSchema, username, website } = req.body;
 
-    if (fileBuffer) {
-      // Convert the buffer to a Base64 string if needed
-      const base64String = fileBuffer.toString('base64');
-
-      // Log or process the file
-      //console.log('Base64-encoded file:', base64String);
-      //console.log('Original filename:', req.file?.originalname);
+    if (!description || !username) {
+      return res.status(400).json({ message: 'Please fill in all non-optional fields.' });
     }
 
-    // Other form fields are still accessible in req.body
-    console.log('Form fields:', req.body);
+    if (website && !validator.isURL(website)) {
+      return res.status(400).json({ message: 'Please add a valid URL.' });
+    }
 
-    // Send a response
-    res.status(200).json({
-      success: true,
-      message: 'File uploaded successfully!',
-      filename: req.file?.originalname,
-      base64String: req.file?.buffer?.toString('base64'), // Optional: include the Base64 string in response
-    });
-  });
+    if (imageSchema && !validator.isURL(imageSchema)) {
+      return res.status(400).json({ message: 'Please add a valid URL.' });
+    }
+
+    const user = await User.findOne({ email: session.user.email }); // Use session email to fetch the user
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found.' });
+    }
+
+    // Perform updates here
+
+    user.name = username;
+    user.website = website;
+    user.image = imageSchema;
+    user.Biography = description;
+
+    await user.save();
+    
+
+    return res.status(200).json({ message: 'User profile updated successfully.' });
+  } catch (error: any) {
+    return res.status(500).json({ error: error.message });
+  }
 }

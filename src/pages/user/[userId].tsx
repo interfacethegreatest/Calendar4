@@ -59,12 +59,9 @@ export default function user({userId}:{userId:string}) {
     }
 
   }
-  const [profileData , setProfileData] = useState({});
-  const [documentData, setDocumentData] = useState(null);
   const colour = useMotionValue(COLOURS[0])
-  const border = useMotionTemplate`2px solid ${colour}`;
   const { data : session } = useSession();
-  console.log(session)
+  console.log(session);
   const [ selection, setSelection ] = useState([true, false, false, false]);
   const [showContent, setShowContent] = useState(false)
   const ref = useRef();
@@ -121,13 +118,25 @@ export default function user({userId}:{userId:string}) {
               <div id={style.loader}>
               </div>
               <div id={style.profileImage}>
-                <img id={style.image} src={session?.user.image} alt="" />
+                {
+                  session.image? <img id={style.image} src={session?.image} alt="" /> :
+                  <img id={style.image} src={session?.user.image} alt="" />  
+                }
               </div>
             </div>
             <motion.div id={style.profileBody}>
-              <div id={style.titleLine}><h1 id={style.profileTitle}>{session?.user.name}</h1><div style={{display: "flex", marginLeft:"auto"}}><GenerateModal setShowContent={setShowContent} errors={errors} register={register} handleSubmit={handleSubmit} onSubmit={onSubmit} fields='Edit Profile'/></div></div>
-              <p id={style.text}>@{session?.user.name}</p>
-              <h6 id={style.text}><u>Description</u></h6>
+            {
+              session && <div id={style.titleLine}><h1 id={style.profileTitle}>{session?.username}</h1><div style={{display: "flex", marginLeft:"auto"}}><GenerateModal setShowContent={setShowContent} errors={errors} register={register} handleSubmit={handleSubmit} onSubmit={onSubmit} fields='Edit Profile'/></div></div>
+            }
+            {
+              session && <p id={style.text}>@{session?.user.name}</p>
+            }
+            <h6 id={style.text}><u>Description</u></h6>
+            {
+              session && <p style={{color:"aliceblue"}}>This user has not provided a description.</p>
+            }
+              
+              
               <p style={{color:"aliceblue"}}>This user has not provided a description.</p>
               <div id={style.socials}><div id={style.social}><a href="">0</a><h6 id={style.location} style={{color:"GrayText"}}><u>Following</u></h6></div><div id={style.social}><a href="">0</a><h6 id={style.location} style={{color:"GrayText"}}><u>Following</u></h6></div></div>
             </motion.div>

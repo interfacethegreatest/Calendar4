@@ -16,14 +16,6 @@ import { z } from "zod";
 import ProfileForm from "@/components/forms/profileForm/ProfileForm";
 import { useEdgeStore } from "@/lib/edgestore";
 
-const COLOURS = [
-  "rgba(159, 158, 158, 0.7)",
-  "rgba(159, 158, 158, 0.5)",
-  "rgba(130, 129, 129, 0.35)",
-  "rgba(189, 188, 188, 0.2)",
-  "rgba(159, 158, 158, 0.17)",
-];
-
 const font = Poppins({
   subsets: ["latin"],
   weight: ["600"],
@@ -45,14 +37,8 @@ interface ITiltModalProps {
 // Use forwardRef to handle the `ref` prop
 const TiltModal = forwardRef<HTMLDivElement, ITiltModalProps>((props, ref) => {
   const {
-    slideText,
     buttonMode,
-    paragraph,
-    size,
     icon,
-    title,
-    buttonString,
-    session,
     setShowContent,
     width,
     height,
@@ -60,12 +46,9 @@ const TiltModal = forwardRef<HTMLDivElement, ITiltModalProps>((props, ref) => {
 
   const [selection, setSelection] = useState([true, false]);
   const [clicked, setClicked] = useState(false); // State to track if the slide-out is triggered
-  const colour = useMotionValue(COLOURS[0]);
-  const border = useMotionTemplate`2px solid ${colour}`;
-  const router = useRouter();
   const [image, setImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState(""); // Store preview URL here
-  const { edgestore } = useEdgeStore();
+  //const { edgestore } = useEdgeStore();
 
   const closeWindow = () => {
     setShowContent(false); // Trigger slide-out effect
@@ -77,31 +60,33 @@ const TiltModal = forwardRef<HTMLDivElement, ITiltModalProps>((props, ref) => {
 
   const handleFileInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     try {
+      // Catch user submitted file
       const file = event.target.files?.[0];
       if (!file) return;
-
-      const allowedTypes = ["image/png", "image/jpeg"];
+      //catch wrong file types
+      const allowedTypes = ["image/png", "image/jpeg", "image/jpg"];
       if (!allowedTypes.includes(file.type)) {
         alert("Only PNG and JPG files are allowed.");
         return;
       }
-
+      //read and save file type 
       const reader = new FileReader();
       reader.onload = () => {
         const detectedFile = fileTypeChecker.detectFile(reader.result as ArrayBuffer);
-        //console.log(detectedFile);
+        console.log(detectedFile);
         console.log(file)
         setImage(file);
         setImagePreview(URL.createObjectURL(file)); // Create a URL for preview
       };
-
-      const res = await edgestore.myPublicImages.upload({
+      //upload to edgestore...
+      /*const res = await edgestore.myPublicImages.upload({
         file,
         onProgressChange: (progress) =>{
           console.log(progress)
-        }
-      })
-      console.log(res);
+        },
+        
+      })*/
+      //console.log(res.url);
 
       reader.readAsArrayBuffer(file);
     } catch (err: any) {
@@ -117,7 +102,7 @@ const TiltModal = forwardRef<HTMLDivElement, ITiltModalProps>((props, ref) => {
       ref={ref}
     >
       <Tilt scale={1} tiltMaxAngleX={2} tiltMaxAngleY={2}>
-        <div style={{ height, width, border }} id={styles.main}>
+        <div style={{ height, width, }} id={styles.main}>
         <div id={styles.tiles}>
               <div id={styles.tile1}></div>
               <div id={styles.tile2}></div>
@@ -141,7 +126,6 @@ const TiltModal = forwardRef<HTMLDivElement, ITiltModalProps>((props, ref) => {
           <motion.div title="Close down" onClick={closeWindow} id={styles.iconHolder}>
             <div id={styles.iconStyle}>{icon}</div>
           </motion.div>
-
           {selection[0] ? (
             <motion.div
               title="Upload Image"

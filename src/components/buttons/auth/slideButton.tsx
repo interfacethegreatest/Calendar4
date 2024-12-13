@@ -38,8 +38,6 @@ const SlideButton: React.FunctionComponent<ISlideButtonProps> = (props) => {
     const border = useMotionTemplate`2px solid ${colour}`
     const router = useRouter();
     const { data: session } = useSession();
-    console.log(session + "slidebutton")
-    console.log("type :" + type)
 
     const onClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
         // if user is attempting to register their account, send them home.

@@ -37,9 +37,6 @@ const SlideButton: React.FunctionComponent<ISlideButtonProps> = (props) => {
     const { type, text, slide_text, disabled, icon, width, animation, setScene } = props;
     const colour = useMotionValue(COLOURS[0])
     const border = useMotionTemplate`2px solid ${colour}`
-    const router = useRouter();
-    const { data: session } = useSession();
-    console.log(session + "slidebutton")
 
     useEffect(() => {
         animate(colour, COLOURS, {

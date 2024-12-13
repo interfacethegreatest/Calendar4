@@ -27,7 +27,7 @@ const GetProfileImage: React.FunctionComponent<IGetProfileImageProps> = (props) 
   <div id={styles.imageContainer} onClick={()=>{}}>
     {
       imagePreview ? 
-      <img src={imagePreview} alt="Preview" width={100} height={100} style={{zIndex:3, position:"absolute", objectFit:"cover"}}/>
+      <img src={imagePreview} alt="Preview" width={100} height={100} style={{zIndex:3, position:"absolute", objectFit:"cover", background:"black"}}/>
       :
       <img style={{zIndex:"3", position:"fixed", backgroundColor: "black"}} src="/default-profile.jpg" alt="Default Profile" width={100} height={100} />
     }
@@ -48,8 +48,4 @@ const GetProfileImage: React.FunctionComponent<IGetProfileImageProps> = (props) 
 };
 
 export default GetProfileImage;
-
-function setClicked(arg0: boolean) {
-    throw new Error('Function not implemented.');
-}
 

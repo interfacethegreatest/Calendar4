@@ -94,11 +94,14 @@ export default NextAuth({
           }
           session.id = userDB.id;
           session.isNewUser = userDB.emailVerified.isNewUser;
+          session.description = userDB.Biography;
+          session.username = userDB.name;
+          session.image = userDB.image;
         } catch (error: any) {
           console.log(error.message);
         }
       }
       return session;
-    }
+    },
   },
 });

@@ -24,12 +24,12 @@ interface IModalInputProps {
   disabled: boolean;
   autoComplete?: boolean; 
   height: number | null;
-  topLocation: string | null;
+  topLocation: number | null;
   inputLength: number;
 }
 
 const ModalInput: React.FunctionComponent<IModalInputProps> = (props) => {
-  const { name, label, type, icon, placeholder, register, error, disabled, height, topLocation, inputLength, watch } = props;
+  const { name, label, type, icon, placeholder, register, error, disabled, height, topLocation, inputLength } = props;
   const [clicked, setClicked] = useState(false);
   const [ isDisabled, setIsDisabled ] = useState(false);
   const [text, setText] = useState("");

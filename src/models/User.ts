@@ -32,6 +32,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: "This user has not provided a description.",
   },
+  Website: {
+    type: String,
+    required: false,
+  },
   followers: {
     type: Number,
     default: 0, // Default value for new users

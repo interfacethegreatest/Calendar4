@@ -1,19 +1,12 @@
 import * as React from 'react';
 import style from './styles.module.css'
-import { useRef, useState } from 'react';
-import outsideClick from './outsideClick';
 import { Poppins } from 'next/font/google';
 import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
-import TiltModal from '@/components/modals/tiltModal/tiltModal';
 import { MdEdit } from "react-icons/md";
 
 
 interface IGenerateModalProps {
     fields: "Edit Profile" | "Edit Documents";
-    register : Function;
-    onSubmit : Function;
-    handleSubmit: Function;
-    errors : any;
     setShowContent : Function;
 }
 

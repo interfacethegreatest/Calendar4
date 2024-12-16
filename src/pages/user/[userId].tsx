@@ -39,31 +39,16 @@ export default function user({userId}:{userId:string}) {
     width: 0,
     height: 0,
   });
-  const {
-    register,
-    handleSubmit,
-    watch,
-    reset,
-    formState : { errors, isSubmitting}
-  } = useForm<FormSchemaType>({
-    resolver: zodResolver(formSchemaProfile)
-  });
-  const onSubmit: SubmitHandler<FormSchemaType>=async(values)=>{
-    try {
-      const { data } = await axios.post('/api/auth/userProfile',{
-        ...values
-
-      })
-    } catch (error) {
-      
-    }
-
-  }
   const colour = useMotionValue(COLOURS[0])
   const { data : session } = useSession();
-  console.log(session);
+
   const [ selection, setSelection ] = useState([true, false, false, false]);
   const [showContent, setShowContent] = useState(false)
+  const [ imageString, setImageString ] = useState(null);
+  const [ userString, setUserString ] = useState(null);
+  const [ descriptionString, setDescriptionString ] = useState(null);
+  const [ websiteString, setWebsiteString ] = useState(null);
+
   const ref = useRef();
   outsideClick(ref, ()=>setShowContent(false))
   useEffect(() => {
@@ -75,6 +60,13 @@ export default function user({userId}:{userId:string}) {
         repeatType: "mirror",
     });
   }, []);
+
+  useEffect(()=>{
+    console.log(session)
+    setImageString(session?.image);
+    setDescriptionString(session?.description)
+
+  },[session])
 
   useEffect(() => {
     const handleResize = () => {
@@ -119,26 +111,22 @@ export default function user({userId}:{userId:string}) {
               </div>
               <div id={style.profileImage}>
                 {
-                  session.image? <img id={style.image} src={session?.image} alt="" /> :
-                  <img id={style.image} src={session?.user.image} alt="" />  
+                  session && <img id={style.image} src={ imageString ? imageString : session?.image} alt="" /> 
                 }
               </div>
             </div>
             <motion.div id={style.profileBody}>
             {
-              session && <div id={style.titleLine}><h1 id={style.profileTitle}>{session?.username}</h1><div style={{display: "flex", marginLeft:"auto"}}><GenerateModal setShowContent={setShowContent} errors={errors} register={register} handleSubmit={handleSubmit} onSubmit={onSubmit} fields='Edit Profile'/></div></div>
+              session && <div id={style.titleLine}><h1 id={style.profileTitle}>{userString ? userString : session?.user.name}</h1><div style={{display: "flex", marginLeft:"auto"}}><GenerateModal setShowContent={setShowContent} fields='Edit Profile'/></div></div>
             }
             {
-              session && <p id={style.text}>@{session?.user.name}</p>
+              session && <p id={style.text} style={{position:"relative", transform:"translate(0,-10px)", marginBottom:"0px"}}>@{session?.user.name}</p>
             }
-            <h6 id={style.text}><u>Description</u></h6>
+            <h6 id={style.text} style={{marginBottom:"0px"}}><u>Description</u></h6>
             {
-              session && <p style={{color:"aliceblue"}}>This user has not provided a description.</p>
+              session && <p style={{color:"aliceblue"}}>{descriptionString ? descriptionString : "This user has not set a description."}</p>
             }
-              
-              
-              <p style={{color:"aliceblue"}}>This user has not provided a description.</p>
-              <div id={style.socials}><div id={style.social}><a href="">0</a><h6 id={style.location} style={{color:"GrayText"}}><u>Following</u></h6></div><div id={style.social}><a href="">0</a><h6 id={style.location} style={{color:"GrayText"}}><u>Following</u></h6></div></div>
+            <div id={style.socials}><div id={style.social}><a href="">0</a><h6 id={style.location} style={{color:"GrayText"}}><u>Following</u></h6></div><div id={style.social}><a href="">0</a><h6 id={style.location} style={{color:"GrayText"}}><u>Following</u></h6></div></div>
             </motion.div>
           </motion.div>
           <div id={style.selector}>
@@ -174,7 +162,7 @@ export default function user({userId}:{userId:string}) {
             initial={{ x: "-100vw" }} 
             animate={{ x: clicked ? "-100vw" : 0 }} // Slide out when clicked
             transition={{ type: "spring", stiffness: 70, damping: 20 }}>
-              <TiltModal setShowContent={setShowContent}  closeModal={setClicked} icon={<MdOutlineClose/>}/>
+              <TiltModal website={setWebsiteString} description={setDescriptionString} imageString={setImageString} username={setUserString} setShowContent={setShowContent}  closeModal={setClicked} icon={<MdOutlineClose/>}/>
               </motion.div>
               </div>
              : null

@@ -18,6 +18,11 @@ import { toast } from 'react-toastify';
 
 interface IProfileFormProps {
   image: File | null;
+  imageString : Function, 
+  username: Function,
+  description: Function,
+  website: Function,
+  closeWindow: Function,
 }
 
 const font = Poppins({
@@ -50,7 +55,7 @@ const FormSchema = z.object({
     .optional()
     .or(z.literal('')),
 
-    imageSchema: z
+  imageSchema: z
     .string()
     .url({ message: "Please submit a valid URL." })
     .optional()
@@ -59,23 +64,33 @@ const FormSchema = z.object({
 
 type FormSchemaType = z.infer<typeof FormSchema>;
 
-const onSubmit: SubmitHandler<FormSchemaType> = async (values) => {
-  // handle onsubmit functrion
-  try {
-    // Success handling
-    console.log(values);
 
-    const { data } = await axios.post('/api/auth/uploadProfile',{
-      ...values,
-    });
-    
-    toast.success(data.message);
-  } catch (error: any) {
-    // Error handling
-    alert("Error during submit: "+ error);
-  }
-}
 const ProfileForm: React.FunctionComponent<IProfileFormProps> = (props) => {
+
+
+  const onSubmit: SubmitHandler<FormSchemaType> = async (values ) => {
+    // handle onsubmit functrion
+    try {
+      // Success handling
+  
+      const { data } = await axios.post('/api/auth/uploadProfile',{
+        ...values,
+      });
+      //window.location.reload();
+      // set the user pages' object for a fast update instead of above refresh.
+      props.username(values.username);
+      if ( values.imageSchema ) {
+        props.imageString(values.imageSchema);
+      };
+      props.description(values.description);
+      props.website(values.website);
+      toast.success(`${data.message}: changes`);
+      setTimeout(props.closeWindow(), 3000);
+    } catch (error: any) {
+      // Error handling
+      alert("Error during submit: "+ error);
+    }
+  }
   const [animation, setAnimation] = useState(true);
   const { edgestore } = useEdgeStore()
   const {
@@ -145,7 +160,7 @@ const ProfileForm: React.FunctionComponent<IProfileFormProps> = (props) => {
           disabled={isSubmitting}
           height={150}
           topLocation={20}
-          inputLength={150} placeholder={''}        />
+          inputLength={150} placeholder={''}/>
         <br />
         <ModalInput
           name="website"
@@ -157,16 +172,16 @@ const ProfileForm: React.FunctionComponent<IProfileFormProps> = (props) => {
           disabled={isSubmitting}
           height={null}
           topLocation={null}
-          inputLength={60} placeholder={''}        />
+          inputLength={60} placeholder={''}/>
         <br />
         <SlideButtonSubmit
           type="submit"
-          slide_text="Secure sign in"
-          text={"Sign in"}
+          slide_text="Save your details"
+          text={"Save"}
           icon={<AiFillLock />}
           width="250px"
           disabled={isSubmitting}
-          animation={animation} setScene={()=> null}        />
+          animation={animation} setScene={()=> null}/>
       </form>
     </>
   );

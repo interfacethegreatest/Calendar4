@@ -6,15 +6,13 @@ import { Poppins } from "next/font/google";
 import SlideButton from "../../buttons/auth/slideButton";
 import { AiOutlineLogin } from "react-icons/ai";
 import Tilt from "react-parallax-tilt";
-import { motion, progress, useMotionTemplate, useMotionValue } from "framer-motion";
+import { motion } from "framer-motion";
 import { useState, forwardRef } from "react";
-import { useRouter } from "next/router";
 import { TbLetterC } from "react-icons/tb";
 import fileTypeChecker from "file-type-checker";
-import GetProfileImage from "./modalComponents/GetProfileImage";
-import { z } from "zod";
 import ProfileForm from "@/components/forms/profileForm/ProfileForm";
-import { useEdgeStore } from "@/lib/edgestore";
+import GetProfileImage from "../TiltModal/modalComponents/GetProfileImage";
+
 
 const font = Poppins({
   subsets: ["latin"],
@@ -32,6 +30,10 @@ interface ITiltModalProps {
   height: number;
   width: number;
   setShowContent: (value: boolean) => void;
+  imageString : Function, 
+  username: Function,
+  description: Function,
+  website: Function,
 }
 
 // Use forwardRef to handle the `ref` prop
@@ -42,6 +44,10 @@ const TiltModal = forwardRef<HTMLDivElement, ITiltModalProps>((props, ref) => {
     setShowContent,
     width,
     height,
+    imageString,
+    username,
+    description,
+    website
   } = props;
 
   const [selection, setSelection] = useState([true, false]);
@@ -69,6 +75,8 @@ const TiltModal = forwardRef<HTMLDivElement, ITiltModalProps>((props, ref) => {
         alert("Only PNG and JPG files are allowed.");
         return;
       }
+    
+
       //read and save file type 
       const reader = new FileReader();
       reader.onload = () => {
@@ -159,7 +167,13 @@ const TiltModal = forwardRef<HTMLDivElement, ITiltModalProps>((props, ref) => {
               </>
             ) : (
               <>
-                <ProfileForm image={image}/>
+                <ProfileForm 
+                 imageString={imageString}
+                 website={website} 
+                 username={username} 
+                 description={description} 
+                 image={image}
+                 closeWindow={closeWindow}/>
               </>
             )}
           </div>

@@ -1,20 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react'
-import ResetCard from '@/components/cards/ResetCard/ResetCard';
-import { NextPageContext } from 'next';
+import { InferGetServerSidePropsType, NextPageContext } from 'next';
 import Scene from '@/components/backgrounds/starsBackground/Scene';
 import { useSession } from 'next-auth/react';
 import style from './style.module.css'
-import { IoSearch } from 'react-icons/io5';
-import { animate, motion, useMotionTemplate, useMotionValue } from 'framer-motion';
+import { animate, motion, useMotionValue } from 'framer-motion';
 import GenerateModal from '@/components/buttons/generateModal/generateModal';
 import { z } from 'zod';
 import AboutMe from '@/components/sections/AboutMe/AboutMe';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { MdOutlineClose, MdOutlineEdit } from "react-icons/md";
-import axios from 'axios';
+import { MdOutlineClose } from "react-icons/md";
 import outsideClick from '@/components/input/outsideClick';
-import TiltModal from '@/components/modals/tiltModal/tiltModal';
+import TiltModal from '@/components/modals/TiltModal/tiltModal';
+import connectDB from '@/utils/connectDB';
+import User from '@/models/User';
 
 const COLOURS = [
   'rgba(159, 158, 158, 0.7)',
@@ -34,7 +31,8 @@ const formSchemaProfile = z.object({
 type FormSchemaType = z.infer<typeof formSchemaProfile>
 
 
-export default function user({userId}:{userId:string}) {
+export default function user({userId, user}:{userId:string, user: InferGetServerSidePropsType<typeof getServerSideProps>}) {
+  console.log(user)
   const [windowSize, setWindowSize] = useState({
     width: 0,
     height: 0,
@@ -111,20 +109,24 @@ export default function user({userId}:{userId:string}) {
               </div>
               <div id={style.profileImage}>
                 {
-                  session && <img id={style.image} src={ imageString ? imageString : session?.image} alt="" /> 
+                  session ? <img id={style.image} src={ imageString } alt="" /> :
+                  <img id={style.image} src={ user.image } alt="" /> 
                 }
               </div>
             </div>
             <motion.div id={style.profileBody}>
             {
-              session && <div id={style.titleLine}><h1 id={style.profileTitle}>{userString ? userString : session?.user.name}</h1><div style={{display: "flex", marginLeft:"auto"}}><GenerateModal setShowContent={setShowContent} fields='Edit Profile'/></div></div>
+              session ? session && session && <div id={style.titleLine}><h1 id={style.profileTitle}>{userString ? userString : session?.user.name}</h1><div style={{display: "flex", marginLeft:"auto"}}><GenerateModal setShowContent={setShowContent} fields='Edit Profile'/></div></div> :
+              <div id={style.titleLine}><h1 id={style.profileTitle}>{user.name}</h1></div>
             }
             {
-              session && <p id={style.text} style={{position:"relative", transform:"translate(0,-10px)", marginBottom:"0px"}}>@{session?.user.name}</p>
+              session ? <p id={style.text} style={{position:"relative", transform:"translate(0,-10px)", marginBottom:"0px"}}>@{session?.user.name}</p> :
+              <p id={style.text} style={{position:"relative", transform:"translate(0,-10px)", marginBottom:"0px"}}>@{user.name}</p>
             }
             <h6 id={style.text} style={{marginBottom:"0px"}}><u>Description</u></h6>
             {
-              session && <p style={{color:"aliceblue"}}>{descriptionString ? descriptionString : "This user has not set a description."}</p>
+              session ? <p style={{color:"aliceblue"}}>{ descriptionString }</p> :
+              <p style={{color:"aliceblue"}}>{user.Biography}</p>
             }
             <div id={style.socials}><div id={style.social}><a href="">0</a><h6 id={style.location} style={{color:"GrayText"}}><u>Following</u></h6></div><div id={style.social}><a href="">0</a><h6 id={style.location} style={{color:"GrayText"}}><u>Following</u></h6></div></div>
             </motion.div>
@@ -171,10 +173,28 @@ export default function user({userId}:{userId:string}) {
   )
 }
 
-export async function getServerSideProps(ctx : NextPageContext){
-    const { query } = ctx;
-    console.log("hello"+query);
-    return{
-        props: { query },
+export async function getServerSideProps(ctx: NextPageContext) {
+  const { query } = ctx;
+  const { userId } = query; // Extract userId from query params
+
+  try {
+    await connectDB(); // Connect to MongoDB
+    // Fetch user data from the database
+    const user = await User.findById(userId);
+    // If no user is found, return a 404 page
+    if (!user) {
+      return { notFound: true };
     }
+    return {
+      props: { 
+        user: JSON.parse(JSON.stringify(user)), // Pass user data as props
+      },
+    };
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    return {
+      notFound: true,
+    };
+  }
 }
+

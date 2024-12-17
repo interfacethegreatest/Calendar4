@@ -19,7 +19,7 @@ export default function App({ Component, pageProps:{session, ...pageProps} }: Ap
      pauseOnFocusLoss
      draggable
      pauseOnHover
-     theme="dark"
+     theme="black"
     />
     <ToastContainer />
     <EdgeStoreProvider>

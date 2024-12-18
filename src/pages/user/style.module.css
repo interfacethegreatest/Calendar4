@@ -20,6 +20,7 @@
     margin-left: 18%;
     border-right: 2px solid rgba(90, 89, 89, 0.17);
     border-left: 2px solid rgba(90, 89, 89, 0.17);
+    background: linear-gradient(135deg, #1b1b1d00 85%,   rgba(48, 121, 97, 0.016));
 }
 
 #profile{
@@ -43,7 +44,7 @@
 }
 
 #loader {
-    width: 96%; /* Initially set width to 0% */
+    width: clamp(95%, 96%, 97.7%); /* Initially set width to 0% */
     height: 1px;
     padding-right: 1px;
     background: rgb(30, 245, 1);
@@ -182,6 +183,19 @@
     flex-direction: row;
 }
 
+#starDiv{
+    width: 16.5%;
+    height: 16.5%;
+    position: absolute;
+    transform: translate(420%, -30%);
+    z-index: 3;
+}
+
+#star{
+    height: 100%;
+    width: 100%;
+    color: rgba(37, 37, 37, 0.24);
+}
 
 
 @media (max-width: 494px) {
@@ -206,6 +220,14 @@
 
     #social h6{
         font-size: .5rem ;
+    }
+
+    #starDiv{
+        width: 12.5%;
+        height: 12.5%;
+        position: fixed;
+        transform: translate(210%);
+        z-index: 3;
     }
 }
 
@@ -399,6 +421,14 @@ height: 100%;
         width: 101%;
         margin-right: 6px;
     }
+
+    #starDiv{
+        width: 12.5%;
+        height: 12.5%;
+        position: fixed;
+        transform: translate(240%, 20%);
+        z-index: 3;
+    }
 }
 
 
@@ -414,16 +444,3 @@ height: 100%;
 }
 
 
-#starDiv{
-    width: 12.5%;
-    height: 12.5%;
-    position: fixed;
-    transform: translate(300%);
-    z-index: 3;
-}
-
-#star{
-    height: 100%;
-    width: 100%;
-    color: rgba(37, 37, 37, 0.163);
-}

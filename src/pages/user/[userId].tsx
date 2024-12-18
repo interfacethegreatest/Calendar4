@@ -5,13 +5,14 @@ import { useSession } from 'next-auth/react';
 import style from './style.module.css'
 import { animate, motion, useMotionValue } from 'framer-motion';
 import GenerateModal from '@/components/buttons/generateModal/generateModal';
-import { z } from 'zod';
 import AboutMe from '@/components/sections/AboutMe/AboutMe';
 import { MdOutlineClose } from "react-icons/md";
 import outsideClick from '@/components/input/outsideClick';
 import TiltModal from '@/components/modals/TiltModal/tiltModal';
 import connectDB from '@/utils/connectDB';
 import User from '@/models/User';
+import { AiOutlineStar } from 'react-icons/ai';
+
 
 const COLOURS = [
   'rgba(159, 158, 158, 0.7)',
@@ -20,15 +21,6 @@ const COLOURS = [
   'rgba(189, 188, 188, 0.2)', 
   'rgba(159, 158, 158, 0.17)'
 ];
-
-const formSchemaProfile = z.object({
-  name:z.string().min(2, "Must be atleast 2 characters.")
-  .max(26, "Must be less than 26 characters.")
-  .regex(new RegExp("^[a-zA-z]+$"), "No special characters allowed."),
-  description: z.string().min(7, "Must be atleast.").max(250, "Must be at maximum 250 characters.")
-  .regex(new RegExp("^[a-zA-z]+$"), "No special characters allowed."),
-});
-type FormSchemaType = z.infer<typeof formSchemaProfile>
 
 
 export default function user({userId, user}:{userId:string, user: InferGetServerSidePropsType<typeof getServerSideProps>}) {
@@ -113,8 +105,12 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
                   <img id={style.image} src={ user.image } alt="" /> 
                 }
               </div>
+              <br />
             </div>
             <motion.div id={style.profileBody}>
+              <div id={style.starDiv}>
+              <AiOutlineStar id={style.star}/>
+              </div>
             {
               session ? session && session && <div id={style.titleLine}><h1 id={style.profileTitle}>{userString ? userString : session?.user.name}</h1><div style={{display: "flex", marginLeft:"auto"}}><GenerateModal setShowContent={setShowContent} fields='Edit Profile'/></div></div> :
               <div id={style.titleLine}><h1 id={style.profileTitle}>{user.name}</h1></div>

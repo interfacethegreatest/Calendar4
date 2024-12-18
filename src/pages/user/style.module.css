@@ -1,6 +1,4 @@
 #main{
-    min-height: 300vh;
-    max-height: 500vh;
     width: 100%;
     background-color: black;
     display: flex;
@@ -11,25 +9,25 @@
 
 #body {
     max-width: 925px;
-    width: 65%; /* Default to 95% width */
-    height: 100vh;
+    width: 55%; /* Default to 95% width */
+    height: 200vh;
     position: relative;
     z-index: 1;
     /*border-left: 1px solid rgba(103, 103, 104, 0.219);
     border-right: 1px solid rgba(103, 103, 104, 0.219);*/
-    padding: 0px;
     padding-top: 5px;
     padding-bottom: 5px;
-    background-color: rgba(0, 0, 0, 0.329);
     margin-left: 18%;
+    border-right: 2px solid rgba(90, 89, 89, 0.17);
+    border-left: 2px solid rgba(90, 89, 89, 0.17);
 }
 
 #profile{
-    width: 89%;
-    border-radius: 10px;
-    margin-top: 1%;
-    margin-left: auto;
-    margin-right: auto;
+    width: 100%;
+    margin: 0;
+    margin-top: 60px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 #profileHeader{
@@ -37,17 +35,18 @@
     height: 46%;
     display: flex;
     flex-direction: column-reverse;
-    border-top-right-radius: 15px;
-    border-top-left-radius: 15px;
     background-color: rgba(10, 10, 10, 0.608);
-    border: 2px solid rgba(90, 89, 89, 0.17);
+    border-top: 2px solid rgba(129, 129, 129, 0.17);
     border-bottom: none;
+    border-right: 2px solid rgba(90, 89, 89, 0.17);
+    border-left: 2px solid rgba(90, 89, 89, 0.17);
 }
 
 #loader {
-    width: 88.7%; /* Initially set width to 0% */
-    height: 3px;
-    background: #067a0b;
+    width: 96%; /* Initially set width to 0% */
+    height: 1px;
+    padding-right: 1px;
+    background: rgb(30, 245, 1);
     position: absolute;
     z-index: 0;
 }
@@ -59,21 +58,24 @@
 
 
 #profileImage{
-    height: 139px;
-    width: 139px;
+    height: 150px;
+    width: 150px;
     border: 1px dotted rgba(240, 248, 255, 0.032);
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-left: 5%;
-    
+    background: rgb(20, 173, 0);
+    position: relative;
+    z-index: 3;
+    transform: translateY(50%);
 }
 
 #image{
     border-radius: 50%;
-    width: 87%;
-    height: 87%;
+    width: 98.2%;
+    height: 98%;
     object-fit: cover;
 }
 
@@ -81,11 +83,13 @@
     height: 38%;
     width: 100%;
     background-color: rgb(10, 10, 10);
-    background: linear-gradient(135deg, rgb(2, 2, 2) 1%,   rgb(10, 10, 10));
+    background: linear-gradient(135deg, rgba(10,10,10,255),   rgba(35,32,35,255));
     /*border: 2px solid rgba(90, 89, 89, 0.295);*/
-    border-right: 2px solid rgba(90, 89, 89, 0.17);
-    border-left: 2px solid rgba(90, 89, 89, 0.17);
+    /*border-right: 2px solid rgba(90, 89, 89, 0.17);
+    border-left: 2px solid rgba(90, 89, 89, 0.17);*/
     border-bottom: 2px solid rgba(90, 89, 89, 0.17);
+    border-left: 2px solid rgba(90, 89, 89, 0.17);
+    border-right: 2px solid rgba(90, 89, 89, 0.17);
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
     padding: 15px;
@@ -95,13 +99,14 @@
 
 #profileTitle{
     color: aliceblue;
-    margin-bottom: 5px;
+    margin-top: 60px;
+    font-size: 2rem;
     
 }
 
 @media (min-width: 925px) {
     #body {
-        width: 65%; /* Fixed width for larger screens */
+        width: 55%; /* Fixed width for larger screens */
     }
 
     #description{
@@ -112,6 +117,7 @@
 
 
 #selector{
+    padding-top: 30px;
     width: 60%;
     height: 50px;
     margin-left: auto;
@@ -206,16 +212,10 @@
 
 #information{
     width: 100%;
-    border: 2px solid rgba(90, 89, 89, 0.17);
+    /*border: 2px solid rgba(90, 89, 89, 0.17);*/
     padding: 10px;
-    background-color: rgb(10, 10, 10);
-    border-radius: 6px;
-    background: linear-gradient(135deg, rgb(2, 2, 2) 1%,   rgb(10, 10, 10));
 }
 
-#information:hover{
-    background-color: rgb(11, 11, 11);
-}
 
 #about{
  color: aliceblue;
@@ -414,3 +414,16 @@ height: 100%;
 }
 
 
+#starDiv{
+    width: 12.5%;
+    height: 12.5%;
+    position: fixed;
+    transform: translate(300%);
+    z-index: 3;
+}
+
+#star{
+    height: 100%;
+    width: 100%;
+    color: rgba(37, 37, 37, 0.163);
+}

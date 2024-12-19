@@ -55,9 +55,6 @@ const LoginCard: React.FunctionComponent<ILoginCardProps> = (props) => {
           bottom: 0
         }}
       >
-        <h1 id={styles.mainBannerText} className={font.className}>
-          Make the most of your professional career.
-        </h1>
         <br />
         <br />
         <Tilt scale={1} tiltMaxAngleX={2} tiltMaxAngleY={2}>

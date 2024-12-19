@@ -36,9 +36,6 @@ const TiltCard: React.FunctionComponent<ITiltCardProps> = (props) => {
       animate={{ x: clicked ? "-100vw" : 0 }} // Slide out when clicked
       transition={{ type: "spring", stiffness: 70, damping: 20 }}
     >
-      <h1 id={styles.mainBannerText} className={font.className}>
-          Make the most of your professional career.
-      </h1>
       <br />
       <div>
       <Tilt scale={1} tiltMaxAngleX={2} tiltMaxAngleY={2}>

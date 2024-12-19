@@ -112,7 +112,7 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
               <AiOutlineStar id={style.star}/>
               </div>
             {
-              session ? session && session && <div id={style.titleLine}><h1 id={style.profileTitle}>{userString ? userString : session?.user.name}</h1><div style={{display: "flex", marginLeft:"auto"}}><GenerateModal setShowContent={setShowContent} fields='Edit Profile'/></div></div> :
+              session ? session && session && <div id={style.titleLine}><h1 id={style.profileTitle}>{userString ? userString : session?.user.name}</h1><div style={{display: "flex", marginLeft:"auto", position:"relative", zIndex:"3"}}><GenerateModal setShowContent={setShowContent} fields='Edit Profile'/></div></div> :
               <div id={style.titleLine}><h1 id={style.profileTitle}>{user.name}</h1></div>
             }
             {
@@ -121,10 +121,34 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
             }
             <h6 id={style.text} style={{marginBottom:"0px"}}><u>Description</u></h6>
             {
-              session ? <p style={{color:"aliceblue"}}>{ descriptionString }</p> :
-              <p style={{color:"aliceblue"}}>{user.Biography}</p>
+              session ? <p style={{color:"aliceblue", marginBottom:"0"}}>{ descriptionString }</p> :
+              <p style={{color:"aliceblue", marginBottom:0}}>{user.Biography}</p>
+            }
+            {
+            user.Website ? (
+            <>
+            <div
+            id={style.websiteDiv}
+            onClick={() => window.open(user.Website, "_blank")} // Opens the URL in a new tab
+            style={{ cursor: "pointer" }} // Indicates that the div is clickable
+            >
+            <h6>
+             <a style={{color:"aliceblue", fontSize:"1.1rem", textDecoration:"none"}} href={user.Website} id={user.websiteTextLink} target="_blank" rel="noopener noreferrer">
+             My webpage
+             </a>
+            </h6>
+            <p style={{ fontSize:".6rem", textDecoration:"none",}}><a style={{color:"gray"}} href={user.name}>{user.Website}</a></p>
+            <div id={style.websiteIconHolder}>
+
+            </div>
+            <div id={style.websiteLoader}></div>
+            </div>
+            </>
+            ) : null
             }
             <div id={style.socials}><div id={style.social}><a href="">0</a><h6 id={style.location} style={{color:"GrayText"}}><u>Following</u></h6></div><div id={style.social}><a href="">0</a><h6 id={style.location} style={{color:"GrayText"}}><u>Following</u></h6></div></div>
+            
+
             </motion.div>
           </motion.div>
           <div id={style.selector}>

@@ -12,19 +12,19 @@ const userSchema = new mongoose.Schema({
   },
   image: {
     type: String,
-    default: "https://res.cloudinary.com/dmhcnhtng/image/upload/v1664642479/992490_sskqn3.png",
+    default: "https://www.pngkit.com/png/detail/126-1262807_instagram-default-profile-picture-png.png",
   },
   password: {
     type: String,
     required: true,
     minlength: 7,
   },
-  emailVerified: { // Define this as an object
+  emailVerified: {
     type: new mongoose.Schema({
       emailVerified: { type: Boolean, default: false },
       isNewUser: { type: Boolean, default: true },
       profileVisited: { type: Boolean, default: false },
-      calendarVisited: { type: Boolean, default: false }, // Corrected spelling
+      calendarVisited: { type: Boolean, default: false },
       location: { type: Boolean, default: false },
     }),
   },
@@ -34,15 +34,15 @@ const userSchema = new mongoose.Schema({
   },
   Website: {
     type: String,
-    required: false,
+    default: "", // Default value for an empty string
   },
   followers: {
     type: Number,
-    default: 0, // Default value for new users
+    default: 0,
   },
   following: {
     type: Number,
-    default: 0, // Default value for new users
+    default: 0,
   },
   role: {
     type: String,

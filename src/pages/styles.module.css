@@ -20,6 +20,15 @@
     flex-direction: column;
 }
 
+#mainBannerText {
+    color: aliceblue;
+    min-width: fit-content;
+    text-align: center;
+    background-color: black;
+    position: fixed;
+    top: 4%;
+}
+
 #authMain{
     max-height: 100vh;
     max-width: 100vw;

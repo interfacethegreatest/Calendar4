@@ -46,7 +46,7 @@ const ResetCard: React.FunctionComponent<IResetCardProps> = (props) => {
             <div id={styles.loader6}></div>
           </div>
           <h1 id={styles.titleText}>Reset Password</h1>
-          <p id={styles.spanText}>Sign in instead? <a style={{position:"relative", zIndex:8}} href="/auth">Sign in</a></p>
+          <p id={styles.spanText}>Sign in instead? <a style={{position:"relative", zIndex:8}} href="/">Sign in</a></p>
           <ResetForm  csrfToken={csrfToken} />
         </div>
       </Tilt>

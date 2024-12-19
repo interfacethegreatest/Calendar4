@@ -71,7 +71,7 @@ console.log('hello')
    "Activate your account.",
    activateTemplateEmail
  )
- res.json({message: 'Register success! Please activate your account to start!'}) 
+ res.json({message: 'Register success! Please activate your account to start! An email has been sent.'}) 
 
 }catch(error){
     res.status(500).json({ message: (error as Error).message})

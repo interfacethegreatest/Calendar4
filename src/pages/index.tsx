@@ -11,7 +11,12 @@ import LoginCard from "@/components/cards/LoginCard/LoginCard";
 import { NextPageContext } from "next";
 import RegisterCard from "@/components/cards/RegisterCard/RegisterCard";
 import ForgotCard from "@/components/cards/ForgotCard/ForgotCard";
+import { Poppins } from "next/font/google";
 
+const font = Poppins({
+  subsets: ["latin"],
+  weight: ["600"],
+});
 
 export default function Home({providers, callbackUrl, csrfToken }:{providers:any, tab : string, callbackUrl:string, csrfToken:string}) {
   const { data: session } = useSession();
@@ -33,6 +38,9 @@ export default function Home({providers, callbackUrl, csrfToken }:{providers:any
     <>
       <main id={styles.main}>
         {/*<Scene />*/}
+        <h1 id={styles.mainBannerText} className={font.className}>
+          Make the most of your professional career.
+        </h1>
         {sceneLoaded && scene === 0 && (
           <TiltCard 
             buttonString={session?.user?.name?.split(' ')[0] ? `Welcome ${session?.user?.name?.split(' ')[0]}` : "Welcome!"}

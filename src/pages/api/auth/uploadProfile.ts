@@ -40,9 +40,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     // Perform updates here
+    console.log(user)
 
     user.name = username;
-    user.website = website;
+    user.Website = website;
     user.image = imageSchema;
     user.Biography = description;
 

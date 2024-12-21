@@ -12,6 +12,7 @@ import TiltModal from '@/components/modals/TiltModal/tiltModal';
 import connectDB from '@/utils/connectDB';
 import User from '@/models/User';
 import { AiOutlineStar } from 'react-icons/ai';
+import { BiLinkExternal } from 'react-icons/bi';
 
 
 const COLOURS = [
@@ -121,33 +122,38 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
             }
             <h6 id={style.text} style={{marginBottom:"0px"}}><u>Description</u></h6>
             {
-              session ? <p style={{color:"aliceblue", marginBottom:"0"}}>{ descriptionString }</p> :
-              <p style={{color:"aliceblue", marginBottom:0}}>{user.Biography}</p>
+              session ? <p style={{color:"aliceblue", marginBottom:"0", width:"50%"}}>{ descriptionString }</p> :
+              <p style={{color:"aliceblue", marginBottom:0, width:"50%"}}>{user.Biography}</p>
             }
+            <div id={style.socials}><div id={style.social}><a href="">0</a><h6 id={style.location} style={{color:"GrayText",}}><u>Following</u></h6></div><div id={style.social}><a href="">0</a><h6 id={style.location} style={{color:"GrayText"}}><u>Following</u></h6></div></div>
             {
-            user.Website ? (
+            user.Website !="" ? (
             <>
             <div
             id={style.websiteDiv}
-            onClick={() => window.open(user.Website, "_blank")} // Opens the URL in a new tab
             style={{ cursor: "pointer" }} // Indicates that the div is clickable
             >
+            <div style={{display:"flex", flexDirection: "row-reverse"}}>
+            <div id={style.websiteIconHolder}>
+            <a href={user.Website} target="_blank" rel="noopener noreferrer">
+              <BiLinkExternal color='grey' />
+            </a>
+            </div>
             <h6>
-             <a style={{color:"aliceblue", fontSize:"1.1rem", textDecoration:"none"}} href={user.Website} id={user.websiteTextLink} target="_blank" rel="noopener noreferrer">
-             My webpage
+             <a style={{color:"aliceblue", fontSize:"1.1rem", textDecoration:"none", paddingRight:"10px"}} href={user.Website} id={user.websiteTextLink} target="_blank" rel="noopener noreferrer">
+             Website:
              </a>
             </h6>
-            <p style={{ fontSize:".6rem", textDecoration:"none",}}><a style={{color:"gray"}} href={user.name}>{user.Website}</a></p>
-            <div id={style.websiteIconHolder}>
-
             </div>
-            <div id={style.websiteLoader}></div>
+            <a href={user.Website} target="_blank" rel="noopener noreferrer"><p style={{ fontSize:".6rem", textDecoration:"none", position:"relative", zIndex:"3", width:"100%"}}>{user.Website}</p></a>
+            
+            <div id={style.websiteLoader}>
+              
+            </div>
             </div>
             </>
             ) : null
             }
-            <div id={style.socials}><div id={style.social}><a href="">0</a><h6 id={style.location} style={{color:"GrayText"}}><u>Following</u></h6></div><div id={style.social}><a href="">0</a><h6 id={style.location} style={{color:"GrayText"}}><u>Following</u></h6></div></div>
-            
 
             </motion.div>
           </motion.div>

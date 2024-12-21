@@ -110,16 +110,21 @@
     font-size: 2rem;
     
 }
+
 #websiteDiv{
     height: 60px;
     width: 240px;
+    border: 1px solid rgba(128, 128, 128, 0.233);
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
-    background: linear-gradient(to right, rgb(15, 15, 15), #0f0f0f); /* Gradient from black to dark grey */
-    position: relative;
+    background: transparent; /*linear-gradient(to right, rgb(10, 10, 10), rgb(32, 32, 32)); /* Gradient from black to dark grey */
     cursor: pointer;
     padding-top: 5px;
     padding-left: 10px;
+    position: absolute;
+    right: 0;
+    transform: translate(-10%,-110%);
+    gap: 20px;
 }
 
 #websiteDiv h6{
@@ -133,26 +138,46 @@
 
 #websiteIconHolder{
     border-radius: 50%;
-    border: 2px solid grey;
     width: 22px;
     height: 22px;
-    position: absolute;
-    right: 2%;
-    top: 15%;
-    transform: translate(-10,-10);
+    margin-right: 2px;
+    margin-left: 130px;
+}
+
+#websiteLoader{
+    width: 100%;
+    height: 1px;
+    background-color: rgb(30, 245, 1);
+    position: relative;
 }
 
 
 
-@media (min-width: 925px) {
+@media (max-width: 986px) {
     #body {
-        width: 55%; /* Fixed width for larger screens */
+        /*width: 55%; /* Fixed width for larger screens */
     }
 
     #description{
         margin-top: 0px;
         margin: 0px;
     }
+
+    #websiteDiv{
+        height: 60px;
+        width: 240px;
+        border: 1px solid rgba(128, 128, 128, 0.233);
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        background: transparent; /*linear-gradient(to right, rgb(10, 10, 10), rgb(32, 32, 32)); /* Gradient from black to dark grey */
+        cursor: pointer;
+        padding-top: 5px;
+        padding-left: 10px;
+        right: auto;
+        transform: none;
+        position: inherit;
+    }
+
 }
 
 
@@ -225,7 +250,7 @@
     width: 16.5%;
     height: 16.5%;
     position: absolute;
-    transform: translate(440%, -10%);
+    transform: translate(440%, -18%);
     z-index: 3;
 }
 
@@ -324,6 +349,10 @@ height: 100%;
 
 #sectionText a{
     text-decoration: solid;
+}
+
+#social h6{
+    margin-bottom: 2px;
 }
 
 @media (max-width: 879px) {
@@ -434,7 +463,7 @@ height: 100%;
     }
 }
 
-@media (max-width: 494px) {
+@media (max-width: 560px) {
     #selectedText{
         font-size: 1rem
     }
@@ -455,7 +484,9 @@ height: 100%;
     }
 
     #social h6{
-        font-size: .5rem ;
+        font-size: .7rem ;
+        position: relative;
+        margin-bottom: 0;
     }
 
     #starDiv{
@@ -468,8 +499,10 @@ height: 100%;
 
     #body{
         margin-left: 0;
-        width: 100%;
+        width: 925px;
     }
+
+
 }
 
 

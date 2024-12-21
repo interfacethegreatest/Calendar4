@@ -26,7 +26,7 @@
   border: 2px solid rgba(90, 89, 89, 0.17);
 }
 
-@media (max-width: 665px) {
+@media (max-width: 804px) {
 
   #editProfile{
       font-size: clamp(.6rem, 1.7vw, 1.2rem);

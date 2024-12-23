@@ -11,7 +11,7 @@
 #body {
     max-width: 925px;
     width: 55%; /* Default to 95% width */
-    height: 200vh;
+    min-height: 100vh;
     position: relative;
     z-index: 1;
     /*border-left: 1px solid rgba(103, 103, 104, 0.219);

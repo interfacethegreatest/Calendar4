@@ -413,5 +413,5 @@ height: 100%;
     border: 2px solid rgba(90, 89, 89, 0.17);
     border-radius: 1px;
     background: linear-gradient(135deg, rgba(10,10,10,255),   rgba(35,32,35,255));;
-
+    height: max-content;
 }

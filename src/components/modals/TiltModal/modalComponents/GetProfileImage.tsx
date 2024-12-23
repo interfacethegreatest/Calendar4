@@ -29,7 +29,7 @@ const GetProfileImage: React.FunctionComponent<IGetProfileImageProps> = (props) 
       imagePreview ? 
       <img src={imagePreview} alt="Preview" width={100} height={100} style={{zIndex:3, position:"absolute", objectFit:"cover", background:"black"}}/>
       :
-      <img style={{zIndex:"3", position:"fixed", backgroundColor: "black"}} src="/default-profile.jpg" alt="Default Profile" width={100} height={100} />
+      <img style={{zIndex:"3", position:"fixed", backgroundColor: "black"}} src="https://www.pngkit.com/png/detail/126-1262807_instagram-default-profile-picture-png.png" alt="Default Profile" width={100} height={100} />
     }
      <BiSolidCameraPlus style={{cursor:"pointer", zIndex:"4", color:"aliceblue"}} onClick={()=>alert('123')} size={"25px"}/>
    </div>
@@ -40,7 +40,7 @@ const GetProfileImage: React.FunctionComponent<IGetProfileImageProps> = (props) 
         </b>
     </h1>
     <p id={styles.innerText}>
-    Please upload a favourite selfie. Upload below.
+    Upload by clicking the camera icon below.
     </p>
     </div>
     </motion.div>

@@ -13,6 +13,7 @@ import connectDB from '@/utils/connectDB';
 import User from '@/models/User';
 import { AiOutlineStar } from 'react-icons/ai';
 import { BiLinkExternal } from 'react-icons/bi';
+import { isValidObjectId } from 'mongoose';
 
 
 const COLOURS = [
@@ -60,6 +61,7 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
   },[session])
 
   useEffect(() => {
+    //Record the changes to window size upon window resize,
     const handleResize = () => {
       const width = document.documentElement.clientWidth;
       const height = document.documentElement.clientHeight;
@@ -78,12 +80,14 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
   }, []);
 
   function handleClick(arg0: number) {
+    //after the user clicks next in the edit modal, move to the next page, setSelection(true) enables this.
     var newSelection = [false, false, false,false]
     newSelection[arg0] = true;
     setSelection(newSelection)
   }
   const [clicked, setClicked] = useState(false)
   useEffect(() => {
+    //if modal is opened disable scrolling.
     if (showContent) {
       window.scrollTo(0,0)
       document.body.style.overflow = "hidden"; // Disable scrolling
@@ -102,6 +106,7 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
               </div>
               <div id={style.profileImage}>
                 {
+                  /* if the user is signed in use the image from the userSession object, else use the DB user object,*/
                   session ? <img id={style.image} src={ imageString } alt="" /> :
                   <img id={style.image} src={ user.image } alt="" /> 
                 }
@@ -113,7 +118,8 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
               <AiOutlineStar id={style.star}/>
               </div>
             {
-              session ? session && session && <div id={style.titleLine}><h1 id={style.profileTitle}>{userString ? userString : session?.user.name}</h1><div style={{display: "flex", marginLeft:"auto", position:"relative", zIndex:"3"}}><GenerateModal setShowContent={setShowContent} fields='Edit Profile'/></div></div> :
+              /* If the user is signed in, populate the div with the session data. If not use the User from the backend, this enables the user change to be recorded and set. */
+              session ? <div id={style.titleLine}><h1 id={style.profileTitle}>{userString ? userString : session?.user.name}</h1><div style={{display: "flex", marginLeft:"auto", position:"relative", zIndex:"3"}}><GenerateModal setShowContent={setShowContent} fields='Edit Profile'/></div></div> :
               <div id={style.titleLine}><h1 id={style.profileTitle}>{user.name}</h1></div>
             }
             {
@@ -184,6 +190,7 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
          </div>
      </div>
      {
+      //Modal object, TiltModal is animated onto screen.
             showContent ? 
               <div id={style.modalBacking}>
                 <motion.div
@@ -201,19 +208,24 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
 
 export async function getServerSideProps(ctx: NextPageContext) {
   const { query } = ctx;
-  const { userId } = query; // Extract userId from query params
+  const { userId } = query;
+
+  if (!isValidObjectId(userId)) {
+    return { notFound: true }; // Validate MongoDB ID
+  }
 
   try {
     await connectDB(); // Connect to MongoDB
-    // Fetch user data from the database
     const user = await User.findById(userId);
-    // If no user is found, return a 404 page
+
     if (!user) {
-      return { notFound: true };
+      return { notFound: true }; // User not found
     }
+
     return {
-      props: { 
-        user: JSON.parse(JSON.stringify(user)), // Pass user data as props
+      props: {
+        userId,
+        user: JSON.parse(JSON.stringify(user)),
       },
     };
   } catch (error) {
@@ -223,4 +235,3 @@ export async function getServerSideProps(ctx: NextPageContext) {
     };
   }
 }
-

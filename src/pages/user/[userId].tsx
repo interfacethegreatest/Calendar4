@@ -14,6 +14,7 @@ import User from '@/models/User';
 import { AiOutlineStar } from 'react-icons/ai';
 import { BiLinkExternal } from 'react-icons/bi';
 import { isValidObjectId } from 'mongoose';
+import WebsiteButton from '@/components/buttons/websiteButton/websiteButton';
 
 
 const COLOURS = [
@@ -132,59 +133,7 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
               <p style={{color:"aliceblue", marginBottom:0, width:"50%"}}>{user.Biography}</p>
             }
             <div id={style.socials}><div id={style.social}><a href="">0</a><h6 id={style.location} style={{color:"GrayText",}}><u>Following</u></h6></div><div id={style.social}><a href="">0</a><h6 id={style.location} style={{color:"GrayText"}}><u>Following</u></h6></div></div>
-            {
-            session && websiteString ? (
-            <>
-            <div
-            id={style.websiteDiv}
-            style={{ cursor: "pointer" }} // Indicates that the div is clickable
-            >
-            <div style={{display:"flex", flexDirection: "row-reverse"}}>
-            <div id={style.websiteIconHolder}>
-            <a href={ websiteString } target="_blank" rel="noopener noreferrer">
-              <BiLinkExternal style={{position:"absolute" , zIndex:"3"}} color='grey' />
-            </a>
-            </div>
-            <h6>
-             <a style={{color:"aliceblue", fontSize:"1.1rem", textDecoration:"none", paddingRight:"10px"}} href={ websiteString } id={user.websiteTextLink} target="_blank" rel="noopener noreferrer">
-             Website:
-             </a>
-            </h6>
-            </div>
-            <a href={ websiteString } target="_blank" rel="noopener noreferrer"><p style={{ fontSize:".6rem", textDecoration:"none", position:"relative", zIndex:"3", width:"100%"}}>{websiteString}</p></a>
-            
-            <div id={style.websiteLoader}>
-              
-            </div>
-            </div>
-            </>
-            ) : user.Website != "" ? 
-            <>
-            <div
-            id={style.websiteDiv}
-            style={{ cursor: "pointer" }} // Indicates that the div is clickable
-            >
-            <div style={{display:"flex", flexDirection: "row-reverse"}}>
-            <div id={style.websiteIconHolder}>
-            <a href={ user.Website } target="_blank" rel="noopener noreferrer">
-              <BiLinkExternal style={{position:"absolute" , zIndex:"3"}} color='grey' />
-            </a>
-            </div>
-            <h6>
-             <a style={{color:"aliceblue", fontSize:"1.1rem", textDecoration:"none", paddingRight:"10px"}} href={ user.Website } id={user.websiteTextLink} target="_blank" rel="noopener noreferrer">
-             Website:
-             </a>
-            </h6>
-            </div>
-            <a href={ user.Website } target="_blank" rel="noopener noreferrer"><p style={{ fontSize:".6rem", textDecoration:"none", position:"relative", zIndex:"3", width:"100%"}}>{user.Website}</p></a>
-            
-            <div id={style.websiteLoader}>
-              
-            </div>
-            </div>
-            </> :
-            null
-            }
+            <WebsiteButton websiteString={websiteString!} session={session} user={user}/>
 
             </motion.div>
           </motion.div>

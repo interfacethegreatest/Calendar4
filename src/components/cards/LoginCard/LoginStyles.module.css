@@ -9,7 +9,7 @@
 #main {
   aspect-ratio: 411 / 548; /* Maintain the same proportion */
   max-width: 370px; /* Max width of the container */
-  max-height: 400px; /* Max height of the container */
+  max-height: 360px; /* Max height of the container */
   width: 96vw; /* Width as a percentage of the viewport */
   height: auto; /* Height will be calculated automatically based on aspect ratio */
   background: linear-gradient(135deg, #1b1b1d1e 75%, #1e1e1e1e 100%);

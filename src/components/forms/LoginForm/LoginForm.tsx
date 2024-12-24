@@ -98,7 +98,8 @@ const LoginForm: React.FunctionComponent<ILoginFormProps> = (props) => {
      animation={animation}
     />
   </form>
-     <div id={styles.socialDiv}>
+  {/*
+    <div id={styles.socialDiv}>
       <SocialButton
        type="submit"
        providerKey={providers['google'].id}
@@ -124,6 +125,7 @@ const LoginForm: React.FunctionComponent<ILoginFormProps> = (props) => {
        width='45px'
       />
      </div>
+  */}
   </>;
 };
 

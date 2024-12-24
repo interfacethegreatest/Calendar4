@@ -65,8 +65,8 @@
 
 
 #profileImage{
-    height: 150px;
-    width: 150px;
+    height: 135px;
+    width: 135px;
     border: 1px dotted rgba(240, 248, 255, 0.032);
     border-radius: 50%;
     display: flex;

@@ -107,7 +107,7 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
               <div id={style.profileImage}>
                 {
                   /* if the user is signed in use the image from the userSession object, else use the DB user object,*/
-                  session ? <img id={style.image} src={ imageString } alt="" /> :
+                  imageString ? <img id={style.image} src={ imageString } alt="" /> :
                   <img id={style.image} src={ user.image } alt="" /> 
                 }
               </div>
@@ -119,11 +119,11 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
               </div>
             {
               /* If the user is signed in, populate the div with the session data. If not use the User from the backend, this enables the user change to be recorded and set. */
-              session ? <div id={style.titleLine}><h1 id={style.profileTitle}>{userString ? userString : session?.user.name}</h1><div style={{display: "flex", marginLeft:"auto", position:"relative", zIndex:"3"}}><GenerateModal setShowContent={setShowContent} fields='Edit Profile'/></div></div> :
+              session ? <div id={style.titleLine}><h1 id={style.profileTitle}>{userString ? userString : user.name}</h1><div style={{display: "flex", marginLeft:"auto", position:"relative", zIndex:"3"}}><GenerateModal setShowContent={setShowContent} fields='Edit Profile'/></div></div> :
               <div id={style.titleLine}><h1 id={style.profileTitle}>{user.name}</h1></div>
             }
             {
-              session ? <p id={style.text} style={{position:"relative", transform:"translate(0,-10px)", marginBottom:"0px"}}>@{session?.user.name}</p> :
+              session ? <p id={style.text} style={{position:"relative", transform:"translate(0,-10px)", marginBottom:"0px"}}>@{userString ? userString : user.name}</p> :
               <p id={style.text} style={{position:"relative", transform:"translate(0,-10px)", marginBottom:"0px"}}>@{user.name}</p>
             }
             <h6 id={style.text} style={{marginBottom:"0px"}}><u>Description</u></h6>
@@ -133,7 +133,7 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
             }
             <div id={style.socials}><div id={style.social}><a href="">0</a><h6 id={style.location} style={{color:"GrayText",}}><u>Following</u></h6></div><div id={style.social}><a href="">0</a><h6 id={style.location} style={{color:"GrayText"}}><u>Following</u></h6></div></div>
             {
-            user.Website !="" ? (
+            session && websiteString ? (
             <>
             <div
             id={style.websiteDiv}
@@ -141,24 +141,49 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
             >
             <div style={{display:"flex", flexDirection: "row-reverse"}}>
             <div id={style.websiteIconHolder}>
-            <a href={user.Website} target="_blank" rel="noopener noreferrer">
-              <BiLinkExternal color='grey' />
+            <a href={ websiteString } target="_blank" rel="noopener noreferrer">
+              <BiLinkExternal style={{position:"absolute" , zIndex:"3"}} color='grey' />
             </a>
             </div>
             <h6>
-             <a style={{color:"aliceblue", fontSize:"1.1rem", textDecoration:"none", paddingRight:"10px"}} href={user.Website} id={user.websiteTextLink} target="_blank" rel="noopener noreferrer">
+             <a style={{color:"aliceblue", fontSize:"1.1rem", textDecoration:"none", paddingRight:"10px"}} href={ websiteString } id={user.websiteTextLink} target="_blank" rel="noopener noreferrer">
              Website:
              </a>
             </h6>
             </div>
-            <a href={user.Website} target="_blank" rel="noopener noreferrer"><p style={{ fontSize:".6rem", textDecoration:"none", position:"relative", zIndex:"3", width:"100%"}}>{user.Website}</p></a>
+            <a href={ websiteString } target="_blank" rel="noopener noreferrer"><p style={{ fontSize:".6rem", textDecoration:"none", position:"relative", zIndex:"3", width:"100%"}}>{websiteString}</p></a>
             
             <div id={style.websiteLoader}>
               
             </div>
             </div>
             </>
-            ) : null
+            ) : user.Website != "" ? 
+            <>
+            <div
+            id={style.websiteDiv}
+            style={{ cursor: "pointer" }} // Indicates that the div is clickable
+            >
+            <div style={{display:"flex", flexDirection: "row-reverse"}}>
+            <div id={style.websiteIconHolder}>
+            <a href={ user.Website } target="_blank" rel="noopener noreferrer">
+              <BiLinkExternal style={{position:"absolute" , zIndex:"3"}} color='grey' />
+            </a>
+            </div>
+            <h6>
+             <a style={{color:"aliceblue", fontSize:"1.1rem", textDecoration:"none", paddingRight:"10px"}} href={ user.Website } id={user.websiteTextLink} target="_blank" rel="noopener noreferrer">
+             Website:
+             </a>
+            </h6>
+            </div>
+            <a href={ user.Website } target="_blank" rel="noopener noreferrer"><p style={{ fontSize:".6rem", textDecoration:"none", position:"relative", zIndex:"3", width:"100%"}}>{user.Website}</p></a>
+            
+            <div id={style.websiteLoader}>
+              
+            </div>
+            </div>
+            </> :
+            null
             }
 
             </motion.div>

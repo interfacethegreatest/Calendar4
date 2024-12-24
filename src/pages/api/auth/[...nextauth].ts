@@ -74,24 +74,27 @@ export default NextAuth({
       if (user) {
         token.provider = account?.provider;
       }
-      //console.log(token);
+      console.log(token);
       return token;
     },
-    async session({ session, token }: { session: any; token: any }) {
-      //console.log(token);
+    async session({ session, token }: { session: any; token: JWT }) {
+      console.log(token);
       if (session.user) {
-        session.token = token;
+        session.user.provider = token.provider;
         console.log("Session token "+ token.sub)
         try {
           await connectDB();
-          const userDB = await UserModal.findById(token.sub);
-          if (userDB ) {
+          const userDB = await UserModal.findById(token.sub).exec();
+          if ( userDB ) {
             console.log("Hello World");
-            console.log("EMAIL VERIFIED EXISTS CHECK : ");
-            console.log(userDB.emailVerfified)
-            console.log(userDB.emailVerfified === undefined);
-             userDB.emailVerfified === undefined ? await axios.post(`${process.env.NEXTAUTH_URL}/api/auth/checkUser`, { token: token.sub })
-             : null;
+            // check that userDB.emailverified is not null
+            console.log(userDB.emailVerified);
+            const isNewUser = (userDB.emailVerified === null );
+            // console log the result 
+              if ( isNewUser ) {
+                await axios.post(`${process.env.NEXTAUTH_URL}/api/auth/checkUser`, { token: token.sub });
+              }
+            
           }
           session.id = userDB.id;
           session.isNewUser = userDB.emailVerified.isNewUser;

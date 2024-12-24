@@ -206,6 +206,7 @@ const RegisterForm: React.FunctionComponent<IRegisterFormProps> = (props) => {
        disabled={isSubmitting}
        />
   </form>
+  {/*
      <div id={styles.socialDiv}>
       <SocialButton
        type="submit"
@@ -232,6 +233,7 @@ const RegisterForm: React.FunctionComponent<IRegisterFormProps> = (props) => {
        width='45px'
       />
      </div>
+  */}
   </>;
 };
 

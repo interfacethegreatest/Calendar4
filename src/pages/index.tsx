@@ -32,7 +32,6 @@ export default function Home({providers, callbackUrl, csrfToken }:{providers:any
     return () => clearTimeout(timer); // Clean up the timer
   }, []);
 
-  console.log(providers)
 
   return (
     <>

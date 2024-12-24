@@ -48,7 +48,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     user.Biography = description;
 
     await user.save();
-    
 
     return res.status(200).json({ message: 'User profile updated successfully.' });
   } catch (error: any) {

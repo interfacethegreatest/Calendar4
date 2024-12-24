@@ -88,8 +88,9 @@ export default NextAuth({
           if (userDB ) {
             console.log("Hello World");
             console.log("EMAIL VERIFIED EXISTS CHECK : ");
-            console.log(userDB.emailVerfified === null);
-             userDB.emailVerfified === null ? await axios.post(`${process.env.NEXTAUTH_URL}/api/auth/checkUser`, { token: token.sub })
+            console.log(userDB.emailVerfified)
+            console.log(userDB.emailVerfified === undefined);
+             userDB.emailVerfified === undefined ? await axios.post(`${process.env.NEXTAUTH_URL}/api/auth/checkUser`, { token: token.sub })
              : null;
           }
           session.id = userDB.id;

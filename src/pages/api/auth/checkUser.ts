@@ -32,13 +32,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         emailVerified: false,
                         isNewUser: true,
                         profileVisited: false,
-                        calenderVisited: false, // Consider renaming to "calendarVisited"
+                        calendarVisited: false, 
                         location: false
-                    }
+                    },
+                    Biography: "This user has not provided a description.",
+                    Website: "",
+                    followers: 0,
+                    following:0,
+                    role:"user",
+                    __v: 0,
                 }
             },
             { new: true } // Return the updated document
         );
+        
   
         console.log("Updated user: " + updatedUser);
         return res.status(200).json({ message: 'User status updated successfully', user: updatedUser });

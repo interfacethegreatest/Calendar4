@@ -22,7 +22,7 @@ export default function Home({providers, callbackUrl, csrfToken }:{providers:any
   const { data: session } = useSession();
   const [sceneLoaded, setSceneLoaded] = useState(false);
   const [scene , setScene] = useState(0);
-
+  console.log(session)
   useEffect(() => {
     // Mock scene loading complete after a delay
     const timer = setTimeout(() => {

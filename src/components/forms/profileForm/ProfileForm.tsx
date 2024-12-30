@@ -73,7 +73,7 @@ const ProfileForm: React.FunctionComponent<IProfileFormProps> = (props) => {
     try {
       // Success handling
   
-      const { data } = await axios.post('/api/auth/uploadProfile',{
+      const { data } = await axios.post('/api/auth/getProfileImage?userId=${userId}',{
         ...values,
       });
       //window.location.reload();

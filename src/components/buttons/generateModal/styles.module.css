@@ -29,9 +29,9 @@
 @media (max-width: 804px) {
 
   #editProfile{
-      font-size: clamp(.6rem, 1.7vw, 1.2rem);
-      height: 36px;
-      width: 64px;
+      /*font-size: clamp(.6rem, 1.7vw, 1.2rem);*/
+      height: 52px;
+      width: 128px;
       position: relative;
       right: 0;
       padding: 5px;
@@ -39,7 +39,7 @@
   }
 
   #mainText{
-    font-size: 1.7vw;
+    /*font-size: 1.7vw;*/
   }
 
   #clickableText{
@@ -90,5 +90,14 @@
   100% {
     transform: translateX(0);
     opacity: 1;
+  }
+}
+
+
+@media (max-width: 442px) {
+
+  #editProfile{
+    height: 48px;
+    width: 85px;
   }
 }

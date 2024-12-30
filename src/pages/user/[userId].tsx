@@ -15,6 +15,7 @@ import { AiOutlineStar } from 'react-icons/ai';
 import { BiLinkExternal } from 'react-icons/bi';
 import { isValidObjectId } from 'mongoose';
 import WebsiteButton from '@/components/buttons/websiteButton/websiteButton';
+import ProfileBody from '@/components/sections/ProfileBody/ProfileBody';
 
 
 const COLOURS = [
@@ -115,24 +116,13 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
               <br />
             </div>
             <motion.div id={style.profileBody}>
-              <div id={style.starDiv}>
-              <AiOutlineStar id={style.star}/>
-              </div>
-            {
-              /* If the user is signed in, populate the div with the session data. If not use the User from the backend, this enables the user change to be recorded and set. */
-              session ? <div id={style.titleLine}><h1 id={style.profileTitle}>{userString ? userString : user.name}</h1><div style={{display: "flex", marginLeft:"auto", position:"relative", zIndex:"3"}}><GenerateModal setShowContent={setShowContent} fields='Edit Profile'/></div></div> :
-              <div id={style.titleLine}><h1 id={style.profileTitle}>{user.name}</h1></div>
-            }
-            {
-              session ? <p id={style.text} style={{position:"relative", transform:"translate(0,-10px)", marginBottom:"0px"}}>@{userString ? userString : user.name}</p> :
-              <p id={style.text} style={{position:"relative", transform:"translate(0,-10px)", marginBottom:"0px"}}>@{user.name}</p>
-            }
-            <h6 id={style.text} style={{marginBottom:"0px"}}><u>Description</u></h6>
-            {
-              session ? <p style={{color:"aliceblue", marginBottom:"0", width:"50%"}}>{ descriptionString }</p> :
-              <p style={{color:"aliceblue", marginBottom:0, width:"50%"}}>{user.Biography}</p>
-            }
-            <div id={style.socials}><div id={style.social}><a href="">0</a><h6 id={style.location} style={{color:"GrayText",}}><u>Following</u></h6></div><div id={style.social}><a href="">0</a><h6 id={style.location} style={{color:"GrayText"}}><u>Following</u></h6></div></div>
+              <ProfileBody setShowContent={setShowContent} 
+              session={session} userString={userString} 
+              descriptionString={descriptionString} 
+              name={user.name} 
+              Biography={user.Biography} 
+              following={user.following} 
+              followers={user.followers} />
             <WebsiteButton websiteString={websiteString!} session={session} user={user}/>
 
             </motion.div>
@@ -171,7 +161,7 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
             initial={{ x: "-100vw" }} 
             animate={{ x: clicked ? "-100vw" : 0 }} // Slide out when clicked
             transition={{ type: "spring", stiffness: 70, damping: 20 }}>
-              <TiltModal website={setWebsiteString} description={setDescriptionString} imageString={setImageString} username={setUserString} setShowContent={setShowContent}  closeModal={setClicked} icon={<MdOutlineClose/>}/>
+              <TiltModal userId={user._id} website={setWebsiteString} description={setDescriptionString} imageString={setImageString} username={setUserString} setShowContent={setShowContent}  closeModal={setClicked} icon={<MdOutlineClose/>}/>
               </motion.div>
               </div>
              : null

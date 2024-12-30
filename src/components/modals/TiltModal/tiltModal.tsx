@@ -34,6 +34,7 @@ interface ITiltModalProps {
   username: Function,
   description: Function,
   website: Function,
+  userId:string,
 }
 
 // Use forwardRef to handle the `ref` prop
@@ -47,8 +48,11 @@ const TiltModal = forwardRef<HTMLDivElement, ITiltModalProps>((props, ref) => {
     imageString,
     username,
     description,
-    website
+    website,
+    userId,
   } = props;
+  //log user id for testing,
+  console.log(userId)
 
   const [selection, setSelection] = useState([true, false]);
   const [clicked, setClicked] = useState(false); // State to track if the slide-out is triggered
@@ -152,7 +156,7 @@ const TiltModal = forwardRef<HTMLDivElement, ITiltModalProps>((props, ref) => {
             {selection[0] ? (
               <>
                 <div>
-                  <GetProfileImage imagePreview={imagePreview} />
+                  <GetProfileImage userId={userId}/>
                 </div>
                 <SlideButton
                   type="modalSkip"

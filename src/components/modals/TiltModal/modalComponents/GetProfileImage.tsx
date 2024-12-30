@@ -3,10 +3,11 @@ import styles from "../tiltStyles.module.css"
 import { BiSolidCameraPlus } from 'react-icons/bi';
 import { Poppins } from 'next/font/google';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
 
 interface IGetProfileImageProps {
-  imagePreview: string | null;
+  userId : string; // pass the userId to return a string,
 }
 
 const font = Poppins({
@@ -15,7 +16,24 @@ const font = Poppins({
 });
 
 const GetProfileImage: React.FunctionComponent<IGetProfileImageProps> = (props) => {
-  const { imagePreview } = props; 
+  const { userId } = props;
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  useEffect(()=>{
+    const fetchProfileImage = async ()=>{
+      try {
+        const response = await fetch(`/api/auth/getProfileImage?userId=${userId}`);
+        if(!response.ok) {
+          throw new Error('Failed to fetch image data.')
+        }
+        const data = await response.json();
+        console.log(data.image);
+        setImagePreview(data.image);
+      } catch (error) {
+        console.log("Error fetching profile image: " + error)
+      }
+    }
+    fetchProfileImage();
+  }, [userId])
   const [clicked, setClicked] = useState(true);
 
   return (

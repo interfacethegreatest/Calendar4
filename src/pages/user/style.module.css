@@ -104,12 +104,6 @@
     font-size: .96rem;
 }
 
-#profileTitle{
-    color: aliceblue;
-    margin-top: 60px;
-    font-size: 2rem;
-    
-}
 
 #websiteDiv{
     height: 60px;
@@ -194,28 +188,6 @@
     gap: 30px;
 }
 
-#socials{
-    display: flex;
-    flex-direction: row;
-    margin-right: 25px;
-}
-
-#social{
-    display: flex;
-    flex-direction: row;
-    margin-right: 10px;
-    gap: 4px;
-}
-#socials a{
-    color: aliceblue;
-    margin-bottom: 5px;
-}
-
-#socials h6{
-    margin-top: 3px;
-    font-size: .96rem;
-}
-
 #selectorText{
     color: aliceblue;
     margin: 0;
@@ -233,31 +205,6 @@
     padding: 0;
     font-size: 1.3rem;
     text-decoration: underline;
-}
-
-#socials {
-    
-}
-
-
-
-#titleLine{
-    display: flex;
-    flex-direction: row;
-}
-
-#starDiv{
-    width: 16.5%;
-    height: 16.5%;
-    position: absolute;
-    transform: translate(440%, -18%);
-    z-index: 3;
-}
-
-#star{
-    height: 100%;
-    width: 100%;
-    color: rgba(37, 37, 37, 0.24);
 }
 
 #information{
@@ -321,9 +268,7 @@ height: 100%;
 }
 
 
-#text{
-    color: rgba(247, 243, 243, 0.562);
-}
+
 
 #documentSection{
     display: flex;
@@ -351,9 +296,7 @@ height: 100%;
     text-decoration: solid;
 }
 
-#social h6{
-    margin-bottom: 2px;
-}
+
 
 @media (max-width: 879px) {
 
@@ -378,18 +321,6 @@ height: 100%;
         gap: clamp(5px, 11px, 22px);
     }
 
-    #social{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 5px;
-    }
-
-    #socials{
-        margin-bottom: 0;
-        margin-right: 0;
-    }
-
     #selectorText{
         font-size: 1.44rem;
     }
@@ -403,28 +334,6 @@ height: 100%;
         margin-top: 10px;
         margin-left: 7px;
         width: 100%;
-    }
-
-    #profileTitle{
-        font-size: clamp(1.6rem, 3.5vw, 1.5rem);
-        margin-bottom: 0;
-    }
-
-    #text{
-        font-size: clamp(.8rem, 2vw, 1.2rem);
-        margin-bottom: 0;
-    }
-
-    #social{
-        font-size: clamp(.8rem, 2.3vw, 1.3rem);
-    }
-
-    #social h6{
-        font-size: clamp(.8rem, 2.3vw, 1.3rem);
-    }
-
-    #social a{
-        margin-bottom: 0;
     }
 
     #editProfile{
@@ -454,16 +363,10 @@ height: 100%;
         margin-right: 6px;
     }
 
-    #starDiv{
-        width: 12.5%;
-        height: 12.5%;
-        position: fixed;
-        transform: translate(250%, 50%);
-        z-index: 3;
-    }
+    
 }
 
-@media (max-width: 560px) {
+@media (max-width: 777px) {
     #selectedText{
         font-size: 1rem
     }
@@ -471,30 +374,8 @@ height: 100%;
         font-size: 1rem;
     }
 
-    #socials{
-        margin-right: 10px;
-    }
-
     #profileBody{
         padding-left: 10px;
-    }
-
-    #text{
-        font-size: .844rem;
-    }
-
-    #social h6{
-        font-size: .7rem ;
-        position: relative;
-        margin-bottom: 0;
-    }
-
-    #starDiv{
-        width: 12.5%;
-        height: 12.5%;
-        position: fixed;
-        transform: translate(585%, 20%);
-        z-index: 3;
     }
 
     #body{

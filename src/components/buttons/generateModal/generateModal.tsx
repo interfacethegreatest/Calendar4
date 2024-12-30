@@ -6,7 +6,7 @@ import { MdEdit } from "react-icons/md";
 
 
 interface IGenerateModalProps {
-    fields: "Edit Profile" | "Edit Documents";
+    fields: "Edit" | "Edit Documents";
     setShowContent : Function;
 }
 

@@ -7,7 +7,7 @@ import SlideButton from "../../buttons/auth/slideButton";
 import { AiOutlineLogin } from "react-icons/ai";
 import Tilt from "react-parallax-tilt";
 import { motion } from "framer-motion";
-import { useState, forwardRef } from "react";
+import { useState, forwardRef, useEffect } from "react";
 import { TbLetterC } from "react-icons/tb";
 import fileTypeChecker from "file-type-checker";
 import ProfileForm from "@/components/forms/profileForm/ProfileForm";
@@ -53,13 +53,12 @@ const TiltModal = forwardRef<HTMLDivElement, ITiltModalProps>((props, ref) => {
   } = props;
   //log user id for testing,
   console.log(userId)
-
+  const [userData, setUserData] = useState(null);
   const [selection, setSelection] = useState([true, false]);
   const [clicked, setClicked] = useState(false); // State to track if the slide-out is triggered
   const [image, setImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState(""); // Store preview URL here
   //const { edgestore } = useEdgeStore();
-
   const closeWindow = () => {
     setShowContent(false); // Trigger slide-out effect
   };
@@ -156,7 +155,7 @@ const TiltModal = forwardRef<HTMLDivElement, ITiltModalProps>((props, ref) => {
             {selection[0] ? (
               <>
                 <div>
-                  <GetProfileImage userId={userId}/>
+                  <GetProfileImage newImage={imagePreview} userId={userId}/>
                 </div>
                 <SlideButton
                   type="modalSkip"
@@ -177,7 +176,8 @@ const TiltModal = forwardRef<HTMLDivElement, ITiltModalProps>((props, ref) => {
                  username={username} 
                  description={description} 
                  image={image}
-                 closeWindow={closeWindow}/>
+                 closeWindow={closeWindow}
+                 userData={userData}/>
               </>
             )}
           </div>

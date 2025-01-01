@@ -21,7 +21,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         if (!user) {
             return res.status(404).json({ message: 'User not found!' });
         }
-        console.log(user)
 
         res.status(200).json({ image: user.image }); // Assume 'profileImage' is the field name
     } catch (error) {

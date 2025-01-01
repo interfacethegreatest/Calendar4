@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 
 interface IGetProfileImageProps {
   userId : string; // pass the userId to return a string,
+  newImage: string | null;
 }
 
 const font = Poppins({
@@ -16,12 +17,12 @@ const font = Poppins({
 });
 
 const GetProfileImage: React.FunctionComponent<IGetProfileImageProps> = (props) => {
-  const { userId } = props;
+  const { userId, newImage } = props;
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   useEffect(()=>{
     const fetchProfileImage = async ()=>{
       try {
-        const response = await fetch(`/api/auth/getProfileImage?userId=${userId}`);
+        const response = await fetch(`/api/auth/getUserData?userId=${userId}`);
         if(!response.ok) {
           throw new Error('Failed to fetch image data.')
         }
@@ -44,7 +45,14 @@ const GetProfileImage: React.FunctionComponent<IGetProfileImageProps> = (props) 
   >
   <div id={styles.imageContainer} onClick={()=>{}}>
     {
+      // first check if the user has a profile picture by using a usestate to query the database,
+      // then check if the user has chosen to submit a profile picture,
+      // if true use this, else go with the user previously submitted image,
+      // if neither use a default string
       imagePreview ? 
+      newImage ?
+      <img src={newImage} alt="Preview" width={100} height={100} style={{zIndex:3, position:"absolute", objectFit:"cover", background:"black"}}/>
+      :
       <img src={imagePreview} alt="Preview" width={100} height={100} style={{zIndex:3, position:"absolute", objectFit:"cover", background:"black"}}/>
       :
       <img style={{zIndex:"3", position:"fixed", backgroundColor: "black"}} src="https://www.pngkit.com/png/detail/126-1262807_instagram-default-profile-picture-png.png" alt="Default Profile" width={100} height={100} />

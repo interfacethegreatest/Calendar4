@@ -124,7 +124,6 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
               following={user.following} 
               followers={user.followers} />
             <WebsiteButton websiteString={websiteString!} session={session} user={user}/>
-
             </motion.div>
           </motion.div>
           <div id={style.selector}>

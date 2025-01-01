@@ -23,6 +23,7 @@ interface IProfileFormProps {
   description: Function,
   website: Function,
   closeWindow: Function,
+  userData: any,
 }
 
 const font = Poppins({
@@ -66,14 +67,12 @@ type FormSchemaType = z.infer<typeof FormSchema>;
 
 
 const ProfileForm: React.FunctionComponent<IProfileFormProps> = (props) => {
-
-
   const onSubmit: SubmitHandler<FormSchemaType> = async (values ) => {
     // handle onsubmit functrion
     try {
       // Success handling
   
-      const { data } = await axios.post('/api/auth/getProfileImage?userId=${userId}',{
+      const { data } = await axios.post('/api/auth/uploadProfile',{
         ...values,
       });
       //window.location.reload();

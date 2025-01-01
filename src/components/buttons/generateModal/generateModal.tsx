@@ -31,9 +31,8 @@ const GenerateModal: React.FunctionComponent<IGenerateModalProps> = (props) => {
   const border = useMotionTemplate`2px solid ${colour}`
 
   return<>
-    <motion.button style={{border, position:"relative", zIndex:1}} className={font.className} id={style.editProfile} onClick={()=>setShowContent(true)}>
-    <span id={style.mainText}>{fields == "Edit Documents" ? "Edit": fields}</span>
-    <span id={style.clickableText}><MdEdit style={{ marginRight:"4px", marginTop:"4px"}}/>Edit</span>
+    <motion.button title='Edit' style={{border, position:"relative", zIndex:1}} className={font.className} id={style.editProfile} onClick={()=>setShowContent(true)}>
+    <span id={style.mainText}><MdEdit style={{marginBottom:"2px", marginRight:"0px", marginTop:"4px"}}/></span>
     </motion.button>
   </> ;
 };

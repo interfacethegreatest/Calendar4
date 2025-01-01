@@ -1,0 +1,103 @@
+#editProfile{
+    width: 43px;
+    height: 43px;
+    border-radius: 4px;
+    background: linear-gradient(135deg, rgb(12, 12, 12) 1%,   rgb(22, 22, 22));
+    z-index: 0;
+    border: 2px solid rgba(90, 89, 89, 0.17);
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: aliceblue;
+    margin-left: auto;
+    margin-left: auto;
+    position: relative;
+  }
+  
+  #editProfile:hover{
+    background-color: rgb(40, 40, 40);
+  }
+  
+  #overlay{
+    background-color: blueviolet;
+    border: 2px solid rgba(90, 89, 89, 0.17);
+  }
+  
+  @media (max-width: 804px) {
+  
+    #editProfile{
+        /*font-size: clamp(.6rem, 1.7vw, 1.2rem);*/
+        height: 43px;
+        width: 43px;
+        position: relative;
+        right: 0;
+        padding: 5px;
+        gap: 5px;
+    }
+  
+    #mainText{
+      /*font-size: 1.7vw;*/
+    }
+  
+    #clickableText{
+      padding-left: 5px;
+    }
+  
+    /*Bind mainText to id variable, 
+    adjust right when at this width*/
+    
+  
+  }
+  
+  /*#editProfile:hover #mainText {
+    animation: panLeftFadeOut 0.4s ease-in-out forwards;
+  }
+  
+  @keyframes panLeftFadeOut {
+    0% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(-50px);
+      opacity: 0;
+    }
+  }*/
+  
+  #clickableText {
+    transform: translateX(50px);
+    position: absolute;
+    opacity: 0;
+    pointer-events: none; /* Prevent accidental hover triggers */
+    display: flex;
+    flex-direction: row;
+    padding-left: 4px;
+  }
+  
+  /*#editProfile:hover #clickableText {
+    animation: panFadeInRight 0.6s ease-in-out forwards;
+    pointer-events: auto; /* Enable interaction only during hover 
+  }
+  
+  @keyframes panFadeInRight {
+    0% {
+      transform: translateX(50px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }*/
+  
+  
+  @media (max-width: 442px) {
+  
+    #editProfile{
+      height: 43px;
+      width: 43px;
+    }
+  }

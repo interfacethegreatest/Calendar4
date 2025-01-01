@@ -4,7 +4,7 @@
     border-radius: 4px;
     background: linear-gradient(135deg, rgb(12, 12, 12) 1%,   rgb(22, 22, 22));
     z-index: 0;
-    border: 2px solid rgba(90, 89, 89, 0.17);
+    border: 2px solid rgb(97, 97, 97);
     cursor: pointer;
     display: flex;
     flex-direction: row;
@@ -12,10 +12,10 @@
     justify-content: center;
     align-items: center;
     color: aliceblue;
-    margin-left: auto;
-    margin-left: auto;
     position: relative;
+    padding: 0;
   }
+
   
   #editProfile:hover{
     background-color: rgb(40, 40, 40);
@@ -34,7 +34,7 @@
         width: 43px;
         position: relative;
         right: 0;
-        padding: 5px;
+        padding: 0px;
         gap: 5px;
     }
   

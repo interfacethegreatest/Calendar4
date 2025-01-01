@@ -25,7 +25,7 @@ return <>
  {
  /* If the user is signed in, populate the div with the session data. If not use the User from the backend, this enables the user change to be recorded and set. */
   session ? <div id={style.titleLine}><h1 id={style.profileTitle}>{userString ? userString : name}</h1><div style={{display: "flex", marginLeft:"auto", position:"relative", zIndex:"3"}}><GenerateModal setShowContent={setShowContent} fields='Edit'/></div></div> :
-  <div id={style.titleLine}><h1 id={style.profileTitle}>{name}</h1><div style={{display: "flex", marginLeft:"auto", position:"relative", zIndex:"3"}}><LikeButton/></div></div>
+  <div id={style.titleLine}><h1 id={style.profileTitle}>{name}</h1><div id={style.LikeButton} style={{display: "flex", marginLeft:"auto", position:"relative", zIndex:"3"}}><LikeButton /></div></div>
  }
  {
   session ? <p id={style.text} style={{position:"relative", transform:"translate(0,-10px)", marginBottom:"0px"}}>@{userString ? userString : name}</p> :

@@ -28,25 +28,21 @@ const COLOURS = [
 
 
 export default function user({userId, user}:{userId:string, user: InferGetServerSidePropsType<typeof getServerSideProps>}) {
-  console.log(user)
   const [windowSize, setWindowSize] = useState({
     width: 0,
     height: 0,
   });
   const colour = useMotionValue(COLOURS[0])
   const { data : session } = useSession();
-
   const [ selection, setSelection ] = useState([true, false, false, false]);
   const [showContent, setShowContent] = useState(false)
   const [ imageString, setImageString ] = useState(null);
   const [ userString, setUserString ] = useState(null);
   const [ descriptionString, setDescriptionString ] = useState(null);
   const [ websiteString, setWebsiteString ] = useState(null);
-
   const ref = useRef();
   outsideClick(ref, ()=>setShowContent(false))
   useEffect(() => {
-    console.log(document.documentElement.clientWidth)
     animate(colour, COLOURS, {
         ease: "easeInOut",
         duration: 10,
@@ -54,14 +50,14 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
         repeatType: "mirror",
     });
   }, []);
-
   useEffect(()=>{
-    console.log(session)
+    /*console.log(session)
     setImageString(session?.image);
     setDescriptionString(session?.description)
+    */
 
   },[session])
-
+   
   useEffect(() => {
     //Record the changes to window size upon window resize,
     const handleResize = () => {
@@ -97,7 +93,6 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
       document.body.style.overflow = "auto"; // Enable scrolling
     }
   })
-
   return (<>
      <div id={style.main}>
       <Scene/>
@@ -122,7 +117,8 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
               name={user.name} 
               Biography={user.Biography} 
               following={user.following} 
-              followers={user.followers} />
+              followers={user.followers} 
+              userId={userId}/>
             <WebsiteButton websiteString={websiteString!} session={session} user={user}/>
             </motion.div>
           </motion.div>

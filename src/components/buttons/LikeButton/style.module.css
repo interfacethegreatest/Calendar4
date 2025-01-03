@@ -1,5 +1,5 @@
 #editProfile{
-    width: 43px;
+    width: 96px;
     height: 43px;
     border-radius: 4px;
     background: linear-gradient(135deg, rgb(12, 12, 12) 1%,   rgb(22, 22, 22));
@@ -8,13 +8,12 @@
     cursor: pointer;
     display: flex;
     flex-direction: row;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     color: aliceblue;
     position: relative;
     padding: 0;
-  }
+    justify-content: center;
+    align-items: center;
+}
 
   
   #editProfile:hover{

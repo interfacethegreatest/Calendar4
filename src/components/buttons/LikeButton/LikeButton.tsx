@@ -5,6 +5,9 @@ import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
 import { FcLikePlaceholder, FcLike, FcDislike } from 'react-icons/fc';
 import { useEffect } from 'react';
 import { useSession } from 'next-auth/react';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import { Session } from 'inspector';
 
 interface ILikeButtonProps {
   userId: string;
@@ -29,10 +32,23 @@ const LikeButton: React.FunctionComponent<ILikeButtonProps> = (props) => {
   const [isHovered, setIsHovered] = React.useState(false); // State to track hover
   const colour = useMotionValue(COLOURS[0]);
   const border = useMotionTemplate`2px solid ${colour}`;
-
+  console.log(session)
   useEffect(()=>{
     const setFollowing = async () =>{
-      const response = await fetch
+      try {
+        //increment userId's followers +1,
+        //increment session.id's (the user viewing the page's details) following +1,
+        const { data } = await axios.post('/api/auth/addFollower',{
+          userId, session
+        });
+        toast(data.message)
+      } catch (error : any) {
+        toast.error(error);
+      }
+    }
+
+    if ( isLiked ){
+      setFollowing();
     }
 
   }, [isLiked])

@@ -42,7 +42,7 @@ export default function Home({providers, callbackUrl, csrfToken }:{providers:any
         </h1>
         {sceneLoaded && scene === 0 && (
           <TiltCard 
-            buttonString={session?.username.split(' ')[0] ? `Welcome ${session?.username.split(' ')[0]}` : "Welcome!"}
+            buttonString={session?.user.name.split(' ')[0] ? `Welcome ${session?.user.name.split(' ')[0]}` : "Welcome!"}
             title="Calendar" 
             icon={ session ? <RiLogoutCircleRLine /> : <SlHome /> }
             slideText={session?.user?.name?.split(' ')[0] ? "Continue," : "Login / Create an account"}

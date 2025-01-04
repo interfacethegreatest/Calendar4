@@ -379,8 +379,8 @@ height: 100%;
     }
 
     #body{
-        margin-left: 0;
-        width: 925px;
+        margin-left: auto;
+        width: 90vw;
     }
 
 

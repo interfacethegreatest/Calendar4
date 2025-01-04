@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { any, string } from "zod";
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -36,12 +37,12 @@ const userSchema = new mongoose.Schema({
     default: "", // Default value for an empty string
   },
   followers: {
-    type: Number,
-    default: 0,
+    type: [],
+    default: [],
   },
   following: {
-    type: Number,
-    default: 0,
+    type: [],
+    default: [],
   },
   role: {
     type: String,

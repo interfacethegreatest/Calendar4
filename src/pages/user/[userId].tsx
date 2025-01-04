@@ -93,6 +93,7 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
       document.body.style.overflow = "auto"; // Enable scrolling
     }
   })
+
   return (<>
      <div id={style.main}>
       <Scene/>
@@ -116,8 +117,8 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
               descriptionString={descriptionString} 
               name={user.name} 
               Biography={user.Biography} 
-              following={user.following} 
-              followers={user.followers} 
+              following={user.following.length-1} 
+              followers={user.followers.length-1} 
               userId={userId}/>
             <WebsiteButton websiteString={websiteString!} session={session} user={user}/>
             </motion.div>

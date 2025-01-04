@@ -31,8 +31,9 @@ const LikeButton: React.FunctionComponent<ILikeButtonProps> = (props) => {
   const border = useMotionTemplate`2px solid ${colour}`;
 
   useEffect(()=>{
-    console.log(isLiked);
-    console.log(session);
+    const setFollowing = async () =>{
+      const response = await fetch
+    }
 
   }, [isLiked])
 

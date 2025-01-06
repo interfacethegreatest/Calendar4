@@ -37,11 +37,12 @@ const userSchema = new mongoose.Schema({
     default: "", // Default value for an empty string
   },
   followers: {
-    type: [],
+    //remove zeroth object in schema
+    type: [mongoose.Schema.Types.Mixed],
     default: [],
   },
   following: {
-    type: [],
+    type: [mongoose.Schema.Types.Mixed],
     default: [],
   },
   role: {

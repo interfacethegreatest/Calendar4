@@ -10,7 +10,7 @@
 
 #body {
     max-width: 925px;
-    width: 55%; /* Default to 95% width */
+    width: 75%; /* Default to 95% width */
     min-height: 100vh;
     position: relative;
     z-index: 1;
@@ -18,7 +18,8 @@
     border-right: 1px solid rgba(103, 103, 104, 0.219);*/
     padding-top: 5px;
     padding-bottom: 5px;
-    margin-left: 18%;
+    margin-left: auto;
+    margin-right: auto;
     border-right: 2px solid rgba(90, 89, 89, 0.17);
     border-left: 2px solid rgba(90, 89, 89, 0.17);
     background: linear-gradient(135deg, #1b1b1d00 85%,   rgba(48, 121, 97, 0.016));

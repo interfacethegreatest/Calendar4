@@ -2,17 +2,11 @@
 import User from "@/models/User";
 import connectDB from "@/utils/connectDB";
 import type { NextApiRequest, NextApiResponse } from "next";
-import validator from "validator";
-import bcrypt from "bcryptjs";
-import { createActivationToken } from "@/utils/tokens";
-import sendMail from "@/utils/sendMail";
-import { activateTemplateEmail } from "@/emailTemplates/activate";
 
 
 
 export default async function handler(req: NextApiRequest, res:NextApiResponse){
 try{
-console.log(req.body)
 if( !req.body ) {
  throw new Error("Error ! no req.body");
 }
@@ -36,7 +30,10 @@ const followingUser = await User.findByIdAndUpdate(
     {$push: { following : await User.findById(req.body.userId)}},
     { new: true, runValidators: true},
 )
- res.json({message: 'Liked success! Please activate your account to start! An email has been sent.'}) 
+if (!followingUser) {
+    throw new Error("The user attmepting to follow doesnt exist!")
+}
+ res.json({message: updatedUser.followers.length}) 
 
 }catch(error){
     res.status(500).json({ message: (error as Error).message})

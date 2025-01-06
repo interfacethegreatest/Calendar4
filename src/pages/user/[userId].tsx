@@ -11,8 +11,6 @@ import outsideClick from '@/components/input/outsideClick';
 import TiltModal from '@/components/modals/TiltModal/tiltModal';
 import connectDB from '@/utils/connectDB';
 import User from '@/models/User';
-import { AiOutlineStar } from 'react-icons/ai';
-import { BiLinkExternal } from 'react-icons/bi';
 import { isValidObjectId } from 'mongoose';
 import WebsiteButton from '@/components/buttons/websiteButton/websiteButton';
 import ProfileBody from '@/components/sections/ProfileBody/ProfileBody';
@@ -40,6 +38,7 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
   const [ userString, setUserString ] = useState(null);
   const [ descriptionString, setDescriptionString ] = useState(null);
   const [ websiteString, setWebsiteString ] = useState(null);
+  const [isLiked, setIsLiked] = useState(false); // State to toggle the icon
   const ref = useRef();
   outsideClick(ref, ()=>setShowContent(false))
   useEffect(() => {
@@ -94,6 +93,14 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
     }
   })
 
+  //set isLiked to true if the user is signed in, if the signed in user is not the profile being viewed, and if the person viewing is already following,
+  useEffect(() => {
+    if (session && session.id !== user._id) {
+      const isFollower = user.followers.some(follower => follower._id === session.id);
+      setIsLiked(isFollower);
+    }
+  }, [session, user]); // Only re-run this effect when `session` or `user` changes
+
   return (<>
      <div id={style.main}>
       <Scene/>
@@ -117,9 +124,11 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
               descriptionString={descriptionString} 
               name={user.name} 
               Biography={user.Biography} 
-              following={user.following.length-1} 
-              followers={user.followers.length-1} 
-              userId={userId}/>
+              following={user.following.length} 
+              followers={user.followers.length} 
+              userId={userId}
+              isLiked={isLiked}
+              setIsLiked={setIsLiked}/>
             <WebsiteButton websiteString={websiteString!} session={session} user={user}/>
             </motion.div>
           </motion.div>

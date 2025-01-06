@@ -50,8 +50,6 @@ console.log('hello')
        location: false,
    },
    Biography: "This user has not provided a description.", // Default Biography
-   followers: 0, // Default value
-   following: 0, // Default value
    role: "user", // Default role
 });
  console.log('AWAIT NEWUSER SAVE');

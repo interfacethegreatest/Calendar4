@@ -11,6 +11,10 @@ import { Session } from 'inspector';
 
 interface ILikeButtonProps {
   userId: string;
+  followers : number;
+  setFollowers: React.Dispatch<React.SetStateAction<number>>;
+  isLiked : boolean;
+  setIsLiked : Function;
 }
 
 const font = Poppins({
@@ -26,35 +30,45 @@ const COLOURS = [
 ];
 
 const LikeButton: React.FunctionComponent<ILikeButtonProps> = (props) => {
-  const { userId } = props;
+  const { userId, followers, setFollowers, isLiked, setIsLiked } = props;
   const { data: session } = useSession();
-  const [isLiked, setIsLiked] = React.useState(false); // State to toggle the icon
+  // State to toggle the icon
   const [isHovered, setIsHovered] = React.useState(false); // State to track hover
   const colour = useMotionValue(COLOURS[0]);
   const border = useMotionTemplate`2px solid ${colour}`;
-  console.log(session)
-  useEffect(()=>{
-    const setFollowing = async () =>{
-      try {
-        //increment userId's followers +1,
-        //increment session.id's (the user viewing the page's details) following +1,
-        const { data } = await axios.post('/api/auth/addFollower',{
-          userId, session
-        });
-        toast(data.message)
-      } catch (error : any) {
+  const setFollowing = async () =>{
+    try {
+     //increment userId's followers +1,
+     //increment session.id's (the user viewing the page's details) following +1,
+     const { data } = await axios.post('/api/auth/addFollower',{
+      userId, session
+     });
+     alert(data.message)
+     setFollowers(data.message)
+    } catch (error : any) {
         toast.error(error);
-      }
     }
-
-    if ( isLiked ){
-      setFollowing();
+  }
+  const removeFollowing = async () =>{
+    try {
+      const { data } = await axios.post('/api/auth/removeFollower',{
+        userId, session
+       });
+       alert(data.message)
+       setFollowers(data.message)
+    } catch (error : any) {
+      toast.error(error)
     }
+  }
 
-  }, [isLiked])
 
   const handleClick = () => {
     setIsLiked(!isLiked); // Toggle between liked and unliked state
+    if (!isLiked) {
+      setFollowing();
+    } else{
+      removeFollowing();
+    }
   };
 
   const handleMouseEnter = () => {

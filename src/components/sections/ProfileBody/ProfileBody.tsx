@@ -4,6 +4,7 @@ import { AiOutlineStar } from "react-icons/ai";
 import { Session } from "next-auth";
 import GenerateModal from "@/components/buttons/generateModal/generateModal";
 import LikeButton from "@/components/buttons/LikeButton/LikeButton";
+import { useState } from "react";
 
 interface IProfileBodyProps {
   userId: string;
@@ -15,9 +16,12 @@ interface IProfileBodyProps {
   following: number;
   followers: number;
   setShowContent: React.Dispatch<React.SetStateAction<boolean>>; // Optional function to toggle modal content
+  isLiked : boolean;
+  setIsLiked: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const ProfileBody: React.FunctionComponent<IProfileBodyProps> = (props) => {
+  
   const {
     session,
     userString,
@@ -28,8 +32,10 @@ const ProfileBody: React.FunctionComponent<IProfileBodyProps> = (props) => {
     following,
     setShowContent,
     userId,
+    isLiked, 
+    setIsLiked,
   } = props;
-
+  const [ newFollowers, setFollowing] = useState(followers);
   // Check if the session is still being resolved or fully resolved
   const isSessionLoading = session === undefined;
 
@@ -53,7 +59,7 @@ const ProfileBody: React.FunctionComponent<IProfileBodyProps> = (props) => {
           >
             {session.id === userId ? (
               <GenerateModal setShowContent={setShowContent} fields="Edit" />
-            ) : <LikeButton userId={userId} />}
+            ) : <LikeButton isLiked={isLiked} setIsLiked={setIsLiked} userId={userId} followers={newFollowers} setFollowers={setFollowing} />}
           </div>
         </div>
       ) : (
@@ -108,7 +114,10 @@ const ProfileBody: React.FunctionComponent<IProfileBodyProps> = (props) => {
       )}
       <div id={style.socials}>
         <div id={style.social}>
-          <a href="" onClick={()=>{}}>{followers}</a>
+          {
+
+          }
+          <a href="" onClick={()=>{}}>{newFollowers}</a>
           <h6 id={style.location} style={{ color: "GrayText" }}>
             <u>Followers</u>
           </h6>

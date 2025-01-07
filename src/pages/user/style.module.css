@@ -88,7 +88,7 @@
 }
 
 #profileBody{
-    height: 38%;
+    min-height: 220px;
     width: 100%;
     background-color: rgb(10, 10, 10);
     background: linear-gradient(135deg, rgba(10,10,10,255),   rgba(35,32,35,255));

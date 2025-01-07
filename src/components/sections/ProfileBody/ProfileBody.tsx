@@ -117,7 +117,7 @@ const ProfileBody: React.FunctionComponent<IProfileBodyProps> = (props) => {
           {
 
           }
-          <a href="" onClick={()=>{}}>{newFollowers}</a>
+          <a href={`/user/${userId}/followers`} onClick={()=>{}}>{newFollowers}</a>
           <h6 id={style.location} style={{ color: "GrayText" }}>
             <u>Followers</u>
           </h6>

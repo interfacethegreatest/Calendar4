@@ -10,7 +10,7 @@
 
 #body {
     max-width: 925px;
-    width: 75%; /* Default to 95% width */
+    width:45%; 
     min-height: 100vh;
     position: relative;
     z-index: 1;
@@ -35,7 +35,7 @@
 
 #profileHeader{
     width: 100%;
-    height: 46%;
+    height: 23%;
     display: flex;
     flex-direction: column-reverse;
     background-color: rgba(10, 10, 10, 0.608);
@@ -44,10 +44,12 @@
         rgba(29, 245, 1, 0.096) 6%,
         rgba(10, 10, 10, 0.608) 40%
     );
-    border-top: 2px solid rgba(129, 129, 129, 0.17);
+    border-top: 2px solid rgba(90, 89, 89, 0.295);
     border-bottom: none;
-    border-right: 2px solid rgba(90, 89, 89, 0.17);
-    border-left: 2px solid rgba(90, 89, 89, 0.17);
+    border-right: 2px solid rgba(90, 89, 89, 0.295);
+    border-left: 2px solid rgba(90, 89, 89, 0.295);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
 }
 
 #loader {
@@ -88,7 +90,7 @@
 }
 
 #profileBody{
-    min-height: 220px;
+    min-height: 150px;
     width: 100%;
     background-color: rgb(10, 10, 10);
     background: linear-gradient(135deg, rgba(10,10,10,255),   rgba(35,32,35,255));
@@ -98,8 +100,8 @@
     border-bottom: 2px solid rgba(90, 89, 89, 0.17);
     border-left: 2px solid rgba(90, 89, 89, 0.17);
     border-right: 2px solid rgba(90, 89, 89, 0.17);
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
     padding: 15px;
     padding-left: 40px;
     font-size: .96rem;

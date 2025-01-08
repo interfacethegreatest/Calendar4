@@ -114,12 +114,9 @@ const ProfileBody: React.FunctionComponent<IProfileBodyProps> = (props) => {
       )}
       <div id={style.socials}>
         <div id={style.social}>
-          {
-
-          }
           <a href={`/user/${userId}/followers`} onClick={()=>{}}>{newFollowers}</a>
           <h6 id={style.location} style={{ color: "GrayText" }}>
-            <u>Followers</u>
+            <a style={{color:"GrayText"}} href={`/user/${userId}/followers`}><u>Followers</u></a>
           </h6>
         </div>
         <div id={style.social}>

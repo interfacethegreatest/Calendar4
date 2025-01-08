@@ -100,7 +100,7 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
       setIsLiked(isFollower);
     }
   }, [session, user]); // Only re-run this effect when `session` or `user` changes
-
+  console.log(user)
   return (<>
      <div id={style.main}>
       <Scene/>
@@ -194,7 +194,7 @@ export async function getServerSideProps(ctx: NextPageContext) {
     return {
       props: {
         userId,
-        user: JSON.parse(JSON.stringify(user)),
+        user: JSON.parse(JSON.stringify(user)), // Serialize user for Next.js
       },
     };
   } catch (error) {
@@ -204,3 +204,4 @@ export async function getServerSideProps(ctx: NextPageContext) {
     };
   }
 }
+

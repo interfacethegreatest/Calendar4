@@ -1,0 +1,111 @@
+#header{
+    width: 100%;
+    height: 90px;
+    border-bottom: 2px solid rgba(90, 89, 89, 0.17);
+    display: flex;
+    flex-direction: column;
+    padding-left: 10PX;
+}
+
+#headerTop{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+#arrowContainer{
+    height: 100%;
+    width: 40PX;
+}
+
+#arrowButton{
+    border-radius: 50%;
+    width: 100%;
+    height: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#arrowButton:hover{
+ background-color: rgba(48, 48, 48, 0.932);
+}
+
+#nameContainer{
+    width: 100%;
+    height: 65%;
+    display: flex;
+    flex-direction: column;
+}
+
+#nameContainer h5{
+    color: aliceblue;
+    margin: 0;
+}
+
+#nameContainer p{
+    color: grey;
+    font-size: .8rem;
+    margin: 0;
+}
+
+#pageSelector{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+#following {
+    height: 100%;
+    width: 33%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+#following h6{
+    color: aliceblue;
+}
+
+#following:hover{
+    background-color: rgba(26, 25, 25, 0.932);
+}
+
+#followers {
+    height: 100%;
+    width: 33%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+#followers h6{
+    color: aliceblue;
+}
+
+#followers:hover{
+    background-color: rgba(26, 25, 25, 0.932);
+}
+
+#Selector {
+    width: 55px;
+    border-radius: 5px;
+    background-color: rgb(30, 245, 1);
+    height: 3px;
+    position: relative;
+    transform: translateY(-20px);
+}
+
+#followersSelector{
+    width: 55px;
+    border-radius: 5px;
+    background-color: rgb(0, 89, 255);
+    height: 3px;
+    position: relative;
+    transform: translateY(6px);
+}

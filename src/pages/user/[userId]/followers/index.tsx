@@ -1,78 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { InferGetServerSidePropsType, NextPageContext } from 'next';
 import connectDB from '@/utils/connectDB';
 import User from '@/models/User';
 import { isValidObjectId } from 'mongoose';
-import style from './style.module.css'
+import style from './style.module.css';
 import Scene from '@/components/backgrounds/starsBackground/Scene';
-import { FaArrowLeftLong } from "react-icons/fa6";
-import { useRouter } from 'next/router';
-
-interface IFollowersProps {
-  userId: string;
-  followers: Array<{
-    _id: string;
-    name: string;
-    image: string;
-  }>;
-  user: {
-    _id: string;
-    name: string;
-    image: string;
-    email: string;
-    followers: any[];
-    following: any[];
-    Biography: string;
-  };
-}
+import FollowerHeader from '@/components/sections/FollowersPage/FollowersHeader/FollowersHeader';
+import FollowersBody from '@/components/sections/FollowersPage/FollowersBody/FollowersBody';
 
 const Followers: React.FunctionComponent<InferGetServerSidePropsType<typeof getServerSideProps>> = ({
   userId,
   user,
   followers,
 }) => {
-  const router = useRouter();
-  console.log('User:', user); 
-  console.log('Followers:', followers); 
-  
+  const [selector, setSelected] = useState(true);
+
   return (
     <>
-    <div id={style.main}>
-      <Scene/>
-      <div id={style.body}>
-        <div id={style.header}>
-          <div id={style.headerTop}>
-          <div id={style.arrowContainer}>
-            <button id={style.arrowButton} onClick={()=>
-              router.push({
-                pathname: `/user/${userId}`, // Use session.id as userId in the URL
-               })
-            }>
-             <FaArrowLeftLong color='aliceblue'/>
-            </button>
-          </div>
-          <div id={style.nameContainer}>
-            <h5><b>{user.name}</b></h5>
-            <p>@{user.name}</p>
-          </div>
-          </div>
-          <div id={style.pageSelector}>
-            <div id={style.following} onClick={()=>{
-              router.push({
-                pathname: `/user/${userId}/following`, // Use session.id as userId in the URL
-               })
-            }}>
-              <h6>Following</h6>
-              <div id={style.followingSelector}></div>
-            </div>
-            <div id={style.followers}>
-              <h6><b>Followers</b></h6>
-              <div id={style.followersSelector}></div>
-            </div>
-          </div>
+      <div id={style.main}>
+        <Scene />
+        <div id={style.body}>
+          <FollowerHeader userId={userId} user={user} selector={selector} setSelected={setSelected} />
+          <FollowersBody followers={followers}/>
         </div>
       </div>
-    </div>
     </>
   );
 };
@@ -97,6 +48,7 @@ export async function getServerSideProps(ctx: NextPageContext) {
       _id: follower._id.toString(),
       name: follower.name,
       image: follower.image,
+      Biography: follower.Biography,
     }));
 
     return {

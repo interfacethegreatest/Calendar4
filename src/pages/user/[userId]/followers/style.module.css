@@ -9,8 +9,8 @@
 }
 
 #body {
-    max-width: 925px;
-    width: 35%; /* Default to 95% width */
+    width: 625px;
+    min-width: 415px; /* Default to 95% width */
     min-height: 100vh;
     position: relative;
     z-index: 1;
@@ -23,114 +23,6 @@
     border-right: 2px solid rgba(90, 89, 89, 0.17);
     border-left: 2px solid rgba(90, 89, 89, 0.17);
     background: linear-gradient(135deg, #1b1b1d00 85%,   rgba(48, 121, 97, 0.016));
-    background-color: rgba(128, 128, 128, 0.021);
+    background-color: rgba(12, 12, 12, 0.63);
 }
 
-#header{
-    width: 100%;
-    height: 90px;
-    border-bottom: 2px solid rgba(90, 89, 89, 0.17);
-    display: flex;
-    flex-direction: column;
-    padding-left: 10PX;
-}
-
-#headerTop{
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-}
-
-#arrowContainer{
-    height: 100%;
-    width: 40PX;
-}
-
-#arrowButton{
-    border-radius: 50%;
-    width: 100%;
-    height: 80%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#arrowButton:hover{
- background-color: rgba(48, 48, 48, 0.932);
-}
-
-#nameContainer{
-    width: 100%;
-    height: 65%;
-    display: flex;
-    flex-direction: column;
-}
-
-#nameContainer h5{
-    color: aliceblue;
-    margin: 0;
-}
-
-#nameContainer p{
-    color: grey;
-    font-size: .8rem;
-    margin: 0;
-}
-
-#pageSelector{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: row-reverse;
-}
-
-#following {
-    height: 100%;
-    width: 33%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-}
-
-#following h6{
-    color: grey;
-}
-
-#following:hover{
-    background-color: rgba(26, 25, 25, 0.932);
-}
-
-#followers {
-    height: 100%;
-    width: 33%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-}
-
-#followers h6{
-    color: aliceblue;
-}
-
-#followers:hover{
-    background-color: rgba(26, 25, 25, 0.932);
-}
-
-#followingSelector{
-    width: 100%;
-    height: 3px;
-    position: relative;
-}
-
-#followersSelector{
-    width: 30%;
-    border-radius: 5px;
-    background-color: rgb(0, 89, 255);
-    height: 3px;
-    position: relative;
-    transform: translateY(6px);
-}

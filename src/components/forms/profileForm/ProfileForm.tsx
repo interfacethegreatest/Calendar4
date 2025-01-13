@@ -71,7 +71,7 @@ const ProfileForm: React.FunctionComponent<IProfileFormProps> = (props) => {
     // handle onsubmit functrion
     try {
       // Success handling
-  
+      console.log(values)
       const { data } = await axios.post('/api/auth/uploadProfile',{
         ...values,
       });

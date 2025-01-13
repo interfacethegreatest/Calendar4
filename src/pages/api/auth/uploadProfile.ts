@@ -41,10 +41,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Perform updates here
     console.log(user)
+    console.log("What is image Schema? : "+imageSchema)
+    console.log("What is my image? : " + user.image)
 
     user.name = username;
     user.Website = website;
-    user.image = imageSchema;
+    if ( imageSchema === undefined ) {
+
+    }else {
+      user.image = imageSchema;
+    }
     user.Biography = description;
 
     await user.save();

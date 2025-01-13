@@ -19,6 +19,7 @@ if ( !req.body.session) {
 
 const updatedUser = await User.findByIdAndUpdate(
   req.body.userId,
+  //adjusted to now only add the userId to the followers and following lists,
   {$push: {followers: await User.findById(req.body.session.id)}},
   { new: true, runValidators: true}
 );

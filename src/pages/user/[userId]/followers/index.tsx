@@ -21,7 +21,7 @@ const Followers: React.FunctionComponent<InferGetServerSidePropsType<typeof getS
         <Scene />
         <div id={style.body}>
           <FollowerHeader userId={userId} user={user} selector={selector} setSelected={setSelected} />
-          <FollowersBody followers={followers}/>
+          <FollowersBody followers={followers} />
         </div>
       </div>
     </>
@@ -38,24 +38,34 @@ export async function getServerSideProps(ctx: NextPageContext) {
 
   try {
     await connectDB(); // Connect to MongoDB
-    const user = await User.findById(userId).populate('followers'); // Populate the followers list
+    const user = await User.findById(userId).lean(); // Retrieve the user details
 
-    if (!user) {
-      return { notFound: true }; // User not found
+    if (!user || !user.followers) {
+      return { notFound: true }; // User or followers not found
     }
 
-    const followers = user.followers.map((follower: any) => ({
-      _id: follower._id.toString(),
-      name: follower.name,
-      image: follower.image,
-      Biography: follower.Biography,
-    }));
+    // Extract follower IDs as strings
+    const followerIds = user.followers.map((follower: any) =>
+      isValidObjectId(follower._id) ? follower._id.toString() : null
+    ).filter(Boolean);
+
+    // Query all followers in one operation
+    const followers = await User.find({ _id: { $in: followerIds } })
+      .select('_id name email image Biography') // Select only needed fields
+      .lean(); // Convert MongoDB documents to plain objects
 
     return {
       props: {
         userId: userId.toString(),
-        user: JSON.parse(JSON.stringify(user)), // Proper serialization
-        followers,
+        user: {
+          _id: user._id.toString(),
+          name: user.name,
+          email: user.email,
+        },
+        followers: followers.map((follower) => ({
+          ...follower,
+          _id: follower._id.toString(),
+        })), // Ensure all IDs are strings
       },
     };
   } catch (error) {

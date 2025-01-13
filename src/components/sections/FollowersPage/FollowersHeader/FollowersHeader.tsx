@@ -32,8 +32,10 @@ const FollowerHeader: React.FunctionComponent<IFollowerHeaderProps> = ({ userId,
           </button>
         </div>
         <div id={style.nameContainer}>
+
           <h5><b>{user.name}</b></h5>
           <p>@{user.name}</p>
+          
         </div>
       </div>
       <div id={style.pageSelector}>

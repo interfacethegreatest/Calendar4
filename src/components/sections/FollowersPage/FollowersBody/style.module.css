@@ -27,7 +27,7 @@
 
 #imageContainer{
     height: 100%;
-    width: 9.5%;
+    width: 59px;
     padding: 10px;
     padding-left: 10px;
     padding-top: 10px;
@@ -57,4 +57,25 @@
 
 #profileMainAt{
   margin-bottom: 2px;
+}
+
+#profileFollowers{
+ display: flex;
+ flex-direction: row;
+ gap: 10px;
+ display: flex;
+}
+
+#followsYou{
+    height: 15px;
+    margin-left: 20px;
+    font-size: .7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(51, 51, 51);
+    border-radius: 2px;
+    padding-left: 3px;
+    padding-right: 3px;
+    transform: translateY(4px);
 }

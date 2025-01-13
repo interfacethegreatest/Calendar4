@@ -12,6 +12,7 @@ const Followers: React.FunctionComponent<InferGetServerSidePropsType<typeof getS
   userId,
   user,
   followers,
+  following,
 }) => {
   const [selector, setSelected] = useState(true);
 
@@ -21,7 +22,7 @@ const Followers: React.FunctionComponent<InferGetServerSidePropsType<typeof getS
         <Scene />
         <div id={style.body}>
           <FollowerHeader userId={userId} user={user} selector={selector} setSelected={setSelected} />
-          <FollowersBody followers={followers} />
+          <FollowersBody followers={followers} following={following} />
         </div>
       </div>
     </>
@@ -40,19 +41,29 @@ export async function getServerSideProps(ctx: NextPageContext) {
     await connectDB(); // Connect to MongoDB
     const user = await User.findById(userId).lean(); // Retrieve the user details
 
-    if (!user || !user.followers) {
-      return { notFound: true }; // User or followers not found
+    if (!user || (!user.followers && !user.following)) {
+      return { notFound: true }; // User, followers, or following not found
     }
 
-    // Extract follower IDs as strings
-    const followerIds = user.followers.map((follower: any) =>
-      isValidObjectId(follower._id) ? follower._id.toString() : null
-    ).filter(Boolean);
+    // Extract follower IDs
+    const followerIds = user.followers
+      .map((follower: any) => (isValidObjectId(follower._id) ? follower._id.toString() : null))
+      .filter(Boolean);
 
-    // Query all followers in one operation
+    // Extract following IDs
+    const followingIds = user.following
+      .map((followedUser: any) => (isValidObjectId(followedUser._id) ? followedUser._id.toString() : null))
+      .filter(Boolean);
+
+    // Query followers
     const followers = await User.find({ _id: { $in: followerIds } })
-      .select('_id name email image Biography') // Select only needed fields
-      .lean(); // Convert MongoDB documents to plain objects
+      .select('_id name email image Biography')
+      .lean();
+
+    // Query following
+    const following = await User.find({ _id: { $in: followingIds } })
+      .select('_id name email image Biography')
+      .lean();
 
     return {
       props: {
@@ -65,11 +76,15 @@ export async function getServerSideProps(ctx: NextPageContext) {
         followers: followers.map((follower) => ({
           ...follower,
           _id: follower._id.toString(),
-        })), // Ensure all IDs are strings
+        })),
+        following: following.map((followedUser) => ({
+          ...followedUser,
+          _id: followedUser._id.toString(),
+        })),
       },
     };
   } catch (error) {
-    console.error('Error fetching user or followers:', error);
+    console.error('Error fetching user, followers, or following:', error);
     return {
       notFound: true,
     };

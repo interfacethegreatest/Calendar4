@@ -100,7 +100,7 @@
         width: 12.5%;
         height: 12.5%;
         position: fixed;
-        transform: translate(250%, 50%);
+        transform: translate(200%, 50%);
         z-index: 3;
     }
 }

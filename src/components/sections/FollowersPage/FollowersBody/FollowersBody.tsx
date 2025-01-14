@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import style from './style.module.css';
 import { ClipLoader } from 'react-spinners';
+import FollowButton from '@/components/buttons/followButton/FollowButton';
+import { useSession } from 'next-auth/react';
 
 interface IFollowersBodyProps {
   followers: Array<{
@@ -19,7 +21,8 @@ interface IFollowersBodyProps {
 
 const FollowersBody: React.FunctionComponent<IFollowersBodyProps> = ({ followers, following }) => {
   const [loading, setLoading] = useState(true);
-
+  const { data: session } = useSession();
+  console.log(following)
   // Helper function to check if a follower is in the following list
   const isFollowing = (followerId: string): boolean => {
     return following.some((followedUser) => followedUser._id === followerId);
@@ -60,6 +63,7 @@ const FollowersBody: React.FunctionComponent<IFollowersBodyProps> = ({ followers
               </div>
               <p>{follower.Biography}</p>
             </div>
+            <FollowButton userId={follower._id} />
           </div>
         ))
       )}

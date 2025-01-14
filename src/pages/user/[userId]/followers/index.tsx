@@ -15,7 +15,7 @@ const Followers: React.FunctionComponent<InferGetServerSidePropsType<typeof getS
   following,
 }) => {
   const [selector, setSelected] = useState(true);
-
+  console.log(followers)
   return (
     <>
       <div id={style.main}>
@@ -45,24 +45,16 @@ export async function getServerSideProps(ctx: NextPageContext) {
       return { notFound: true }; // User, followers, or following not found
     }
 
-    // Extract follower IDs
-    const followerIds = user.followers
-      .map((follower: any) => (isValidObjectId(follower._id) ? follower._id.toString() : null))
-      .filter(Boolean);
+    // Extract the IDs from the followers and following lists
+    const followerIds = user.followers || [];
+    const followingIds = user.following || [];
 
-    // Extract following IDs
-    const followingIds = user.following
-      .map((followedUser: any) => (isValidObjectId(followedUser._id) ? followedUser._id.toString() : null))
-      .filter(Boolean);
-
-    // Query followers
+    // Query for the user details of the followers and following
     const followers = await User.find({ _id: { $in: followerIds } })
-      .select('_id name email image Biography')
+      .select('_id name image Biography')
       .lean();
-
-    // Query following
     const following = await User.find({ _id: { $in: followingIds } })
-      .select('_id name email image Biography')
+      .select('_id name image Biography')
       .lean();
 
     return {
@@ -72,14 +64,20 @@ export async function getServerSideProps(ctx: NextPageContext) {
           _id: user._id.toString(),
           name: user.name,
           email: user.email,
+          image: user.image,
+          Biography: user.Biography,
         },
         followers: followers.map((follower) => ({
-          ...follower,
           _id: follower._id.toString(),
+          name: follower.name,
+          image: follower.image,
+          Biography: follower.Biography,
         })),
         following: following.map((followedUser) => ({
-          ...followedUser,
           _id: followedUser._id.toString(),
+          name: followedUser.name,
+          image: followedUser.image,
+          Biography: followedUser.Biography,
         })),
       },
     };

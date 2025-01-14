@@ -21,34 +21,30 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const { userId, session } = req.body;
 
-    // Find the target user
-    const targetUser = await User.findById(userId);
-    if (!targetUser) {
+    // Remove session user's ID from the target user's followers array
+    const targetUserUpdate = await User.findByIdAndUpdate(
+      userId,
+      { $pull: { followers: session.id } },
+      { new: true } // Return the updated document
+    );
+
+    if (!targetUserUpdate) {
       throw new Error("The user to be unfollowed does not exist!");
     }
 
-    // Find the session user
-    const sessionUser = await User.findById(session.id);
-    if (!sessionUser) {
+    // Remove the target user's ID from the session user's following array
+    const sessionUserUpdate = await User.findByIdAndUpdate(
+      session.id,
+      { $pull: { following: userId } },
+      { new: true } // Return the updated document
+    );
+
+    if (!sessionUserUpdate) {
       throw new Error("The user attempting to unfollow does not exist!");
     }
 
-    // Remove session user from the target user's followers array
-    targetUser.followers = targetUser.followers.filter(
-      (follower: any) => follower._id.toString() !== session.id
-    );
-
-    // Remove target user from the session user's following array
-    sessionUser.following = sessionUser.following.filter(
-      (following: any) => following._id.toString() !== userId
-    );
-
-    // Save the updates to the database
-    await targetUser.save();
-    await sessionUser.save();
-
     // Respond with the updated number of followers for the target user
-    res.json({ message: targetUser.followers.length });
+    res.json({ message: targetUserUpdate.followers.length });
   } catch (error) {
     res.status(500).json({ message: (error as Error).message });
   }

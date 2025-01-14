@@ -96,10 +96,13 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
   //set isLiked to true if the user is signed in, if the signed in user is not the profile being viewed, and if the person viewing is already following,
   useEffect(() => {
     if (session && session.id !== user._id) {
-      const isFollower = user.followers.some(follower => follower._id === session.id);
+      // Check if the session ID exists in the followers array
+      const isFollower = user.followers.includes(session.id);
       setIsLiked(isFollower);
     }
   }, [session, user]); // Only re-run this effect when `session` or `user` changes
+  
+  console.log('isLiked : ' + isLiked);
   console.log(user)
   return (<>
      <div id={style.main}>

@@ -43,6 +43,7 @@ const LikeButton: React.FunctionComponent<ILikeButtonProps> = (props) => {
      const { data } = await axios.post('/api/auth/addFollower',{
       userId, session
      });
+     console.log(data.message)
      setFollowers(data.message)
     } catch (error : any) {
         toast.error(error);
@@ -66,6 +67,7 @@ const LikeButton: React.FunctionComponent<ILikeButtonProps> = (props) => {
       setFollowing();
     } else{
       removeFollowing();
+      setFollowers(followers-1)
     }
   };
 

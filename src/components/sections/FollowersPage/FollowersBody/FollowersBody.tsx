@@ -23,43 +23,10 @@ interface IFollowersBodyProps {
 
 const FollowersBody: React.FunctionComponent<IFollowersBodyProps> = ({ followers, following, userid }) => {
   const [loading, setLoading] = useState(false);
-  //Function to fetch a session profile and check is the session user is following
-  const isFollowing = async (followerId : string): Promise<boolean> =>{
-    try {
-      const response = await fetch('/api/auth/is-following',{
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userid, followerId }),
-      })
-      if (!response.ok) {
-        console.error('Failed to check the following status: ', response.statusText)
-        return false;
-      }
-      const { isFollowing } = await response.json();
-      return isFollowing;
-    } catch (error) {
-      toast.error('Error fetching following status: ' + error)
-      return false;
-    }
-  }
-  useEffect(() => {
-    const checkFollowing = async () => {
-      const statuses = await Promise.all(
-        followers.map(async (follower) => ({
-          id: follower._id,
-          isFollowing: await isFollowing(follower._id),
-        }))
-      );
-  
-      console.log('Following statuses:', statuses);
-      // Update local state if needed
-    };
-  
-    if (followers.length > 0 ) {
-      checkFollowing();
-    }
-  }, [followers]);
-
+  const { data: session } = useSession();
+  console.log('Session id : '+session?.id)
+  console.log('Userid : ' + userid)
+  console.log(session?.id===userid)
   return (
     <div id={style.followersBody}>
       {loading ? (
@@ -81,13 +48,17 @@ const FollowersBody: React.FunctionComponent<IFollowersBodyProps> = ({ followers
                 @{follower.name}
               </p>
               <br />
-              <p id={style.followsYou} style={{color:"grey"}}>
+              {
+                /* Should query if the session.id == userid to provide the follows you if true provide the follows you */
+                session && session?.id ===userid ? (
+                  <p id={style.followsYou} style={{color:"grey"}}>
                   Follows you
-              </p>
+                  </p>
+                ) : null
+              }
               </div>
               <p>{follower.Biography}</p>
             </div>
-            {}
             <FollowButton userId={follower._id} />
           </div>
         ))

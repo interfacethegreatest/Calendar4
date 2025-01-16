@@ -22,7 +22,7 @@ const Followers: React.FunctionComponent<InferGetServerSidePropsType<typeof getS
         <Scene />
         <div id={style.body}>
           <FollowerHeader userId={userId} user={user} selector={selector} setSelected={setSelected} />
-          <FollowersBody followers={followers} following={following} />
+          <FollowersBody userId={userId} followers={followers} following={following} />
         </div>
       </div>
     </>

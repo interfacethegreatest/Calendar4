@@ -3,8 +3,10 @@ import style from './style.module.css';
 import { ClipLoader } from 'react-spinners';
 import FollowButton from '@/components/buttons/followButton/FollowButton';
 import { useSession } from 'next-auth/react';
+import { toast } from 'react-toastify';
 
 interface IFollowersBodyProps {
+  userid: string,
   followers: Array<{
     _id: string;
     name: string;
@@ -19,18 +21,42 @@ interface IFollowersBodyProps {
   }>;
 }
 
-const FollowersBody: React.FunctionComponent<IFollowersBodyProps> = ({ followers, following }) => {
-  const [loading, setLoading] = useState(true);
-  const { data: session } = useSession();
-  console.log(following)
-  // Helper function to check if a follower is in the following list
-  const isFollowing = (followerId: string): boolean => {
-    return following.some((followedUser) => followedUser._id === followerId);
-  };
-
+const FollowersBody: React.FunctionComponent<IFollowersBodyProps> = ({ followers, following, userid }) => {
+  const [loading, setLoading] = useState(false);
+  //Function to fetch a session profile and check is the session user is following
+  const isFollowing = async (followerId : string): Promise<boolean> =>{
+    try {
+      const response = await fetch('/api/auth/is-following',{
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userid, followerId }),
+      })
+      if (!response.ok) {
+        console.error('Failed to check the following status: ', response.statusText)
+        return false;
+      }
+      const { isFollowing } = await response.json();
+      return isFollowing;
+    } catch (error) {
+      toast.error('Error fetching following status: ' + error)
+      return false;
+    }
+  }
   useEffect(() => {
-    if (followers.length > 0) {
-      setLoading(false);
+    const checkFollowing = async () => {
+      const statuses = await Promise.all(
+        followers.map(async (follower) => ({
+          id: follower._id,
+          isFollowing: await isFollowing(follower._id),
+        }))
+      );
+  
+      console.log('Following statuses:', statuses);
+      // Update local state if needed
+    };
+  
+    if (followers.length > 0 ) {
+      checkFollowing();
     }
   }, [followers]);
 
@@ -55,14 +81,13 @@ const FollowersBody: React.FunctionComponent<IFollowersBodyProps> = ({ followers
                 @{follower.name}
               </p>
               <br />
-              {isFollowing(follower._id) && (
-                <p id={style.followsYou} style={{color:"rgb(7, 7, 7)"}}>
+              <p id={style.followsYou} style={{color:"grey"}}>
                   Follows you
-                </p>
-              )}
+              </p>
               </div>
               <p>{follower.Biography}</p>
             </div>
+            {}
             <FollowButton userId={follower._id} />
           </div>
         ))

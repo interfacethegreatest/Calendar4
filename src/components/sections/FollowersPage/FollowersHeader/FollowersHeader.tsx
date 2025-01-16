@@ -45,7 +45,7 @@ const FollowerHeader: React.FunctionComponent<IFollowerHeaderProps> = ({ userId,
             setSelected(false); // Move selector to "Following"
           }}
         >
-          <h6><b>Following</b></h6>
+          <h6>Following</h6>
         </div>
         <div
           id={style.followers}
@@ -53,7 +53,7 @@ const FollowerHeader: React.FunctionComponent<IFollowerHeaderProps> = ({ userId,
             setSelected(true); // Move selector to "Followers"
           }}
         >
-          <h6><b>Followers</b></h6>
+          <h6>Followers</h6>
           <motion.div
             id={style.Selector}
             animate={{

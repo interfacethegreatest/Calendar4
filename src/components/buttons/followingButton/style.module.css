@@ -1,0 +1,25 @@
+#followButton {
+    background: rgb(0, 0, 0);
+    height: 27px;
+    width: 110px;
+    padding: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 25px;
+    margin: 15px;
+    margin-right: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    border: 1px solid rgb(212, 212, 212);
+    color: aliceblue;
+    position: relative;
+    z-index: 5;
+}
+
+#followButton:hover{
+    color: red;
+    border: 1px solid rgba(255, 0, 0, 0.493);
+    background: rgba(255, 0, 0, 0.062);
+}

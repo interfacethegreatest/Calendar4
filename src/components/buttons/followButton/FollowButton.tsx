@@ -12,13 +12,15 @@ const font = Poppins({
 
 interface IFollowButtonProps {
     userId : string;
+    setClicked: Function;
+    clicked: boolean;
 }
 
 const FollowButton: React.FunctionComponent<IFollowButtonProps> = (props) => {
- const { userId } = props;
+ const { userId, setClicked, clicked } = props;
  const { data: session } = useSession();
- console.log(userId)
- const handleClick = async () => {
+ const handleClick = async (e: React.MouseEvent) => {
+    e.stopPropagation()
     try {
      const { data } = await axios.post('/api/auth/addFollower',{
         userId, session
@@ -26,6 +28,7 @@ const FollowButton: React.FunctionComponent<IFollowButtonProps> = (props) => {
     } catch (error : any) {
         toast.error(error)
     }
+    setClicked(!clicked);
  }
   
   return <>

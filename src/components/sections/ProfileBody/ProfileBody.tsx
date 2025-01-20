@@ -5,6 +5,7 @@ import { Session } from "next-auth";
 import GenerateModal from "@/components/buttons/generateModal/generateModal";
 import LikeButton from "@/components/buttons/LikeButton/LikeButton";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 interface IProfileBodyProps {
   userId: string;
@@ -21,7 +22,6 @@ interface IProfileBodyProps {
 }
 
 const ProfileBody: React.FunctionComponent<IProfileBodyProps> = (props) => {
-  
   const {
     session,
     userString,
@@ -32,97 +32,97 @@ const ProfileBody: React.FunctionComponent<IProfileBodyProps> = (props) => {
     following,
     setShowContent,
     userId,
-    isLiked, 
+    isLiked,
     setIsLiked,
   } = props;
-  const [ newFollowers, setFollowing] = useState(followers);
-  // Check if the session is still being resolved or fully resolved
+
+  const [newFollowers, setFollowing] = useState(followers);
   const isSessionLoading = session === undefined;
+  const router = useRouter();
 
   return (
     <>
       <div id={style.starDiv}>
         <AiOutlineStar id={style.star} />
       </div>
-      {isSessionLoading ? null : session ? (
-        <div id={style.titleLine}>
-          <h1 id={style.profileTitle}>
-            {userString ? userString : name}
-          </h1>
-          <div
-            style={{
-              display: "flex",
-              marginLeft: "auto",
-              position: "relative",
-              zIndex: "3",
-            }}
-          >
-            {session.id === userId ? (
-              <GenerateModal setShowContent={setShowContent} fields="Edit" />
-            ) : <LikeButton isLiked={isLiked} setIsLiked={setIsLiked} userId={userId} followers={newFollowers} setFollowers={setFollowing} />}
-          </div>
-        </div>
-      ) : (
-        <div id={style.titleLine}>
-          <h1 id={style.profileTitle}>{name}</h1>
-          <div
-            id={style.LikeButton}
-            style={{
-              display: "flex",
-              marginLeft: "auto",
-              position: "relative",
-              zIndex: "3",
-            }}
-          >
-          </div>
-        </div>
-      )}
-      {isSessionLoading ? null : session ? (
-        <p
-          id={style.text}
+
+      <div id={style.titleLine}>
+        <h1 id={style.profileTitle}>
+          {userString ? userString : name}
+        </h1>
+        <div
           style={{
-            position: "relative",
-            transform: "translate(0,-10px)",
-            marginBottom: "0px",
+            display: 'flex',
+            marginLeft: 'auto',
+            position: 'relative',
+            zIndex: '3',
           }}
         >
-          @{userString ? userString : name}
-        </p>
-      ) : (
-        <p
-          id={style.text}
-          style={{
-            position: "relative",
-            transform: "translate(0,-10px)",
-            marginBottom: "0px",
-          }}
-        >
-          @{name}
-        </p>
-      )}
-      <h6 id={style.text} style={{ marginBottom: "0px" }}>
+          {session?.id === userId ? (
+            <GenerateModal setShowContent={setShowContent} fields="Edit" />
+          ) : (
+            <LikeButton
+              isLiked={isLiked}
+              setIsLiked={setIsLiked}
+              userId={userId}
+              followers={newFollowers}
+              setFollowers={setFollowing}
+            />
+          )}
+        </div>
+      </div>
+
+      <p
+        id={style.text}
+        style={{
+          position: 'relative',
+          transform: 'translate(0,-10px)',
+          marginBottom: '0px',
+        }}
+      >
+        @{userString ? userString : name}
+      </p>
+
+      <h6 id={style.text} style={{ marginBottom: '0px' }}>
         <u>Description</u>
       </h6>
-      {isSessionLoading ? null : session ? (
-        <p style={{ color: "aliceblue", marginBottom: "0", width: "50%" }}>
-          {descriptionString ? descriptionString : Biography}
-        </p>
-      ) : (
-        <p style={{ color: "aliceblue", marginBottom: 0, width: "50%" }}>
-          {Biography}
-        </p>
-      )}
+      <p style={{ color: 'aliceblue', marginBottom: '0', width: '50%' }}>
+        {descriptionString ? descriptionString : Biography}
+      </p>
+
       <div id={style.socials}>
         <div id={style.social}>
-          <a href={`/user/${userId}/followers`} onClick={()=>{}}>{newFollowers}</a>
-          <h6 id={style.location} style={{ color: "GrayText" }}>
-            <a style={{color:"GrayText"}} href={`/user/${userId}/followers`}><u>Followers</u></a>
+          <a href={`/user/${userId}/followers`}>{newFollowers}</a>
+          <h6 id={style.location} style={{ color: 'GrayText' }}>
+            <a style={{ color: 'GrayText' }} href={`/user/${userId}/followers`}>
+              <u>Followers</u>
+            </a>
           </h6>
         </div>
+
         <div id={style.social}>
-          <a href="" onClick={()=>{}}>{following}</a>
-          <h6 id={style.location} style={{ color: "GrayText" }}>
-            <u>Following</u>
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              router.push({
+                pathname: `/user/${userId}/followers`, // target page
+                query: { selected: 'false' }, // Pass the query parameter as 'false'
+              });
+            }}
+          >
+            {following}
+          </a>
+          <h6 id={style.location} style={{ color: 'GrayText' }}>
+            <a href="#"
+            style={{color:"GrayText"}}
+            onClick={(e)=>{
+              e.preventDefault();
+              router.push({
+                pathname: `/user/${userId}/followers`, // target page
+                query: { selected: 'false' }, // Pass the query parameter as 'false'
+              })
+            }}><u>Following</u></a>
           </h6>
         </div>
       </div>

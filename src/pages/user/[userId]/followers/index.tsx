@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { InferGetServerSidePropsType, NextPageContext } from 'next';
 import connectDB from '@/utils/connectDB';
 import User from '@/models/User';
@@ -7,6 +7,8 @@ import style from './style.module.css';
 import Scene from '@/components/backgrounds/starsBackground/Scene';
 import FollowerHeader from '@/components/sections/FollowersPage/FollowersHeader/FollowersHeader';
 import FollowersBody from '@/components/sections/FollowersPage/FollowersBody/FollowersBody';
+import FollowingBody from '@/components/sections/FollowersPage/FollowingBody/FollowingBody';
+import { useRouter } from 'next/router';
 
 const Followers: React.FunctionComponent<InferGetServerSidePropsType<typeof getServerSideProps>> = ({
   userId,
@@ -15,14 +17,26 @@ const Followers: React.FunctionComponent<InferGetServerSidePropsType<typeof getS
   following,
 }) => {
   const [selector, setSelected] = useState(true);
-  console.log(followers)
+  const router = useRouter();
+  useEffect(()=> {
+     if ( router.query.selected === 'false' ){
+      setSelected(false); // set selector to false if query parameter is false,
+     } else{
+      setSelected(true);
+     }
+  }, [router.query.selected])
   return (
     <>
       <div id={style.main}>
         <Scene />
         <div id={style.body}>
           <FollowerHeader userId={userId} user={user} selector={selector} setSelected={setSelected} />
-          <FollowersBody userid={userId} followers={followers} following={following} />
+          {
+             selector ?
+             <FollowersBody userid={userId} followers={followers} following={following} />
+             : 
+             <FollowingBody/>
+          }
         </div>
       </div>
     </>

@@ -35,7 +35,7 @@ const Followers: React.FunctionComponent<InferGetServerSidePropsType<typeof getS
              selector ?
              <FollowersBody userid={userId} followers={followers} following={following} />
              : 
-             <FollowingBody/>
+             <FollowingBody userid={userId} followers={followers} following={following}/>
           }
         </div>
       </div>

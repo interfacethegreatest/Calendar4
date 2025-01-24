@@ -415,3 +415,14 @@ height: 100%;
     background: linear-gradient(135deg, rgba(10,10,10,255),   rgba(35,32,35,255));;
     height: max-content;
 }
+
+#modalBacking{
+    height: 300vh;
+    width: 100vw;
+    background-color: rgba(222, 225, 225, 0.359);
+    position: absolute;
+    overflow: hidden;
+    z-index: auto;
+    display:flex ;
+    justify-content: center;
+}

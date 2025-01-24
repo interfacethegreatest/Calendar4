@@ -1,0 +1,26 @@
+#innerContainer{
+    height: 100%;
+    display: flex;
+}
+
+#leftArrowContainer{
+ width: 16%;
+ height: 100%;
+}
+
+#rightArrowContainer{
+    width: 16%;
+    height: 100%;
+}
+
+#mainBodyContainer{
+    width: 100%;
+}
+
+#title{
+    color: aliceblue;
+    padding-left: 0%;
+}
+#subtitle{
+    padding-left: 0%;
+}

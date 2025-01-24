@@ -1,75 +1,23 @@
 import * as React from 'react';
 import style from './aboutMeStyles.module.css';
 import GenerateModal from '@/components/buttons/generateModal/generateModal';
-import { z } from 'zod';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import TiltModalAboutMe from '@/components/modals/TiltModalAboutMe/TiltModalAboutMe';
 
 interface IAboutMeProps {
+  setShowContent: Function;
 }
 
-const FormSchema = z.object({
-    AboutMe: z.string()
-        .min(5, "Must be at least 5 characters.")
-        .max(750, "Must be less than 750 characters."),
-    Transcript: z.array(z.object({
-        name: z.string().min(2, "Name is required").max(12, "Must be 12 or less characters."),
-        url: z.string().url("Invalid URL format")
-    })).min(1, "At least one link is required")
-      .max(10, "You can provide up to 10 links."),
-    Documents: z.array(z.object({
-        name: z.string().min(2, "Name is required").max(12, "Must be 12 or less characters."),
-        url: z.string().url("Invalid URL format")
-    })).min(1, "At least one link is required"),
-    WorkExperience: z.array(z.object({
-        Buisness: z.string().min(5, "Name is required at 5 or more.").max(26, "Must be 26 or less characters."),
-        JobRole: z.string().min(5, "Name is required at 5 or more.").max(26, "Must be 26 or less characters."),
-        JoinedFrom: z.date({
-         required_error: "Date is required",
-         invalid_type_error: "Invalid date format"
-        }),
-        JoinedTo: z.date({
-         required_error: "Date is required",
-         invalid_type_error: "Invalid date format"
-        })
-    })).min(1, "At least one link is required"),
-    Education: z.array(z.object({
-        School: z.string().min(8, "Name is required at 15 or more.").max(36, "Must be 26 or less characters."),
-        JoinedFrom: z.date({
-         required_error: "Date is required",
-         invalid_type_error: "Invalid date format"
-        }),
-        JoinedTo: z.date({
-         required_error: "Date is required",
-         invalid_type_error: "Invalid date format"
-        })
-    })).min(1, "At least one link is required"),
-});
-type FormSchemaType=z.infer<typeof FormSchema>;
-
 const AboutMe: React.FunctionComponent<IAboutMeProps> = (props) => {
-  const [documentData, setDocumentData] = React.useState(null);
-  const {
-    register,
-    handleSubmit, 
-    watch, 
-    reset,
-    formState : { errors, isSubmitting}
-  } = useForm<FormSchemaType>({
-    resolver: zodResolver(FormSchema)
-  })
-  const onSubmit: SubmitHandler<FormSchemaType>=async(values)=>{
-    try {
-        //const { data } = await axios.post('/')
-    } catch (error) {
-        
-    }
-  }
+  const { setShowContent } = props;
+  const [clicked, setClicked] = useState(false);
+
   return<>
   <div id={style.about}>
   <div id={style.inner}>
-  <div><h3><u>About me</u></h3><GenerateModal fields={'Edit Documents'} register={register} onSubmit={onSubmit} handleSubmit={handleSubmit} errors={errors}></GenerateModal></div>
+  <div><h3><u>About me</u></h3><GenerateModal fields={'Edit'
+} setShowContent={setShowContent} setClicked={setClicked}></GenerateModal></div>
   <br />
   <p style={{color: "rgba(247, 243, 243, 0.562);"}} id={style.descriptionText}><u>This is yet to be completed.</u></p>
   <br />
@@ -79,13 +27,10 @@ const AboutMe: React.FunctionComponent<IAboutMeProps> = (props) => {
     <div id={style.documentSection}>
     <div id={style.transcriptSection}>
     <h6>Transcripts</h6>
-    {
-      documentData ? null :
       <div id={style.sectionText}>
         <div id={style.entry}><a href="">Transcript</a><p>Last Updated: 2024-08-13</p></div>
         <div id={style.entry}><a href="">Transcript</a><p>Last Updated: 2024-08-13</p></div>
       </div>
-    }
     </div>
     <br />
     <div id={style.transcriptSection}>

@@ -14,6 +14,7 @@ import User from '@/models/User';
 import { isValidObjectId } from 'mongoose';
 import WebsiteButton from '@/components/buttons/websiteButton/websiteButton';
 import ProfileBody from '@/components/sections/ProfileBody/ProfileBody';
+import TiltModalAboutMe from '@/components/modals/TiltModalAboutMe/TiltModalAboutMe';
 
 
 const COLOURS = [
@@ -33,7 +34,8 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
   const colour = useMotionValue(COLOURS[0])
   const { data : session } = useSession();
   const [ selection, setSelection ] = useState([true, false, false, false]);
-  const [showContent, setShowContent] = useState(false)
+  const [showContent, setShowContent] = useState(false);
+  const [showContentAboutMe, setShowContentAboutMe] = useState(false)
   const [ imageString, setImageString ] = useState(null);
   const [ userString, setUserString ] = useState(null);
   const [ descriptionString, setDescriptionString ] = useState(null);
@@ -153,7 +155,7 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
           <div id={style.information}>
             {
               selection[0] ? 
-              <AboutMe/>
+              <AboutMe setShowContent={setShowContentAboutMe}/>
               : null
             }
 
@@ -174,6 +176,18 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
               </div>
              : null
      }
+     {showContentAboutMe && (
+      <div id={style.modalBacking}>
+    <motion.div
+      initial={{ x: "-100vw" }}
+      animate={{ x: 0 }} // Slides in
+      exit={{ x: "-100vw" }} // Slides out
+      transition={{ type: "spring", stiffness: 70, damping: 20 }}
+    >
+      <TiltModalAboutMe setShowContent={setShowContentAboutMe} />
+    </motion.div>
+  </div>
+)}
     </>
   )
 }

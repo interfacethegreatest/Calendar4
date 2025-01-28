@@ -6,11 +6,17 @@
 #leftArrowContainer{
  width: 16%;
  height: 100%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
 }
 
 #rightArrowContainer{
     width: 16%;
     height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #mainBodyContainer{
@@ -23,4 +29,61 @@
 }
 #subtitle{
     padding-left: 0%;
+    color: rgb(119, 120, 120)
+}
+
+#iconHolder {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    position: relative; /* Change to absolute positioning */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 5%;
+    right: 5%;
+    background-color: rgb(44, 44, 44);
+    z-index: 4;
+    cursor:pointer;
+    pointer-events: all;
+}
+
+#iconStyle{
+    margin-right: 1.5%;
+    margin-bottom: 5%;
+    color: gainsboro;
+    width: 75%;
+    height: 75%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+}
+
+#iconHolder:hover #iconHolder{
+    border: 2px solid rgba(63, 151, 122, 0.416);
+    background-color: rgb(22, 60, 47);
+    box-shadow: 0 0 10px rgba(53, 134, 107, 0.5), 0 0 20px rgba(53, 134, 107, 0.3), 0 0 30px rgba(53, 134, 107, 0.2);
+}
+  
+  
+#iconHolder #iconStyle{
+    color: rgb(77, 187, 150)
+}
+
+#slideCountContainer{
+    display: flex;
+    flex-direction: row;
+    gap: 2px;
+    width: 75%;
+    height: 5px;
+    position: absolute;
+    bottom: 1%;
+}
+
+#incrementDiv{
+    height: 50%;
+    width: 25%;
+    border-radius: 10%;
+    background-color: rgb(44, 44, 44);
 }

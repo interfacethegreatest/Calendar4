@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
   },
   image: {
     type: String,
-    default: "https://www.pngkit.com/png/detail/126-1262807_instagram-default-profile-picture-png.png",
+    default: "https://toppng.com/uploads/preview/instagram-default-profile-picture-11562973083brycehrmyv.png",
   },
   password: {
     type: String,
@@ -27,6 +27,13 @@ const userSchema = new mongoose.Schema({
       calendarVisited: { type: Boolean, default: false },
       location: { type: Boolean, default: false },
     }),
+  },
+  aboutYou: {
+    type: new mongoose.Schema({
+      aboutYou: { type: String, default: "This is yet to be completed." },
+      cv: { type: String, default: "" },
+    }),
+    default: {},
   },
   Biography: {
     type: String,

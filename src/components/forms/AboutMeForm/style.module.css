@@ -87,3 +87,42 @@
     border-radius: 10%;
     background-color: rgb(44, 44, 44);
 }
+
+#priorCVHolder{
+    height: 55px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    flex-direction: row;
+}
+
+#noFile{
+    color: rgb(119, 120, 120);
+}
+
+#fileText{
+    color: rgb(119, 120, 120);
+}
+
+#deleteContainer{
+    height: 25px;
+    width: 25px;
+    border: 2px solid rgba(130, 129, 129, 0.35);
+    border-radius: 2px;
+    position: relative; /* Change to absolute positioning */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(128, 128, 128, 0.247);
+    z-index: 4;
+    cursor:pointer;
+    pointer-events: all;
+    color: aliceblue;
+    margin-bottom: 10px;
+    margin-left: 5px;
+}
+
+#deleteContainer:hover{
+    background-color: rgba(128, 128, 128, 0.918);
+}

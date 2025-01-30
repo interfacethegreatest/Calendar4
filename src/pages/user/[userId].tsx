@@ -105,7 +105,6 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
   }, [session, user]); // Only re-run this effect when `session` or `user` changes
   
   console.log('isLiked : ' + isLiked);
-  console.log(user)
   return (<>
      <div id={style.main}>
       <Scene/>
@@ -184,7 +183,11 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
       exit={{ x: "-100vw" }} // Slides out
       transition={{ type: "spring", stiffness: 70, damping: 20 }}
     >
-      <TiltModalAboutMe setShowContent={setShowContentAboutMe} />
+      <TiltModalAboutMe
+       showContent={showContentAboutMe}
+       setShowContent={setShowContentAboutMe} 
+       aboutYou={user.aboutYou} 
+      />
     </motion.div>
   </div>
 )}

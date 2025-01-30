@@ -11,6 +11,7 @@ import { CiLock } from 'react-icons/ci';
 import SlideButtonSubmit from '@/components/buttons/auth/slideButtonSubmit';
 import { AiFillLock } from 'react-icons/ai';
 import { Poppins } from 'next/font/google';
+import { RiDeleteBin3Line } from "react-icons/ri";
 
 const font = Poppins({
   subsets: ["latin"],
@@ -18,6 +19,10 @@ const font = Poppins({
 });
 
 interface IAboutMeFormProps {
+  AboutMe: {
+    description: string,
+    cv:string,
+  },
 }
 
 const FormSchema = z.object({
@@ -32,6 +37,7 @@ const FormSchema = z.object({
 type FormSchemaType = z.infer<typeof FormSchema>;
 
 const AboutMeForm: React.FunctionComponent<IAboutMeFormProps> = (props) => {
+  const { AboutMe } = props;
   const [currentSlide, setCurrentSlide] = useState(0);
   const [animation, setAnimation] = useState(true);
   const nextSlide = () => {
@@ -84,6 +90,31 @@ const AboutMeForm: React.FunctionComponent<IAboutMeFormProps> = (props) => {
           height={250}
           topLocation={20}
           inputLength={525} placeholder={''}/>
+          </> 
+        )
+      }
+      {
+        currentSlide === 1 && (
+          <>
+           <h2 id={style.title}>Upload a CV file:</h2>
+           <h5 id={style.subtitle}>You can provide a CV for public view...</h5>
+           <br />
+           <div id={style.priorCVHolder}>
+              {
+                AboutMe.cv == "" && /*?*/
+                <>
+                 <p id={style.fileText}><b><a href={AboutMe.cv}>Your Cv.</a> Delete to upload a new copy,</b></p>
+                 <button onClick={()=>alert("Clicked.")} id={style.deleteContainer}>
+                  <RiDeleteBin3Line />
+                 </button>
+                </>
+                /*:
+                <>
+                 <p id={style.file}>..Previously uploaded cv's will appear here..</p>
+                </>*/
+              }
+              
+           </div>
           </> 
         )
       }

@@ -55,7 +55,7 @@ const GetProfileImage: React.FunctionComponent<IGetProfileImageProps> = (props) 
       :
       <img src={imagePreview} alt="Preview" width={100} height={100} style={{zIndex:3, position:"absolute", objectFit:"cover", background:"black"}}/>
       :
-      <img style={{zIndex:"3", position:"fixed", backgroundColor: "black"}} src="https://www.pngkit.com/png/detail/126-1262807_instagram-default-profile-picture-png.png" alt="Default Profile" width={100} height={100} />
+      <img style={{zIndex:"3", position:"fixed", backgroundColor: "black"}} src="https://toppng.com/uploads/preview/instagram-default-profile-picture-11562973083brycehrmyv.png" alt="Default Profile" width={100} height={100} />
     }
      <BiSolidCameraPlus style={{cursor:"pointer", zIndex:"4", color:"aliceblue"}} onClick={()=>alert('123')} size={"25px"}/>
    </div>

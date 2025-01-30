@@ -3,17 +3,11 @@
 import * as React from "react";
 import styles from "./tiltStyles.module.css";
 import { Poppins } from "next/font/google";
-import SlideButton from "../../buttons/auth/slideButton";
-import { AiOutlineLogin } from "react-icons/ai";
 import Tilt from "react-parallax-tilt";
 import { motion } from "framer-motion";
 import { useState, forwardRef, useEffect } from "react";
 import { TbLetterC } from "react-icons/tb";
-import fileTypeChecker from "file-type-checker";
-import ProfileForm from "@/components/forms/profileForm/ProfileForm";
-import GetProfileImage from "../TiltModal/modalComponents/GetProfileImage";
 import { MdOutlineClose } from "react-icons/md";
-import { z } from "zod";
 import AboutMeForm from "@/components/forms/AboutMeForm/AboutMeForm";
 
 
@@ -22,26 +16,30 @@ const font = Poppins({
   weight: ["600"],
 });
 
-const FormSchema = z.object({
-  Biography: z
-    .string()
-    .url({ message: "Please submit a valid URL." })
-    .optional()
-    .or(z.literal('')),
-});
 
 interface ITiltModalAboutMeProps {
+  aboutYou: any;
   setShowContent: Function;
+  showContent: Boolean;
 }
 
 // Use forwardRef to handle the `ref` prop
 const TiltModalAboutMe = forwardRef<HTMLDivElement, ITiltModalAboutMeProps>((props, ref) => {
   const [clicked, setClicked] = useState(false); // State to track if the slide-out is triggered
-  const { setShowContent } = props;
+  const { setShowContent,showContent, aboutYou } = props;
   //log user id for testing,
   const closeWindow = () => {
     setShowContent(false); // Trigger slide-out effect
   };
+  useEffect(() => {
+    //if modal is opened disable scrolling.
+    if (showContent) {
+      window.scrollTo(0,0)
+      document.body.style.overflow = "hidden"; // Disable scrolling
+    } else {
+      document.body.style.overflow = "auto"; // Enable scrolling
+    }
+  })
 
   return (
     <motion.div
@@ -79,7 +77,7 @@ const TiltModalAboutMe = forwardRef<HTMLDivElement, ITiltModalAboutMeProps>((pro
             <motion.div id={styles.logo}>
               <TbLetterC style={{ position: "absolute", height: "100%", zIndex: "2", color: "aliceblue", cursor:"pointer" }} />
             </motion.div>
-            <AboutMeForm/>
+            <AboutMeForm AboutMe={aboutYou}/>
           </div>
         </div>
       </Tilt>

@@ -32,7 +32,7 @@ const FollowingBody: React.FunctionComponent<IFollowingBodyProps> = (props) => {
   const [followingStatus, setFollowingStatus] = useState<Record<string, boolean>>({});
     useEffect(() => {
       const fetchFollowingStatus = async () => {
-        if (!session || !session.id || followers.length === 0) return; // Ensure all required data is present
+        if (!session || !session.id ) return; // Ensure all required data is present
     
         try {
           setLoading(true); // Explicitly set loading to true at the start
@@ -59,7 +59,7 @@ const FollowingBody: React.FunctionComponent<IFollowingBodyProps> = (props) => {
             }),
             {}
           );
-    
+          setLoading(false)
           setFollowingStatus(statusMap); // Update the state with the API result
           console.log(statusMap)
         } catch (error) {

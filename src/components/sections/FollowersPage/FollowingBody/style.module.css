@@ -12,6 +12,9 @@
 }
 
 #loader{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     top: calc(50%);
     left: calc(50%);

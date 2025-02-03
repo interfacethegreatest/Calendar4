@@ -1,25 +1,38 @@
+
+
 #main{
-    width: 100%;
+    min-width: 100%;
+    min-height: 100%;
     background-color: black;
     display: flex;
     flex-direction: row;
     position: absolute;
     z-index: 0;
+    margin: 0;
+    padding: 0;
+
 }
 
 
 #body {
-    width: 100%;             /* Allows the body to scale with the window */
+    width: 100%;            /* Allows the body to scale with the window */
     max-width: 925px;        /* It will never be wider than 925px */
     min-width: 825px;        /* It will never be smaller than 600px */
     min-height: 100vh;
     position: relative;
     z-index: 1;
-    padding: 5px 10px 15px 10px;
+    padding-left: 15px;
+    padding-right: 15px;
     margin: 0 auto;          /* Centers the body */
     border-right: 2px solid rgba(90, 89, 89, 0.17);
     border-left: 2px solid rgba(90, 89, 89, 0.17);
     background: /*linear-gradient(135deg, #1b1b1d00 85%, rgba(48, 121, 97, 0.016));*/
+}
+
+#header{
+    height: 45px;
+    width: 100%;
+
 }
 
 

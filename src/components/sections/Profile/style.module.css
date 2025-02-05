@@ -2,21 +2,81 @@
     height: 452px;
     width: 100%;
     border: 2px solid rgba(90, 89, 89, 0.295);
-    border-radius: 15px;
+    border-radius: 1.5rem;
     cursor: pointer;
     background: linear-gradient(135deg, #1b1b1d1e 75%, #1e1e1e1e 100%);
     transition: transform 0.3s ease; /* Adds smooth animation */
 }
 
 #profile:hover {
-    transform: translateY(-8px); /* Moves the element 5px upward */
+    transform: translateY(-4px); /* Moves the element 5px upward */
+}
+
+#profileHeaderContainer{
+    padding: 8px;
+    height: 222px;
+    width: 100%;
+
 }
 
 #profileHeader{
     width: 100%;
-    height: 10px;
-    border: 1px solid aliceblue;
-    margin-top: auto;
+    height: 144px;
+    border: 2px solid rgba(90, 89, 89, 0.295);
+    border-radius: 1.5rem;
+    background-color: black;
+    position: relative;
+    z-index: 3;
+}
+
+#profileHeaderBackground{
+    border-radius: 1.5rem;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(
+        to top left,
+        rgba(48, 121, 97, 0.066) 6%,
+        rgba(10, 10, 10, 0.608) 40%
+    );
+}
+
+#profile:hover #profileHeaderBackground{
+    background: linear-gradient(135deg, #1b1b1d00 85%,   rgba(48, 121, 97, 0.036));
+}
+
+#glow {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      rgba(48, 121, 97, 0.096) 0%,
+      #ff020200 60%
+    );
+    pointer-events: none;
+    filter: blur(8px);
+    position: relative;
+    z-index: ;
+}
+
+#profileOutline{
+    height: 112px;
+    width: 112px;
+    border-radius: 50%;
+    position: absolute;
+    transform: translate(24px, -48px);
+    z-index: 4;
+    background-color: black;
+    border: 2px solid rgba(90, 89, 89, 0.295);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#image{
+ border-radius: 50%;
+ height: 102px;
+ width: 102px;
 }
 
 #tiles{
@@ -30,6 +90,7 @@
     padding: 1px;
     height: 60%;
     top: 0;
+    position: absolute;
 }
   
 #tile1 {

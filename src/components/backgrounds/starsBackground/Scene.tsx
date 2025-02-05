@@ -6,7 +6,7 @@ import { Environment } from '@react-three/drei';
 
 export default function Scene() {
   return (
-    <Canvas style={{ zIndex: '0', position: 'fixed', top: 0, left: 0, width: '100%', minHeight: '100%' }}>
+    <Canvas style={{ zIndex: '0', position: 'absolute', top: 0, left: 0, width: '100%', minHeight: '100%' }}>
       <directionalLight intensity={3} position={[0, 3, 2]} />
       <Environment preset='city' />
       <Model />

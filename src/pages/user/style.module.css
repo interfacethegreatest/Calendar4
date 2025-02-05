@@ -26,7 +26,7 @@
     margin: 0 auto;          /* Centers the body */
     border-right: 2px solid rgba(90, 89, 89, 0.17);
     border-left: 2px solid rgba(90, 89, 89, 0.17);
-    background: /*linear-gradient(135deg, #1b1b1d00 85%, rgba(48, 121, 97, 0.016));*/
+    background: black;/*linear-gradient(135deg, #1b1b1d00 85%, rgba(48, 121, 97, 0.016));*/
 }
 
 #header{

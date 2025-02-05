@@ -60,12 +60,15 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
  
   return (<>
      <div id={style.main}>
+     <Scene/>
          <div id={style.body}>
           <div >
             <div id={style.header}>
 
             </div>
-            <Profile/>
+            <Profile 
+             user={user}
+             imageString={imageString}/>
           </div>
           <div id={style.selector}>
             {

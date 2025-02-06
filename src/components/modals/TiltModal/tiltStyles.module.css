@@ -204,8 +204,6 @@
   background-color: rgba(48, 121, 97, 0.036);
 }
 
-
-
 #tile9 {
   grid-row-start: 3;
   grid-row-end: 4; /* Corrected: end at row 2 */

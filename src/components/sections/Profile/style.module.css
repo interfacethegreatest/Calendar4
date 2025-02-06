@@ -6,6 +6,8 @@
     cursor: pointer;
     background: linear-gradient(135deg, #1b1b1d1e 75%, #1e1e1e1e 100%);
     transition: transform 0.3s ease; /* Adds smooth animation */
+    display: flex;
+    flex-direction: column;
 }
 
 #profile:hover {
@@ -44,20 +46,7 @@
     background: linear-gradient(135deg, #1b1b1d00 85%,   rgba(48, 121, 97, 0.036));
 }
 
-#glow {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background: radial-gradient(
-      circle,
-      rgba(48, 121, 97, 0.096) 0%,
-      #ff020200 60%
-    );
-    pointer-events: none;
-    filter: blur(8px);
-    position: relative;
-    z-index: ;
-}
+
 
 #profileOutline{
     height: 112px;
@@ -77,6 +66,32 @@
  border-radius: 50%;
  height: 102px;
  width: 102px;
+}
+
+#profileBodyContainer{
+    height: 100%;
+    width: 100%;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+#titleContainer{
+    height: 52px;
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    border: 2px solid rgba(90, 89, 89, 0.295);
+    border-radius: 1.5rem;
+    background-color: black;
+}
+
+#buttonContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    border-radius: 1.5rem;
+    margin-top: 3px;
 }
 
 #tiles{

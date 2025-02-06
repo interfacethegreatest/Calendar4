@@ -15,26 +15,16 @@ const font = Poppins({
   weight: ["400"],
 })
 
-const COLOURS = [
-  'rgba(159, 158, 158, 0.7)',
-  'rgba(159, 158, 158, 0.5)',  
-  'rgba(130, 129, 129, 0.35)', 
-  'rgba(189, 188, 188, 0.2)', 
-];
 
 const GenerateModal: React.FunctionComponent<IGenerateModalProps> = (props) => {
-  //const [showContent, setShowContent] = useState(false)
-  //const ref = useRef();
-  //outsideClick(ref, ()=>setShowContent(false))
   const { fields, setShowContent } = props;
-  const colour = useMotionValue(COLOURS[0]);
-  const border = useMotionTemplate`2px solid ${colour}`
-
   return<>
   {
     fields == "Edit" ? 
-    <motion.button title='Edit' style={{border, position:"relative", zIndex:1}} className={font.className} id={style.editProfile} onClick={()=>setShowContent(true)}>
-    <span id={style.mainText}><MdEdit style={{marginBottom:"2px", marginRight:"0px", marginTop:"4px"}}/></span>
+    <motion.button title='Edit' id={style.editProfile} onClick={()=>{setShowContent(true)}}>
+     <div id={style.buttonInner}>
+      Edit  
+     </div>
     </motion.button> 
     : null
   }

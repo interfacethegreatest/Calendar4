@@ -68,7 +68,14 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
             </div>
             <Profile 
              user={user}
-             imageString={imageString}/>
+             imageString={imageString}
+             session={session}
+             clicked={clicked}
+             setClicked={setClicked} 
+             setShowContent={setShowContent} 
+             isLiked={isLiked} 
+             setIsLiked={setIsLiked}
+            />
           </div>
           <div id={style.selector}>
             {

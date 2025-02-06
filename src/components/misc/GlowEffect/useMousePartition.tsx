@@ -20,13 +20,13 @@ const useMousePosition = (ref) => {
 
     if (ref.current) {
       ref.current.addEventListener("mousemove", handleMouseMove);
-      ref.current.addEventListener("mouseleave", handleMouseLeave);
+      ref.current.addEventListener("mouseout", handleMouseLeave);
     }
 
     return () => {
       if (ref.current) {
         ref.current.removeEventListener("mousemove", handleMouseMove);
-        ref.current.removeEventListener("mouseleave", handleMouseLeave);
+        ref.current.removeEventListener("mouseout", handleMouseLeave);
       }
     };
   }, [ref]);

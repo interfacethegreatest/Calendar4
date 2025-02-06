@@ -1,10 +1,10 @@
 #editProfile{
-  width: 43px;
-  height: 43px;
-  border-radius: 4px;
-  background: linear-gradient(135deg, rgb(12, 12, 12) 1%,   rgb(22, 22, 22));
+
+  height: 36px;
+  width: 100px;
+  border-radius: 25px;
   z-index: 0;
-  border: 2px solid rgba(90, 89, 89, 0.17);
+  /*border: 2px solid rgba(90, 89, 89, 0.686);*/
   cursor: pointer;
   display: flex;
   flex-direction: row;
@@ -15,15 +15,30 @@
   margin-left: auto;
   margin-left: auto;
   position: relative;
+  z-index: 3;
+  padding: 3px;
 }
 
-#editProfile:hover{
+#buttonInner{
+  background-color: aliceblue;
+  display: flex;
+  font-weight: 500;
+  border-radius: 25px;
+  width: 100%;
+  height: 100%;
+}
+
+/*#editProfile:hover{
   background-color: rgb(40, 40, 40);
 }
+*/
+#buttonInner{
+  color: rgb(41, 41, 41);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
 
-#overlay{
-  background-color: blueviolet;
-  border: 2px solid rgba(90, 89, 89, 0.17);
 }
 
 @media (max-width: 804px) {

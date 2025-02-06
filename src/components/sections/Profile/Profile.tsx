@@ -1,39 +1,41 @@
 import * as React from 'react';
 import style from './style.module.css';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import useMousePosition from '@/components/misc/GlowEffect/useMousePartition';
+import GlowEffect from '@/components/misc/GlowEffect/GlowEffect';
+import FollowButton from '@/components/buttons/followButton/FollowButton';
+import GenerateModal from '@/components/buttons/generateModal/generateModal';
+import LikeButton from '@/components/buttons/LikeButton/LikeButton';
 
 
 interface IProfileProps {
   user: any,
-  imageString: string | null;
+  session: any,
+  imageString: string | null,
+  clicked: boolean,
+  setClicked: React.Dispatch<React.SetStateAction<boolean>>,
+  setShowContent: Function,
+  isLiked: boolean,
+  setIsLiked: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
 const Profile: React.FunctionComponent<IProfileProps> = (props) => {
-  const { user, imageString } = props;
+  const { user, imageString, clicked, setClicked, session, setShowContent, isLiked, setIsLiked,
+   
+  } = props;
+  console.log(setShowContent)
+  const [newFollowers, setFollowing] = useState(user.following.length);
   const divRef = useRef(null);
   const { x,y } = useMousePosition(divRef)
-  console.log(x, y)
+  console.log(user)
   return <>
-  <div id={style.profile} ref={divRef} style={{position:"relative"}}>
-  {(x !== null && y !== null) && (
-    <div
-      id={style.glow}
-      style={{
-       position: 'absolute',
-       left: x,
-       top: y,
-       transform: 'translate(-50%, -50%)',
-       pointerEvents: 'none', // Ensures the glow doesn't block mouse events
-       zIndex: 10,           // Adjust if necessary
-      }}
-    >
-    </div>
-  )}
+  <div id={style.profile} >
   <div id={style.profileHeaderContainer}>
    <div id={style.profileHeader}>
-    <div id={style.profileHeaderBackground}>
-
+    <div id={style.profileHeaderBackground} ref={divRef} style={{position:"relative"}}>
+     {(x !== null && y !== null) && (
+      <GlowEffect x={x} y={y}/>
+     )}
     </div>
    </div>
    <div id={style.profileOutline}>
@@ -43,6 +45,21 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
     <img id={style.image} src={ user.image } alt="" /> 
    }
    </div>
+  </div>
+  <div id={style.profileBodyContainer}>
+    <div id={style.buttonContainer}>
+      {session?.id === user._id ? (
+        <GenerateModal setShowContent={setShowContent} fields="Edit" />
+      ) : (
+        <LikeButton
+          isLiked={isLiked}
+          setIsLiked={setIsLiked}
+          userId={user._id}
+          followers={newFollowers}
+          setFollowers={setFollowing}
+        />
+      )}
+    </div>
   </div>
   <div id={style.tiles}>
     <div id={style.tile1}></div>

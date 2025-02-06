@@ -1,0 +1,14 @@
+#glow {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      rgba(48, 121, 97, 0.096) 0%,
+      #ff020200 60%
+    );
+    pointer-events: none;
+    filter: blur(4px);
+    position: relative;
+    z-index: 1;
+}

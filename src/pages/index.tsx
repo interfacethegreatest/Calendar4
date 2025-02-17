@@ -36,7 +36,7 @@ export default function Home({providers, callbackUrl, csrfToken }:{providers:any
   return (
     <>
       <main id={styles.main}>
-        {/*<Scene />*/}
+        <Scene />
         <h1 id={styles.mainBannerText} className={font.className}>
           Make the most of your professional career.
         </h1>

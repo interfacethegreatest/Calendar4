@@ -6,7 +6,12 @@ import GlowEffect from '@/components/misc/GlowEffect/GlowEffect';
 import FollowButton from '@/components/buttons/followButton/FollowButton';
 import GenerateModal from '@/components/buttons/generateModal/generateModal';
 import LikeButton from '@/components/buttons/LikeButton/LikeButton';
+import { Poppins } from 'next/font/google';
 
+const font = Poppins({
+  subsets: ["latin"],
+  weight: ["600"],
+});
 
 interface IProfileProps {
   user: any,
@@ -17,11 +22,12 @@ interface IProfileProps {
   setShowContent: Function,
   isLiked: boolean,
   setIsLiked: React.Dispatch<React.SetStateAction<boolean>>,
+  userString: string | null,
 }
 
 const Profile: React.FunctionComponent<IProfileProps> = (props) => {
   const { user, imageString, clicked, setClicked, session, setShowContent, isLiked, setIsLiked,
-   
+   userString,
   } = props;
   console.log(setShowContent)
   const [newFollowers, setFollowing] = useState(user.following.length);
@@ -51,14 +57,19 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
       {session?.id === user._id ? (
         <GenerateModal setShowContent={setShowContent} fields="Edit" />
       ) : (
+        session?
         <LikeButton
           isLiked={isLiked}
           setIsLiked={setIsLiked}
           userId={user._id}
           followers={newFollowers}
           setFollowers={setFollowing}
-        />
+        /> : null
       )}
+    </div>
+    <br />
+    <div id={style.titleContainer}>
+      <h1 className={font.className}>{userString ? userString : user.name}</h1>
     </div>
   </div>
   <div id={style.tiles}>

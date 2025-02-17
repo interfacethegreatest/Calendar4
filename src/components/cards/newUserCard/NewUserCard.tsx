@@ -9,7 +9,7 @@ import { animate, motion, useMotionTemplate, useMotionValue } from 'framer-motio
 import { useEffect, useState } from 'react';
 import { Router, useRouter } from 'next/router';
 import SunScene from '../../react three fibre/sunScene/SunScene'
-import NewUserForm from '@/components/forms/newUserForm/newUserForm';
+import NewUserForm from '@/components/forms/newUserForm/NewUserForm';
 const COLOURS = [
   'rgba(159, 158, 158, 0.7)',
   'rgba(159, 158, 158, 0.5)',  

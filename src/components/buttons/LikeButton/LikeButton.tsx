@@ -17,25 +17,11 @@ interface ILikeButtonProps {
   setIsLiked : Function;
 }
 
-const font = Poppins({
-  subsets: ['latin'],
-  weight: ['400'],
-});
-
-const COLOURS = [
-  'rgba(159, 158, 158, 0.7)',
-  'rgba(159, 158, 158, 0.5)',
-  'rgba(130, 129, 129, 0.35)',
-  'rgba(189, 188, 188, 0.2)',
-];
-
 const LikeButton: React.FunctionComponent<ILikeButtonProps> = (props) => {
   const { userId, followers, setFollowers, isLiked, setIsLiked } = props;
   const { data: session } = useSession();
   // State to toggle the icon
   const [isHovered, setIsHovered] = React.useState(false); // State to track hover
-  const colour = useMotionValue(COLOURS[0]);
-  const border = useMotionTemplate`2px solid ${colour}`;
   const setFollowing = async () =>{
     try {
      //increment userId's followers +1,
@@ -93,15 +79,15 @@ const LikeButton: React.FunctionComponent<ILikeButtonProps> = (props) => {
       }}
       transition={{
         type: 'spring',
-        stiffness: 300,
+        stiffness: 200,
         damping: 15,
       }} // Smooth spring animation
       onClick={handleClick} // Handle the click event
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      style={{ border }}
     >
-      <motion.span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+      <div id={style.likeButtonInner}>
+       <motion.span style={{ display: 'flex', justifyContent:"center", alignItems: 'center', gap: '4px' }}>
         {isLiked && isHovered ? (
           <FcDislike size={20} />
         ) : isLiked ? (
@@ -112,7 +98,8 @@ const LikeButton: React.FunctionComponent<ILikeButtonProps> = (props) => {
             <span>Follow</span>
           </>
         )}
-      </motion.span>
+       </motion.span>
+      </div>
     </motion.button>
   );
 };

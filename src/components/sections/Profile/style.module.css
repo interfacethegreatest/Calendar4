@@ -77,10 +77,8 @@
 }
 
 #titleContainer{
-    height: 56px;
-    width: 75%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     border-radius: 1rem;
     background-color: black;
     margin-left: 20px;
@@ -88,8 +86,22 @@
     text-decoration: underline;
     padding: 2px;
     background: transparent;
-    transform: translate(18%,-125%);
+    /*transform: translate(24%,-125%);*/
+    position: absolute;
+    top: 36%;
+    left: 16%;
     z-index: 4;
+    padding: 0;
+}
+
+#titleContainer h1{
+    margin: 0;
+}
+
+#titleContainer p{
+    position: absolute;
+    bottom: -70%;
+    color: rgba(90, 89, 89, 0.495);
 }
 
 #buttonContainer{
@@ -104,7 +116,44 @@
 
 #textContainer{
     display: flex;
+    
+}
 
+#descriptionContainer{
+    width: 100%;
+    height: 150px;
+    padding-top: 10px;
+    padding-left: 35px;
+}
+
+#descriptionTitle{
+    color: rgba(90, 89, 89, 0.295);
+}
+
+#descriptionContainer p{
+    margin-top: 4px;
+    margin-left: 5px;
+    color: aliceblue;
+}
+
+#websiteContainer{
+    border: 1px solid aliceblue;
+}
+
+@media (max-width: 882px) {
+    #titleContainer p{
+        position: absolute;
+        bottom: -80%;
+        color: rgba(90, 89, 89, 0.495);
+    }
+}
+
+@media (max-width: 516px) {
+    #titleContainer p{
+        position: absolute;
+        bottom: -90%;
+        color: rgba(90, 89, 89, 0.495);
+    }
 }
 
 #tiles{

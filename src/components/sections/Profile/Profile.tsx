@@ -23,11 +23,12 @@ interface IProfileProps {
   isLiked: boolean,
   setIsLiked: React.Dispatch<React.SetStateAction<boolean>>,
   userString: string | null,
+  descriptionString: string | null,
 }
 
 const Profile: React.FunctionComponent<IProfileProps> = (props) => {
   const { user, imageString, clicked, setClicked, session, setShowContent, isLiked, setIsLiked,
-   userString,
+   userString, descriptionString
   } = props;
   console.log(setShowContent)
   const [newFollowers, setFollowing] = useState(user.following.length);
@@ -70,6 +71,18 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
     <br />
     <div id={style.titleContainer}>
       <h1 className={font.className}>{userString ? userString : user.name}</h1>
+      <p>@{userString ? userString : user.name}</p>
+    </div>
+    <div id={style.descriptionContainer}>
+     <h6 id={style.descriptionTitle} style={{ marginBottom: '0px' }}>
+        <u className={font.className}><b>Description</b></u>
+     </h6>
+     <p style={{}}>
+     {descriptionString ? descriptionString : user.Biography}
+     </p>
+    </div>
+    <div id={style.websiteContainer}>
+
     </div>
   </div>
   <div id={style.tiles}>

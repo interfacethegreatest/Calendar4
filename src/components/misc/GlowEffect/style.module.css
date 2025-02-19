@@ -4,7 +4,7 @@
     border-radius: 50%;
     background: radial-gradient(
       circle,
-      rgba(48, 121, 97, 0.096) 0%,
+      rgba(48, 121, 97, 0.286) 0%,
       #ff020200 60%
     );
     pointer-events: none;

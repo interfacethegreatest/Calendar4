@@ -7,6 +7,7 @@ import FollowButton from '@/components/buttons/followButton/FollowButton';
 import GenerateModal from '@/components/buttons/generateModal/generateModal';
 import LikeButton from '@/components/buttons/LikeButton/LikeButton';
 import { Poppins } from 'next/font/google';
+import { RiMapPin2Fill } from "react-icons/ri";
 
 const font = Poppins({
   subsets: ["latin"],
@@ -24,11 +25,12 @@ interface IProfileProps {
   setIsLiked: React.Dispatch<React.SetStateAction<boolean>>,
   userString: string | null,
   descriptionString: string | null,
+  websiteString: string | null,
 }
 
 const Profile: React.FunctionComponent<IProfileProps> = (props) => {
   const { user, imageString, clicked, setClicked, session, setShowContent, isLiked, setIsLiked,
-   userString, descriptionString
+   userString, descriptionString, websiteString,
   } = props;
   console.log(setShowContent)
   const [newFollowers, setFollowing] = useState(user.following.length);
@@ -54,20 +56,19 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
    </div>
   </div>
   <div id={style.profileBodyContainer}>
-    <div id={style.buttonContainer}>
-      {session?.id === user._id ? (
-        <GenerateModal setShowContent={setShowContent} fields="Edit" />
-      ) : (
-        session?
-        <LikeButton
-          isLiked={isLiked}
-          setIsLiked={setIsLiked}
-          userId={user._id}
-          followers={newFollowers}
-          setFollowers={setFollowing}
-        /> : null
-      )}
-    </div>
+   <div id={style.buttonContainer}>
+    {session?.id === user._id ? (
+     <GenerateModal setShowContent={setShowContent} fields="Edit" />
+     ) : session ? (
+    <LikeButton
+      isLiked={isLiked}
+      setIsLiked={setIsLiked}
+      userId={user._id}
+      followers={newFollowers}
+      setFollowers={setFollowing}
+    />
+    ) : null}
+</div>
     <br />
     <div id={style.titleContainer}>
       <h1 className={font.className}>{userString ? userString : user.name}</h1>
@@ -82,7 +83,8 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
      </p>
     </div>
     <div id={style.websiteContainer}>
-
+     <RiMapPin2Fill style={{marginTop:"3px"}} title='Website link' color='aliceblue' size={20}/>
+     <p id={style.websiteText}><a style={{color:"grey"}} href={websiteString ? websiteString : user.Website}>{websiteString ? websiteString : user.Website}</a></p>
     </div>
   </div>
   <div id={style.tiles}>

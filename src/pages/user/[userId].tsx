@@ -74,8 +74,10 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
             setClicked={setClicked}
             setShowContent={setShowContent}
             isLiked={isLiked}
-            setIsLiked={setIsLiked} 
-            userString={userString}
+            setIsLiked={setIsLiked}
+            userString={userString} 
+            descriptionString={descriptionString}
+            websiteString={websiteString}
             />
           </div>
           <div id={style.selector}>

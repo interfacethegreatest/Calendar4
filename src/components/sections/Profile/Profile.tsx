@@ -8,6 +8,7 @@ import GenerateModal from '@/components/buttons/generateModal/generateModal';
 import LikeButton from '@/components/buttons/LikeButton/LikeButton';
 import { Poppins } from 'next/font/google';
 import { RiMapPin2Fill } from "react-icons/ri";
+import SunScene from '@/components/react three fibre/sunScene/SunScene';
 
 const font = Poppins({
   subsets: ["latin"],
@@ -68,11 +69,14 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
       setFollowers={setFollowing}
     />
     ) : null}
+    <div id={style.planetContainer}>
+     <SunScene/>
+    </div>
 </div>
     <br />
     <div id={style.titleContainer}>
-      <h1 className={font.className}>{userString ? userString : user.name}</h1>
-      <p>@{userString ? userString : user.name}</p>
+     <h1 className={font.className}>{userString ? userString : user.name}</h1>
+     <p>@{userString ? userString : user.name}</p>
     </div>
     <div id={style.descriptionContainer}>
      <h6 id={style.descriptionTitle} style={{ marginBottom: '0px' }}>
@@ -82,10 +86,13 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
      {descriptionString ? descriptionString : user.Biography}
      </p>
     </div>
-    <div id={style.websiteContainer}>
-     <RiMapPin2Fill style={{marginTop:"3px"}} title='Website link' color='aliceblue' size={20}/>
-     <p id={style.websiteText}><a style={{color:"grey"}} href={websiteString ? websiteString : user.Website}>{websiteString ? websiteString : user.Website}</a></p>
-    </div>
+    { websiteString || user.Website && (
+     <div id={style.websiteContainer}>
+      <RiMapPin2Fill style={{marginTop:"3px"}} title='Website link' color='aliceblue' size={20}/>
+      <p id={style.websiteText}><a style={{color:"grey"}} href={websiteString ? websiteString : user.Website}>{websiteString ? websiteString : user.Website}</a></p>
+     </div>
+    )
+    }
   </div>
   <div id={style.tiles}>
     <div id={style.tile1}></div>

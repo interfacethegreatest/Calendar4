@@ -45,7 +45,7 @@
     color: rgb(106, 106, 106);
     font-size: 1.1rem;
     position: absolute;
-    top: 0;
+    top: 2%;
     z-index: 0;
     pointer-events: auto;
     display: flex;

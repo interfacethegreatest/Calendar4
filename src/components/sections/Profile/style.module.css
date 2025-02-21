@@ -108,10 +108,27 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: row;
+    flex-direction: row-reverse;
     border-radius: 1.5rem;
     margin-top: 3px;
     border: 2px solid rgba(90, 89, 89, 0.295);
+    gap: 10px;
+}
+
+#planetContainer{
+    width:  72px;
+    height: 72px;
+    border: 1px solid aliceblue;
+    margin-left: auto;
+    border-radius: 50%;
+    border: 2px solid rgba(90, 89, 89, 0.295);
+    background: black;
+    position: relative;
+    z-index: 3;
+}
+
+#planetContainer:hover{
+    background-color: rgb(40, 40, 40);
 }
 
 #textContainer{

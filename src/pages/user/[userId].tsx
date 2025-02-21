@@ -64,7 +64,6 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
          <div id={style.body}>
           <div >
             <div id={style.header}>
-
             </div>
             <Profile 
             user={user}

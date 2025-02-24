@@ -46,6 +46,7 @@ const LikeButton: React.FunctionComponent<ILikeButtonProps> = (props) => {
     }
   }
 
+  console.log(isLiked)
 
   const handleClick = () => {
     setIsLiked(!isLiked); // Toggle between liked and unliked state

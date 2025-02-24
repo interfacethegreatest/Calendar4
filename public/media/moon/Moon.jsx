@@ -7,14 +7,21 @@ Source: https://sketchfab.com/3d-models/moon-1425bed819624f0f92d1a05a4509289f
 Title: Moon
 */
 
-import React from 'react'
+import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
+import { useFrame } from '@react-three/fiber';
 
 export default function Model(props) {
-  const { nodes, materials } = useGLTF('/moon.gltf')
+  const { nodes, materials } = useGLTF('/media/moon/moon.gltf')
+  const moonRef = useRef();
+  useFrame(() => {
+    if (moonRef.current) {
+      moonRef.current.rotation.y += -0.0075 // Adjust this value to control speed
+    }
+  })
   return (
-    <group {...props} dispose={null}>
-      <group scale={0.01}>
+    <group ref={moonRef} {...props} dispose={null}>
+      <group scale={0.028}>
         <mesh 
           geometry={nodes.Moon_Moon_0.geometry} 
           material={materials.Moon} 

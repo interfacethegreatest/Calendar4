@@ -26,6 +26,8 @@ interface IFollowingBodyProps {
 const FollowingBody: React.FunctionComponent<IFollowingBodyProps> = (props) => {
   const [loading, setLoading] = useState(true);
   const { userid, followers, following } = props;
+  
+  console.log(userid)
   const { data: session } = useSession();
   const router = useRouter();
   const [ clicked , setClicked ] = useState(false);
@@ -36,12 +38,17 @@ const FollowingBody: React.FunctionComponent<IFollowingBodyProps> = (props) => {
     
         try {
           setLoading(true); // Explicitly set loading to true at the start
+          console.log(following)
           const response = await fetch('/api/auth/getFollowing', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               sessionUserId: session.id,
-              followerIds: followers.map((f) => f._id),
+              //this is really followingId's however 
+              //changing this woul affect the getFollowing function
+              //therefore this will be kept the same,
+              followerIds: following.map((f) => f._id),
+              followers: followers.map((f) => f._id),
             }),
           });
     
@@ -49,8 +56,8 @@ const FollowingBody: React.FunctionComponent<IFollowingBodyProps> = (props) => {
             throw new Error('Failed to fetch following status');
           }
     
-          const { isFollowingList } = await response.json();
-    
+          const { isFollowingList, isFollowerList } = await response.json();
+          console.log(isFollowerList)
           // Safely map the API response to state
           const statusMap = isFollowingList.reduce(
             (acc, { followerId, isFollowing }) => ({
@@ -85,7 +92,7 @@ const FollowingBody: React.FunctionComponent<IFollowingBodyProps> = (props) => {
   return (
     <>
      {
-      followers.map((follower) => {
+      following.map((follower) => {
          const isFollowing = followingStatus[follower._id];
          const isCurrentUser = session && session.id === follower._id;
  

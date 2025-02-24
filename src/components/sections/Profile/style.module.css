@@ -112,12 +112,44 @@
     border-radius: 1.5rem;
     margin-top: 3px;
     border: 2px solid rgba(90, 89, 89, 0.295);
-    gap: 10px;
 }
 
 #planetContainer{
     width:  72px;
     height: 72px;
+    border: 1px solid aliceblue;
+    border-radius: 50%;
+    border: 2px solid rgba(90, 89, 89, 0.295);
+    background: black;
+    position: relative;
+    z-index: 3;
+    margin-right: 10px;
+}
+
+#planetContainer:hover{
+    background-color: rgb(40, 40, 40);
+}
+
+#planetContainer2{
+    width:  48px;
+    height: 48px;
+    border: 1px solid aliceblue;
+    border-radius: 50%;
+    border: 2px solid rgba(90, 89, 89, 0.295);
+    background: black;
+    position: relative;
+    z-index: 3;
+    margin-right: 8px;
+    margin-left: auto;
+}
+
+#planetContainer2:hover{
+    background-color: rgb(40, 40, 40);
+}
+
+#planetContainer3{
+    width:  36px;
+    height: 36px;
     border: 1px solid aliceblue;
     margin-left: auto;
     border-radius: 50%;
@@ -125,9 +157,10 @@
     background: black;
     position: relative;
     z-index: 3;
+    margin-right: 5px;
 }
 
-#planetContainer:hover{
+#planetContainer3:hover{
     background-color: rgb(40, 40, 40);
 }
 
@@ -169,6 +202,33 @@
     color: gray;
     font-size: 1rem;
 
+}
+
+#socialContainer{
+    margin-left: 37px;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+#followersContainer{
+    display: flex;
+    flex-direction: row;
+    gap: 3px;
+}
+
+#followersContainer h6{
+    margin-top: 3px;
+}
+
+#followingContainer{
+    display: flex;
+    flex-direction: row;
+    gap: 3px;
+}
+
+#followingContainer h6{
+    margin-top: 3px;
 }
 
 @media (max-width: 882px) {

@@ -3,7 +3,7 @@ import { useGLTF} from '@react-three/drei'
 import { useFrame } from '@react-three/fiber';
 
 export default function Model(props) {
-  const { nodes, materials } = useGLTF('media/sun/sun.gltf')
+  const { nodes, materials } = useGLTF('/media/sun/sun.gltf')
   const sunRef = useRef()
 
   // Rotate the sun continuously

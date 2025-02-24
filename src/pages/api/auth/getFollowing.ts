@@ -8,7 +8,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).json({ message: 'Method not allowed' });
   }
 
-  const { sessionUserId, followerIds } = req.body;
+  const { sessionUserId, followerIds, followers } = req.body;
 
   if (!sessionUserId || !Array.isArray(followerIds)) {
     return res.status(400).json({ message: 'Invalid input' });
@@ -29,7 +29,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       isFollowing: sessionUser.following.includes(followerId),
     }));
 
-    return res.status(200).json({ isFollowingList });
+    let isFollowerList
+    if ( followers.length > 0) {
+      const isFollowerList = followerIds.map((followerId) => ({
+        followerId,
+        isFollower: sessionUser.followers.includes(followerId),
+      }))
+    }
+    
+
+    return res.status(200).json({ isFollowingList, isFollowerList });
   } catch (error) {
     console.error('Error querying following status:', error);
     return res.status(500).json({ message: 'Internal server error' });

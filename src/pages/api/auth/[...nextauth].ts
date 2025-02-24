@@ -74,21 +74,16 @@ export default NextAuth({
       if (user) {
         token.provider = account?.provider;
       }
-      console.log(token);
       return token;
     },
     async session({ session, token }: { session: any; token: JWT }) {
-      console.log(token);
       if (session.user) {
         session.user.provider = token.provider;
-        console.log("Session token "+ token.sub)
         try {
           await connectDB();
           const userDB = await UserModal.findById(token.sub).exec();
           if ( userDB ) {
-            console.log("Hello World");
             // check that userDB.emailverified is not null
-            console.log(userDB.emailVerified);
             const isNewUser = (userDB.emailVerified === null );
             // console log the result 
               if ( isNewUser ) {

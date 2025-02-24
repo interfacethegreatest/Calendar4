@@ -4,13 +4,13 @@ import { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Environment, OrbitControls } from '@react-three/drei';
 import dynamic from 'next/dynamic';
-const Moon = dynamic(() => import('../../../../public/media/moon/Moon'), { ssr: false });
+const Earth = dynamic(() => import('../../../../public/media/earth/Earth'), { ssr: false });
 export default function GlobeScene() {
     return (
       <Canvas id={style.globeCanvas}>
         <OrbitControls enableZoom={false} />
         <Suspense>
-          <Moon/>
+          <Earth/>
         </Suspense>
         <Environment preset='city'/>
       </Canvas>

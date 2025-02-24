@@ -18,9 +18,18 @@ import TiltModalAboutMe from '@/components/modals/TiltModalAboutMe/TiltModalAbou
 import Profile from '@/components/sections/Profile/Profile';
 
 
-export default function user({userId, user}:{userId:string, user: InferGetServerSidePropsType<typeof getServerSideProps>}) {
+export default function user({userId, user, followingUsers}:{followingUsers:InferGetServerSidePropsType<typeof getServerSideProps>, userId:string, user: InferGetServerSidePropsType<typeof getServerSideProps>}) {
   // Used to check logged in user or not,
   const { data : session } = useSession();
+  const isFollowing = session ? followingUsers.some(follower => follower._id.toString() === session.id)
+  : false;
+  const [isLiked, setIsLiked] = useState(isFollowing); // State to toggle the icon
+  useEffect(()=>{
+    if (session) {
+      setIsLiked(followingUsers.some(follower=> follower._id.toString() === session.id))
+    }
+  }, [session, followingUsers])
+
   // Used to set the selection in the below the user profile,
   const [ selection, setSelection ] = useState([true, false, false, false]);
   // Used to show the content in the modal to allow for editing the user profile.
@@ -36,7 +45,6 @@ export default function user({userId, user}:{userId:string, user: InferGetServer
   // Used in the modal to set and use a user defined website
   const [ websiteString, setWebsiteString ] = useState(null);
   // Used in a useEffect to find if a profile is already liked by the user,
-  const [isLiked, setIsLiked] = useState(false); // State to toggle the icon
   
   function handleClick(arg0: number) {
     //after the user clicks next in the edit modal, move to the next page, setSelection(true) enables this.
@@ -149,15 +157,28 @@ export async function getServerSideProps(ctx: NextPageContext) {
   try {
     await connectDB(); // Connect to MongoDB
     const user = await User.findById(userId);
-
+   
     if (!user) {
       return { notFound: true }; // User not found
     }
 
+    if ( !user.followers ) {
+      return { notFound : true }
+    }
+
+    const followerIds = user.followers || [];
+    const followingUsers = await User.find({ _id: { $in: followerIds } })
+    .select('_id name')
+    .lean();
+
     return {
       props: {
         userId,
-        user: JSON.parse(JSON.stringify(user)), // Serialize user for Next.js
+        user: JSON.parse(JSON.stringify(user)),
+        followingUsers: followingUsers.map((follower) => ({
+          _id: follower._id.toString(),
+          name: follower.name,
+        })),
       },
     };
   } catch (error) {

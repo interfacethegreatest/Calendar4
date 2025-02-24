@@ -9,6 +9,9 @@ import LikeButton from '@/components/buttons/LikeButton/LikeButton';
 import { Poppins } from 'next/font/google';
 import { RiMapPin2Fill } from "react-icons/ri";
 import SunScene from '@/components/react three fibre/sunScene/SunScene';
+import MoonScene from '@/components/react three fibre/moonScene/MoonScene';
+import EarthScene from '@/components/react three fibre/EarthScene/EarthScene';
+import router from 'next/router';
 
 const font = Poppins({
   subsets: ["latin"],
@@ -34,7 +37,7 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
    userString, descriptionString, websiteString,
   } = props;
   console.log(setShowContent)
-  const [newFollowers, setFollowing] = useState(user.following.length);
+  const [newFollowers, setFollowing] = useState(user.followers.length);
   const divRef = useRef(null);
   const { x,y } = useMousePosition(divRef)
   console.log(user)
@@ -72,6 +75,16 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
     <div id={style.planetContainer}>
      <SunScene/>
     </div>
+    <div id={style.planetContainer2}>
+     <EarthScene/>
+    </div>
+    {
+      /* 
+      <div id={style.planetContainer3}>
+       <MoonScene/>
+      </div>
+      */
+    }
 </div>
     <br />
     <div id={style.titleContainer}>
@@ -86,6 +99,46 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
      {descriptionString ? descriptionString : user.Biography}
      </p>
     </div>
+        <div id={style.socialContainer}>
+      <div id={style.followersContainer}>
+       <a
+        style={{color:"aliceblue", textDecoration:"none"}}
+        href={`/user/${user._id}/followers`}>
+        {newFollowers}
+       </a>
+       <h6 id={style.location} style={{ color: 'GrayText' }}>
+          <a style={{ color: 'grey', textDecoration:"none" }} href={`/user/${user._id}/followers`}>
+            Followers
+          </a>
+          </h6>
+      </div>
+      <div id={style.followingContainer}>
+       <a
+        href="#"
+        style={{color:"aliceblue", textDecoration:"none"}}
+        onClick={(e) => {
+        e.preventDefault();
+        router.push({
+        pathname: `/user/${user._id}/followers`, // target page
+        query: { selected: 'false' }, // Pass the query parameter as 'false'
+        });
+        }}
+       >
+        {user.following.length}
+       </a>
+       <h6 id={style.location} style={{ color: 'GrayText' }}>
+        <a href="#"
+         style={{color:"grey", textDecoration:"none"}}
+         onClick={(e)=>{
+         e.preventDefault();
+         router.push({
+          pathname: `/user/${user._id}/followers`, // target page
+          query: { selected: 'false' }, // Pass the query parameter as 'false'
+         })
+        }}>Following</a>
+       </h6>
+      </div>
+    </div>
     { websiteString || user.Website && (
      <div id={style.websiteContainer}>
       <RiMapPin2Fill style={{marginTop:"3px"}} title='Website link' color='aliceblue' size={20}/>
@@ -93,6 +146,7 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
      </div>
     )
     }
+
   </div>
   <div id={style.tiles}>
     <div id={style.tile1}></div>

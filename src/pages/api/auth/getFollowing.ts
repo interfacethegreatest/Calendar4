@@ -18,7 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     await connectDB();
 
     // Query session user to get their following list
-    const sessionUser = await User.findById(sessionUserId).select('following').lean();
+    const sessionUser = await User.findById(sessionUserId).select('following followers').lean();
 
     if (!sessionUser) {
       return res.status(404).json({ message: 'Session user not found' });
@@ -31,12 +31,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     let isFollowerList
     if ( followers.length > 0) {
-      const isFollowerList = followerIds.map((followerId) => ({
-        followerId,
-        isFollower: sessionUser.followers.includes(followerId),
+      const isFollowerList = followers.map((follower) => ({
+        follower,
+        isFollower: sessionUser.followers.includes(follower),
       }))
     }
-    
+    console.log(isFollowerList);
 
     return res.status(200).json({ isFollowingList, isFollowerList });
   } catch (error) {

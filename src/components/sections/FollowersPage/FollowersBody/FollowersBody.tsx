@@ -41,6 +41,7 @@ const FollowersBody: React.FunctionComponent<IFollowersBodyProps> = ({ followers
           body: JSON.stringify({
             sessionUserId: session.id,
             followerIds: followers.map((f) => f._id),
+            followers: followers.map((f) => f._id),
           }),
         });
   
@@ -48,7 +49,9 @@ const FollowersBody: React.FunctionComponent<IFollowersBodyProps> = ({ followers
           throw new Error('Failed to fetch following status');
         }
   
-        const { isFollowingList } = await response.json();
+        const { isFollowingList, isFollowerList } = await response.json();
+
+        console.log(isFollowerList)
   
         // Safely map the API response to state
         const statusMap = isFollowingList.reduce(

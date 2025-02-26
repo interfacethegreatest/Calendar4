@@ -62,6 +62,16 @@ export default function user({userId, user, followingUsers}:{followingUsers:Infe
       document.body.style.overflow = "auto"; // Enable scrolling
     }
   })
+  //if second modal opened, scroll to top - disable scrolling,
+  useEffect(() => {
+    //if modal is opened disable scrolling.
+    if (showContentAboutMe) {
+      window.scrollTo(0,0)
+      document.body.style.overflow = "hidden"; // Disable scrolling
+    } else {
+      document.body.style.overflow = "auto"; // Enable scrolling
+    }
+  })
 
   // set isLiked to true if the user is signed in, if the signed in user is not the profile being viewed,
   // and if the person viewing is already following the user being viewed ,

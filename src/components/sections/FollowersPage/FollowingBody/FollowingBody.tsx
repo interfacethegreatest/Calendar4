@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 import FollowingButton from '@/components/buttons/followingButton/FollowingButton';
 import FollowButton from '@/components/buttons/followButton/FollowButton';
+import { is } from '@react-three/fiber/dist/declarations/src/core/utils';
 
 interface IFollowingBodyProps {
   userid: string;
@@ -27,7 +28,7 @@ const FollowingBody: React.FunctionComponent<IFollowingBodyProps> = (props) => {
   const [loading, setLoading] = useState(true);
   const { userid, followers, following } = props;
   
-  console.log(userid)
+  console.log(following)
   const { data: session } = useSession();
   const router = useRouter();
   const [ clicked , setClicked ] = useState(false);
@@ -35,7 +36,6 @@ const FollowingBody: React.FunctionComponent<IFollowingBodyProps> = (props) => {
     useEffect(() => {
       const fetchFollowingStatus = async () => {
         if (!session || !session.id ) return; // Ensure all required data is present
-    
         try {
           setLoading(true); // Explicitly set loading to true at the start
           console.log(following)
@@ -56,8 +56,8 @@ const FollowingBody: React.FunctionComponent<IFollowingBodyProps> = (props) => {
             throw new Error('Failed to fetch following status');
           }
     
-          const { isFollowingList, isFollowerList } = await response.json();
-          console.log(isFollowerList)
+          const { isFollowingList } = await response.json();
+          console.log(isFollowingList)
           // Safely map the API response to state
           const statusMap = isFollowingList.reduce(
             (acc, { followerId, isFollowing }) => ({

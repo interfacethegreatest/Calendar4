@@ -35,7 +35,7 @@ const FollowButton: React.FunctionComponent<IFollowButtonProps> = (props) => {
   <button 
    onClick={handleClick}
    id={style.followButton}>
-    Follow
+    <span id={style.buttonSpan}>Follow</span>
   </button>
   </> ;
 };

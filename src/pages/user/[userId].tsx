@@ -131,7 +131,15 @@ export default function user({userId, user, followingUsers}:{followingUsers:Infe
             initial={{ x: "-100vw" }} 
             animate={{ x: clicked ? "-100vw" : 0 }} // Slide out when clicked
             transition={{ type: "spring", stiffness: 70, damping: 20 }}>
-              <TiltModal userId={user._id} website={setWebsiteString} description={setDescriptionString} imageString={setImageString} username={setUserString} setShowContent={setShowContent}  closeModal={setClicked} icon={<MdOutlineClose/>}/>
+              <TiltModal 
+               userId={user._id} 
+               website={setWebsiteString} 
+               description={setDescriptionString} 
+               imageString={setImageString} 
+               username={setUserString} 
+               setShowContent={setShowContent}  
+               closeModal={setClicked} 
+               icon={<MdOutlineClose/>}/>
               </motion.div>
               </div>
              : null

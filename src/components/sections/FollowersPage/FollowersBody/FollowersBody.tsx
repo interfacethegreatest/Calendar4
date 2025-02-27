@@ -25,6 +25,7 @@ interface IFollowersBodyProps {
 
 const FollowersBody: React.FunctionComponent<IFollowersBodyProps> = ({ followers, following, userid }) => {
   const [loading, setLoading] = useState(false);
+  console.log(following)
   const { data: session } = useSession();
   const router = useRouter();
   const [ clicked , setClicked ] = useState(false);
@@ -49,9 +50,9 @@ const FollowersBody: React.FunctionComponent<IFollowersBodyProps> = ({ followers
           throw new Error('Failed to fetch following status');
         }
   
-        const { isFollowingList, isFollowerList } = await response.json();
+        const { isFollowingList, /*isFollowerList */} = await response.json();
 
-        console.log(isFollowerList)
+        console.log(isFollowingList)
   
         // Safely map the API response to state
         const statusMap = isFollowingList.reduce(
@@ -63,7 +64,7 @@ const FollowersBody: React.FunctionComponent<IFollowersBodyProps> = ({ followers
         );
   
         setFollowingStatus(statusMap); // Update the state with the API result
-        console.log(statusMap)
+        //console.log(statusMap)
       } catch (error) {
         console.error('Error fetching following status:', error);
         toast.error('Unable to fetch following status');
@@ -85,7 +86,7 @@ const FollowersBody: React.FunctionComponent<IFollowersBodyProps> = ({ followers
         followers.map((follower) => {
           const isFollowing = followingStatus[follower._id];
           const isCurrentUser = session && session.id === follower._id;
-  
+
           return (
             <div
               key={follower._id}
@@ -112,7 +113,7 @@ const FollowersBody: React.FunctionComponent<IFollowersBodyProps> = ({ followers
                     @{follower.name}
                   </p>
                   <br />
-                  {session && session.id === userid && (
+                  {session && session.id === follower.id && isFollowing && (
                     <p id={style.followsYou} style={{ color: 'grey' }}>
                       Follows you
                     </p>
@@ -122,20 +123,18 @@ const FollowersBody: React.FunctionComponent<IFollowersBodyProps> = ({ followers
               </div>
               {!isCurrentUser && (
                 <>
-                  {isFollowing === undefined ? (
-                    <ClipLoader size={10} color="rgb(30, 245, 1)" />
-                  ) : isFollowing ? (
-                    !clicked ?
-                    <FollowingButton clicked={clicked} setClicked={setClicked} userId={follower._id} /> 
-                    :
-                    <FollowButton clicked={clicked} setClicked={setClicked} userId={follower._id} />
-                  ) : (
-                     !clicked ?
-                    <FollowButton clicked={clicked} setClicked={setClicked} userId={follower._id} />
-                    :
-                    <FollowingButton clicked={clicked} setClicked={setClicked} userId={follower._id} /> 
-                  )}
-                </>
+                {isFollowing === undefined ? (
+                  <ClipLoader size={10} color="rgb(30, 245, 1)" />
+                ) : (() => {
+                    // Determine which button to render:
+                    // When not clicked, use FollowingButton if isFollowing is true,
+                    // and FollowButton if isFollowing is false.
+                    // When clicked, it flips.
+                    const ButtonComponent = isFollowing === !clicked ? FollowingButton : FollowButton;
+                    return <ButtonComponent clicked={clicked} setClicked={setClicked} userId={follower._id} />;
+                  })()
+                }
+              </>
               )}
             </div>
           );

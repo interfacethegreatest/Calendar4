@@ -25,7 +25,7 @@ interface IFollowingBodyProps {
 }
 
 const FollowingBody: React.FunctionComponent<IFollowingBodyProps> = (props) => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const { userid, followers, following } = props;
   
   console.log(following)
@@ -35,7 +35,7 @@ const FollowingBody: React.FunctionComponent<IFollowingBodyProps> = (props) => {
   const [followingStatus, setFollowingStatus] = useState<Record<string, boolean>>({});
     useEffect(() => {
       const fetchFollowingStatus = async () => {
-        if (!session || !session.id ) return; // Ensure all required data is present
+        if (!session || !session.id || following.length === 0 ) return; // Ensure all required data is present
         try {
           setLoading(true); // Explicitly set loading to true at the start
           console.log(following)
@@ -47,8 +47,7 @@ const FollowingBody: React.FunctionComponent<IFollowingBodyProps> = (props) => {
               //this is really followingId's however 
               //changing this woul affect the getFollowing function
               //therefore this will be kept the same,
-              followerIds: following.map((f) => f._id),
-              followers: followers.map((f) => f._id),
+              followerIds: followers.map((f) => f._id),
             }),
           });
     
@@ -132,20 +131,18 @@ const FollowingBody: React.FunctionComponent<IFollowingBodyProps> = (props) => {
              </div>
              {!isCurrentUser && (
                <>
-                 {isFollowing === undefined ? (
-                   <ClipLoader size={10} color="rgb(30, 245, 1)" />
-                 ) : isFollowing ? (
-                   !clicked ?
-                   <FollowingButton clicked={clicked} setClicked={setClicked} userId={follower._id} /> 
-                   :
-                   <FollowButton clicked={clicked} setClicked={setClicked} userId={follower._id} />
-                 ) : (
-                    !clicked ?
-                   <FollowButton clicked={clicked} setClicked={setClicked} userId={follower._id} />
-                   :
-                   <FollowingButton clicked={clicked} setClicked={setClicked} userId={follower._id} /> 
-                 )}
-               </>
+               {isFollowing === undefined ? (
+                 <ClipLoader size={10} color="rgb(30, 245, 1)" />
+               ) : (() => {
+                   // Determine which button to render:
+                   // When not clicked, use FollowingButton if isFollowing is true,
+                   // and FollowButton if isFollowing is false.
+                   // When clicked, it flips.
+                   const ButtonComponent = isFollowing === !clicked ? FollowingButton : FollowButton;
+                   return <ButtonComponent clicked={clicked} setClicked={setClicked} userId={follower._id} />;
+                 })()
+               }
+             </>
              )}
            </div>
          );

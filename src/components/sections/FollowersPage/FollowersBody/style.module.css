@@ -36,6 +36,9 @@
 #image{
     border-radius: 50%;
     size: 50%;
+    object-fit: cover;
+    height: 39px;
+    max-width: 39px;
 }
 
 #profileMainText{

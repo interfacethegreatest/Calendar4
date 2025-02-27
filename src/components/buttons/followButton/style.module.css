@@ -1,8 +1,10 @@
 #followButton {
-    background: aliceblue;
+    background: rgb(0, 0, 0);
     height: 27px;
-    width: 100px;
-    padding: 5px;
+    min-width: 110px;
+    padding: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
     border-radius: 25px;
     margin: 15px;
     margin-right: 15px;
@@ -10,9 +12,22 @@
     justify-content: center;
     align-items: center;
     font-weight: 500;
+    border: 2px solid rgba(90, 89, 89, 0.686);
+    color: aliceblue;
     position: relative;
+    z-index: 5;
+}
+
+#buttonSpan{
+    background-color: aliceblue;
+    width: 100%;
+    height: 100%;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #followButton:hover{
-    background-color: rgb(211, 212, 212);
+    background-color: rgb(40, 40, 40);
 }

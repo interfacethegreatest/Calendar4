@@ -14,6 +14,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(400).json({ message: 'Invalid input' });
   }
 
+  console.log(followerIds)
+
   try {
     await connectDB();
 
@@ -27,18 +29,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const isFollowingList = followerIds.map((followerId) => ({
       followerId,
       isFollowing: sessionUser.following.includes(followerId),
+      isFollowingYou: sessionUser.followers.includes(followerId)
     }));
+    //console.log(isFollowingList);
 
-    let isFollowerList
-    if ( followers.length > 0) {
-      const isFollowerList = followers.map((follower) => ({
-        follower,
-        isFollower: sessionUser.followers.includes(follower),
-      }))
-    }
-    console.log(isFollowerList);
+    /*const isFollowerList = followerIds.map((followerId) => ({
+      followerId,
+      isFollowingYou: sessionUser.followers.includes(followerId),
+    }))
 
-    return res.status(200).json({ isFollowingList, isFollowerList });
+    console.log(isFollowerList)*/
+
+    return res.status(200).json({ isFollowingList, /*isFollowerList*/ });
   } catch (error) {
     console.error('Error querying following status:', error);
     return res.status(500).json({ message: 'Internal server error' });

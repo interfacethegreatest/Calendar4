@@ -37,7 +37,7 @@
 
 #imageContainer{
     height: 100%;
-    width: 59px;
+    max-width: 59px;
     padding: 10px;
     padding-left: 10px;
     padding-top: 10px;
@@ -46,6 +46,7 @@
 #image{
     border-radius: 50%;
     size: 50%;
+    height: 39px;
 }
 
 #profileMainText{

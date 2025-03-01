@@ -53,9 +53,9 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
       },
     },
     hover: {
-      width: '97.75%',
+      width: '96%',
       marginTop: '0',
-      height: '421px',
+      height: '425px',
       transition: {
         duration: 0.25,
         ease: 'easeInOut',

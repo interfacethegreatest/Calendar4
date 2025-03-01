@@ -1,13 +1,45 @@
-#profile {
-    height: 452px;
+#profileOuter{
+    height: 349px;
+    width: 50%;
+    position: absolute;
+    z-index: -1;
+    background-color: rgba(48, 121, 97, 0.096);
+    border-radius: 1.5rem;
+    margin-left: auto;
+    border: 2px solid rgba(90, 89, 89, 0.295);
+    right: 0;
+    margin-top:1.25%;
+    margin-right:1.25%;
+    display: flex;
+    flex-direction: column-reverse;
+    transition: width 0.3s ease;
+}
+
+.profileContainer:hover #profileOuter {
     width: 100%;
+}
+
+#profileWrapper{
+    /*overflow: hidden;*/
+    position: relative;
+}
+
+#profile {
+    height: 361px;
+    width: 95%;
     border: 2px solid rgba(90, 89, 89, 0.295);
     border-radius: 1.5rem;
-    background: linear-gradient(135deg, #1b1b1d1e 75%, #1e1e1e1e 100%);
+    /*background: linear-gradient(135deg, #1b1b1d1e 75%, #1e1e1e1e 100%);*/
+    background-color: black;
     transition: transform 0.3s ease; /* Adds smooth animation */
     display: flex;
     flex-direction: column;
     position: relative;
+    z-index: 1;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2.5%;
+    /*cursor: pointer;*/
 }
 
 #profile:hover {
@@ -86,18 +118,20 @@
     padding: 2px;
     background: transparent;
     /*transform: translate(24%,-125%);*/
-    position: absolute;
-    top: 36%;
+    position: relative;
+    top: -27%;
     left: 16%;
-    z-index: 4;
+    z-index: 0;
     padding: 0;
 }
 
 #titleContainer h1{
     margin: 0;
+    font-size: 2.5rem;
 }
 
 #titleContainer p{
+    font-size: 1rem;
     position: absolute;
     bottom: -70%;
     color: rgba(90, 89, 89, 0.495);
@@ -124,6 +158,7 @@
     position: relative;
     z-index: 3;
     margin-right: 10px;
+    margin-left: auto;
 }
 
 #planetContainer:hover{
@@ -171,9 +206,10 @@
 
 #descriptionContainer{
     width: 100%;
-    height: 150px;
     padding-top: 10px;
     padding-left: 35px;
+    position: relative;
+    top: -22%;
 }
 
 #descriptionTitle{
@@ -188,10 +224,12 @@
 }
 
 #websiteContainer{
-    padding-left: 35px;
+    padding-left: 30px;
     display: flex;
     flex-direction: row;
     gap: 2px;
+    position: relative;
+    top: -22%;
 }
 
 #websiteContainer a{
@@ -209,6 +247,10 @@
     display: flex;
     flex-direction: row;
     gap: 15px;
+    z-index: 3;
+    position: absolute;
+    top: 101%;
+    right: 28%;
 }
 
 #followersContainer{
@@ -231,7 +273,11 @@
     margin-top: 3px;
 }
 
-@media (max-width: 882px) {
+#location:hover{
+    text-decoration: underline;
+}
+
+/*@media (max-width: 882px) {
     #titleContainer p{
         position: absolute;
         bottom: -80%;
@@ -245,7 +291,7 @@
         bottom: -90%;
         color: rgba(90, 89, 89, 0.495);
     }
-}
+}*/
 
 #tiles{
     position: relative;

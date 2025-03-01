@@ -97,6 +97,8 @@ export default function user({userId, user, followingUsers}:{followingUsers:Infe
             websiteString={websiteString}
             />
           </div>
+          <br />
+          <br />
           <div id={style.selector}>
             {
               selection[0] ? <ul id={style.selectedText}>About</ul> : <ul onClick={()=>handleClick(0)} id={style.selectorText}>About</ul>

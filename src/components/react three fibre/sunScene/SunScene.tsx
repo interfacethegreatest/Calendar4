@@ -8,7 +8,7 @@ const Sun = dynamic(() => import('../../../../public/media/sun/Sun'), { ssr: fal
 export default function GlobeScene() {
     return (
       <Canvas id={style.globeCanvas}>
-        <ambientLight intensity={6} />
+        <ambientLight intensity={2} />
         <OrbitControls enableZoom={false} />
         <Suspense>
           <Sun/>

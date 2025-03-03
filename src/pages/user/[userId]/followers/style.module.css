@@ -1,6 +1,6 @@
 #main{
     width: 100vw;
-    height: max-content;
+    height: 100vh;
     background-color: black;
     display: flex;
     flex-direction: row;
@@ -9,9 +9,8 @@
 }
 
 #body {
-    width: 625px;
-    min-width: 415px; /* Default to 95% width */
-    min-height: 100vh;
+    max-width: 925px;
+    min-width: 925px;
     position: relative;
     z-index: 1;
     /*border-left: 1px solid rgba(103, 103, 104, 0.219);
@@ -24,5 +23,7 @@
     border-left: 2px solid rgba(90, 89, 89, 0.17);
     background: linear-gradient(135deg, #1b1b1d00 85%,   rgba(48, 121, 97, 0.016));
     background-color: rgba(12, 12, 12, 0.63);
+    padding-left: 15px;
+    padding-right: 15px;
 }
 

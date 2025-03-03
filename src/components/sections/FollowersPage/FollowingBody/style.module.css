@@ -35,6 +35,10 @@
     background-color: rgb(18, 18, 18);
 }
 
+#User:hover #profileMainName{
+    text-decoration: underline;
+}
+
 #imageContainer{
     height: 100%;
     max-width: 59px;
@@ -47,6 +51,7 @@
     border-radius: 50%;
     size: 50%;
     height: 39px;
+    max-width: 39px;
 }
 
 #profileMainText{

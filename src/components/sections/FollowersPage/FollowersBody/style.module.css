@@ -2,6 +2,7 @@
     display: flex;
     height: 88.6vh;
     flex-direction: column;
+    overflow: scroll;
 }
 
 #loader{
@@ -18,11 +19,16 @@
     display: flex;
     flex-direction: row;
     cursor: pointer;
-
+    /*border-radius: 1.5rem;*/
+    margin-bottom: 2.5px;
 }
 
 #User:hover{
     background-color: rgb(18, 18, 18);
+}
+
+#User:hover #profileMainName{
+    text-decoration: underline;
 }
 
 #imageContainer{

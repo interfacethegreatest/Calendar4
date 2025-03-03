@@ -48,14 +48,14 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
       width: '50%',
       marginTop:'7.5%',
       transition: {
-        duration: 0.3,
+        duration: 0.15,
         ease: 'easeInOut',
       },
     },
     hover: {
-      width: '96%',
+      width: '95.75%',
       marginTop: '0',
-      height: '425px',
+      height: '420px',
       transition: {
         duration: 0.25,
         ease: 'easeInOut',
@@ -123,16 +123,18 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
                 {descriptionString ? descriptionString : user.Biography}
               </p>
             </div>
-            { (websiteString || user.Website) && (
-              <div id={style.websiteContainer}>
-                <RiMapPin2Fill style={{ marginTop:"3px" }} title='Website link' color='aliceblue' size={20}/>
-                <p id={style.websiteText}>
-                  <a style={{ color:"grey" }} href={websiteString ? websiteString : user.Website}>
-                    {websiteString ? websiteString : user.Website}
-                  </a>
-                </p>
-              </div>
-            )}
+            <div id={style.websiteContainer}>
+             {(websiteString || user.Website) && (
+              <>
+              <RiMapPin2Fill style={{ marginTop:"3px" }} title='Website link' color='aliceblue' size={20}/>
+              <p id={style.websiteText}>
+                <a style={{ color:"grey" }} href={websiteString ? websiteString : user.Website}>
+                  {websiteString ? websiteString : user.Website}
+                </a>
+              </p>
+              </>
+             )}
+            </div>
             <div id={style.socialContainer}>
           <div id={style.followersContainer}>
             <a
@@ -143,7 +145,7 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
             </a>
             <h6 id={style.location} style={{ color: 'GrayText' }}>
               <a style={{ color: 'grey', textDecoration:"none" }} href={`/user/${user._id}/followers`}>
-                Followers
+              <u>Followers</u>
               </a>
             </h6>
           </div>
@@ -173,7 +175,7 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
                   });
                 }}
               >
-                Following
+                <u>Following</u>
               </a>
             </h6>
           </div>

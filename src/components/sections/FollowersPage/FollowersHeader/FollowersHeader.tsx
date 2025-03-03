@@ -17,8 +17,10 @@ const FollowerHeader: React.FunctionComponent<IFollowerHeaderProps> = ({ userId,
   const router = useRouter();
 
   return (
+    <>
     <div id={style.header}>
       <div id={style.headerTop}>
+        <div id={style.navigation}>
         <div id={style.arrowContainer}>
           <button
             id={style.arrowButton}
@@ -37,6 +39,7 @@ const FollowerHeader: React.FunctionComponent<IFollowerHeaderProps> = ({ userId,
           <p>@{user.name}</p>
           
         </div>
+      </div>
       </div>
       <div id={style.pageSelector}>
         <div
@@ -57,7 +60,7 @@ const FollowerHeader: React.FunctionComponent<IFollowerHeaderProps> = ({ userId,
           <motion.div
             id={style.Selector}
             animate={{
-              x: selector ? 0 : 200, // Animate 200px to the right if `selector` is false
+              x: selector ? 0 : 290, // Animate 200px to the right if `selector` is false
             }}
             transition={{
               type: 'spring',
@@ -68,6 +71,10 @@ const FollowerHeader: React.FunctionComponent<IFollowerHeaderProps> = ({ userId,
         </div>
       </div>
     </div>
+    <br />
+    <div id={style.breaker}></div>
+    <br />
+    </>
   );
 };
 

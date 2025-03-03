@@ -23,13 +23,19 @@ interface IFollowersBodyProps {
   }>;
 }
 
+interface FollowerStatus {
+  isFollowing: boolean;
+  isFollowingYou: boolean;
+}
+
+
 const FollowersBody: React.FunctionComponent<IFollowersBodyProps> = ({ followers, following, userid }) => {
   const [loading, setLoading] = useState(false);
   console.log(following)
   const { data: session } = useSession();
   const router = useRouter();
   const [ clicked , setClicked ] = useState(false);
-  const [followingStatus, setFollowingStatus] = useState<Record<string, boolean>>({});
+  const [followingStatus, setFollowingStatus] = useState<Record<string, FollowerStatus>>({});
   useEffect(() => {
     const fetchFollowingStatus = async () => {
       if (!session || !session.id || followers.length === 0) return; // Ensure all required data is present
@@ -50,21 +56,21 @@ const FollowersBody: React.FunctionComponent<IFollowersBodyProps> = ({ followers
           throw new Error('Failed to fetch following status');
         }
   
-        const { isFollowingList, /*isFollowerList */} = await response.json();
+        const { isFollowingList, /*isFollowerList*/ } = await response.json();
 
         console.log(isFollowingList)
   
         // Safely map the API response to state
         const statusMap = isFollowingList.reduce(
-          (acc, { followerId, isFollowing }) => ({
+          (acc, { followerId, isFollowing, isFollowingYou }) => ({
             ...acc,
-            [followerId]: isFollowing,
+            [followerId]: { isFollowing, isFollowingYou },
           }),
-          {}
+          {} as Record<string, FollowerStatus>
         );
   
         setFollowingStatus(statusMap); // Update the state with the API result
-        //console.log(statusMap)
+        console.log(statusMap)
       } catch (error) {
         console.error('Error fetching following status:', error);
         toast.error('Unable to fetch following status');
@@ -84,7 +90,7 @@ const FollowersBody: React.FunctionComponent<IFollowersBodyProps> = ({ followers
         </div>
       ) : (
         followers.map((follower) => {
-          const isFollowing = followingStatus[follower._id];
+          const isFollowing = followingStatus[follower._id]?.isFollowing;
           const isCurrentUser = session && session.id === follower._id;
 
           return (

@@ -46,7 +46,8 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
   const outerVariants = {
     rest: {
       width: '50%',
-      marginTop:'7.5%',
+      height: "349px",
+      marginTop:'6.5%',
       transition: {
         duration: 0.15,
         ease: 'easeInOut',
@@ -55,7 +56,7 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
     hover: {
       width: '95.75%',
       marginTop: '0',
-      height: '420px',
+      height: '406px',
       transition: {
         duration: 0.25,
         ease: 'easeInOut',
@@ -87,10 +88,12 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
               </div>
             </div>
             <div id={style.profileOutline}>
-              { imageString ? 
-                <img id={style.image} src={ imageString } alt="" /> :
-                <img id={style.image} src={ user.image } alt="" /> 
-              }
+             <img
+              id={style.image}
+              src={imageString || user.image}
+              style={{ borderRadius: "50%" }}
+              loading="lazy"
+             />
             </div>
           </div>
           <div id={style.profileBodyContainer}>
@@ -138,7 +141,7 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
             <div id={style.socialContainer}>
           <div id={style.followersContainer}>
             <a
-              style={{ color:"aliceblue", textDecoration:"none" }}
+              style={{ color:"aliceblue", textDecoration:"none", marginTop:"2px" }}
               href={`/user/${user._id}/followers`}
             >
               {newFollowers}
@@ -152,7 +155,7 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
           <div id={style.followingContainer}>
             <a
               href="#"
-              style={{ color:"aliceblue", textDecoration:"none" }}
+              style={{ color:"aliceblue", textDecoration:"none", marginTop:"2px" }}
               onClick={(e) => {
                 e.preventDefault();
                 router.push({

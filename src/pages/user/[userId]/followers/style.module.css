@@ -21,8 +21,9 @@
     margin-right: auto;
     border-right: 2px solid rgba(90, 89, 89, 0.17);
     border-left: 2px solid rgba(90, 89, 89, 0.17);
-    background: linear-gradient(135deg, #1b1b1d00 85%,   rgba(48, 121, 97, 0.016));
-    background-color: rgba(12, 12, 12, 0.63);
+    /*background: linear-gradient(135deg, #1b1b1d00 85%,   rgba(48, 121, 97, 0.016));
+    background-color: rgba(12, 12, 12, 0.63);*/
+    background-color: black;
     padding-left: 15px;
     padding-right: 15px;
 }

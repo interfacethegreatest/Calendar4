@@ -35,8 +35,8 @@ const FollowerHeader: React.FunctionComponent<IFollowerHeaderProps> = ({ userId,
         </div>
         <div id={style.nameContainer}>
 
-          <h5><b>{user.name}</b></h5>
-          <p>@{user.name}</p>
+        <a href={`/user/${userId}`}><h5><b>{user.name}</b></h5></a>
+        <a href={`/user/${userId}`}><p>@{user.name}</p></a>
           
         </div>
       </div>

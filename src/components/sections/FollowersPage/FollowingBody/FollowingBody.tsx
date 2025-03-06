@@ -93,6 +93,7 @@ const FollowingBody: React.FunctionComponent<IFollowingBodyProps> = (props) => {
      {
       following.map((follower) => {
          const isFollowing = followingStatus[follower._id];
+         console.log(isFollowing);
          const isCurrentUser = session && session.id === follower._id;
  
          return (
@@ -130,20 +131,20 @@ const FollowingBody: React.FunctionComponent<IFollowingBodyProps> = (props) => {
                <p>{follower.Biography}</p>
              </div>
              {!isCurrentUser && (
-               <>
-               {isFollowing === undefined ? (
-                 <ClipLoader size={10} color="rgb(30, 245, 1)" />
-               ) : (() => {
-                   // Determine which button to render:
-                   // When not clicked, use FollowingButton if isFollowing is true,
-                   // and FollowButton if isFollowing is false.
-                   // When clicked, it flips.
-                   const ButtonComponent = isFollowing === !clicked ? FollowingButton : FollowButton;
-                   return <ButtonComponent clicked={clicked} setClicked={setClicked} userId={follower._id} />;
-                 })()
-               }
-             </>
-             )}
+              isFollowing === !clicked ? (
+              <FollowingButton 
+               clicked={clicked} 
+               setClicked={setClicked} 
+               userId={follower._id} 
+              />
+              ) : (
+              <FollowButton 
+               clicked={clicked} 
+               setClicked={setClicked} 
+               userId={follower._id} 
+              />
+              )
+              )}
            </div>
          );
        })

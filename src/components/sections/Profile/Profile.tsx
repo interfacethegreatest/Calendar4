@@ -31,11 +31,12 @@ interface IProfileProps {
   userString: string | null,
   descriptionString: string | null,
   websiteString: string | null,
+  setTrigger: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
 const Profile: React.FunctionComponent<IProfileProps> = (props) => {
   const { user, imageString, clicked, setClicked, session, setShowContent, isLiked, setIsLiked,
-   userString, descriptionString, websiteString,
+   userString, descriptionString, websiteString, setTrigger,
   } = props;
 
   const [newFollowers, setFollowing] = useState(user.followers.length);
@@ -47,16 +48,16 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
     rest: {
       width: '50%',
       height: "349px",
-      marginTop:'6.5%',
+      marginTop:'7.5%',
       transition: {
         duration: 0.15,
         ease: 'easeInOut',
       },
     },
     hover: {
-      width: '95.75%',
-      marginTop: '0',
-      height: '406px',
+      width: '98.75%',
+      marginTop: '0%',
+      height: '413px',
       transition: {
         duration: 0.25,
         ease: 'easeInOut',
@@ -67,11 +68,11 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
   return (
     // Wrap everything in a motion.div that controls the hover state.
     <motion.div 
-      className={style.profileContainer} 
+      id={style.profileContainer} 
       initial="rest" 
       whileHover="hover" 
       animate="rest"
-      style={{ border:"1px solid transparent", paddingTop:'0',}}
+      style={{ border:"1px solid transparent", paddingTop:'0', position:"relative", overflow:"hidden", height:"420px"}}
     >
       <motion.div id={style.profileOuter} variants={outerVariants}>
         
@@ -143,11 +144,17 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
             <a
               style={{ color:"aliceblue", textDecoration:"none", marginTop:"2px" }}
               href={`/user/${user._id}/followers`}
+              onClick={
+                (e)=>{
+                  e.preventDefault;
+                  setTrigger(true);
+                }
+              }
             >
               {newFollowers}
             </a>
             <h6 id={style.location} style={{ color: 'GrayText' }}>
-              <a style={{ color: 'grey', textDecoration:"none" }} href={`/user/${user._id}/followers`}>
+              <a onClick={(e) =>{e.preventDefault(); setTrigger(true);}} style={{ color: 'grey', textDecoration:"none" }} href={`/user/${user._id}/followers`}>
               <u>Followers</u>
               </a>
             </h6>
@@ -158,10 +165,11 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
               style={{ color:"aliceblue", textDecoration:"none", marginTop:"2px" }}
               onClick={(e) => {
                 e.preventDefault();
-                router.push({
+                setTrigger(true);
+                /*router.push({
                   pathname: `/user/${user._id}/followers`,
                   query: { selected: 'false' },
-                });
+                });*/
               }}
             >
               {user.following.length}
@@ -172,10 +180,11 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
                 style={{ color:"grey", textDecoration:"none" }}
                 onClick={(e)=>{
                   e.preventDefault();
-                  router.push({
+                  setTrigger(true);
+                  /*router.push({
                     pathname: `/user/${user._id}/followers`,
                     query: { selected: 'false' },
-                  });
+                  });*/
                 }}
               >
                 <u>Following</u>

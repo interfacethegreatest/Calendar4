@@ -45,6 +45,34 @@ export default function user({userId, user, followingUsers}:{followingUsers:Infe
   // Used in the modal to set and use a user defined website
   const [ websiteString, setWebsiteString ] = useState(null);
   // Used in a useEffect to find if a profile is already liked by the user,
+
+  //Variants for the profile component,
+  const profileVariants = {
+    initial: { scale: 1, opacity: 1 },
+    exit: { 
+      scale: 0.5, 
+      opacity: 0,
+      transition: { duration: 0.3, ease: "easeInOut" }
+    },
+  };
+
+  const [trigger, setTrigger] = useState(false);
+
+  // Variants using keyframes:
+  const moveVariants = {
+    initial: { x: 0, y: 0 },
+    moveOut: {
+      // y goes from 0 to 200 and then stays at 200,
+      // x remains 0 until halfway then goes off-screen to the left.
+      y: [0, 200, 200],
+      x: [0, 0, "-100vw"],
+      transition: {
+        times: [0, 0.35, 1],
+        duration: 1, // adjust duration as needed
+        ease: "easeInOut",
+      },
+    },
+  };
   
   function handleClick(arg0: number) {
     //after the user clicks next in the edit modal, move to the next page, setSelection(true) enables this.
@@ -80,7 +108,13 @@ export default function user({userId, user, followingUsers}:{followingUsers:Infe
      <div id={style.main}>
      <Scene/>
          <div id={style.body}>
-          <div >
+          <motion.div
+          id={style.profileContainer}
+          variants={moveVariants}
+          initial="initial"
+          animate={trigger ? "moveOut" : "initial"}
+          >
+          <div>
             <div id={style.header}>
             </div>
             <Profile 
@@ -95,6 +129,7 @@ export default function user({userId, user, followingUsers}:{followingUsers:Infe
             userString={userString} 
             descriptionString={descriptionString}
             websiteString={websiteString}
+            setTrigger={setTrigger}
             />
           </div>
           <br />
@@ -122,7 +157,7 @@ export default function user({userId, user, followingUsers}:{followingUsers:Infe
             }
 
           </div>
-
+          </motion.div>
          </div>
      </div>
      {

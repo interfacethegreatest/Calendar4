@@ -9,7 +9,7 @@
     border: 2px solid rgba(90, 89, 89, 0.295);
     right: 0;
     margin-top:1.25%;
-    margin-right:2.125%;
+    margin-right:0.55%;
     display: flex;
     flex-direction: column-reverse;
     transition: width 0.3s ease;
@@ -39,7 +39,6 @@
     margin-left: auto;
     margin-right: auto;
     margin-top: 2.5%;
-    cursor: pointer;
 }
 
 #profile:hover {
@@ -252,7 +251,7 @@
     gap: 15px;
     z-index: 3;
     position: absolute;
-    top: 80%;
+    top: 81%;
     right: 26%;
 }
 

@@ -16,9 +16,17 @@ import WebsiteButton from '@/components/buttons/websiteButton/websiteButton';
 import ProfileBody from '@/components/sections/ProfileBody/ProfileBody';
 import TiltModalAboutMe from '@/components/modals/TiltModalAboutMe/TiltModalAboutMe';
 import Profile from '@/components/sections/Profile/Profile';
+import FollowersPage from '@/components/sections/FollowersPage/FollowersPage';
 
 
-export default function user({userId, user, followingUsers}:{followingUsers:InferGetServerSidePropsType<typeof getServerSideProps>, userId:string, user: InferGetServerSidePropsType<typeof getServerSideProps>}) {
+export default function user({
+  userId,
+  user,
+  followingUsers,
+  followers,
+  following
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+
   // Used to check logged in user or not,
   const { data : session } = useSession();
   const isFollowing = session ? followingUsers.some(follower => follower._id.toString() === session.id)
@@ -67,7 +75,7 @@ export default function user({userId, user, followingUsers}:{followingUsers:Infe
       y: [0, 200, 200],
       x: [0, 0, "-100vw"],
       transition: {
-        times: [0, 0.35, 1],
+        times: [0, 0.1, 0.6],
         duration: 1, // adjust duration as needed
         ease: "easeInOut",
       },
@@ -221,10 +229,23 @@ export async function getServerSideProps(ctx: NextPageContext) {
       return { notFound : true }
     }
 
+    if ( !user.following ) {
+      return { notFound : true}
+    }
+
     const followerIds = user.followers || [];
+    const followingIds = user.following || [];
     const followingUsers = await User.find({ _id: { $in: followerIds } })
     .select('_id name')
     .lean();
+    // Query for the user details of the followers and following
+    const followers = await User.find({ _id: { $in: followerIds } })
+      .select('_id name image Biography')
+      .lean();
+    const following = await User.find({ _id: { $in: followingIds } })
+      .select('_id name image Biography')
+      .lean();
+
 
     return {
       props: {
@@ -233,6 +254,18 @@ export async function getServerSideProps(ctx: NextPageContext) {
         followingUsers: followingUsers.map((follower) => ({
           _id: follower._id.toString(),
           name: follower.name,
+        })),
+        followers: followers.map((follower) => ({
+          _id: follower._id.toString(),
+          name: follower.name,
+          image: follower.image,
+          Biography: follower.Biography,
+        })),
+        following: following.map((followedUser) => ({
+          _id: followedUser._id.toString(),
+          name: followedUser.name,
+          image: followedUser.image,
+          Biography: followedUser.Biography,
         })),
       },
     };

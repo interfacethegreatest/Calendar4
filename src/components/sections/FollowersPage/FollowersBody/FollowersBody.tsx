@@ -91,6 +91,7 @@ const FollowersBody: React.FunctionComponent<IFollowersBodyProps> = ({ followers
       ) : (
         followers.map((follower) => {
           const isFollowing = followingStatus[follower._id]?.isFollowing;
+          const isFollowingYou = followingStatus[follower._id]?.isFollowingYou;
           const isCurrentUser = session && session.id === follower._id;
 
           return (
@@ -119,7 +120,7 @@ const FollowersBody: React.FunctionComponent<IFollowersBodyProps> = ({ followers
                     @{follower.name}
                   </p>
                   <br />
-                  {session && session.id === follower.id && isFollowing && (
+                  { isFollowingYou && (
                     <p id={style.followsYou} style={{ color: 'grey' }}>
                       Follows you
                     </p>
@@ -127,7 +128,7 @@ const FollowersBody: React.FunctionComponent<IFollowersBodyProps> = ({ followers
                 </div>
                 <p>{follower.Biography}</p>
               </div>
-              {!isCurrentUser && (
+              {session && !isCurrentUser && (
               isFollowing === !clicked ? (
               <FollowingButton 
                clicked={clicked} 

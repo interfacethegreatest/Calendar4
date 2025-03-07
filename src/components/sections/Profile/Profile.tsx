@@ -48,7 +48,7 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
     rest: {
       width: '50%',
       height: "349px",
-      marginTop:'7.5%',
+      marginTop:'7%',
       transition: {
         duration: 0.15,
         ease: 'easeInOut',
@@ -57,7 +57,7 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
     hover: {
       width: '98.75%',
       marginTop: '0%',
-      height: '413px',
+      height: '409px',
       transition: {
         duration: 0.25,
         ease: 'easeInOut',
@@ -147,14 +147,28 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
               onClick={
                 (e)=>{
                   e.preventDefault;
-                  setTrigger(true);
+                  //setTrigger(true);
+                  router.push({
+                    pathname: `/user/${user._id}/followers`,
+                    query: { selected: 'true' },
+                  });
                 }
               }
             >
               {newFollowers}
             </a>
             <h6 id={style.location} style={{ color: 'GrayText' }}>
-              <a onClick={(e) =>{e.preventDefault(); setTrigger(true);}} style={{ color: 'grey', textDecoration:"none" }} href={`/user/${user._id}/followers`}>
+              <a onClick={
+                (e) =>{
+                  e.preventDefault(); 
+                  //setTrigger(true);
+                  router.push({
+                    pathname: `/user/${user._id}/followers`,
+                    query: { selected: 'true' },
+                  });
+                }} 
+                style={{ color: 'grey', textDecoration:"none" }} 
+                href={`/user/${user._id}/followers`}>
               <u>Followers</u>
               </a>
             </h6>
@@ -165,11 +179,11 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
               style={{ color:"aliceblue", textDecoration:"none", marginTop:"2px" }}
               onClick={(e) => {
                 e.preventDefault();
-                setTrigger(true);
-                /*router.push({
+                //setTrigger(true);
+                router.push({
                   pathname: `/user/${user._id}/followers`,
                   query: { selected: 'false' },
-                });*/
+                });
               }}
             >
               {user.following.length}
@@ -180,11 +194,11 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
                 style={{ color:"grey", textDecoration:"none" }}
                 onClick={(e)=>{
                   e.preventDefault();
-                  setTrigger(true);
-                  /*router.push({
+                  //setTrigger(true);
+                  router.push({
                     pathname: `/user/${user._id}/followers`,
                     query: { selected: 'false' },
-                  });*/
+                  });
                 }}
               >
                 <u>Following</u>

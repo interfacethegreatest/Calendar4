@@ -24,6 +24,11 @@ interface IFollowingBodyProps {
   }>;
 }
 
+interface FollowerStatus {
+  isFollowing: boolean;
+  isFollowingYou: boolean;
+}
+
 const FollowingBody: React.FunctionComponent<IFollowingBodyProps> = (props) => {
   const [loading, setLoading] = useState(false);
   const { userid, followers, following } = props;
@@ -32,7 +37,7 @@ const FollowingBody: React.FunctionComponent<IFollowingBodyProps> = (props) => {
   const { data: session } = useSession();
   const router = useRouter();
   const [ clicked , setClicked ] = useState(false);
-  const [followingStatus, setFollowingStatus] = useState<Record<string, boolean>>({});
+  const [followingStatus, setFollowingStatus] = useState<Record<string, FollowerStatus>>({});
     useEffect(() => {
       const fetchFollowingStatus = async () => {
         if (!session || !session.id || following.length === 0 ) return; // Ensure all required data is present
@@ -47,7 +52,8 @@ const FollowingBody: React.FunctionComponent<IFollowingBodyProps> = (props) => {
               //this is really followingId's however 
               //changing this woul affect the getFollowing function
               //therefore this will be kept the same,
-              followerIds: followers.map((f) => f._id),
+              followerIds: following.map((f) => f._id),
+              followers: followers.map((f) => f._id),
             }),
           });
     
@@ -59,11 +65,11 @@ const FollowingBody: React.FunctionComponent<IFollowingBodyProps> = (props) => {
           console.log(isFollowingList)
           // Safely map the API response to state
           const statusMap = isFollowingList.reduce(
-            (acc, { followerId, isFollowing }) => ({
+            (acc, { followerId, isFollowing, isFollowingYou }) => ({
               ...acc,
-              [followerId]: isFollowing,
+              [followerId]: { isFollowing, isFollowingYou },
             }),
-            {}
+            {} as Record<string, FollowerStatus>
           );
           setLoading(false)
           setFollowingStatus(statusMap); // Update the state with the API result
@@ -92,9 +98,9 @@ const FollowingBody: React.FunctionComponent<IFollowingBodyProps> = (props) => {
     <>
      {
       following.map((follower) => {
-         const isFollowing = followingStatus[follower._id];
-         console.log(isFollowing);
-         const isCurrentUser = session && session.id === follower._id;
+        const isFollowing = followingStatus[follower._id]?.isFollowing;
+        const isFollowingYou = followingStatus[follower._id]?.isFollowingYou;
+        const isCurrentUser = session && session.id === follower._id;
  
          return (
            <div
@@ -122,7 +128,7 @@ const FollowingBody: React.FunctionComponent<IFollowingBodyProps> = (props) => {
                    @{follower.name}
                  </p>
                  <br />
-                 {session && session.id === userid && (
+                 { isFollowingYou && (
                    <p id={style.followsYou} style={{ color: 'grey' }}>
                      Follows you
                    </p>
@@ -130,7 +136,7 @@ const FollowingBody: React.FunctionComponent<IFollowingBodyProps> = (props) => {
                </div>
                <p>{follower.Biography}</p>
              </div>
-             {!isCurrentUser && (
+             {session && !isCurrentUser && (
               isFollowing === !clicked ? (
               <FollowingButton 
                clicked={clicked} 

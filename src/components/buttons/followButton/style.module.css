@@ -12,7 +12,7 @@
     justify-content: center;
     align-items: center;
     font-weight: 500;
-    border: 2px solid aliceblue;
+    border: 1px solid rgb(212, 212, 212);
     color: aliceblue;
     position: relative;
     z-index: 5;

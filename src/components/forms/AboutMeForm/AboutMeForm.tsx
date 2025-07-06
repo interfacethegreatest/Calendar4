@@ -38,20 +38,14 @@ type FormSchemaType = z.infer<typeof FormSchema>;
 
 const AboutMeForm: React.FunctionComponent<IAboutMeFormProps> = (props) => {
   const { AboutMe } = props;
+  const [changedSlide, setChangedSlide] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [animation, setAnimation] = useState(true);
-  const nextSlide = () => {
-    console.log(currentSlide + 1)
-    setCurrentSlide((prev) => prev + 1);
-  };
-  const prevSlide = () => {
-    console.log(currentSlide -1)
-    setCurrentSlide((prev) => prev - 1);
-  };
   const {
     register,
     handleSubmit,
     setValue,
+    getValues,
     formState: { errors, isSubmitting },
   } = useForm<FormSchemaType>({
     resolver: zodResolver(FormSchema),
@@ -63,6 +57,17 @@ const AboutMeForm: React.FunctionComponent<IAboutMeFormProps> = (props) => {
         alert("Error during submit: "+ error);
     }
   }
+  const nextSlide = () => {
+    const value = getValues("AboutMe")
+    setChangedSlide(value?.trim().length! > 0)
+    console.log(currentSlide + 1)
+    setCurrentSlide((prev) => prev + 1);
+  };
+  const prevSlide = () => {
+    const value = getValues("AboutMe")
+    setChangedSlide(value?.trim().length! > 0)
+    setCurrentSlide((prev) => prev - 1);
+  };
   return <>
   <form id={style.innerContainer} action="" onSubmit={handleSubmit(onSubmit)}>
      <div id={style.leftArrowContainer}>
@@ -80,16 +85,17 @@ const AboutMeForm: React.FunctionComponent<IAboutMeFormProps> = (props) => {
           <h5 id={style.subtitle}>Provide text for your about you section:</h5>
           <br />
           <ModalInput
-          name="AboutMe"
-          label="About Me:"
-          type="text"
-          icon={<CiLock />}
-          register={register}
-          error={errors?.AboutMe?.message}
-          disabled={isSubmitting}
-          height={250}
-          topLocation={20}
-          inputLength={525} placeholder={''}/>
+           name="AboutMe"
+           label="About Me:"
+           type="text"
+           icon={<CiLock />}
+           register={register}
+           error={errors?.AboutMe?.message}
+           disabled={isSubmitting}
+           height={250}
+           topLocation={20}
+           inputLength={525} placeholder={''} 
+           prevSlide={getValues}/>
           </> 
         )
       }

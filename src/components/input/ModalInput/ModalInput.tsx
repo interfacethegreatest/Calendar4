@@ -14,6 +14,7 @@ const font = Poppins({
 });
 
 interface IModalInputProps {
+  prevSlide: Function;
   name: string;
   label: string;
   type: string;
@@ -29,7 +30,8 @@ interface IModalInputProps {
 }
 
 const ModalInput: React.FunctionComponent<IModalInputProps> = (props) => {
-  const { name, label, type, icon, placeholder, register, error, disabled, height, topLocation, inputLength } = props;
+  
+  const { name, label, type, icon, placeholder, register, error, disabled, height, topLocation, inputLength, prevSlide } = props;
   const [clicked, setClicked] = useState(false);
   const [ isDisabled, setIsDisabled ] = useState(false);
   const [text, setText] = useState("");
@@ -72,7 +74,7 @@ const ModalInput: React.FunctionComponent<IModalInputProps> = (props) => {
       <motion.span
         initial={{ x: 0, y: "50%", fontSize: "1.1rem", color: "rgb(22, 60, 47)" }}
         animate={
-          clicked
+           prevSlide || clicked
             ? error ?
             { x: 0, y: "-20%", fontSize: "0.65rem", color: "rgb(200, 60, 60)"}
             :
@@ -99,7 +101,6 @@ const ModalInput: React.FunctionComponent<IModalInputProps> = (props) => {
         disabled={isDisabled}
         onFocus={handleClickedContent}
       />
-
       <h6 id={ error ? style.textCountError : style.textCount}>
         {textCount} / {inputLength}
       </h6>

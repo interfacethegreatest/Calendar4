@@ -120,15 +120,18 @@
     background: transparent;
     /*transform: translate(24%,-125%);*/
     position: relative;
-    top: -27%;
+    top: -29%;
     left: 16%;
-    z-index: 0;
+    z-index: 3;
     padding: 0;
 }
 
 #titleContainer h1{
     margin: 0;
+    width: 50%;
     font-size: 2.5rem;
+    position: relative;
+    z-index: 4;
 }
 
 #titleContainer p{
@@ -152,14 +155,68 @@
 #planetContainer{
     width:  72px;
     height: 72px;
-    border: 1px solid aliceblue;
     border-radius: 50%;
-    border: 2px solid rgba(90, 89, 89, 0.295);
     background: black;
     position: relative;
-    z-index: 3;
+    z-index: 7;
     margin-right: 10px;
     margin-left: auto;
+    border: 1px solid aliceblue;
+}
+
+#tidbitTitle{
+    position: absolute;
+    visibility: hidden;
+}
+
+#tidbitText{
+    position: absolute;
+    visibility: hidden;
+}
+
+
+#planetContainer:hover #tidbit{
+    background-color: black;
+    border: 3px solid rgba(90, 89, 89, 0.295);
+    border-radius: 1.5rem;
+    height: 165px;
+    width: 250px;
+    transform: translate(-150px, -165px);
+    position: absolute;
+    z-index: 7;
+    overflow-y: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: red orange;
+    box-sizing: border-box;
+}
+
+#planetContainer:hover #tidbitText{
+    color: aliceblue;
+    position: absolute;
+    visibility: visible;
+    margin-top: 22px;
+    font-size: .65rem;
+    padding: 15px;
+}
+
+#planetContainer:hover #tidbitTitle{
+    color: rgb(255, 255, 0);
+    position: absolute;
+    visibility: visible;
+    margin-top: 45px;
+}
+
+#planetContainer:hover #tidbitCorner{
+    background-color: rgba(90, 89, 89, 0.295);
+    height: 10px;
+    width: 10px;
+    position: absolute;
+    z-index: 2;
+    font-size: 0px; 
+    line-height: 0%; 
+    transform: translate(-5px,   -9px);
+    rotate: 30deg;
+    
 }
 
 #planetContainer:hover{
@@ -252,7 +309,7 @@
     gap: 15px;
     z-index: 3;
     position: absolute;
-    top: 81%;
+    top: 80%;
     right: 26%;
 }
 

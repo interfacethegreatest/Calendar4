@@ -85,7 +85,8 @@
     height: 50%;
     width: 25%;
     border-radius: 10%;
-    background-color: rgb(44, 44, 44);
+    background-color: rgb(77, 187, 150);
+    /*background-color: rgb(44, 44, 44);*/
 }
 
 #priorCVHolder{

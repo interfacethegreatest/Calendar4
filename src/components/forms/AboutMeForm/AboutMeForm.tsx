@@ -146,7 +146,7 @@ const AboutMeForm: React.FunctionComponent<IAboutMeFormProps> = (props) => {
      </div>
      <div id={style.rightArrowContainer}>
      { currentSlide <= 3 && (
-        <motion.div title="Skip" onClick={nextSlide} id={style.iconHolder}>
+        <motion.div title="Skip / Continue" onClick={nextSlide} id={style.iconHolder}>
          <div id={style.iconStyle}><MdOutlineKeyboardArrowRight/></div>
         </motion.div>
       )}

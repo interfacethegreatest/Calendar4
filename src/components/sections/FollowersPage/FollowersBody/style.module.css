@@ -2,7 +2,7 @@
     display: flex;
     height: 88.6vh;
     flex-direction: column;
-    overflow: scroll;
+    /*overflow: scroll;*/
 }
 
 #loader{

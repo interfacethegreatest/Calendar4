@@ -120,7 +120,7 @@
     background: transparent;
     /*transform: translate(24%,-125%);*/
     position: relative;
-    top: -29%;
+    top: -29.5%;
     left: 16%;
     z-index: 3;
     padding: 0;
@@ -207,7 +207,7 @@
 }
 
 #planetContainer:hover #tidbitCorner{
-    background-color: rgba(90, 89, 89, 0.295);
+    background-color: rgba(90, 89, 89, 0.473);
     height: 10px;
     width: 10px;
     position: absolute;

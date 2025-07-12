@@ -34,10 +34,8 @@ const FollowerHeader: React.FunctionComponent<IFollowerHeaderProps> = ({ userId,
           </button>
         </div>
         <div id={style.nameContainer}>
-
         <a href={`/user/${userId}`}><h5><b>{user.name}</b></h5></a>
         <a href={`/user/${userId}`}><p>@{user.name}</p></a>
-          
         </div>
       </div>
       </div>

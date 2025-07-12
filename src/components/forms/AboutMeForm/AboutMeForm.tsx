@@ -12,6 +12,7 @@ import SlideButtonSubmit from '@/components/buttons/auth/slideButtonSubmit';
 import { AiFillLock } from 'react-icons/ai';
 import { Poppins } from 'next/font/google';
 import { RiDeleteBin3Line } from "react-icons/ri";
+import { useEdgeStore } from '@/lib/edgestore';
 
 const font = Poppins({
   subsets: ["latin"],
@@ -38,6 +39,9 @@ type FormSchemaType = z.infer<typeof FormSchema>;
 
 const AboutMeForm: React.FunctionComponent<IAboutMeFormProps> = (props) => {
   const { AboutMe } = props;
+  const [ file, setCVfile ] = useState<File>();
+  const [ progress, setProgress] = useState(0);
+  const { edgestore } = useEdgeStore();
   const [changedSlide, setChangedSlide] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [animation, setAnimation] = useState(true);
@@ -109,10 +113,45 @@ const AboutMeForm: React.FunctionComponent<IAboutMeFormProps> = (props) => {
               {
                 AboutMe.cv == "" && /*?*/
                 <>
-                 <p id={style.fileText}><b><a href={AboutMe.cv}>Your Cv.</a> Delete to upload a new copy,</b></p>
-                 <button onClick={()=>alert("Clicked.")} id={style.deleteContainer}>
-                  <RiDeleteBin3Line />
-                 </button>
+                 <div style={{display:"flex", flexDirection:"column"}}>
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <div style={{display:'flex', flexDirection:'row'}}>
+                   <p id={style.fileText}><b><a href={AboutMe.cv}>Your Cv.</a> Delete to upload a new copy,</b></p>
+                   <button onClick={()=>alert("Clicked.")} id={style.deleteContainer}>
+                   <RiDeleteBin3Line />
+                   </button>
+                  </div>
+                  <br />
+                  <input id={style.inputButton} type="file" onChange={(e)=>{
+                    setCVfile(e.target.files?.[0])
+                  }} />
+                  <button
+                   onClick={
+                    async () => {
+                      if (file) {
+                        const res = await edgestore.myPublicImages.upload({
+                        file,
+                        onProgressChange: (progress) =>{
+                          setProgress(progress);
+                          console.log(progress)
+                        }
+                        });
+                      }
+                    }
+                   }
+                   id={style.uploadButton}>
+                   Upload
+                  </button>
+                  <div id={style.progressBar}>
+                    <div id={style.progressBarInner} style={{width:`${progress}%`}}>
+
+                    </div>
+                  </div>
+                 </div>
                 </>
                 /*:
                 <>

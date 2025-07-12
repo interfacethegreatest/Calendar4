@@ -704,3 +704,8 @@
     animation: progress2 .3s linear forwards; /* Adjust duration (5s) as needed */
 }
   
+@media (max-width: 885px) {
+    #socialContainer {
+        right: 24%;
+    }
+}

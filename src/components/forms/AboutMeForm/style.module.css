@@ -94,7 +94,6 @@
     width: 100%;
     display: flex;
     align-items: center;
-    padding: 10px;
     flex-direction: row;
 }
 
@@ -126,4 +125,57 @@
 
 #deleteContainer:hover{
     background-color: rgba(128, 128, 128, 0.918);
+}
+
+#inputButton{
+    border-radius: 2px;
+    position: relative; /* Change to absolute positioning */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 4;
+    cursor:pointer;
+    pointer-events: all;
+    color: aliceblue;
+    margin-bottom: 10px;
+    margin-left: 5px;
+}
+
+#uploadButton{
+    height: 25px;
+    width: 125px;
+    border: 2px solid rgba(130, 129, 129, 0.35);
+    border-radius: 2px;
+    position: relative; /* Change to absolute positioning */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(128, 128, 128, 0.247);
+    z-index: 4;
+    cursor:pointer;
+    pointer-events: all;
+    color: aliceblue;
+    margin-bottom: 10px;
+    margin-left: 5px;
+}
+
+#uploadButton:hover{
+    opacity: 80%;
+    color: rgb(77, 187, 150);
+}
+
+#progressBar{
+    width: 200px;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border-top-right-radius: 12px;
+    border: 1px solid aliceblue;
+    height: 10px;
+}
+
+#progressBarInner{
+ height: 100%;
+ background-color: aliceblue;
+ transition: all 150ms;
 }

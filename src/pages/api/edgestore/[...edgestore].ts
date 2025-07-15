@@ -8,6 +8,13 @@ const es = initEdgeStore.create();
  */
 const edgeStoreRouter = es.router({
   myPublicImages: es.imageBucket(),
+  cvBucket: es.fileBucket({
+    maxSize: 2 * 1024 * 1024, // 2MB
+    accept: [
+      'application/pdf',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx
+    ],
+  }),
 });
 
 export default createEdgeStoreNextHandler({

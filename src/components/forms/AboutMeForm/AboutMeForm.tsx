@@ -12,7 +12,13 @@ import SlideButtonSubmit from '@/components/buttons/auth/slideButtonSubmit';
 import { AiFillLock } from 'react-icons/ai';
 import { Poppins } from 'next/font/google';
 import { RiDeleteBin3Line } from "react-icons/ri";
+import {
+  UploaderProvider,
+  type UploadFn,
+} from '@/components/upload/uploader-provider';
 import { useEdgeStore } from '@/lib/edgestore';
+import { SingleImageDropzone } from '@/components/single-image-dropzone';
+import { Dropzone } from '@/components/upload/dropzone';
 
 const font = Poppins({
   subsets: ["latin"],
@@ -40,6 +46,7 @@ type FormSchemaType = z.infer<typeof FormSchema>;
 const AboutMeForm: React.FunctionComponent<IAboutMeFormProps> = (props) => {
   const { AboutMe } = props;
   const [ file, setCVfile ] = useState<File>();
+  const [uploadedFileUrl, setUploadedFileUrl] = useState<string | null>(AboutMe.cv || null);
   const [ progress, setProgress] = useState(0);
   const { edgestore } = useEdgeStore();
   const [changedSlide, setChangedSlide] = useState(false);
@@ -54,6 +61,28 @@ const AboutMeForm: React.FunctionComponent<IAboutMeFormProps> = (props) => {
   } = useForm<FormSchemaType>({
     resolver: zodResolver(FormSchema),
   });
+function uploadFn({
+  file,
+  signal,
+  onProgressChange,
+}: {
+  file: File;
+  signal: AbortSignal;
+  onProgressChange: (progress: number) => void;
+}): Promise<{ url: string }> {
+  return edgestore.cvBucket.upload({
+    file,
+    onProgressChange: (progress) => {
+      setProgress(progress);              // show progress bar
+      onProgressChange(progress);         // keep uploader context in sync
+      console.log(progress);
+    },
+  }).then((res) => {
+    setUploadedFileUrl(res.url);          // store uploaded file URL
+    return res;
+  });
+}
+
   const onSubmit: SubmitHandler<FormSchemaType> = async (values ) => {
     try {
         console.log(values)
@@ -72,6 +101,7 @@ const AboutMeForm: React.FunctionComponent<IAboutMeFormProps> = (props) => {
     setChangedSlide(value?.trim().length! > 0)
     setCurrentSlide((prev) => prev - 1);
   };
+
   return <>
   <form id={style.innerContainer} action="" onSubmit={handleSubmit(onSubmit)}>
      <div id={style.leftArrowContainer}>
@@ -109,6 +139,7 @@ const AboutMeForm: React.FunctionComponent<IAboutMeFormProps> = (props) => {
            <h2 id={style.title}>Upload a CV file:</h2>
            <h5 id={style.subtitle}>You can provide a CV for public view...</h5>
            <br />
+           <br />
            <div id={style.priorCVHolder}>
               {
                 AboutMe.cv == "" && /*?*/
@@ -119,16 +150,50 @@ const AboutMeForm: React.FunctionComponent<IAboutMeFormProps> = (props) => {
                   <br />
                   <br />
                   <br />
-                  <div style={{display:'flex', flexDirection:'row'}}>
+                  { uploadedFileUrl && (
+                    <>
+                     <div style={{display:'flex', flexDirection:'row'}}>
                    <p id={style.fileText}><b><a href={AboutMe.cv}>Your Cv.</a> Delete to upload a new copy,</b></p>
-                   <button onClick={()=>alert("Clicked.")} id={style.deleteContainer}>
+                   <button onClick={
+                    async () => {
+                      try {
+                        console.log(uploadedFileUrl);
+                        await edgestore.cvBucket.delete({url: uploadedFileUrl});
+                        setUploadedFileUrl(null);
+                        alert("CV deleted.");
+                      } catch (error) {
+                        alert ("Error deleting file.")
+                      }
+                    }
+                    } 
+                    id={style.deleteContainer}
+                    >
                    <RiDeleteBin3Line />
                    </button>
                   </div>
                   <br />
-                  <input id={style.inputButton} type="file" onChange={(e)=>{
+                    </>
+                  )}
+                  
+                  {/*<input id={style.inputButton} type="file" onChange={(e)=>{
                     setCVfile(e.target.files?.[0])
-                  }} />
+                  }} />*/}
+                  <div id={style.visibleUpload}>
+<UploaderProvider uploadFn={uploadFn} autoUpload>
+      <Dropzone
+        dropzoneOptions={{
+          maxFiles: 1,
+          maxSize: 1024 * 1024 * 2, // 2MB
+          accept: {
+  'application/pdf': ['.pdf'],
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'],
+}
+        }}
+      />
+      {/* You can create a component that uses the provider context */}
+      {/* (from the `useUploader` hook) to show a custom file list here */}
+    </UploaderProvider>
+    </div>
                   <button
                    onClick={
                     async () => {

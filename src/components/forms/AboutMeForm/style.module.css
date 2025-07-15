@@ -159,6 +159,19 @@
     margin-left: 5px;
 }
 
+#visibleUpload{
+    position: relative; /* Change to absolute positioning */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 4;
+    cursor:pointer;
+    pointer-events: all;
+    color: aliceblue;
+    margin-bottom: 10px;
+    margin-left: 5px;
+}
+
 #uploadButton:hover{
     opacity: 80%;
     color: rgb(77, 187, 150);

@@ -53,7 +53,6 @@ export default function user({
   // Used in the modal to set and use a user defined website
   const [ websiteString, setWebsiteString ] = useState(null);
   // Used in a useEffect to find if a profile is already liked by the user,
-
   //Variants for the profile component,
   const profileVariants = {
     initial: { scale: 1, opacity: 1 },

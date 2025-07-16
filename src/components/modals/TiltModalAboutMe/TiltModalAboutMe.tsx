@@ -26,7 +26,7 @@ interface ITiltModalAboutMeProps {
 // Use forwardRef to handle the `ref` prop
 const TiltModalAboutMe = forwardRef<HTMLDivElement, ITiltModalAboutMeProps>((props, ref) => {
   const [clicked, setClicked] = useState(false); // State to track if the slide-out is triggered
-  const { setShowContent,showContent, aboutYou } = props;
+  const { setShowContent,showContent, aboutYou} = props;
   //log user id for testing,
   const closeWindow = () => {
     setShowContent(false); // Trigger slide-out effect

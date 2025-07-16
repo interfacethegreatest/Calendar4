@@ -12,13 +12,10 @@ import SlideButtonSubmit from '@/components/buttons/auth/slideButtonSubmit';
 import { AiFillLock } from 'react-icons/ai';
 import { Poppins } from 'next/font/google';
 import { RiDeleteBin3Line } from "react-icons/ri";
-import {
-  UploaderProvider,
-  type UploadFn,
-} from '@/components/upload/uploader-provider';
+import { UploaderProvider } from '@/components/upload/uploader-provider';
 import { useEdgeStore } from '@/lib/edgestore';
-import { SingleImageDropzone } from '@/components/single-image-dropzone';
 import { Dropzone } from '@/components/upload/dropzone';
+import { toast } from 'react-toastify';
 
 const font = Poppins({
   subsets: ["latin"],
@@ -27,9 +24,9 @@ const font = Poppins({
 
 interface IAboutMeFormProps {
   AboutMe: {
-    description: string,
-    cv:string,
-  },
+    description: string;
+    cv: string;
+  };
 }
 
 const FormSchema = z.object({
@@ -43,220 +40,200 @@ const FormSchema = z.object({
 
 type FormSchemaType = z.infer<typeof FormSchema>;
 
-const AboutMeForm: React.FunctionComponent<IAboutMeFormProps> = (props) => {
-  const { AboutMe } = props;
-  const [ file, setCVfile ] = useState<File>();
+const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe }) => {
+  const [uploaderKey, setUploaderKey] = useState(0);
   const [uploadedFileUrl, setUploadedFileUrl] = useState<string | null>(AboutMe.cv || null);
-  const [ progress, setProgress] = useState(0);
   const { edgestore } = useEdgeStore();
   const [changedSlide, setChangedSlide] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [animation, setAnimation] = useState(true);
+
   const {
     register,
     handleSubmit,
-    setValue,
     getValues,
     formState: { errors, isSubmitting },
   } = useForm<FormSchemaType>({
     resolver: zodResolver(FormSchema),
   });
-function uploadFn({
-  file,
-  signal,
-  onProgressChange,
-}: {
-  file: File;
-  signal: AbortSignal;
-  onProgressChange: (progress: number) => void;
-}): Promise<{ url: string }> {
-  return edgestore.cvBucket.upload({
-    file,
-    onProgressChange: (progress) => {
-      setProgress(progress);              // show progress bar
-      onProgressChange(progress);         // keep uploader context in sync
-      console.log(progress);
-    },
-  }).then((res) => {
-    setUploadedFileUrl(res.url);          // store uploaded file URL
-    return res;
-  });
-}
 
-  const onSubmit: SubmitHandler<FormSchemaType> = async (values ) => {
-    try {
-        console.log(values)
-    } catch (error) {
-        alert("Error during submit: "+ error);
-    }
+  function uploadFn({
+    file,
+    signal,
+  }: {
+    file: File;
+    signal: AbortSignal;
+    onProgressChange: (progress: number) => void;
+  }): Promise<{ url: string }> {
+    return edgestore.cvBucket.upload({ file }).then((res) => {
+      setUploadedFileUrl(res.url);
+      return res;
+    });
   }
+
+  const onSubmit: SubmitHandler<FormSchemaType> = async (values) => {
+    try {
+      console.log(values);
+    } catch (error) {
+      alert("Error during submit: " + error);
+    }
+  };
+
   const nextSlide = () => {
-    const value = getValues("AboutMe")
-    setChangedSlide(value?.trim().length! > 0)
-    console.log(currentSlide + 1)
+    const value = getValues("AboutMe");
+    setChangedSlide(value?.trim().length! > 0);
     setCurrentSlide((prev) => prev + 1);
   };
+
   const prevSlide = () => {
-    const value = getValues("AboutMe")
-    setChangedSlide(value?.trim().length! > 0)
+    const value = getValues("AboutMe");
+    setChangedSlide(value?.trim().length! > 0);
     setCurrentSlide((prev) => prev - 1);
   };
 
-  return <>
-  <form id={style.innerContainer} action="" onSubmit={handleSubmit(onSubmit)}>
-     <div id={style.leftArrowContainer}>
-      { currentSlide != 0 && (
-        <motion.div title="Slide Back" onClick={prevSlide} id={style.iconHolder}>
-         <div id={style.iconStyle}><MdOutlineKeyboardArrowLeft/></div>
-        </motion.div>
-      )}
-     </div>
-     <div id={style.mainBodyContainer}>
-      {
-        currentSlide === 0 && (
-          <>
-          <h2 id={style.title} ><b>Describe yourself briefly:</b></h2>
-          <h5 id={style.subtitle}>Provide text for your about you section:</h5>
-          <br />
-          <ModalInput
-           name="AboutMe"
-           label="About Me:"
-           type="text"
-           icon={<CiLock />}
-           register={register}
-           error={errors?.AboutMe?.message}
-           disabled={isSubmitting}
-           height={250}
-           topLocation={20}
-           inputLength={525} placeholder={''} 
-           prevSlide={getValues}/>
-          </> 
-        )
-      }
-      {
-        currentSlide === 1 && (
-          <>
-           <h2 id={style.title}>Upload a CV file:</h2>
-           <h5 id={style.subtitle}>You can provide a CV for public view...</h5>
-           <br />
-           <br />
-           <div id={style.priorCVHolder}>
-              {
-                AboutMe.cv == "" && /*?*/
-                <>
-                 <div style={{display:"flex", flexDirection:"column"}}>
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  { uploadedFileUrl && (
-                    <>
-                     <div style={{display:'flex', flexDirection:'row'}}>
-                   <p id={style.fileText}><b><a href={AboutMe.cv}>Your Cv.</a> Delete to upload a new copy,</b></p>
-                   <button onClick={
-                    async () => {
-                      try {
-                        console.log(uploadedFileUrl);
-                        await edgestore.cvBucket.delete({url: uploadedFileUrl});
-                        setUploadedFileUrl(null);
-                        alert("CV deleted.");
-                      } catch (error) {
-                        alert ("Error deleting file.")
-                      }
-                    }
-                    } 
-                    id={style.deleteContainer}
-                    >
-                   <RiDeleteBin3Line />
-                   </button>
-                  </div>
-                  <br />
-                    </>
-                  )}
-                  
-                  {/*<input id={style.inputButton} type="file" onChange={(e)=>{
-                    setCVfile(e.target.files?.[0])
-                  }} />*/}
-                  <div id={style.visibleUpload}>
-<UploaderProvider uploadFn={uploadFn} autoUpload>
-      <Dropzone
-        dropzoneOptions={{
-          maxFiles: 1,
-          maxSize: 1024 * 1024 * 2, // 2MB
-          accept: {
-  'application/pdf': ['.pdf'],
-  'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'],
-}
-        }}
-      />
-      {/* You can create a component that uses the provider context */}
-      {/* (from the `useUploader` hook) to show a custom file list here */}
-    </UploaderProvider>
-    </div>
-                  <button
-                   onClick={
-                    async () => {
-                      if (file) {
-                        const res = await edgestore.myPublicImages.upload({
-                        file,
-                        onProgressChange: (progress) =>{
-                          setProgress(progress);
-                          console.log(progress)
-                        }
-                        });
-                      }
-                    }
-                   }
-                   id={style.uploadButton}>
-                   Upload
-                  </button>
-                  <div id={style.progressBar}>
-                    <div id={style.progressBarInner} style={{width:`${progress}%`}}>
+  return (
+    <>
+      <form
+        id={style.innerContainer}
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <div id={style.leftArrowContainer}>
+          {currentSlide !== 0 && (
+            <motion.div
+              title="Slide Back"
+              onClick={prevSlide}
+              id={style.iconHolder}
+            >
+              <div id={style.iconStyle}>
+                <MdOutlineKeyboardArrowLeft />
+              </div>
+            </motion.div>
+          )}
+        </div>
 
+        <div id={style.mainBodyContainer}>
+          {currentSlide === 0 && (
+            <>
+              <h2 id={style.title}><b>Describe yourself briefly:</b></h2>
+              <h5 id={style.subtitle}>Provide text for your about you section:</h5>
+              <br />
+              <ModalInput
+                name="AboutMe"
+                label="About Me:"
+                type="text"
+                icon={<CiLock />}
+                register={register}
+                error={errors?.AboutMe?.message}
+                disabled={isSubmitting}
+                height={250}
+                topLocation={20}
+                inputLength={525}
+                placeholder=""
+                prevSlide={getValues}
+              />
+            </>
+          )}
+
+          {currentSlide === 1 && (
+            <>
+              <h2 id={style.title}>Upload a CV file:</h2>
+              <h5 id={style.subtitle}>You can provide a CV for public view...</h5>
+              <br /><br />
+              <div id={style.priorCVHolder}>
+                {AboutMe.cv === "" && (
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <br /><br /><br /><br /><br />
+                    {uploadedFileUrl && (
+                      <>
+                        <div style={{ display: "flex", flexDirection: "row" }}>
+                          <p id={style.fileText}>
+                            <b>
+                              <a href={AboutMe.cv}>Your Cv.</a> Delete to upload a new copy,
+                            </b>
+                          </p>
+                          <button
+                            id={style.deleteContainer}
+                            onClick={async (e) => {
+                              e.preventDefault();
+                              try {
+                                await edgestore.cvBucket.delete({ url: uploadedFileUrl });
+                                setUploadedFileUrl(null);
+                                setUploaderKey((prev) => prev + 1);
+                                toast.success("CV deleted.");
+                              } catch (error) {
+                                console.log(error);
+                                alert("Error deleting file.");
+                              }
+                            }}
+                          >
+                            <RiDeleteBin3Line />
+                          </button>
+                        </div>
+                        <br />
+                      </>
+                    )}
+                    <p style={{textAlign:"center", color:"aliceblue"}}>Uploading a CV provides users with a detailed view of who you are and your previous job history and experience.</p>
+
+                    <div id={style.visibleUpload}>
+                      <UploaderProvider
+                        uploadFn={uploadFn}
+                        autoUpload
+                        key={uploaderKey}
+                      >
+                        <Dropzone
+                          dropzoneOptions={{
+                            maxFiles: 1,
+                            maxSize: 1024 * 1024 * 2,
+                            accept: {
+                              "application/pdf": [".pdf"],
+                              "application/vnd.openxmlformats-officedocument.wordprocessingml.document": [".docx"],
+                            },
+                          }}
+                        />
+                      </UploaderProvider>
                     </div>
                   </div>
-                 </div>
-                </>
-                /*:
-                <>
-                 <p id={style.file}>..Previously uploaded cv's will appear here..</p>
-                </>*/
-              }
-              
-           </div>
-          </> 
-        )
-      }
-      {
-        currentSlide === 4 && (
-          <>
-           <SlideButtonSubmit
-            type="submit"
-            slide_text="Save your details"
-            text={"Save"}
-            icon={<AiFillLock />}
-            width="250px"
-            disabled={isSubmitting}
-            animation={animation} setScene={()=> null}/>
-          </> 
-        )
-      }
-      <div id={style.slideCountContainer}>
-      {Array.from({ length: currentSlide }, (_, index) => (
-       <div key={index} id={style.incrementDiv}></div>
-      ))}
-      </div>
-     </div>
-     <div id={style.rightArrowContainer}>
-     { currentSlide <= 3 && (
-        <motion.div title="Skip / Continue" onClick={nextSlide} id={style.iconHolder}>
-         <div id={style.iconStyle}><MdOutlineKeyboardArrowRight/></div>
-        </motion.div>
-      )}
-      </div>
-  </form>
-  </>;
+                )}
+              </div>
+            </>
+          )}
+
+          {currentSlide === 4 && (
+            <SlideButtonSubmit
+              type="submit"
+              slide_text="Save your details"
+              text="Save"
+              icon={<AiFillLock />}
+              width="250px"
+              disabled={isSubmitting}
+              animation={animation}
+              setScene={() => null}
+            />
+          )}
+
+          <div id={style.slideCountContainer}>
+            {Array.from({ length: currentSlide }).map((_, index) => (
+              <div key={index} id={style.incrementDiv}></div>
+            ))}
+          </div>
+        </div>
+
+        <div id={style.rightArrowContainer}>
+          {currentSlide <= 3 && (
+            <motion.div
+              title="Skip / Continue"
+              onClick={nextSlide}
+              id={style.iconHolder}
+            >
+              <div id={style.iconStyle}>
+                <MdOutlineKeyboardArrowRight />
+              </div>
+            </motion.div>
+          )}
+        </div>
+      </form>
+    </>
+  );
 };
 
 export default AboutMeForm;

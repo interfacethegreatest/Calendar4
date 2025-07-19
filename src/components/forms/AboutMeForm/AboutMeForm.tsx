@@ -16,6 +16,7 @@ import { UploaderProvider } from '@/components/upload/uploader-provider';
 import { useEdgeStore } from '@/lib/edgestore';
 import { Dropzone } from '@/components/upload/dropzone';
 import { toast } from 'react-toastify';
+import { FileUploader } from '@/components/upload/multiFile';
 
 const font = Poppins({
   subsets: ["latin"],
@@ -32,10 +33,16 @@ interface IAboutMeFormProps {
 const FormSchema = z.object({
   AboutMe: z
     .string()
-    .min(1, { message: "Description is required." })
     .max(525, { message: "Too many characters." })
     .optional()
     .or(z.literal('')),
+
+  CV: z
+    .union([
+      z.string().url({ message: "CV must be a valid URL." }),
+      z.literal(''),
+    ])
+    .default(''), // Ensures `""` if nothing is passed
 });
 
 type FormSchemaType = z.infer<typeof FormSchema>;
@@ -173,7 +180,6 @@ const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe }) => {
                       </>
                     )}
                     <p style={{textAlign:"center", color:"aliceblue"}}>Uploading a CV provides users with a detailed view of who you are and your previous job history and experience.</p>
-
                     <div id={style.visibleUpload}>
                       <UploaderProvider
                         uploadFn={uploadFn}
@@ -192,11 +198,42 @@ const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe }) => {
                         />
                       </UploaderProvider>
                     </div>
+                    <p style={{textAlign:"center", color:"aliceblue"}}>Thank You!</p>
                   </div>
                 )}
               </div>
             </>
           )}
+
+          {currentSlide === 2 && (
+            <>
+            <h2 id={style.title}>Upload transcripts:</h2>
+            <h5 id={style.subtitle}>(Optional) You can also provide transcripts for public view...</h5>
+            <br />
+            <p style={{textAlign:"center", color:"aliceblue"}}>Transcripts are text or pdf files which are relevant notes to you.</p>
+            <div id={style.visibleUpload}>
+              <div className={style.uploadScrollArea}>
+            <UploaderProvider uploadFn={uploadFn} autoUpload>
+              <FileUploader
+               maxFiles={5}
+               maxSize={1024 * 1024 * 1} // 1 MB
+               accept={{
+               'application/pdf': [],
+               'text/plain': ['.txt'],
+               }}
+              />
+            </UploaderProvider>
+            </div>
+            </div>
+            </>
+          )}
+
+          {currentSlide === 3 && (
+            <>
+             <h1>Hello World</h1>
+            </>
+          )}
+
 
           {currentSlide === 4 && (
             <SlideButtonSubmit

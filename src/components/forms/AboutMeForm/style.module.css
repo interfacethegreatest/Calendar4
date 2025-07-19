@@ -24,6 +24,7 @@
 }
 
 #title{
+    text-align: center;
     color: aliceblue;
     padding-left: 0%;
 }
@@ -163,9 +164,6 @@
 
 #visibleUpload{
     position: relative; /* Change to absolute positioning */
-    display: flex;
-    align-items: center;
-    justify-content: center;
     z-index: 4;
     cursor:pointer;
     pointer-events: all;
@@ -196,3 +194,36 @@
  background-color: aliceblue;
  transition: all 150ms;
 }
+
+.uploadScrollArea {
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 4px;
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: aliceblue transparent; /* Firefox: thumb then track */
+}
+
+/* Chrome, Safari, Edge */
+.uploadScrollArea::-webkit-scrollbar {
+  width: 6px;
+  background: transparent; /* Remove background */
+}
+
+.uploadScrollArea::-webkit-scrollbar-track {
+  background: transparent; /* Fully transparent track */
+  box-shadow: none;
+}
+
+.uploadScrollArea::-webkit-scrollbar-thumb {
+  background-color: aliceblue; /* The actual scroll thumb */
+  border-radius: 6px;
+  border: none;
+}
+
+/* Hide scrollbar buttons (arrows) in Chromium browsers */
+.uploadScrollArea::-webkit-scrollbar-button {
+  display: none;
+  height: 0;
+  width: 0;
+}
+

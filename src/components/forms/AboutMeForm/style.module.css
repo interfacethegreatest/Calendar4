@@ -227,3 +227,75 @@
   width: 0;
 }
 
+#extender{
+    border-radius: 1.5rem;
+    /*border: 2px solid rgba(90, 89, 89, 0.295);*/
+    position: relative; /* Change to absolute positioning */
+    z-index: 4;
+    cursor:pointer;
+    pointer-events: all;
+    padding-left: 15px;
+    padding-top: 15px;
+    
+}
+
+.deleteExperienceBtn {
+    color: aliceblue;
+    margin-top: 2px;
+}
+
+.addExperienceBtn{
+    color: aliceblue;
+    padding: 5px;
+}
+
+.dateInput {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 160px;
+}
+
+.dateLabel {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: bold;
+  color: white;
+}
+
+.error {
+  color: red;
+  font-size: 0.75rem;
+}
+
+.datePickerLabel{
+    color: rgb(106, 106, 106);
+}
+
+.datePickerInput {
+  color: aliceblue;
+  background-color: transparent;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 14px;
+  outline: none;
+
+  /* Remove native styling where needed */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+/* Chrome/Safari: Calendar icon styling */
+.datePickerInput::-webkit-calendar-picker-indicator {
+  filter: brightness(0) invert(1); /* White icon */
+  cursor: pointer;
+}
+
+/* Firefox: optional — makes it consistent */
+@supports (-moz-appearance: none) {
+  .datePickerInput {
+    background-image: none;
+  }
+}

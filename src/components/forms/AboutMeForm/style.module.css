@@ -170,6 +170,7 @@
     color: aliceblue;
     margin-bottom: 10px;
     margin-left: 5px;
+    width: 100%;
 }
 
 #uploadButton:hover{

@@ -20,6 +20,7 @@ import { Dropzone } from '@/components/upload/dropzone';
 import { toast } from 'react-toastify';
 import { FileUploader } from '@/components/upload/multiFile';
 import { GrMoney } from "react-icons/gr";
+import { GoPlusCircle } from "react-icons/go";
 
 const font = Poppins({
   subsets: ["latin"],
@@ -222,8 +223,17 @@ const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe }) => {
                       <br />
                     </>
                   )}
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <p style={{ textAlign: "center", color: "aliceblue" }}>
+              A CV allows users to access your previous work history and gauge your understanding of topics.
+            </p>
+                  <div id={style.visibleUpload}>
                   <UploaderProvider uploadFn={uploadFn} autoUpload key={uploaderKey}>
                     <Dropzone
+                    style={{"width":"100%"}}
                       dropzoneOptions={{
                         maxFiles: 1,
                         maxSize: 1024 * 1024 * 2,
@@ -234,6 +244,7 @@ const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe }) => {
                       }}
                     />
                   </UploaderProvider>
+                  </div>
                 </div>
               )}
             </div>
@@ -318,7 +329,8 @@ const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe }) => {
                   <br />
 
                   <div className={style.datePickerRow}>
-                <div style={{border:"1px solid rgb(106, 106, 106)", borderRadius:"6px", paddingLeft:"6px"}} id={style.datePickerInput}>
+                <div style={{border:"1px solid rgb(106, 106, 106)", borderRadius:"6px", paddingLeft:"6px"}}y
+                 id={style.datePickerInput}>
                   <label className={style.datePickerLabel}>Start Date :</label>
                   <input
                     type="month"
@@ -357,8 +369,8 @@ const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe }) => {
                   </button>
                 </div>
               ))}
-
               <button
+                style={{display:"flex", marginRight:"5px"}}
                 type="button"
                 onClick={() =>
                   append({
@@ -371,13 +383,19 @@ const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe }) => {
                 }
                 className={style.addExperienceBtn}
               >
-                + Add Experience
+                <GoPlusCircle
+                 style={{marginTop:"5px", marginRight:"5px",}}
+                /> 
+                Add Experience
               </button>
             </div>
           </>
         )}
 
         {currentSlide === 4 && (
+          <>
+          <h2 id={style.title}>Please provide your educational background:</h2>
+          <h5 id={style.subtitle}>(Optional) Your educational background allows others to understand your studies.</h5>
           <SlideButtonSubmit
             type="submit"
             slide_text="Save your details"
@@ -388,6 +406,7 @@ const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe }) => {
             animation={animation}
             setScene={() => null}
           />
+          </>
         )}
 
         <div id={style.slideCountContainer}>
@@ -399,6 +418,7 @@ const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe }) => {
 
       <div id={style.rightArrowContainer}>
         {currentSlide <= 3 && (
+          <>
           <motion.div
             title="Skip / Continue"
             onClick={nextSlide}
@@ -408,6 +428,7 @@ const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe }) => {
               <MdOutlineKeyboardArrowRight />
             </div>
           </motion.div>
+          </>
         )}
       </div>
     </form>

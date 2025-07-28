@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as React from 'react';
 import { SubmitHandler, useForm, useFieldArray } from 'react-hook-form';
-import { z } from 'zod';
+import { array, z } from 'zod';
 import style from './style.module.css';
 import { motion } from 'framer-motion';
 import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from "react-icons/md";
@@ -27,7 +27,15 @@ const font = Poppins({
   weight: ["600"],
 });
 
-const FormSchema = z.object({
+// 🔁 Shared utility for safely handling optional date strings
+const safeDate = z
+  .string()
+  .refine(val => val === '' || !isNaN(Date.parse(val)), {
+    message: "Invalid date format.",
+  })
+  .transform(val => (val === '' ? null : new Date(val)));
+
+export const FormSchema = z.object({
   AboutMe: z
     .string()
     .max(525, { message: "Too many characters." })
@@ -41,29 +49,36 @@ const FormSchema = z.object({
     ])
     .default(''),
 
+  Transcripts: z
+    .array(
+      z.string().url({ message: "Each transcript must be a valid URL." })
+    )
+    .max(5, { message: "You can upload up to 5 transcripts." })
+    .optional()
+    .default([]),
+
   workExperience: z
     .array(
       z.object({
-        businessName: z.string().max(30, { message: "Business name too long" }).default(''),
-        jobTitle: z.string().max(30, { message: "Job title too long" }).default(''),
-        startDate: z
+        businessName: z
           .string()
-          .refine((val) => !val || !isNaN(new Date(val).getTime()), {
-            message: "Start date must be a valid date.",
-          })
-          .transform((val) => (val ? new Date(val) : null)),
-        endDate: z
+          .max(30, { message: "Business name too long." })
+          .default(''),
+        jobTitle: z
           .string()
-          .refine((val) => !val || !isNaN(new Date(val).getTime()), {
-            message: "End date must be a valid date.",
-          })
-          .transform((val) => (val ? new Date(val) : null)),
-        jobDescription: z.string().max(1000, { message: "Job description too long" }).default(''),
+          .max(30, { message: "Job title too long." })
+          .default(''),
+        startDate: safeDate,
+        endDate: safeDate,
+        jobDescription: z
+          .string()
+          .max(1000, { message: "Job description too long." })
+          .default(''),
       }).refine(
         (data) =>
-          !data.startDate ||
-          !data.endDate ||
-          new Date(data.startDate) <= new Date(data.endDate),
+          data.startDate === null ||
+          data.endDate === null ||
+          data.startDate <= data.endDate,
         {
           message: "Start date must be before end date.",
           path: ["endDate"],
@@ -75,9 +90,45 @@ const FormSchema = z.object({
       {
         businessName: '',
         jobTitle: '',
-        startDate: '', // <-- use string, not null
-        endDate: '',   // <-- use string, not null
+        startDate: null,
+        endDate: null,
         jobDescription: '',
+      },
+    ]),
+
+  educationalBackground: z
+    .array(
+      z.object({
+        startDate: safeDate,
+        endDate: safeDate,
+        educationalInstitudtion: z
+          .string()
+          .max(75, { message: "Educational institution name too long." })
+          .default(''),
+        qualificationName: z
+          .string()
+          .max(75, { message: "Qualification title too long." })
+          .default(''),
+      }).refine(
+        (data) =>
+          data.startDate === null ||
+          data.endDate === null ||
+          data.startDate <= data.endDate,
+        {
+          message: "Start date must be before end date.",
+          path: ["endDate"],
+        }
+      )
+    )
+    .min(1, {
+      message: "At least one instance of educational background is required.",
+    })
+    .default([
+      {
+        startDate: null,
+        endDate: null,
+        educationalInstitudtion: '',
+        qualificationName: '',
       },
     ]),
 });
@@ -121,6 +172,7 @@ const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe }) => {
 
   const onSubmit: SubmitHandler<FormSchemaType> = async (values) => {
     try {
+      alert("values.");
       console.log(values);
     } catch (error) {
       alert("Error during submit: " + error);
@@ -329,7 +381,7 @@ const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe }) => {
                   <br />
 
                   <div className={style.datePickerRow}>
-                <div style={{border:"1px solid rgb(106, 106, 106)", borderRadius:"6px", paddingLeft:"6px"}}y
+                <div style={{border:"1px solid rgb(106, 106, 106)", borderRadius:"6px", paddingLeft:"6px"}}
                  id={style.datePickerInput}>
                   <label className={style.datePickerLabel}>Start Date :</label>
                   <input

@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { EdgeStoreProvider } from "@/lib/edgestore";
+import 'react-datepicker/dist/react-datepicker.css';
 
 export default function App({ Component, pageProps:{session, ...pageProps} }: AppProps) {
   return (

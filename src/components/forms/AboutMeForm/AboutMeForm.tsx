@@ -21,19 +21,13 @@ import { toast } from 'react-toastify';
 import { FileUploader } from '@/components/upload/multiFile';
 import { GrMoney } from "react-icons/gr";
 import { GoPlusCircle } from "react-icons/go";
+import { Controller } from 'react-hook-form';
+import DatePicker from 'react-datepicker';
 
 const font = Poppins({
   subsets: ["latin"],
   weight: ["600"],
 });
-
-// 🔁 Shared utility for safely handling optional date strings
-const safeDate = z
-  .string()
-  .refine(val => val === '' || !isNaN(Date.parse(val)), {
-    message: "Invalid date format.",
-  })
-  .transform(val => (val === '' ? null : new Date(val)));
 
 export const FormSchema = z.object({
   AboutMe: z
@@ -57,50 +51,40 @@ export const FormSchema = z.object({
     .optional()
     .default([]),
 
-  workExperience: z
-    .array(
-      z.object({
-        businessName: z
-          .string()
-          .max(30, { message: "Business name too long." })
-          .default(''),
-        jobTitle: z
-          .string()
-          .max(30, { message: "Job title too long." })
-          .default(''),
-        startDate: safeDate,
-        endDate: safeDate,
-        jobDescription: z
-          .string()
-          .max(1000, { message: "Job description too long." })
-          .default(''),
-      }).refine(
-        (data) =>
-          data.startDate === null ||
-          data.endDate === null ||
-          data.startDate <= data.endDate,
+    workExperience: z.preprocess(
+      (val) => Array.isArray(val) && val.length === 0 ? undefined : val,
+      z.array(
+        z.object({
+          businessName: z.string().max(30).default(''),
+          jobTitle: z.string().max(30).default(''),
+          startDate: z.date().nullable(),
+          endDate: z.date().nullable(),
+          jobDescription: z.string().max(1000).default(''),
+        }).refine(
+          (data) =>
+            data.startDate === null ||
+            data.endDate === null ||
+            data.startDate <= data.endDate,
+          {
+            message: "Start date must be before end date.",
+            path: ["endDate"],
+          }
+        )
+      ).default([
         {
-          message: "Start date must be before end date.",
-          path: ["endDate"],
-        }
-      )
+          businessName: '',
+          jobTitle: '',
+          startDate: null,
+          endDate: null,
+          jobDescription: '',
+        },
+      ])
     )
-    .min(1, { message: "At least one work experience is required." })
-    .default([
-      {
-        businessName: '',
-        jobTitle: '',
-        startDate: null,
-        endDate: null,
-        jobDescription: '',
-      },
-    ]),
-
-  educationalBackground: z
+  /*educationalBackground: z
     .array(
       z.object({
-        startDate: safeDate,
-        endDate: safeDate,
+        startDate: z.date().nullable(),
+        endDate: z.date().nullable(),
         educationalInstitudtion: z
           .string()
           .max(75, { message: "Educational institution name too long." })
@@ -130,7 +114,7 @@ export const FormSchema = z.object({
         educationalInstitudtion: '',
         qualificationName: '',
       },
-    ]),
+    ]),*/
 });
 
 type FormSchemaType = z.infer<typeof FormSchema>;
@@ -175,6 +159,7 @@ const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe }) => {
       alert("values.");
       console.log(values);
     } catch (error) {
+      alert("error")
       alert("Error during submit: " + error);
     }
   };
@@ -239,69 +224,73 @@ const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe }) => {
           </>
         )}
 
-        {currentSlide === 1 && (
-          <>
-            <h2 id={style.title}><b>Upload a CV file:</b></h2>
-            <h5 id={style.subtitle}>You can provide a CV for public view...</h5>
-            <div id={style.priorCVHolder}>
-              {AboutMe.cv === "" && (
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <br /><br /><br /><br /><br /><br />
-                  {uploadedFileUrl && (
-                    <>
-                      <div style={{ display: "flex", flexDirection: "row" }}>
-                        <p id={style.fileText}>
-                          <b>
-                            <a href={uploadedFileUrl} target="_blank">Your CV</a> — Delete to upload a new one.
-                          </b>
-                        </p>
-                        <button
-                          id={style.deleteContainer}
-                          onClick={async (e) => {
-                            e.preventDefault();
-                            try {
-                              await edgestore.cvBucket.delete({ url: uploadedFileUrl });
-                              setUploadedFileUrl(null);
-                              setUploaderKey((prev) => prev + 1);
-                              toast.success("CV deleted.");
-                            } catch (error) {
-                              alert("Error deleting file.");
-                            }
-                          }}
-                        >
-                          <RiDeleteBin3Line />
-                        </button>
-                      </div>
-                      <br />
-                    </>
-                  )}
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <p style={{ textAlign: "center", color: "aliceblue" }}>
-              A CV allows users to access your previous work history and gauge your understanding of topics.
-            </p>
-                  <div id={style.visibleUpload}>
-                  <UploaderProvider uploadFn={uploadFn} autoUpload key={uploaderKey}>
-                    <Dropzone
-                    style={{"width":"100%"}}
-                      dropzoneOptions={{
-                        maxFiles: 1,
-                        maxSize: 1024 * 1024 * 2,
-                        accept: {
-                          "application/pdf": [".pdf"],
-                          "application/vnd.openxmlformats-officedocument.wordprocessingml.document": [".docx"],
-                        },
-                      }}
-                    />
-                  </UploaderProvider>
-                  </div>
-                </div>
-              )}
-            </div>
-          </>
-        )}
+{currentSlide === 1 && (
+  <>
+    <h2 id={style.title}><b>Upload a CV file:</b></h2>
+    <div className={style["spacer-sm"]}></div>
+    <h5 id={style.subtitle}>You can provide a CV for public view...</h5>
+    <p style={{ textAlign: "center", color: "aliceblue" }}>
+            A CV allows users to access your previous work history and gauge your understanding of topics (.pdf or .docx).
+    </p>
+    <div className={style["spacer-lg"]}></div>
+    <div id={style.priorCVHolder}>
+      {AboutMe.cv === "" && (
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <div className={style.spacer}></div>
+
+          {uploadedFileUrl && (
+            <>
+              <div style={{ display: "flex", flexDirection: "row" }}>
+                <p id={style.fileText}>
+                  <b>
+                    <a href={uploadedFileUrl} target="_blank">Your CV</a> — Delete to upload a new one.
+                  </b>
+                </p>
+                <button
+                  id={style.deleteContainer}
+                  onClick={async (e) => {
+                    e.preventDefault();
+                    try {
+                      await edgestore.cvBucket.delete({ url: uploadedFileUrl });
+                      setUploadedFileUrl(null);
+                      setUploaderKey((prev) => prev + 1);
+                      toast.success("CV deleted.");
+                    } catch (error) {
+                      alert("Error deleting file.");
+                    }
+                  }}
+                >
+                  <RiDeleteBin3Line />
+                </button>
+              </div>
+              <div className={style.spacer}></div>
+            </>
+          )}
+
+          <div className={style.spacer}></div>
+
+          
+
+          <div id={style.visibleUpload}>
+            <UploaderProvider uploadFn={uploadFn} autoUpload key={uploaderKey}>
+              <Dropzone
+                style={{ width: "100%" }}
+                dropzoneOptions={{
+                  maxFiles: 1,
+                  maxSize: 1024 * 1024 * 2,
+                  accept: {
+                    "application/pdf": [".pdf"],
+                    "application/vnd.openxmlformats-officedocument.wordprocessingml.document": [".docx"],
+                  },
+                }}
+              />
+            </UploaderProvider>
+          </div>
+        </div>
+      )}
+    </div>
+  </>
+)}
 
         {currentSlide === 2 && (
           <>
@@ -327,122 +316,156 @@ const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe }) => {
           </>
         )}
 
-        {currentSlide === 3 && (
-          <>
-            <h2 id={style.title}>Work Experience:</h2>
-            <h5 id={style.subtitle}>(Optional) Please provide past work experience:</h5>
-            <br />
-            <div id={style.extender} className={style.uploadScrollArea}>
-              {fields.map((field, index) => (
-                <div key={field.id} className={style.experienceItem}>
-                  <ModalInput
-                    name={`workExperience.${index}.businessName`}
-                    label="Business"
-                    type="text"
-                    icon={<GrMoney />}
-                    placeholder=""
-                    register={register}
-                    error={errors?.workExperience?.[index]?.businessName?.message}
-                    disabled={isSubmitting}
-                    height={null}
-                    topLocation={null}
-                    inputLength={30}
-                  />
-                  <br />
-                  <ModalInput
-                    name={`workExperience.${index}.jobTitle`}
-                    label="Job Title"
-                    type="text"
-                    icon={<CiLock />}
-                    placeholder=""
-                    register={register}
-                    error={errors?.workExperience?.[index]?.jobTitle?.message}
-                    disabled={isSubmitting}
-                    height={null}
-                    topLocation={null}
-                    inputLength={30}
-                  />
-                  <br />
-                
+{currentSlide === 3 && (
+  <>
+    <h2 id={style.title}>Work Experience:</h2>
+    <h5 id={style.subtitle}>(Optional) Please provide past work experience:</h5>
+    <br />
+    <div id={style.extender} className={style.uploadScrollArea}>
+      {fields.map((field, index) => (
+        <div key={field.id} className={style.experienceItem}>
+          <ModalInput
+            name={`workExperience.${index}.businessName`}
+            label="Business"
+            type="text"
+            icon={<GrMoney />}
+            placeholder=""
+            register={register}
+            error={errors?.workExperience?.[index]?.businessName?.message}
+            disabled={isSubmitting}
+            height={null}
+            topLocation={null}
+            inputLength={30}
+          />
+          <br />
+          <ModalInput
+            name={`workExperience.${index}.jobTitle`}
+            label="Job Title"
+            type="text"
+            icon={<CiLock />}
+            placeholder=""
+            register={register}
+            error={errors?.workExperience?.[index]?.jobTitle?.message}
+            disabled={isSubmitting}
+            height={null}
+            topLocation={null}
+            inputLength={30}
+          />
+          <br />
+          <ModalInput
+            name={`workExperience.${index}.jobDescription`}
+            label="Job Description"
+            type="text"
+            icon={<CiLock />}
+            placeholder=""
+            register={register}
+            error={errors?.workExperience?.[index]?.jobDescription?.message}
+            disabled={isSubmitting}
+            height={90}
+            topLocation={null}
+            inputLength={1000}
+          />
+          <br />
 
-                  <ModalInput
-                    name={`workExperience.${index}.jobDescription`}
-                    label="Job Description"
-                    type="text"
-                    icon={<CiLock />}
-                    placeholder=""
-                    register={register}
-                    error={errors?.workExperience?.[index]?.jobDescription?.message}
-                    disabled={isSubmitting}
-                    height={90}
-                    topLocation={null}
-                    inputLength={1000}
-                  />
-                  <br />
-
-                  <div className={style.datePickerRow}>
-                <div style={{border:"1px solid rgb(106, 106, 106)", borderRadius:"6px", paddingLeft:"6px"}}
-                 id={style.datePickerInput}>
-                  <label className={style.datePickerLabel}>Start Date :</label>
-                  <input
-                    type="month"
-                    {...register(`workExperience.${index}.startDate`)}
+          <div className={style.datePickerRow}>
+            <div
+              style={{
+                border: '1px solid rgb(106, 106, 106)',
+                borderRadius: '6px',
+                paddingLeft: '6px',
+              }}
+              id={style.datePickerInput}
+            >
+              <label className={style.datePickerLabel}>Start Date:</label>
+              <Controller
+                control={control}
+                name={`workExperience.${index}.startDate`}
+                render={({ field }) => (
+                  <DatePicker
+                    selected={field.value}
+                    onChange={field.onChange}
+                    dateFormat="MM/yyyy"
+                    showMonthYearPicker
+                    showFullMonthYearPicker
+                    placeholderText="MM/YYYY"
                     className={style.datePickerInput}
-                    placeholder="MM/YYYY"
                   />
-                  {errors?.workExperience?.[index]?.startDate && (
-                    <p className={style.error}>{errors.workExperience[index].startDate?.message?.toString()}</p>
-                  )}
-                </div>
-                <br />
-
-                <div style={{border:"1px solid rgb(106, 106, 106)", borderRadius:"6px", paddingLeft:"6px"}}>
-                  <label className={style.datePickerLabel}>End Date</label>
-                  <input
-                    type="month"
-                    {...register(`workExperience.${index}.endDate`)}
-                    className={style.datePickerInput}
-                    placeholder="MM/YYYY"
-                  />
-                  {errors?.workExperience?.[index]?.endDate && (
-                    <p className={style.error}>{errors.workExperience[index].endDate?.message?.toString()}</p>
-                  )}
-                </div>
-              </div>
-
-                  <br />
-
-                  <button
-                    type="button"
-                    onClick={() => remove(index)}
-                    className={style.deleteExperienceBtn}
-                  >
-                    <RiDeleteBin3Line />
-                  </button>
-                </div>
-              ))}
-              <button
-                style={{display:"flex", marginRight:"5px"}}
-                type="button"
-                onClick={() =>
-                  append({
-                    businessName: '',
-                    jobTitle: '',
-                    startDate: null,
-                    endDate: null,
-                    jobDescription: '',
-                  })
-                }
-                className={style.addExperienceBtn}
-              >
-                <GoPlusCircle
-                 style={{marginTop:"5px", marginRight:"5px",}}
-                /> 
-                Add Experience
-              </button>
+                )}
+              />
+              {errors?.workExperience?.[index]?.startDate && (
+                <p className={style.error}>
+                  {errors.workExperience[index].startDate?.message?.toString()}
+                </p>
+              )}
             </div>
-          </>
-        )}
+            <br />
+            <div
+              style={{
+                border: '1px solid rgb(106, 106, 106)',
+                borderRadius: '6px',
+                paddingLeft: '6px',
+              }}
+            >
+              <label className={style.datePickerLabel}>End Date:</label>
+              <Controller
+                control={control}
+                name={`workExperience.${index}.endDate`}
+                render={({ field }) => (
+                  <DatePicker
+                    id={style.showElement}
+                    selected={field.value}
+                    onChange={field.onChange}
+                    dateFormat="MM/yyyy"
+                    showMonthYearPicker
+                    showFullMonthYearPicker
+                    placeholderText="MM/YYYY"
+                    className={style.datePickerInput}
+                    portalId='root-portal'
+                    
+                  />
+                )}
+              />
+              {errors?.workExperience?.[index]?.endDate && (
+                <p className={style.error}>
+                  {errors.workExperience[index].endDate?.message?.toString()}
+                </p>
+              )}
+            </div>
+          </div>
+
+          <br />
+
+          <button
+            type="button"
+            onClick={() => remove(index)}
+            className={style.deleteExperienceBtn}
+          >
+            <RiDeleteBin3Line />
+          </button>
+        </div>
+      ))}
+
+      <button
+        style={{ display: 'flex', marginRight: '5px' }}
+        type="button"
+        onClick={() =>
+          append({
+            businessName: '',
+            jobTitle: '',
+            startDate: null,
+            endDate: null,
+            jobDescription: '',
+          })
+        }
+        className={style.addExperienceBtn}
+      >
+        <GoPlusCircle style={{ marginTop: '5px', marginRight: '5px' }} />
+        Add Experience
+      </button>
+    </div>
+  </>
+)}
+
 
         {currentSlide === 4 && (
           <>

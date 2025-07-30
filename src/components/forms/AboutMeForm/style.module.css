@@ -1,3 +1,16 @@
+.spacer {
+    height: 2rem; /* Adjust as needed */
+}
+
+.spacer-sm {
+    height: .5rem;
+}
+  
+.spacer-lg {
+    height: 3rem;
+}
+  
+
 #innerContainer{
     height: 100%;
     display: flex;
@@ -29,6 +42,7 @@
     padding-left: 0%;
 }
 #subtitle{
+    text-align: center;
     padding-left: 0%;
     color: rgb(119, 120, 120)
 }
@@ -171,6 +185,11 @@
     margin-bottom: 10px;
     margin-left: 5px;
     width: 100%;
+}
+
+#showElement{
+    display: flex;
+    z-index: 8;
 }
 
 #uploadButton:hover{

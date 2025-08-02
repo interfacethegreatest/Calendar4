@@ -43,6 +43,12 @@ export interface DropzoneProps extends React.HTMLAttributes<HTMLInputElement> {
    * Default message shown when the dropzone is idle.
    */
   dropMessageDefault?: string;
+
+  /** 
+   * Called when files are selected/dropped. 
+   * If provided, disables internal addFiles and just notifies parent.
+   */
+  onFilesSelected?: (files: File[]) => void;
 }
 
 /**
@@ -67,6 +73,7 @@ const Dropzone = React.forwardRef<HTMLInputElement, DropzoneProps>(
       disabled,
       dropMessageActive = 'Drop files here...',
       dropMessageDefault = 'drag & drop a file,',
+      onFilesSelected,
       ...props
     },
     ref,
@@ -114,17 +121,21 @@ const Dropzone = React.forwardRef<HTMLInputElement, DropzoneProps>(
         // Handle accepted files
         if (acceptedFiles.length === 0) return;
 
-        // Check if adding these files would exceed maxFiles limit
+        // Check maxFiles limit
         if (maxFiles) {
           const remainingSlots = maxFiles - fileStates.length;
-          // If adding all files would exceed the limit, reject them all
           if (acceptedFiles.length > remainingSlots) {
             setError(`You can only add ${maxFiles} file(s).`);
             return;
           }
         }
 
-        addFiles(acceptedFiles);
+        // If onFilesSelected callback is provided, use it instead of addFiles
+        if (onFilesSelected) {
+          onFilesSelected(acceptedFiles);
+        } else {
+          addFiles(acceptedFiles);
+        }
       },
       ...dropzoneOptions,
     });
@@ -176,6 +187,7 @@ const Dropzone = React.forwardRef<HTMLInputElement, DropzoneProps>(
     );
   },
 );
+
 Dropzone.displayName = 'Dropzone';
 
 export { Dropzone };

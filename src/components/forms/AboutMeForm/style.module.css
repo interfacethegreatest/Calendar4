@@ -255,8 +255,20 @@
     cursor:pointer;
     pointer-events: all;
     padding-left: 15px;
-    padding-top: 15px;
+    padding-top: 25px;
     
+}
+
+#extenderSecond{
+    border-radius: 1.5rem;
+    /*border: 2px solid rgba(90, 89, 89, 0.295);*/
+    position: relative; /* Change to absolute positioning */
+    z-index: 4;
+    cursor:pointer;
+    pointer-events: all;
+    padding-left: 15px;
+    padding-top: 25px;
+    height: 50%;
 }
 
 .deleteExperienceBtn {

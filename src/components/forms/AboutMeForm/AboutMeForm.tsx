@@ -23,6 +23,7 @@ import { GrMoney } from "react-icons/gr";
 import { GoPlusCircle } from "react-icons/go";
 import { Controller } from 'react-hook-form';
 import DatePicker from 'react-datepicker';
+import { Files } from 'lucide-react';
 
 const font = Poppins({
   subsets: ["latin"],
@@ -79,8 +80,8 @@ export const FormSchema = z.object({
           jobDescription: '',
         },
       ])
-    )
-  /*educationalBackground: z
+    ),
+  educationalBackground: z
     .array(
       z.object({
         startDate: z.date().nullable(),
@@ -89,7 +90,7 @@ export const FormSchema = z.object({
           .string()
           .max(75, { message: "Educational institution name too long." })
           .default(''),
-        qualificationName: z
+        qualificationTitle: z
           .string()
           .max(75, { message: "Qualification title too long." })
           .default(''),
@@ -112,9 +113,9 @@ export const FormSchema = z.object({
         startDate: null,
         endDate: null,
         educationalInstitudtion: '',
-        qualificationName: '',
+        qualificationTitle: '',
       },
-    ]),*/
+    ]),
 });
 
 type FormSchemaType = z.infer<typeof FormSchema>;
@@ -133,7 +134,7 @@ const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe }) => {
   const [changedSlide, setChangedSlide] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [animation, setAnimation] = useState(true);
-
+  const [cvFile, setCvFile] = useState<File | null>(null);
   const {
     register,
     handleSubmit,
@@ -149,15 +150,45 @@ const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe }) => {
     },
   });
 
+
+  const handleFilesSelected = (files: File[]) => {
+    setCvFile(files[0]);
+  };
+
   const { fields, append, remove } = useFieldArray({
     control,
     name: "workExperience",
   });
 
+  const {
+    fields: educationalBackgroundFields,
+    append: appendEducation,
+    remove: removeEducation,
+  } = useFieldArray({
+    control,
+    name: "educationalBackground",
+  });
+
   const onSubmit: SubmitHandler<FormSchemaType> = async (values) => {
     try {
+      const uploadImage = async () => {
+        //if an image has been uploaded....
+        if (cvFile) {
+          const res = await edgestore.cvBucket.upload({
+          file: cvFile, // Ensure `file` is the actual image file
+          onProgressChange: (progress) => {
+            console.log(progress);
+          },
+          });
+            setValue('CV', res.url); // Set the uploaded image URL
+        }else{
+          return;
+        }
+      };
+      await uploadImage();
       alert("values.");
       console.log(values);
+    
     } catch (error) {
       alert("error")
       alert("Error during submit: " + error);
@@ -273,7 +304,7 @@ const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe }) => {
 
           <div id={style.visibleUpload}>
             <UploaderProvider uploadFn={uploadFn} autoUpload key={uploaderKey}>
-              <Dropzone
+              <Dropzone          
                 style={{ width: "100%" }}
                 dropzoneOptions={{
                   maxFiles: 1,
@@ -282,6 +313,9 @@ const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe }) => {
                     "application/pdf": [".pdf"],
                     "application/vnd.openxmlformats-officedocument.wordprocessingml.document": [".docx"],
                   },
+                }}
+                onFilesSelected={(Files) =>{
+                  setCvFile(Files[0] ?? null);
                 }}
               />
             </UploaderProvider>
@@ -467,22 +501,141 @@ const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe }) => {
 )}
 
 
-        {currentSlide === 4 && (
-          <>
-          <h2 id={style.title}>Please provide your educational background:</h2>
-          <h5 id={style.subtitle}>(Optional) Your educational background allows others to understand your studies.</h5>
-          <SlideButtonSubmit
-            type="submit"
-            slide_text="Save your details"
-            text="Save"
-            icon={<AiFillLock />}
-            width="250px"
+{currentSlide === 4 && (
+  <>
+    <h2 id={style.title}>Please provide your educational background:</h2>
+    <h5 id={style.subtitle}>
+      (Optional) Your educational background allows others to understand your studies.
+    </h5>
+    <p style={{ color: "aliceblue", textAlign: "center" }}>
+      Please provide correct educational information.
+    </p>
+    <div id={style.extenderSecond} className={style.uploadScrollArea}>
+      {educationalBackgroundFields.map((field, index) => (
+        <div key={field.id} className={style.experienceItem}>
+          <ModalInput
+            name={`educationalBackground.${index}.educationalInstitudtion`}
+            label="Institution"
+            type="text"
+            icon={<CiLock />}
+            placeholder="University or School Name"
+            register={register}
+            error={
+              errors?.educationalBackground?.[index]?.educationalInstitudtion?.message
+            }
             disabled={isSubmitting}
-            animation={animation}
-            setScene={() => null}
+            height={null}
+            topLocation={null}
+            inputLength={75}
           />
-          </>
-        )}
+          <br />
+          <br />
+          <ModalInput
+            name={`educationalBackground.${index}.qualificationTitle`}
+            label="Qualification"
+            type="text"
+            icon={<CiLock />}
+            placeholder="Degree or Certification"
+            register={register}
+            error={
+              errors?.educationalBackground?.[index]?.qualificationTitle?.message
+            }
+            disabled={isSubmitting}
+            height={null}
+            topLocation={null}
+            inputLength={75}
+          />
+          <br />
+          <div className={style.datePickerRow}>
+            <div className={style.datePickerField}>
+              <label className={style.datePickerLabel}>Start Date:</label>
+              <Controller
+                control={control}
+                name={`educationalBackground.${index}.startDate`}
+                render={({ field }) => (
+                  <DatePicker
+                    selected={field.value}
+                    onChange={field.onChange}
+                    dateFormat="MM/yyyy"
+                    showMonthYearPicker
+                    placeholderText="MM/YYYY"
+                    className={style.datePickerInput}
+                    portalId='root-portal'
+                  />
+                )}
+              />
+              {errors?.educationalBackground?.[index]?.startDate && (
+                <p className={style.error}>
+                  {errors.educationalBackground[index].startDate?.message?.toString()}
+                </p>
+              )}
+            </div>
+
+            <div className={style.datePickerField}>
+              <label className={style.datePickerLabel}>End Date:</label>
+              <Controller
+                control={control}
+                name={`educationalBackground.${index}.endDate`}
+                render={({ field }) => (
+                  <DatePicker
+                    selected={field.value}
+                    onChange={field.onChange}
+                    dateFormat="MM/yyyy"
+                    showMonthYearPicker
+                    placeholderText="MM/YYYY"
+                    className={style.datePickerInput}
+                    portalId='root-portal'
+                  />
+                )}
+              />
+              {errors?.educationalBackground?.[index]?.endDate && (
+                <p className={style.error}>
+                  {errors.educationalBackground[index].endDate?.message?.toString()}
+                </p>
+              )}
+            </div>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => removeEducation(index)}
+            className={style.deleteExperienceBtn}
+          >
+            <RiDeleteBin3Line />
+          </button>
+        </div>
+      ))}
+
+      <button
+        style={{ display: 'flex', marginRight: '5px' }}
+        type="button"
+        onClick={() =>
+          appendEducation({
+            educationalInstitudtion: '',
+            qualificationTitle: '',
+            startDate: null,
+            endDate: null,
+          })
+        }
+        className={style.addExperienceBtn}
+      >
+        <GoPlusCircle style={{ marginTop: '5px', marginRight: '5px' }} />
+        Add Education
+      </button>
+    </div>
+
+    <SlideButtonSubmit
+      type="submit"
+      slide_text="Save your details"
+      text="Save"
+      icon={<AiFillLock />}
+      width="250px"
+      disabled={isSubmitting}
+      animation={animation}
+      setScene={() => null}
+    />
+  </>
+)}
 
         <div id={style.slideCountContainer}>
           {Array.from({ length: currentSlide }).map((_, index) => (

@@ -52,35 +52,33 @@ export const FormSchema = z.object({
     .optional()
     .default([]),
 
-    workExperience: z.preprocess(
-      (val) => Array.isArray(val) && val.length === 0 ? undefined : val,
-      z.array(
-        z.object({
-          businessName: z.string().max(30).default(''),
-          jobTitle: z.string().max(30).default(''),
-          startDate: z.date().nullable(),
-          endDate: z.date().nullable(),
-          jobDescription: z.string().max(1000).default(''),
-        }).refine(
-          (data) =>
-            data.startDate === null ||
-            data.endDate === null ||
-            data.startDate <= data.endDate,
-          {
-            message: "Start date must be before end date.",
-            path: ["endDate"],
-          }
-        )
-      ).default([
-        {
-          businessName: '',
-          jobTitle: '',
-          startDate: null,
-          endDate: null,
-          jobDescription: '',
-        },
-      ])
-    ),
+    workExperience: z
+  .array(
+    z.object({
+      businessName: z.string().max(30).default(''),
+      jobTitle: z.string().max(30).default(''),
+      startDate: z.date().nullable(),
+      endDate: z.date().nullable(),
+      jobDescription: z.string().max(1000).default(''),
+    }).refine(
+      (data) =>
+        data.startDate === null ||
+        data.endDate === null ||
+        data.startDate <= data.endDate,
+      {
+        message: "Start date must be before end date.",
+        path: ["endDate"],
+      }
+    )
+  ).default([
+    {
+      businessName: '',
+      jobTitle: '',
+      startDate: null,
+      endDate: null,
+      jobDescription: '',
+    },
+    ]),
   educationalBackground: z
     .array(
       z.object({
@@ -105,9 +103,9 @@ export const FormSchema = z.object({
         }
       )
     )
-    .min(1, {
+    /*.min(1, {
       message: "At least one instance of educational background is required.",
-    })
+    })*/
     .default([
       {
         startDate: null,
@@ -170,6 +168,8 @@ const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe }) => {
   });
 
   const onSubmit: SubmitHandler<FormSchemaType> = async (values) => {
+    alert("values.");
+    console.log(values);
     try {
       const uploadImage = async () => {
         //if an image has been uploaded....

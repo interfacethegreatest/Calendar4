@@ -123,9 +123,10 @@ interface IAboutMeFormProps {
     description: string;
     cv: string;
   };
+  closeWindow:Function;
 }
 
-const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe }) => {
+const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe, closeWindow }) => {
   const [uploaderKey, setUploaderKey] = useState(0);
   const [uploadedFileUrl, setUploadedFileUrl] = useState<string | null>(AboutMe.cv || null);
   const { edgestore } = useEdgeStore();
@@ -133,6 +134,7 @@ const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [animation, setAnimation] = useState(true);
   const [cvFile, setCvFile] = useState<File | null>(null);
+  const [transcripts, setTranscripts] = React.useState<File[]>([]);
   const {
     register,
     handleSubmit,
@@ -168,32 +170,69 @@ const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe }) => {
   });
 
   const onSubmit: SubmitHandler<FormSchemaType> = async (values) => {
-    alert("values.");
-    console.log(values);
-    try {
-      const uploadImage = async () => {
-        //if an image has been uploaded....
-        if (cvFile) {
-          const res = await edgestore.cvBucket.upload({
-          file: cvFile, // Ensure `file` is the actual image file
-          onProgressChange: (progress) => {
-            console.log(progress);
-          },
-          });
-            setValue('CV', res.url); // Set the uploaded image URL
-        }else{
-          return;
+  try {
+    const allowedTypes = [
+      'application/pdf',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    ];
+
+    // Upload CV if present
+    const uploadCv = async () => {
+      if (!cvFile) return;
+
+      const res = await edgestore.cvBucket.upload({
+        file: cvFile,
+        onProgressChange: (progress) => {
+          console.log('CV Upload Progress:', progress);
+        },
+      });
+
+      setValue('CV', res.url); // Save uploaded CV URL
+    };
+
+    // Upload all valid transcript files
+    const uploadTranscripts = async () => {
+      if (!transcripts || transcripts.length === 0) return;
+
+      const uploadedUrls: string[] = [];
+
+      for (const file of transcripts) {
+        if (!allowedTypes.includes(file.type)) {
+          console.warn(`Skipping unsupported file: ${file.name}`);
+          continue;
         }
-      };
-      await uploadImage();
-      alert("values.");
-      console.log(values);
-    
-    } catch (error) {
-      alert("error")
-      alert("Error during submit: " + error);
-    }
-  };
+
+        const res = await edgestore.cvBucket.upload({
+          file,
+          onProgressChange: (progress) => {
+            console.log(`Transcript "${file.name}" upload progress:`, progress);
+          },
+        });
+
+        uploadedUrls.push(res.url);
+      }
+
+      setValue('Transcripts', uploadedUrls); // Save uploaded URLs
+    };
+
+    // Perform uploads
+    await uploadCv();
+    await uploadTranscripts();
+
+    // Get updated form values with uploaded URLs
+    const updatedValues = getValues();
+    console.log('Final form values:', updatedValues);
+
+    alert('Submission complete!');
+    closeWindow();
+  } catch (error) {
+    alert('Error during submit: ' + error);
+    console.error(error);
+  }
+};
+
+
+
 
   function uploadFn({
     file,
@@ -340,8 +379,11 @@ const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe }) => {
                     maxFiles={5}
                     maxSize={1024 * 1024 * 1}
                     accept={{
-                      'application/pdf': [],
-                      'text/plain': ['.txt'],
+                      "application/pdf": [".pdf"],
+                      "application/vnd.openxmlformats-officedocument.wordprocessingml.document": [".docx"],
+                    }}
+                    onFilesSelected={(files) => {
+                     setTranscripts(files); // store all selected files
                     }}
                   />
                 </UploaderProvider>

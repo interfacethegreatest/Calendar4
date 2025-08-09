@@ -175,6 +175,19 @@ const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe, closeWindow }) => {
       'application/pdf',
       'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     ];
+    /* todo fix this */
+    const fetchAboutMeData = async ()=>{
+      try {
+        const response = await fetch(`/api/auth/getAboutMeData?userId=${userId}`);
+        if(!response.ok) {
+          throw new Error('Failed to fetch image data.')
+        }
+        const data = await response.json();
+        console.log(data.image);
+      } catch (error) {
+        console.log("Error fetching profile image: " + error)
+      }
+    }
 
     // Upload CV if present
     const uploadCv = async () => {
@@ -223,7 +236,11 @@ const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe, closeWindow }) => {
     const updatedValues = getValues();
     console.log('Final form values:', updatedValues);
 
-    alert('Submission complete!');
+    const { data } = await axios.post('api/auth/', {
+        email: values.email,
+    });
+ 
+    toast.success(data.message);
     closeWindow();
   } catch (error) {
     alert('Error during submit: ' + error);
@@ -383,7 +400,12 @@ const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe, closeWindow }) => {
                       "application/vnd.openxmlformats-officedocument.wordprocessingml.document": [".docx"],
                     }}
                     onFilesSelected={(files) => {
-                     setTranscripts(files); // store all selected files
+                     setTranscripts((prev) => {
+                      const newFiles = files.filter(
+                      file => !prev.some(f => f.name === file.name && f.size === file.size)
+                      );
+                     return [...prev, ...newFiles];
+                    });
                     }}
                   />
                 </UploaderProvider>

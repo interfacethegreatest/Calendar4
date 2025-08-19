@@ -24,6 +24,7 @@ import { GoPlusCircle } from "react-icons/go";
 import { Controller } from 'react-hook-form';
 import DatePicker from 'react-datepicker';
 import { Files } from 'lucide-react';
+import axios from 'axios';
 
 const font = Poppins({
   subsets: ["latin"],
@@ -43,15 +44,14 @@ export const FormSchema = z.object({
       z.literal(''),
     ])
     .default(''),
-
-  Transcripts: z
-    .array(
-      z.string().url({ message: "Each transcript must be a valid URL." })
-    )
-    .max(5, { message: "You can upload up to 5 transcripts." })
-    .optional()
-    .default([]),
-
+    Transcripts: z.preprocess((val) => {
+      if (!val || val === "") return []; // handle empty string or null/undefined
+      return val;
+    },
+    z.array(z.string().url({ message: "Each transcript must be a valid URL." }))
+      .max(5, { message: "You can upload up to 5 transcripts." })
+    ),
+  
     workExperience: z
   .array(
     z.object({
@@ -84,7 +84,7 @@ export const FormSchema = z.object({
       z.object({
         startDate: z.date().nullable(),
         endDate: z.date().nullable(),
-        educationalInstitudtion: z
+        educationalInstitution: z
           .string()
           .max(75, { message: "Educational institution name too long." })
           .default(''),
@@ -110,7 +110,7 @@ export const FormSchema = z.object({
       {
         startDate: null,
         endDate: null,
-        educationalInstitudtion: '',
+        educationalInstitution: '',
         qualificationTitle: '',
       },
     ]),
@@ -145,8 +145,11 @@ const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe, closeWindow }) => {
   } = useForm<FormSchemaType>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      AboutMe: AboutMe.description || '',
-      CV: AboutMe.cv || '',
+      AboutMe: "",
+      CV: "",
+      workExperience: [],
+      educationalBackground: [],
+      Transcripts: [], // <-- register default here
     },
   });
 
@@ -175,7 +178,7 @@ const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe, closeWindow }) => {
       'application/pdf',
       'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     ];
-    /* todo fix this */
+    /* todo fix this 
     const fetchAboutMeData = async ()=>{
       try {
         const response = await fetch(`/api/auth/getAboutMeData?userId=${userId}`);
@@ -187,7 +190,7 @@ const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe, closeWindow }) => {
       } catch (error) {
         console.log("Error fetching profile image: " + error)
       }
-    }
+    }*/
 
     // Upload CV if present
     const uploadCv = async () => {
@@ -236,8 +239,8 @@ const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe, closeWindow }) => {
     const updatedValues = getValues();
     console.log('Final form values:', updatedValues);
 
-    const { data } = await axios.post('api/auth/', {
-        email: values.email,
+    const { data } = await axios.post('/api/auth/uploadAboutMe', {
+        values: updatedValues,
     });
  
     toast.success(data.message);

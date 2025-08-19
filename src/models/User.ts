@@ -29,12 +29,42 @@ const userSchema = new mongoose.Schema({
     }),
   },
   aboutYou: {
-    type: new mongoose.Schema({
-      aboutYou: { type: String, default: "This is yet to be completed." },
-      cv: { type: String, default: "" },
-    }),
+    type: new mongoose.Schema(
+      {
+        aboutYou: { type: String, default: "This is yet to be completed." },
+        cv: { type: String, default: "" },
+        transcripts: {
+          type: [String], // array of URLs
+          default: [],
+        },
+        workExperience: {
+          type: [
+            {
+              businessName: { type: String, default: "" },
+              jobTitle: { type: String, default: "" },
+              startDate: { type: Date, default: null },
+              endDate: { type: Date, default: null },
+              jobDescription: { type: String, default: "" },
+            },
+          ],
+          default: [],
+        },
+        educationalBackground: {
+          type: [
+            {
+              educationalInstitudtion: { type: String, default: "" },
+              qualificationTitle: { type: String, default: "" },
+              startDate: { type: Date, default: null },
+              endDate: { type: Date, default: null },
+            },
+          ],
+          default: [],
+        },
+      },
+      { _id: false } // <- important so each aboutYou doesn't create a new _id
+    ),
     default: {},
-  },
+  },  
   Biography: {
     type: String,
     default: "This user has not provided a description.",

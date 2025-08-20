@@ -38,7 +38,6 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
   const { user, imageString, clicked, setClicked, session, setShowContent, isLiked, setIsLiked,
    userString, descriptionString, websiteString, setTrigger,
   } = props;
-
   const [newFollowers, setFollowing] = useState(user.followers.length);
   const divRef = useRef(null);
   const { x, y } = useMousePosition(divRef);

@@ -124,9 +124,10 @@ interface IAboutMeFormProps {
     cv: string;
   };
   closeWindow:Function;
+  setServerSideProps : Function;
 }
 
-const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe, closeWindow }) => {
+const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe, closeWindow, setServerSideProps }) => {
   const [uploaderKey, setUploaderKey] = useState(0);
   const [uploadedFileUrl, setUploadedFileUrl] = useState<string | null>(AboutMe.cv || null);
   const { edgestore } = useEdgeStore();
@@ -242,8 +243,9 @@ const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe, closeWindow }) => {
     const { data } = await axios.post('/api/auth/uploadAboutMe', {
         values: updatedValues,
     });
- 
+    
     toast.success(data.message);
+    setServerSideProps(true);
     closeWindow();
   } catch (error) {
     alert('Error during submit: ' + error);

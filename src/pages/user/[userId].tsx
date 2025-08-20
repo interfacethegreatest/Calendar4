@@ -37,7 +37,7 @@ export default function user({
       setIsLiked(followingUsers.some(follower=> follower._id.toString() === session.id))
     }
   }, [session, followingUsers])
-
+  console.log(user._id)
   // Used to set the selection in the below the user profile,
   const [ selection, setSelection ] = useState([true, false, false, false]);
   // Used to show the content in the modal to allow for editing the user profile.
@@ -52,7 +52,11 @@ export default function user({
   const [ descriptionString, setDescriptionString ] = useState(null);
   // Used in the modal to set and use a user defined website
   const [ websiteString, setWebsiteString ] = useState(null);
-  // Used in a useEffect to find if a profile is already liked by the user,
+  // Used in a AboutYou to denote when the User edits or submits new AboutYou data via the modal.
+  const [aboutYouServerSideProps, getAboutYouServerSideProps] = useState(true)
+
+  //Used in aboutYouModal to load content,
+  const [isAboutYouLoading, setIsAboutYouLoading] = useState(true);
   //Variants for the profile component,
   const profileVariants = {
     initial: { scale: 1, opacity: 1 },
@@ -159,7 +163,15 @@ export default function user({
           <div id={style.information}>
             {
               selection[0] ? 
-              <AboutMe setShowContent={setShowContentAboutMe}/>
+              <AboutMe 
+               isLoading={isAboutYouLoading} 
+               setIsLoading={setIsAboutYouLoading} 
+               setShowContent={setShowContentAboutMe}
+               userId={user._id}
+               serverSideProps={aboutYouServerSideProps}
+               getServerSideProps={getAboutYouServerSideProps}
+               setShowContentAboutMe={setShowContentAboutMe}
+               />
               : null
             }
 
@@ -176,7 +188,7 @@ export default function user({
             animate={{ x: clicked ? "-100vw" : 0 }} // Slide out when clicked
             transition={{ type: "spring", stiffness: 70, damping: 20 }}>
               <TiltModal 
-               userId={user._id} 
+               userId={userId} 
                website={setWebsiteString} 
                description={setDescriptionString} 
                imageString={setImageString} 
@@ -200,6 +212,7 @@ export default function user({
        showContent={showContentAboutMe}
        setShowContent={setShowContentAboutMe} 
        aboutYou={user.aboutYou} 
+       setServerSideProps={getAboutYouServerSideProps}
       />
     </motion.div>
   </div>

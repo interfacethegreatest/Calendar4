@@ -9,7 +9,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     try {
         await connectDB(); // Ensure the database is connected
-
         const { userId } = req.query; // Get the userId from the query parameters
         console.log("User ID EQUALS :" + userId)
         if (!userId || typeof userId !== 'string') {
@@ -22,7 +21,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             return res.status(404).json({ message: 'User not found!' });
         }
 
-        res.status(200).json({ image: user.image }); // Assume 'profileImage' is the field name
+        res.status(200).json({ image: user.image, user: user }); // Assume 'profileImage' is the field name
     } catch (error) {
         console.error('Error fetching profile image:', error);
         res.status(500).json({ messag4e: 'Internal Server Error' });

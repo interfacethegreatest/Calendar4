@@ -21,12 +21,13 @@ interface ITiltModalAboutMeProps {
   aboutYou: any;
   setShowContent: Function;
   showContent: Boolean;
+  setServerSideProps: Function
 }
 
 // Use forwardRef to handle the `ref` prop
 const TiltModalAboutMe = forwardRef<HTMLDivElement, ITiltModalAboutMeProps>((props, ref) => {
   const [clicked, setClicked] = useState(false); // State to track if the slide-out is triggered
-  const { setShowContent,showContent, aboutYou} = props;
+  const { setShowContent,showContent, aboutYou, setServerSideProps} = props;
   //log user id for testing,
   const closeWindow = () => {
     setShowContent(false); // Trigger slide-out effect
@@ -77,7 +78,7 @@ const TiltModalAboutMe = forwardRef<HTMLDivElement, ITiltModalAboutMeProps>((pro
             <motion.div id={styles.logo}>
               <TbLetterC style={{ position: "absolute", height: "100%", zIndex: "2", color: "aliceblue", cursor:"pointer" }} />
             </motion.div>
-            <AboutMeForm AboutMe={aboutYou} closeWindow={closeWindow}/>
+            <AboutMeForm AboutMe={aboutYou} closeWindow={closeWindow} setServerSideProps={setServerSideProps}/>
           </div>
         </div>
       </Tilt>

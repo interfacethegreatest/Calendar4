@@ -1,6 +1,113 @@
 
 #about{
  color: aliceblue;
- border: 2px solid salmon;
+ /*border: 2px solid salmon;*/
  height: 950px;
+ display: flex;
+ flex-direction: row-reverse;
+}
+
+
+#main{
+    height: 910px;
+    width: 92.5%;
+    border: 2px solid rgba(90, 89, 89, 0.295);
+    z-index: 8;
+    cursor: pointer;
+    border-radius: 1.5rem;
+    background-color: black;
+    transform: translateX(-6%);
+}
+
+#backing{
+    border: 2px solid rgba(90, 89, 89, 0.295);
+    position: absolute;
+    top: 10px;   /* offset downward */
+    left: -5px;  /* offset rightward */
+    z-index: -1;  /* behind #main */
+    width: 65%;
+    height: 43%;
+    border-radius: 20px;
+    background-color: rgba(48, 121, 97, 0.072);
+    transform: rotateY(-10deg) rotateX(9.5deg); /* optional: subtle tilt */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+#backing2{
+    border: 2px solid rgba(90, 89, 89, 0.295);
+    width: 50%;
+    height: 56.5%;
+    position: absolute;
+    border-radius: 1.5rem;
+    background-color: rgba(48, 121, 97, 0.072);
+    z-index: -1;
+    transform: translateY(8%);
+}
+
+#spinnerCentre{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+#editBar{
+    display: flex;
+    flex-direction: row-reverse;
+    text-decoration: underline;
+    border: 2px solid rgba(90, 89, 89, 0.295);
+    height: 39px;
+    border-radius: 1.5rem;
+    margin-top: 0px;
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+#mainTitle{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: underline;
+    font-size: 2.5rem;
+    transform: translateY(55%);
+    background-color: black;
+}
+
+#spinner{
+    margin-top: 100px;
+}
+
+#AboutYou{
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ text-align: center;
+}
+
+#aboutYouContainer{
+    display: flex;
+    flex-direction: row-reverse;
+    border: 2px solid rgba(90, 89, 89, 0.295);
+    height: 195px;
+    border-radius: 1.5rem;
+    margin-top: 0px;
+    margin-left: 75px;
+    margin-right: 75px;
+    padding: 25px;
+}
+
+#transcriptContainer{
+    display: flex;
+    border: 2px solid rgba(90, 89, 89, 0.295);
+    height: 64px;
+    border-radius: 1.5rem;
+    margin-top: 0px;
+    margin-left: 75px;
+    margin-right: 75px;
+}
+
+#mainSubtitle{
+    margin-left: 25px;
+    transform: translateY(-45%);
+    background-color: black;
 }

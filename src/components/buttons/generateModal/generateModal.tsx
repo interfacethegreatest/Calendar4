@@ -30,7 +30,7 @@ const GenerateModal: React.FunctionComponent<IGenerateModalProps> = (props) => {
   }
   {
     fields =="Edit Documents" ?
-    <motion.button title='Edit' style={{border, position:"relative", zIndex:1}} className={font.className} id={style.editProfile} onClick={()=>setShowContent(true)}>
+    <motion.button title='Edit' style={{ position:"relative", zIndex:1}} className={font.className} id={style.editProfile} onClick={()=>setShowContent(true)}>
     <span id={style.mainText}><MdEdit style={{marginBottom:"2px", marginRight:"0px", marginTop:"4px"}}/></span>
     </motion.button> 
     : null

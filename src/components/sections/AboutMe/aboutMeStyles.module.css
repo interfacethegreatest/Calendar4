@@ -69,19 +69,22 @@
     justify-content: center;
     text-decoration: underline;
     font-size: 2.5rem;
-    transform: translateY(55%);
+    transform: translate(18.5rem,1.5rem);
     background-color: black;
+    width: 25%;
+
 }
 
 #spinner{
     margin-top: 100px;
 }
 
-#AboutYou{
+.AboutYou{
  display: flex;
  justify-content: center;
  align-items: center;
  text-align: center;
+text-decoration: underline;
 }
 
 #aboutYouContainer{
@@ -96,7 +99,7 @@
     padding: 25px;
 }
 
-#transcriptContainer{
+#cvContainer{
     display: flex;
     border: 2px solid rgba(90, 89, 89, 0.295);
     height: 64px;
@@ -106,8 +109,30 @@
     margin-right: 75px;
 }
 
-#mainSubtitle{
-    margin-left: 25px;
-    transform: translateY(-45%);
+#cvTitle{
     background-color: black;
+    transform: translate(15%,-48%)
+
+}
+
+#mainSubtitle{
+    display: flex;
+    margin-left: 25px;
+    transform: translateY(75px);
+    transform: translateX(-4%);
+    white-space: nowrap;   /* prevents line breaks */
+    overflow: hidden;      /* optional: hides overflowing text */
+    text-overflow: ellipsis;
+    font-size: 1.0rem;
+}
+
+#mainSubtitleInitial{
+    white-space: nowrap;   /* prevents line breaks */
+    overflow: hidden;      /* optional: hides overflowing text */
+    text-overflow: ellipsis;
+    margin-left: 25px;
+    text-align:end;
+    transform: translate(-70%,35%);
+    font-size: 1.95rem;
+    z-index: 3;
 }

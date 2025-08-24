@@ -322,70 +322,44 @@ const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe, closeWindow, setSer
     <div className={style["spacer-sm"]}></div>
     <h5 id={style.subtitle}>You can provide a CV for public view...</h5>
     <p style={{ textAlign: "center", color: "aliceblue" }}>
-            A CV allows users to access your previous work history and gauge your understanding of topics (.pdf or .docx).
+      A CV allows users to access your previous work history and gauge your understanding of topics (.pdf or .docx).
     </p>
     <div className={style["spacer-lg"]}></div>
-    <div id={style.priorCVHolder}>
-      {AboutMe.cv === "" && (
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <div className={style.spacer}></div>
 
-          {uploadedFileUrl && (
-            <>
-              <div style={{ display: "flex", flexDirection: "row" }}>
-                <p id={style.fileText}>
-                  <b>
-                    <a href={uploadedFileUrl} target="_blank">Your CV</a> — Delete to upload a new one.
-                  </b>
-                </p>
-                <button
-                  id={style.deleteContainer}
-                  onClick={async (e) => {
-                    e.preventDefault();
-                    try {
-                      await edgestore.cvBucket.delete({ url: uploadedFileUrl });
-                      setUploadedFileUrl(null);
-                      setUploaderKey((prev) => prev + 1);
-                      toast.success("CV deleted.");
-                    } catch (error) {
-                      alert("Error deleting file.");
-                    }
-                  }}
-                >
-                  <RiDeleteBin3Line />
-                </button>
-              </div>
-              <div className={style.spacer}></div>
-            </>
-          )}
-
-          <div className={style.spacer}></div>
-
-          
-
-          <div id={style.visibleUpload}>
-            <UploaderProvider uploadFn={uploadFn} autoUpload key={uploaderKey}>
-              <Dropzone          
-                style={{ width: "100%" }}
-                dropzoneOptions={{
-                  maxFiles: 1,
-                  maxSize: 1024 * 1024 * 2,
-                  accept: {
-                    "application/pdf": [".pdf"],
-                    "application/vnd.openxmlformats-officedocument.wordprocessingml.document": [".docx"],
-                  },
-                }}
-                onFilesSelected={(Files) =>{
-                  setCvFile(Files[0] ?? null);
-                }}
-              />
-            </UploaderProvider>
+    <div id={style.priorCVHolder} style={{ display: "flex", flexDirection: "column" }}>
+      {/* Show existing CV if available */}
+      {uploadedFileUrl && (
+        <>
+          <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
           </div>
-        </div>
+          <div className={style.spacer}></div>
+        </>
       )}
+
+      {/* Always show uploader so user can replace CV */}
+      <br />
+      <div id={style.visibleUpload}>
+        <UploaderProvider uploadFn={uploadFn} autoUpload key={uploaderKey}>
+          <Dropzone
+            style={{ width: "100%" }}
+            dropzoneOptions={{
+              maxFiles: 1,
+              maxSize: 1024 * 1024 * 2,
+              accept: {
+                "application/pdf": [".pdf"],
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.document": [".docx"],
+              },
+            }}
+            onFilesSelected={(files) => {
+              setCvFile(files[0] ?? null);
+            }}
+          />
+        </UploaderProvider>
+      </div>
     </div>
   </>
 )}
+
 
         {currentSlide === 2 && (
           <>

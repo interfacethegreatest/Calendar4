@@ -90,6 +90,7 @@ export default function user({
     var newSelection = [false, false, false,false]
     newSelection[arg0] = true;
     setSelection(newSelection)
+    
   }
   const [clicked, setClicked] = useState(false)
   useEffect(() => {

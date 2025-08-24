@@ -182,7 +182,8 @@
     cursor:pointer;
     pointer-events: all;
     color: aliceblue;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
+    margin-top: 50px;
     margin-left: 5px;
     width: 100%;
 }

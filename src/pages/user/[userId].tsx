@@ -17,6 +17,8 @@ import ProfileBody from '@/components/sections/ProfileBody/ProfileBody';
 import TiltModalAboutMe from '@/components/modals/TiltModalAboutMe/TiltModalAboutMe';
 import Profile from '@/components/sections/Profile/Profile';
 import FollowersPage from '@/components/sections/FollowersPage/FollowersPage';
+import Projects from '@/components/sections/Projects/Projects';
+import TiltModalProjects from '@/components/modals/TiltModalProjects/TiltModalProjects';
 
 
 export default function user({
@@ -44,6 +46,7 @@ export default function user({
   const [showContent, setShowContent] = useState(false);
   // Used to show the content in the modal to edit the aboutYou section 
   const [showContentAboutMe, setShowContentAboutMe] = useState(false)
+  const [showContentProjects, setShowContentProjects] = useState(false)
   // Used in the modal to set and use a user defined image 
   const [ imageString, setImageString ] = useState(null);
   // Used in the modal to set and use a user defined username, 
@@ -177,6 +180,16 @@ export default function user({
             }
 
           </div>
+          <div id={style.information}>
+            {
+              selection[1] ? 
+              <Projects 
+               setShowContentProjects={setShowContentProjects}
+               />
+              : null
+            }
+
+          </div>
           </motion.div>
          </div>
      </div>
@@ -214,6 +227,21 @@ export default function user({
        setShowContent={setShowContentAboutMe} 
        aboutYou={user.aboutYou} 
        setServerSideProps={getAboutYouServerSideProps}
+      />
+    </motion.div>
+  </div>
+)}
+{showContentProjects && (
+      <div id={style.modalBacking}>
+    <motion.div
+      initial={{ x: "-100vw" }}
+      animate={{ x: 0 }} // Slides in
+      exit={{ x: "-100vw" }} // Slides out
+      transition={{ type: "spring", stiffness: 70, damping: 20 }}
+    >
+      <TiltModalProjects
+       showContent={showContentProjects}
+       setShowContent={setShowContentProjects} 
       />
     </motion.div>
   </div>

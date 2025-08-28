@@ -52,7 +52,7 @@ const userSchema = new mongoose.Schema({
         educationalBackground: {
           type: [
             {
-              educationalInstitudtion: { type: String, default: "" },
+              educationalInstitution: { type: String, default: "" },
               qualificationTitle: { type: String, default: "" },
               startDate: { type: Date, default: null },
               endDate: { type: Date, default: null },

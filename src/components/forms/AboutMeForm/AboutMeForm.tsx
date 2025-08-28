@@ -557,14 +557,14 @@ const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe, closeWindow, setSer
       {educationalBackgroundFields.map((field, index) => (
         <div key={field.id} className={style.experienceItem}>
           <ModalInput
-            name={`educationalBackground.${index}.educationalInstitudtion`}
+            name={`educationalBackground.${index}.educationalInstitution`}
             label="Institution"
             type="text"
             icon={<CiLock />}
             placeholder="University or School Name"
             register={register}
             error={
-              errors?.educationalBackground?.[index]?.educationalInstitudtion?.message
+              errors?.educationalBackground?.[index]?.educationalInstitution?.message
             }
             disabled={isSubmitting}
             height={null}
@@ -654,7 +654,7 @@ const AboutMeForm: React.FC<IAboutMeFormProps> = ({ AboutMe, closeWindow, setSer
         type="button"
         onClick={() =>
           appendEducation({
-            educationalInstitudtion: '',
+            educationalInstitution: '',
             qualificationTitle: '',
             startDate: null,
             endDate: null,

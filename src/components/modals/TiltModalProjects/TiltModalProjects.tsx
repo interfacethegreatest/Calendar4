@@ -9,6 +9,7 @@ import { useState, forwardRef, useEffect } from "react";
 import { TbLetterC } from "react-icons/tb";
 import { MdOutlineClose } from "react-icons/md";
 import AboutMeForm from "@/components/forms/AboutMeForm/AboutMeForm";
+import ProjectsForm from "@/components/forms/ProjectsForm/ProjectsForm";
 
 
 const font = Poppins({
@@ -80,6 +81,7 @@ const TiltModalProjects = forwardRef<HTMLDivElement, ITiltModalProjectsProps>((p
             <motion.div id={styles.logo}>
               <TbLetterC style={{ position: "absolute", height: "100%", zIndex: "2", color: "aliceblue", cursor:"pointer" }} />
             </motion.div>
+            <ProjectsForm/>
           </div>
         </div>
       </Tilt>

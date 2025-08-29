@@ -1,0 +1,63 @@
+#openButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 38px;
+    height: 38px;
+    color: aliceblue;
+    border-radius: 24px;
+    cursor: pointer;
+    z-index: 3;
+    background-color: rgb(65, 65, 65);
+    pointer-events: all;
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px solid rgba(146, 146, 146, 0.7);
+}
+
+#openButton:hover {
+    background-color: rgb(56, 137, 110);
+    color: aliceblue;
+    
+}
+
+#buttonCross {
+    transition: transform 0.3s ease;
+  }
+  
+  .rotate {
+    transform: rotate(45deg); /* turns the plus into a cross */
+  }
+
+#additionalContent{
+  border: 2px solid rgba(146, 146, 146, 0.7);
+  height: 385px;
+  width: 80%;
+  border-radius: 1.5rem;
+  margin-left: auto;
+  margin-right: auto;
+  pointer-events: all;
+    z-index: 3;
+}
+
+#additionalContent:hover{
+  
+}
+
+#additionalTitle{
+  color: aliceblue;
+  text-align: center;
+}
+
+#projectTitleContainer{
+  padding-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#projectDescriptionContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

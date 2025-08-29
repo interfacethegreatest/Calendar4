@@ -151,10 +151,10 @@ export default function user({
           <br />
           <div id={style.selector}>
             {
-              selection[0] ? <ul id={style.selectedText}>About</ul> : <ul onClick={()=>handleClick(0)} id={style.selectorText}>About</ul>
+              selection[0] ? <ul id={style.selectedText}>Projects</ul> : <ul onClick={()=>handleClick(0)} id={style.selectorText}>Projects</ul>
             }
             {
-              selection[1] ? <ul id={style.selectedText}>Projects</ul> : <ul onClick={()=>handleClick(1)} id={style.selectorText}>Projects</ul>
+              selection[1] ? <ul id={style.selectedText}>About</ul> : <ul onClick={()=>handleClick(1)} id={style.selectorText}>About</ul>
             }
             {
               selection[2] ? <ul id={style.selectedText}>Bookshelf</ul> : <ul onClick={()=>handleClick(2)} id={style.selectorText}>Bookshelf</ul>
@@ -167,6 +167,16 @@ export default function user({
           <div id={style.information}>
             {
               selection[0] ? 
+              <Projects 
+               setShowContentProjects={setShowContentProjects}
+               /> : null
+              
+            }
+
+          </div>
+          <div id={style.information}>
+            {
+              selection[1] ? 
               <AboutMe 
                isLoading={isAboutYouLoading} 
                setIsLoading={setIsAboutYouLoading} 
@@ -175,18 +185,7 @@ export default function user({
                serverSideProps={aboutYouServerSideProps}
                getServerSideProps={getAboutYouServerSideProps}
                setShowContentAboutMe={setShowContentAboutMe}
-               />
-              : null
-            }
-
-          </div>
-          <div id={style.information}>
-            {
-              selection[1] ? 
-              <Projects 
-               setShowContentProjects={setShowContentProjects}
-               />
-              : null
+               /> : null
             }
 
           </div>

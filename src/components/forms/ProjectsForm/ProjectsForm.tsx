@@ -1,6 +1,6 @@
 import SlideButtonSubmit from "@/components/buttons/auth/slideButtonSubmit";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { AiFillLock } from "react-icons/ai";
 import { AiOutlinePlus } from "react-icons/ai";
@@ -8,6 +8,7 @@ import z from "zod";
 import style from './style.module.css';
 import { CiLock } from "react-icons/ci";
 import ModalInput from "@/components/input/ModalInput/ModalInput";
+import TagInput from "@/components/input/TagInput/TagInput";
 
 export const FormSchema = z.object({
   ProjectTitle: z
@@ -17,7 +18,14 @@ export const FormSchema = z.object({
   ProjectDescription: z
   .string()
   .min(5, {message: "Longer project description is required."})
-  .max(100, {message: "Too many characters."})
+  .max(100, {message: "Too many characters."}),
+  Tags: z
+  .array(
+    z.string()
+      .min(1, { message: "Tag cannot be empty." })
+      .max(20, { message: "Tag too long." })
+  )
+  .default([]),
 });
 
 
@@ -30,16 +38,29 @@ interface ProjectsFormProps {
 const ProjectsForm: React.FC<ProjectsFormProps> = ({ onSubmit }) => {
   const [animation, setAnimation] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
+  //stores tags for tag option,
+  const [tags, setTags] = useState<string[]>([]);
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<FormSchemaType>({
     resolver: zodResolver(FormSchema),
+    defaultValues: {
+      ProjectTitle: "",
+      ProjectDescription: "",
+      Tags: [], 
+    },
   });
+
+  useEffect(() => {
+    setValue("Tags", tags, { shouldValidate: true, shouldDirty: true });
+  }, [tags, setValue]);
 
   const onSubmitHandler: SubmitHandler<FormSchemaType> = async (values) => {
     try {
+      setValue('Tags', tags);
       alert("Form submitted: " + JSON.stringify(values));
       console.log("Form submitted:", values);
     } catch (error) {
@@ -91,6 +112,20 @@ const ProjectsForm: React.FC<ProjectsFormProps> = ({ onSubmit }) => {
         topLocation={null}
         inputLength={100} // max length matches your schema
        />
+      </div>
+      <br />
+      <div id={style.tagGeneratorContainer}>
+        <TagInput 
+              name={"Tags"}
+              label={"Tags"}
+              placeholder={""}
+              tags={tags}
+              setTags={setTags}
+              error={errors?.Tags?.message}
+              disabled={isSubmitting}
+              height={null}
+              topLocation={null}
+              inputLength={20} prevSlide={undefined} type={""} icon={undefined}/>
       </div>
       {/* You can add form fields, inputs, buttons, etc. here */}
       </div>

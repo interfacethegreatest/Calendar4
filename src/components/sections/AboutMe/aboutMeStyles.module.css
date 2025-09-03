@@ -13,10 +13,10 @@
     width: 92.5%;
     border: 2px solid rgba(90, 89, 89, 0.295);
     z-index: 8;
-    cursor: pointer;
     border-radius: 1.5rem;
     background-color: black;
-    transform: translateX(-6%);
+    transform: translateX(3%);
+    
 }
 
 #backing{

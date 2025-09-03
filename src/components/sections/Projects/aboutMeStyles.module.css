@@ -16,7 +16,8 @@
     cursor: pointer;
     border-radius: 1.5rem;
     background-color: black;
-    transform: translateX(-6%);
+    transform: translateX(3%);
+    
 }
 
 #backing{
@@ -249,3 +250,4 @@
     background-color: black;
     transform: translate(0%, -90%);
 }
+

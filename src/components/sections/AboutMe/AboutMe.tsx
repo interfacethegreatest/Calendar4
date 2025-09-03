@@ -2,10 +2,9 @@ import * as React from 'react';
 import style from './aboutMeStyles.module.css';
 import GenerateModal from '@/components/buttons/generateModal/generateModal';
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import TiltModalAboutMe from '@/components/modals/TiltModalAboutMe/TiltModalAboutMe';
-import { FadeLoader, SyncLoader } from 'react-spinners';
-import axios from 'axios';
+import { SyncLoader } from 'react-spinners';
+import Tilt from 'react-parallax-tilt';
+
 
 interface IAboutMeProps {
   setShowContent: Function;
@@ -56,6 +55,12 @@ const AboutMe: React.FunctionComponent<IAboutMeProps> = (props) => {
   return<>
   <div id={style.about}>
     <div id={style.backing2}></div>
+    <Tilt
+       scale={1}
+       tiltMaxAngleX={1}
+       tiltMaxAngleY={1}
+       style={{ display: 'block', width: '100%' }} 
+    >
     <div id={style.main}>
       {
         isLoading?
@@ -158,6 +163,7 @@ const AboutMe: React.FunctionComponent<IAboutMeProps> = (props) => {
       }
     
     </div>
+    </Tilt>
     <div id={style.backing}>
      
     </div>

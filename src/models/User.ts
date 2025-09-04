@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { any, string } from "zod";
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -13,7 +12,8 @@ const userSchema = new mongoose.Schema({
   },
   image: {
     type: String,
-    default: "https://toppng.com/uploads/preview/instagram-default-profile-picture-11562973083brycehrmyv.png",
+    default:
+      "https://toppng.com/uploads/preview/instagram-default-profile-picture-11562973083brycehrmyv.png",
   },
   password: {
     type: String,
@@ -61,20 +61,19 @@ const userSchema = new mongoose.Schema({
           default: [],
         },
       },
-      { _id: false } // <- important so each aboutYou doesn't create a new _id
+      { _id: false }
     ),
     default: {},
-  },  
+  },
   Biography: {
     type: String,
     default: "This user has not provided a description.",
   },
   Website: {
     type: String,
-    default: "", // Default value for an empty string
+    default: "",
   },
   followers: {
-    //remove zeroth object in schema
     type: [mongoose.Schema.Types.Mixed],
     default: [],
   },
@@ -85,6 +84,18 @@ const userSchema = new mongoose.Schema({
   role: {
     type: String,
     default: "user",
+  },
+  projects: {
+    type: [
+      {
+        projectTitle: { type: String, required: true },
+        projectDescription: { type: String, default: "" },
+        tags: { type: [String], default: [] },
+        dueAt: { type: Date, default: null },
+        createdAt: { type: Date, default: Date.now },
+      },
+    ],
+    default: [],
   },
 });
 

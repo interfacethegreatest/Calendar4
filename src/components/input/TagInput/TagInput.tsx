@@ -118,7 +118,7 @@ const TagInput: React.FunctionComponent<ITagInputProps> = (props) => {
             autoComplete="off"
             value={text}
             onChange={handleInputChange}
-            onKeyDown={handleKeyDown}   // 🔑 capture Enter
+            onKeyDown={handleKeyDown}   
             style={{ top: topLocation! }}
             disabled={isDisabled}
             onFocus={handleClickedContent}

@@ -66,3 +66,25 @@
   padding-left: 18px;
   width: 100%;
 }
+
+#showElement{
+  background-color: black;
+  color: rgb(106, 106, 106);
+  margin-left: 4px;
+}
+
+.datePickerLabel{
+  color: rgb(106, 106, 106);
+}
+
+.datePickerInput{
+  color: rgb(106, 106, 106);
+}
+
+#dueDateContainer{
+  padding-left: 10px;
+  border: 1px solid rgb(106, 106, 106);
+  border-radius: 6px;
+  margin-left: 20px;
+  margin-right: 20px;
+}

@@ -81,7 +81,7 @@ const TiltModalProjects = forwardRef<HTMLDivElement, ITiltModalProjectsProps>((p
             <motion.div id={styles.logo}>
               <TbLetterC style={{ position: "absolute", height: "100%", zIndex: "2", color: "aliceblue", cursor:"pointer" }} />
             </motion.div>
-            <ProjectsForm/>
+            <ProjectsForm closeWindow={closeWindow}/>
           </div>
         </div>
       </Tilt>

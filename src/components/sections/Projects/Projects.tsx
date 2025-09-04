@@ -10,6 +10,7 @@ interface IProjectsProps {
 const Projects: React.FunctionComponent<IProjectsProps> = (props) => {
   const {setShowContentProjects } = props;
   const [aboutYouData, setAboutYouData] = useState(null);
+  const [refreshedData , setRefreshedData] = useState(false);
 
 
   return (

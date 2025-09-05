@@ -45,9 +45,10 @@ type FormSchemaType = z.infer<typeof FormSchema>;
 interface ProjectsFormProps {
   onSubmit?: (values: FormSchemaType) => void;
   closeWindow: Function;
+  getServerSideProps: Function;
 }
 
-const ProjectsForm: React.FC<ProjectsFormProps> = ({ onSubmit, closeWindow }) => {
+const ProjectsForm: React.FC<ProjectsFormProps> = ({ onSubmit, closeWindow, getServerSideProps }) => {
   const [animation, setAnimation] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [tags, setTags] = useState<string[]>([]);
@@ -84,6 +85,7 @@ const ProjectsForm: React.FC<ProjectsFormProps> = ({ onSubmit, closeWindow }) =>
       
       console.log("Form submitted:", values);
       toast.success(data.message);
+      getServerSideProps(true);
       closeWindow();
     } catch (error) {
       alert("Error during submit: " + error);

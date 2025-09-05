@@ -88,3 +88,8 @@
   margin-left: 20px;
   margin-right: 20px;
 }
+
+
+.glowActive {
+  border-color: rgb(56, 137, 110);
+}

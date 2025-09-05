@@ -60,6 +60,8 @@ export default function user({
 
   //Used in aboutYouModal to load content,
   const [isAboutYouLoading, setIsAboutYouLoading] = useState(true);
+  //uSed in projects to load content,
+  const [projectServerSideProps, getProjectServerSideProps] = useState(true);
   //Variants for the profile component,
   const profileVariants = {
     initial: { scale: 1, opacity: 1 },
@@ -169,7 +171,11 @@ export default function user({
               selection[0] ? 
               <Projects 
                setShowContentProjects={setShowContentProjects}
-               /> : null
+               serverSideProps={projectServerSideProps}
+               getServerSideProps={getProjectServerSideProps}
+               userId={userId}
+               /> 
+               : null
               
             }
 
@@ -241,6 +247,7 @@ export default function user({
       <TiltModalProjects
        showContent={showContentProjects}
        setShowContent={setShowContentProjects} 
+       getServerSideProps={getProjectServerSideProps}
       />
     </motion.div>
   </div>

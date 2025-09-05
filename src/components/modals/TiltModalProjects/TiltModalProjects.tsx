@@ -21,12 +21,13 @@ const font = Poppins({
 interface ITiltModalProjectsProps {
   setShowContent: Function;
   showContent: Boolean;
+  getServerSideProps: Function;
 }
 
 // Use forwardRef to handle the `ref` prop
 const TiltModalProjects = forwardRef<HTMLDivElement, ITiltModalProjectsProps>((props, ref) => {
   const [clicked, setClicked] = useState(false); // State to track if the slide-out is triggered
-  const { setShowContent,showContent} = props;
+  const { setShowContent,showContent, getServerSideProps} = props;
   //log user id for testing,
   const closeWindow = () => {
     setShowContent(false); // Trigger slide-out effect
@@ -81,7 +82,7 @@ const TiltModalProjects = forwardRef<HTMLDivElement, ITiltModalProjectsProps>((p
             <motion.div id={styles.logo}>
               <TbLetterC style={{ position: "absolute", height: "100%", zIndex: "2", color: "aliceblue", cursor:"pointer" }} />
             </motion.div>
-            <ProjectsForm closeWindow={closeWindow}/>
+            <ProjectsForm getServerSideProps={getServerSideProps} closeWindow={closeWindow}/>
           </div>
         </div>
       </Tilt>

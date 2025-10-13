@@ -23,12 +23,12 @@ const DueAtSchema = z
 export const FormSchema = z.object({
   ProjectTitle: z
     .string()
-    .min(5, { message: "Project title is required." })
-    .max(45, { message: "Too many characters." }),
+    .min(5, { message: "Project title requires 5 or more characters." })
+    .max(23, { message: "Too many characters. ( 23max )" }),
   ProjectDescription: z
     .string()
-    .min(5, { message: "Longer project description is required." })
-    .max(200, { message: "Too many characters." }),
+    .min(5, { message: "Longer project description is characters." })
+    .max(50, { message: "Too many characters.( 50max )" }),
   Tags: z
     .array(
       z.string()

@@ -114,21 +114,16 @@ const Projects: React.FunctionComponent<IProjectsProps> = (props) => {
                             }
                             </p>
                           </div>
-                          <div id={style.projectMainTagContainer}>
-                          {
+                          <div className={style.projectMainTagContainer}>
+                           {
                             project.tags && project.tags.length > 0 ? (
-                              project.tags.map((tag: string, tagIndex: number)=>(
-                                <>
-                                 <div id={style.projectMainTag} key={tagIndex}>
-                                  {
-                                    tag
-                                  }
-                                 </div>
-                                </>
-                              ))
-
+                            project.tags.map((tag: string, tagIndex: number) => (
+                            <div className={style.projectMainTag} key={tagIndex}>
+                             {tag}
+                            </div>
+                            ))
                             ) : null
-                          }
+                           }
                           </div>
                           </div>
                           <div id={style.projectBacking}></div>

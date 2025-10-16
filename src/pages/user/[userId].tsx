@@ -94,8 +94,7 @@ export default function user({
     //after the user clicks next in the edit modal, move to the next page, setSelection(true) enables this.
     var newSelection = [false, false, false,false]
     newSelection[arg0] = true;
-    setSelection(newSelection)
-    
+    setSelection(newSelection);
   }
   const [clicked, setClicked] = useState(false)
   useEffect(() => {
@@ -153,7 +152,7 @@ export default function user({
           <br />
           <div id={style.selector}>
             {
-              selection[0] ? <ul id={style.selectedText}>Projects</ul> : <ul onClick={()=>handleClick(0)} id={style.selectorText}>Projects</ul>
+              selection[0] ? <ul id={style.selectedText}>Projects</ul> : <ul onClick={()=>{handleClick(0), getProjectServerSideProps(true) }} id={style.selectorText}>Projects</ul>
             }
             {
               selection[1] ? <ul id={style.selectedText}>About</ul> : <ul onClick={()=>handleClick(1)} id={style.selectorText}>About</ul>

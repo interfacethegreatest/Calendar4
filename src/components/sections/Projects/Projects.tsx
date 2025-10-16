@@ -4,6 +4,7 @@ import GenerateModal from '@/components/buttons/generateModal/generateModal';
 import { useEffect, useState } from 'react';
 import Tilt from 'react-parallax-tilt';
 import { SyncLoader } from 'react-spinners';
+import { RiDeleteBin3Line } from 'react-icons/ri';
 
 interface IProjectsProps {
   setShowContentProjects: (v: boolean) => void;
@@ -36,16 +37,22 @@ const Projects: React.FunctionComponent<IProjectsProps> = (props) => {
           // turn off the flag from the server-side trigger
           getServerSideProps(false);
           // small delay for smoother spinner UX
-          setTimeout(() => setLoading(false), 500);
+          setTimeout(() => {
+            setLoading(false);
+          }, 500);
         }
       } else {
         // Nothing to fetch → don't get stuck on spinner
-        setLoading(false);
+        //setLoading(false);
       }
     };
 
     loadBackend();
   }, [serverSideProps, userId, getServerSideProps]);
+
+  function remove(index: number): void {
+    alert('123');
+  }
 
   return (
     <div id={style.about}>
@@ -99,6 +106,17 @@ const Projects: React.FunctionComponent<IProjectsProps> = (props) => {
                             <div id={style.loader4}></div>
                             <div id={style.loader5}></div>
                             <div id={style.loader6}></div>
+                          </div>
+                          <div className="" id={style.projectButtonContainer}>
+                            <button
+                             type="button"
+                             onClick={() => remove(index)}
+                             className={style.deleteExperienceBtn}
+                             title='delete'
+                            >
+                             <RiDeleteBin3Line
+                             size={"20px"} />
+                            </button>
                           </div>
                           <div className="" id={style.projectMainTitle}>
                            <h2><b><u>

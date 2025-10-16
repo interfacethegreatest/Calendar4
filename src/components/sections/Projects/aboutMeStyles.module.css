@@ -625,3 +625,24 @@
 }
 
 
+#projectButtonContainer{
+  
+  height: 25px;
+  position: absolute;
+  right: 0;
+}
+
+.deleteExperienceBtn {
+    color: aliceblue;
+    margin-top: 2px;
+    border: 2px solid rgba(90, 89, 89, 0.295);
+    margin-right: 10px;
+    border-radius: 6px;
+    z-index: 5;
+    position: relative;
+}
+
+.deleteExperienceBtn:hover{
+  border: 2px solid rgba(125, 54, 54, 0.295);
+  background-color: rgba(125, 54, 54, 0.295);
+}

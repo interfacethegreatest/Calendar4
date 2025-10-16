@@ -241,10 +241,11 @@
 }
 
 #educationlBackgroundTitle{
-    display: flex;
+    display: block;
     position: absolute;
     height: 45px;
     width: 45%;
+    white-space: nowrap;         /* <- prevents line break */
     text-overflow: ellipsis;
     background-color: black;
     transform: translate(0%, -90%);

@@ -16,7 +16,8 @@ interface IFollowingButtonProps {
   clicked: boolean,
 }
 
-const FollowingButton: React.FunctionComponent<IFollowingButtonProps> = (props) => {
+const 
+FollowingButton: React.FunctionComponent<IFollowingButtonProps> = (props) => {
   const { userId, setClicked, clicked } = props;
   const { data: session } = useSession();
   const [isHovered, setIsHovered] = React.useState(false);

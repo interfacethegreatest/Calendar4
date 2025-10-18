@@ -5,6 +5,9 @@ import { useEffect, useState } from 'react';
 import Tilt from 'react-parallax-tilt';
 import { SyncLoader } from 'react-spinners';
 import { RiDeleteBin3Line } from 'react-icons/ri';
+import { useSession } from 'next-auth/react';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 interface IProjectsProps {
   setShowContentProjects: (v: boolean) => void;
@@ -17,7 +20,7 @@ const Projects: React.FunctionComponent<IProjectsProps> = (props) => {
   const { serverSideProps, getServerSideProps, userId, setShowContentProjects } = props;
   const [projectData, setProjectData] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
-
+  const { data: session } = useSession();
   useEffect(() => {
     const loadBackend = async () => {
       // Only fetch if told to (serverSideProps) and we have a userId
@@ -50,9 +53,19 @@ const Projects: React.FunctionComponent<IProjectsProps> = (props) => {
     loadBackend();
   }, [serverSideProps, userId, getServerSideProps]);
 
-  function remove(index: number): void {
-    alert('123');
-  }
+  
+  const handleRemove = async (e: React.MouseEvent, index:Number) => {
+      e.stopPropagation();
+      try {
+        const { data: { index } } = await axios.post('/api/auth/removeProject', {
+          userId,
+          session,
+        });
+      } catch (error: any) {
+        toast.error(error.message || 'An error occurred');
+      }
+      setLoading(true);
+  };
 
   return (
     <div id={style.about}>
@@ -110,7 +123,7 @@ const Projects: React.FunctionComponent<IProjectsProps> = (props) => {
                           <div className="" id={style.projectButtonContainer}>
                             <button
                              type="button"
-                             onClick={() => remove(index)}
+                             onClick={() => handleRemove(index)}
                              className={style.deleteExperienceBtn}
                              title='delete'
                             >

@@ -93,6 +93,7 @@ const userSchema = new mongoose.Schema({
         tags: { type: [String], default: [] },
         dueAt: { type: Date, default: null },
         createdAt: { type: Date, default: Date.now },
+        completed: { type : Boolean, default: null},
       },
     ],
     default: [],

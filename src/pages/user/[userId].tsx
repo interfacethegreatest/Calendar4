@@ -19,6 +19,7 @@ import Profile from '@/components/sections/Profile/Profile';
 import FollowersPage from '@/components/sections/FollowersPage/FollowersPage';
 import Projects from '@/components/sections/Projects/Projects';
 import TiltModalProjects from '@/components/modals/TiltModalProjects/TiltModalProjects';
+import Bookshelf from '@/components/sections/Bookshelf/Bookshelf';
 
 
 export default function user({
@@ -152,13 +153,13 @@ export default function user({
           <br />
           <div id={style.selector}>
             {
-              selection[0] ? <ul id={style.selectedText}>Projects</ul> : <ul onClick={()=>{handleClick(0), getProjectServerSideProps(true) }} id={style.selectorText}>Projects</ul>
+              selection[0] ? <ul id={style.selectedText}>Bookshelf</ul> : <ul onClick={()=>handleClick(0)} id={style.selectorText}>Bookshelf</ul>
             }
             {
-              selection[1] ? <ul id={style.selectedText}>About</ul> : <ul onClick={()=>handleClick(1)} id={style.selectorText}>About</ul>
+              selection[1] ? <ul id={style.selectedText}>Projects</ul> : <ul onClick={()=>{handleClick(1), getProjectServerSideProps(true) }} id={style.selectorText}>Projects</ul>
             }
             {
-              selection[2] ? <ul id={style.selectedText}>Bookshelf</ul> : <ul onClick={()=>handleClick(2)} id={style.selectorText}>Bookshelf</ul>
+              selection[2] ? <ul id={style.selectedText}>About</ul> : <ul onClick={()=>handleClick(2)} id={style.selectorText}>About</ul>
             }
             {
               selection[3] ? <ul id={style.selectedText}>Blog</ul> : <ul onClick={()=>handleClick(3)} id={style.selectorText}>Blog</ul>
@@ -168,6 +169,14 @@ export default function user({
           <div id={style.information}>
             {
               selection[0] ? 
+              <Bookshelf/> 
+               : null
+              
+            }
+          </div>
+          <div id={style.information}>
+            {
+              selection[1] ? 
               <Projects 
                setShowContentProjects={setShowContentProjects}
                serverSideProps={projectServerSideProps}
@@ -177,11 +186,10 @@ export default function user({
                : null
               
             }
-
           </div>
           <div id={style.information}>
             {
-              selection[1] ? 
+              selection[2] ? 
               <AboutMe 
                isLoading={isAboutYouLoading} 
                setIsLoading={setIsAboutYouLoading} 

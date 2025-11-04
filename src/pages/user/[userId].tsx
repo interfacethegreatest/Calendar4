@@ -20,6 +20,7 @@ import FollowersPage from '@/components/sections/FollowersPage/FollowersPage';
 import Projects from '@/components/sections/Projects/Projects';
 import TiltModalProjects from '@/components/modals/TiltModalProjects/TiltModalProjects';
 import Bookshelf from '@/components/sections/Bookshelf/Bookshelf';
+import TiltModalBookshelf from '@/components/modals/TiltModalBookshelf/TiltModalBookshelf';
 
 
 export default function user({
@@ -46,8 +47,9 @@ export default function user({
   // Used to show the content in the modal to allow for editing the user profile.
   const [showContent, setShowContent] = useState(false);
   // Used to show the content in the modal to edit the aboutYou section 
-  const [showContentAboutMe, setShowContentAboutMe] = useState(false)
-  const [showContentProjects, setShowContentProjects] = useState(false)
+  const [showContentAboutMe, setShowContentAboutMe] = useState(false);
+  const [showContentProjects, setShowContentProjects] = useState(false);
+  const [showContentBookshelf, setShowContentBookshelf] = useState(false);
   // Used in the modal to set and use a user defined image 
   const [ imageString, setImageString ] = useState(null);
   // Used in the modal to set and use a user defined username, 
@@ -63,6 +65,8 @@ export default function user({
   const [isAboutYouLoading, setIsAboutYouLoading] = useState(true);
   //uSed in projects to load content,
   const [projectServerSideProps, getProjectServerSideProps] = useState(true);
+  //Used in bookshelf to load content,
+  const [bookshelfServerSideProps, getBookshelfServerSideProps] = useState(true);
   //Variants for the profile component,
   const profileVariants = {
     initial: { scale: 1, opacity: 1 },
@@ -169,7 +173,12 @@ export default function user({
           <div id={style.information}>
             {
               selection[0] ? 
-              <Bookshelf/> 
+              <Bookshelf 
+              setShowContentProjects={setShowContentBookshelf}
+              serverSideProps={bookshelfServerSideProps}
+              getServerSideProps={getBookshelfServerSideProps}
+              userId={userId}
+              /> 
                : null
               
             }
@@ -255,6 +264,23 @@ export default function user({
        showContent={showContentProjects}
        setShowContent={setShowContentProjects} 
        getServerSideProps={getProjectServerSideProps}
+      />
+    </motion.div>
+  </div>
+)}
+
+{showContentBookshelf && (
+      <div id={style.modalBacking}>
+    <motion.div
+      initial={{ x: "-100vw" }}
+      animate={{ x: 0 }} // Slides in
+      exit={{ x: "-100vw" }} // Slides out
+      transition={{ type: "spring", stiffness: 70, damping: 20 }}
+    >
+      <TiltModalBookshelf
+       showContent={showContentBookshelf}
+       setShowContent={setShowContentBookshelf} 
+       getServerSideProps={getBookshelfServerSideProps}
       />
     </motion.div>
   </div>

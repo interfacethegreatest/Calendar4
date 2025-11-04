@@ -24,11 +24,11 @@ export const FormSchema = z.object({
   ProjectTitle: z
     .string()
     .min(5, { message: "Project title requires 5 or more characters." })
-    .max(23, { message: "Too many characters. ( 23max )" }),
+    .max(15, { message: "Too many characters. ( 23max )" }),
   ProjectDescription: z
     .string()
     .min(5, { message: "Longer project description is characters." })
-    .max(50, { message: "Too many characters.( 50max )" }),
+    .max(25, { message: "Too many characters.( 50max )" }),
   Tags: z
     .array(
       z.string()
@@ -76,14 +76,14 @@ const ProjectsForm: React.FC<ProjectsFormProps> = ({ onSubmit, closeWindow, getS
   const onSubmitHandler: SubmitHandler<FormSchemaType> = async (values) => {
     try {
       setValue('Tags', tags);
-      alert("Form submitted: " + JSON.stringify({
+      /*alert("Form submitted: " + JSON.stringify({
         ...values,
-      }));
+      }));*/
       const { data } = await axios.post('/api/auth/uploadProjects',{
         ...values,
       });
       
-      console.log("Form submitted:", values);
+
       toast.success(data.message);
       getServerSideProps(true);
       closeWindow();
@@ -119,7 +119,7 @@ const ProjectsForm: React.FC<ProjectsFormProps> = ({ onSubmit, closeWindow, getS
               disabled={isSubmitting}
               height={null}
               topLocation={null}
-              inputLength={45}
+              inputLength={15}
             />
           </div>
           <br />
@@ -135,7 +135,7 @@ const ProjectsForm: React.FC<ProjectsFormProps> = ({ onSubmit, closeWindow, getS
               disabled={isSubmitting}
               height={105}
               topLocation={null}
-              inputLength={100}
+              inputLength={25}
             />
           </div>
           <br />

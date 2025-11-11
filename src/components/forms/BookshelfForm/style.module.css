@@ -47,6 +47,7 @@
 #additionalTitle{
   color: aliceblue;
   text-align: center;
+  margin: 0;
 }
 
 #projectTitleContainer{
@@ -145,8 +146,12 @@
     cursor:pointer;
     pointer-events: all;
     color: aliceblue;
+    margin-top: 8px;
     margin-bottom: 0px;
-    margin-top: 50px;
-    margin-left: 5px;
-    width: 100%;
+    width: 40%;
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+    margin-right: auto;
+    
 }

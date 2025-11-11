@@ -93,7 +93,20 @@ const userSchema = new mongoose.Schema({
         tags: { type: [String], default: [] },
         dueAt: { type: Date, default: null },
         createdAt: { type: Date, default: Date.now },
-        completed: { type : Boolean, default: null},
+        completed: { type: Boolean, default: null },
+      },
+    ],
+    default: [],
+  },
+  books: {
+    type: [
+      {
+        bookTitle: { type: String, required: true },          
+        bookAuthor: { type: String, required: true },         
+        rating: { type: Number, min: 0, max: 5, default: null },
+        imageUrl: { type: String, default: "" },              
+        bookDescription: { type: String, required: true },    
+        createdAt: { type: Date, default: Date.now },         
       },
     ],
     default: [],

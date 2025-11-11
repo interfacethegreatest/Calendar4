@@ -7,13 +7,12 @@ import { useDropzone, type DropzoneOptions } from 'react-dropzone';
 import { formatFileSize, useUploader } from './uploader-provider';
 
 const DROPZONE_VARIANTS = {
-  base: 'relative rounded-md p-4 w-full flex justify-center items-center flex-col cursor-pointer border-2 border-dashed border-gray-400 dark:border-gray-600 transition-colors duration-200 ease-in-out',
-  active: 'border-blue-500 dark:border-blue-400',
+  base: 'relative rounded-md p-4 w-full flex justify-center items-center flex-col cursor-pointer border-2 border-dashed border-muted-foreground transition-colors duration-200 ease-in-out',
+  active: 'border-primary',
   disabled:
-    'bg-gray-100 dark:bg-gray-800 border-gray-400/50 dark:border-gray-600/50 cursor-default pointer-events-none opacity-50',
-  accept:
-    'border-blue-500 dark:border-blue-400 bg-blue-100 dark:bg-blue-900/30',
-  reject: 'border-red-500 dark:border-red-400 bg-red-100 dark:bg-red-900/30',
+    'bg-muted border-muted-foreground cursor-default pointer-events-none opacity-50',
+  accept: 'border-primary bg-primary/10',
+  reject: 'border-destructive bg-destructive/10',
 };
 
 /**
@@ -43,12 +42,6 @@ export interface DropzoneProps extends React.HTMLAttributes<HTMLInputElement> {
    * Default message shown when the dropzone is idle.
    */
   dropMessageDefault?: string;
-
-  /** 
-   * Called when files are selected/dropped. 
-   * If provided, disables internal addFiles and just notifies parent.
-   */
-  onFilesSelected?: (files: File[]) => void;
 }
 
 /**
@@ -72,8 +65,7 @@ const Dropzone = React.forwardRef<HTMLInputElement, DropzoneProps>(
       className,
       disabled,
       dropMessageActive = 'Drop files here...',
-      dropMessageDefault = 'drag & drop a file, .pdf or .docx',
-      onFilesSelected,
+      dropMessageDefault = 'drag & drop files here, or click to select',
       ...props
     },
     ref,
@@ -121,21 +113,17 @@ const Dropzone = React.forwardRef<HTMLInputElement, DropzoneProps>(
         // Handle accepted files
         if (acceptedFiles.length === 0) return;
 
-        // Check maxFiles limit
+        // Check if adding these files would exceed maxFiles limit
         if (maxFiles) {
           const remainingSlots = maxFiles - fileStates.length;
+          // If adding all files would exceed the limit, reject them all
           if (acceptedFiles.length > remainingSlots) {
             setError(`You can only add ${maxFiles} file(s).`);
             return;
           }
         }
 
-        // If onFilesSelected callback is provided, use it instead of addFiles
-        if (onFilesSelected) {
-          onFilesSelected(acceptedFiles);
-        } else {
-          addFiles(acceptedFiles);
-        }
+        addFiles(acceptedFiles);
       },
       ...dropzoneOptions,
     });
@@ -161,7 +149,7 @@ const Dropzone = React.forwardRef<HTMLInputElement, DropzoneProps>(
           })}
         >
           <input ref={ref} {...getInputProps()} {...props} />
-          <div className="flex flex-col items-center justify-center gap-2 text-center text-gray-500 dark:text-gray-400">
+          <div className="flex flex-col items-center justify-center gap-2 text-center text-muted-foreground">
             <UploadCloudIcon className="h-10 w-10" />
             <div className="text-sm font-medium">
               {isDragActive ? dropMessageActive : dropMessageDefault}
@@ -178,7 +166,7 @@ const Dropzone = React.forwardRef<HTMLInputElement, DropzoneProps>(
 
         {/* Error Text */}
         {error && (
-          <div className="mt-1 flex items-center text-xs text-red-500 dark:text-red-400">
+          <div className="mt-1 flex items-center text-xs text-destructive">
             <AlertCircleIcon className="mr-1 h-4 w-4" />
             <span>{error}</span>
           </div>
@@ -187,7 +175,6 @@ const Dropzone = React.forwardRef<HTMLInputElement, DropzoneProps>(
     );
   },
 );
-
 Dropzone.displayName = 'Dropzone';
 
 export { Dropzone };

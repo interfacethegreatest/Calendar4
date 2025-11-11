@@ -1,3 +1,5 @@
+'use client';
+
 import SlideButtonSubmit from "@/components/buttons/auth/slideButtonSubmit";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useState } from "react";
@@ -8,16 +10,29 @@ import style from "./style.module.css";
 import { CiLock } from "react-icons/ci";
 import ModalInput from "@/components/input/ModalInput/ModalInput";
 import { IoIosStar } from "react-icons/io";
-import { UploaderProvider } from "@/components/upload/uploader-provider";
-import { SingleImageDropzone } from "@/components/single-image-dropzone";
 import { useEdgeStore } from "@/lib/edgestore";
-import Dropzone from "react-dropzone";
+import { SingleImageDropzone } from "@/components/single-image-dropzone";
+import { UploaderProvider } from "@/components/upload/uploader-provider";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 export const FormSchema = z.object({
-  BookTitle: z.string().min(2, { message: "Book Title requires 2 or more characters." }).max(30, { message: "Too many characters. ( 30max )" }),
-  BookAuthor: z.string().min(2, { message: "Book Author requires 2 or more characters." }).max(25, { message: "Too many characters. ( 30max )" }),
+  BookTitle: z
+    .string()
+    .min(2, { message: "Book Title requires 2 or more characters." })
+    .max(30, { message: "Too many characters. (30 max)" }),
+  BookAuthor: z
+    .string()
+    .min(2, { message: "Book Author requires 2 or more characters." })
+    .max(25, { message: "Too many characters. (25 max)" }),
   Rating: z.number().min(0).max(5).optional(),
-  ImageUrl: z.union([z.string().url({ message: "Image must be a valid URL." }), z.literal("")]).default(""),
+  ImageUrl: z
+    .union([z.string().url({ message: "Image must be a valid URL." }), z.literal("")])
+    .default(""),
+  BookDescription: z
+    .string()
+    .min(2, { message: "Book Description requires 2 or more characters." })
+    .max(50, { message: "Too many characters. (50 max)" }),
 });
 
 type FormSchemaType = z.infer<typeof FormSchema>;
@@ -27,61 +42,61 @@ interface BookshelfFormProps {
   getServerSideProps: Function;
 }
 
-const BookshelfForm: React.FC<BookshelfFormProps> = ({ closeWindow }) => {
+const BookshelfForm: React.FC<BookshelfFormProps> = ({ closeWindow, getServerSideProps }) => {
   const { edgestore } = useEdgeStore();
-  const [uploaderKey, setUploaderKey] = useState(0);
   const [animation, setAnimation] = useState(true);
   const [hovered, setHovered] = useState<number>(0);
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const [uploadedFileUrl, setUploadedFileUrl] = useState<string | null>(null);
 
   const {
     register,
     handleSubmit,
     control,
     setValue,
+    getValues,
     formState: { errors, isSubmitting },
   } = useForm<FormSchemaType>({
     resolver: zodResolver(FormSchema),
     defaultValues: { Rating: 0, ImageUrl: "" },
   });
 
-  // IMPORTANT: correct signature; don't rely on outer imageFile
-  // (With autoUpload=false this won't run, but keeping the signature correct avoids surprises.)
-  const uploadFn = async (file: File) => {
-    const res = await edgestore.myPublicImages.upload({
-      file,
-      onProgressChange: (progress) => console.log("Image Upload Progress:", progress),
-    });
-    // If you ever flip autoUpload to true, this will populate the form:
-    setValue("ImageUrl", res.url, { shouldDirty: true, shouldTouch: true });
-    return { url: res.url };
+  /** 🧩 File selection — stores the file locally (no upload yet) */
+  const handleFileSelected = (files: File[]) => {
+    setImageFile(files[0] ?? null);
   };
 
+  /** 🧠 Submit handler with deferred upload */
   const onSubmitHandler: SubmitHandler<FormSchemaType> = async (values) => {
+    console.log(imageFile)
     try {
-      let uploadedImageUrl: string | null = null;
-
-      // Defer upload until submit
+      // Upload image only during form submission
       if (imageFile) {
         const res = await edgestore.myPublicImages.upload({
           file: imageFile,
-          onProgressChange: (progress) => console.log("Image Upload Progress:", progress),
+          onProgressChange: (progress) => {
+            console.log("Image Upload Progress:", progress);
+          },
         });
-        uploadedImageUrl = res.url;
-        setValue("ImageUrl", uploadedImageUrl); // sync RHF state
+        setUploadedFileUrl(res.url);
+        setValue("ImageUrl", res.url);
       }
 
-      const payload = {
-        ...values,
-        ...(uploadedImageUrl ? { ImageUrl: uploadedImageUrl } : {}),
-      };
+      // Get final values including uploaded URL
+      const finalValues = getValues();
+      console.log("Final form values:", finalValues);
 
-      alert("Form submitted: " + JSON.stringify(payload));
-      // await axios.post('/api/auth/uploadProjects', payload);
+      // Example POST to your API endpoint
+      const { data } = await axios.post("/api/auth/uploadBook", {
+        values: finalValues,
+      });
+
+      toast.success(data.message || "Book saved successfully!");
+      getServerSideProps();
       closeWindow();
     } catch (error) {
-      alert("Error during submit: " + (error as Error)?.message);
       console.error(error);
+      toast.error("Error during submit.");
     }
   };
 
@@ -99,8 +114,6 @@ const BookshelfForm: React.FC<BookshelfFormProps> = ({ closeWindow }) => {
           register={register}
           error={errors?.BookTitle?.message}
           disabled={isSubmitting}
-          height={null}
-          topLocation={null}
           inputLength={30}
         />
       </div>
@@ -115,12 +128,44 @@ const BookshelfForm: React.FC<BookshelfFormProps> = ({ closeWindow }) => {
           register={register}
           error={errors?.BookAuthor?.message}
           disabled={isSubmitting}
-          height={null}
-          topLocation={null}
           inputLength={30}
         />
       </div>
 
+      <div id={style.projectTitleContainer}>
+        <ModalInput
+          name="BookDescription"
+          label="Book Description"
+          type="text"
+          icon={<CiLock />}
+          placeholder="Enter your book's description."
+          register={register}
+          error={errors?.BookDescription?.message}
+          disabled={isSubmitting}
+          height={45}
+          inputLength={50}
+        />
+      </div>
+
+      {/* 🖼️ Image uploader (deferred upload) */}
+      <div id={style.visibleUpload}>
+        <UploaderProvider uploadFn={() => Promise.resolve({ url: "" })} autoUpload={false}>
+          <SingleImageDropzone
+  height={200}
+  width={200}
+  dropzoneOptions={{
+    maxFiles: 1,
+    maxSize: 1024 * 1024 * 1,
+    accept: { "image/*": [] },
+  }}
+  onFilesSelected={(files) => {
+    setImageFile(files[0] ?? null);   // ✅ store a single File
+  }}
+/>
+        </UploaderProvider>
+      </div>
+
+      {/* ⭐ Rating */}
       <div id={style.projectRatingContainer} onMouseLeave={() => setHovered(0)}>
         <h6 id={style.ratingTitle}>Rating :</h6>
         <Controller
@@ -151,25 +196,6 @@ const BookshelfForm: React.FC<BookshelfFormProps> = ({ closeWindow }) => {
             );
           }}
         />
-      </div>
-
-      <div id={style.visibleUpload}>
-        <UploaderProvider uploadFn={uploadFn} autoUpload key={uploaderKey}>
-          <Dropzone
-            style={{ width: "100%" }}
-            dropzoneOptions={{
-              maxFiles: 1,
-              maxSize: 1024 * 1024 * 2,
-              accept: {
-                "application/pdf": [".pdf"],
-                "application/vnd.openxmlformats-officedocument.wordprocessingml.document": [".docx"],
-              },
-            }}
-            onFilesSelected={(files: any[]) => {
-              setImageFile(files[0] ?? null);
-            }}
-          />
-        </UploaderProvider>
       </div>
 
       <SlideButtonSubmit

@@ -1,695 +1,137 @@
-
 #about{
- color: aliceblue;
- /*border: 2px solid salmon;*/
- height: 950px;
- display: flex;
- flex-direction: row-reverse;
+  color: aliceblue;
+  /*border: 2px solid salmon;*/
+  height: 950px;
+  display: flex;
+  flex-direction: row-reverse;
 }
-
 
 #main {
-    height: 925px;
-    width: 92.5%;
-    border: 2px solid rgba(90, 89, 89, 0.295);
-    z-index: 8;
-    border-radius: 1.5rem;
-    background-color: black;
-    transform: translateX(3%);
-    
-    /* make it scrollable */
-    overflow-y: auto;
-    overflow-x: hidden;
+  height: 925px;
+  width: 92.5%;
+  border: 2px solid rgba(90, 89, 89, 0.295);
+  z-index: 8;
+  border-radius: 1.5rem;
+  background-color: black;
+  transform: translateX(3%);
   
-    /* Firefox scrollbar */
-    scrollbar-width: thin;
-    scrollbar-color: aliceblue transparent;
+  /* make it scrollable */
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  /* Firefox scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: aliceblue transparent;
 }
-  
-  /* Chrome, Edge, Safari */
+
+/* Chrome, Edge, Safari */
 #main::-webkit-scrollbar {
-    width: 8px;              /* slim */
+  width: 8px;              /* slim */
 }
-  
+
 #main::-webkit-scrollbar-track {
-    background: transparent; /* subtle track */
+  background: transparent; /* subtle track */
 }
-  
+
 #main::-webkit-scrollbar-thumb {
-    background-color: aliceblue;
-    border-radius: 10px;
-    border: 2px solid transparent; /* adds spacing effect */
-    background-clip: content-box;  /* makes thumb slimmer */
+  background-color: aliceblue;
+  border-radius: 10px;
+  border: 2px solid transparent; /* adds spacing effect */
+  background-clip: content-box;  /* makes thumb slimmer */
 }
-  
+
 #main::-webkit-scrollbar-thumb:hover {
-    background-color: #d7ecff; /* slight hover effect */
+  background-color: #d7ecff; /* slight hover effect */
 }
-  
 
 #backing{
-    border: 2px solid rgba(90, 89, 89, 0.295);
-    position: absolute;
-    top: 10px;   /* offset downward */
-    left: -5px;  /* offset rightward */
-    z-index: -1;  /* behind #main */
-    width: 65%;
-    height: 43%;
-    border-radius: 20px;
-    background-color: rgba(48, 121, 97, 0.072);
-    transform: rotateY(-10deg) rotateX(9.5deg); /* optional: subtle tilt */
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  border: 2px solid rgba(90, 89, 89, 0.295);
+  position: absolute;
+  top: 10px;   /* offset downward */
+  left: -5px;  /* offset rightward */
+  z-index: -1;  /* behind #main */
+  width: 65%;
+  height: 43%;
+  border-radius: 20px;
+  background-color: rgba(48, 121, 97, 0.072);
+  transform: rotateY(-10deg) rotateX(9.5deg); /* optional: subtle tilt */
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
 
 #backing2{
-    border: 2px solid rgba(90, 89, 89, 0.295);
-    width: 50%;
-    height: 56.5%;
-    position: absolute;
-    border-radius: 1.5rem;
-    background-color: rgba(48, 121, 97, 0.072);
-    z-index: -1;
-    transform: translateY(8%);
+  border: 2px solid rgba(90, 89, 89, 0.295);
+  width: 50%;
+  height: 56.5%;
+  position: absolute;
+  border-radius: 1.5rem;
+  background-color: rgba(48, 121, 97, 0.072);
+  z-index: -1;
+  transform: translateY(8%);
 }
 
 #spinnerCentre{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #editBar{
-    display: flex;
-    flex-direction: row-reverse;
-    text-decoration: underline;
-    border: 2px solid rgba(90, 89, 89, 0.295);
-    height: 39px;
-    border-radius: 1.5rem;
-    margin-top: 0px;
-    margin-left: 25px;
-    margin-right: 25px;
+  display: flex;
+  flex-direction: row-reverse;
+  text-decoration: underline;
+  border: 2px solid rgba(90, 89, 89, 0.295);
+  height: 39px;
+  border-radius: 1.5rem;
+  margin-top: 0px;
+  margin-left: 25px;
+  margin-right: 25px;
 }
 
 #mainTitle{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: underline;
-    font-size: 2.5rem;
-    transform: translate(18.5rem,1.5rem);
-    background-color: black;
-    width: 25%;
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: underline;
+  font-size: 2.5rem;
+  transform: translate(18.5rem,1.5rem);
+  background-color: black;
+  width: 25%;
 }
 
 #spinner{
-    margin-top: 100px;
+  margin-top: 100px;
 }
 
 #mainContainer{
-    display: flex;
-    flex-wrap: wrap;
-    margin-left: 25px;
-    margin-right: 25px;
-    justify-content: space-evenly;
-}
-
-#projectContainer{
-    width: 49%;
-    height: 250px;
-    position: relative;
-    cursor: pointer;
-}
-
-#projectMain{
-    width: 95%;
-    height: 90%;
-    border: 2px solid rgba(90, 89, 89, 0.295);
-    border-radius: 1.5rem;
-    z-index: 8;
-    background-color: black;
-    position: relative;
-    overflow: hidden;
-    padding: 3px;
-}
-
-#projectBacking{
-    display: flex;
-    width: 30%;
-    height: 90%;
-    border: 2px solid rgba(90, 89, 89, 0.295);
-    position: absolute;
-    top: 0;
-    right: 0;
-    border-radius: 1.5rem;
-    margin-top: 10px;
-    background-color: rgba(48, 121, 97, 0.072);
-}
-
-#projectMainShading {
-    position: absolute;
-    top: -10%;
-    right: -30%; /* 👈 anchor to top-right */
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: radial-gradient(
-      circle at top right,
-      rgba(56, 137, 110, 0.110) 0%,   /* bright center */
-      rgba(56, 137, 110, 0) 30%     /* fades outward */
-    );
-    opacity: 0;
-    transform: scale(0);
-    transform-origin: top right; /* 👈 expand from top-right corner */
-    transition: transform 0.6s ease, opacity 0.6s ease;
-    pointer-events: none;
-  }
-  
-  /* Animate glow on hover of parent */
-  #projectMain:hover #projectMainShading {
-    opacity: 1;
-    transform: scale(6); /* grows large enough to cover right half */
-  }
-
-  #tiles{
-    position: absolute;
-    display: grid;
-    grid-template-rows: 18% 33% 33% 9%;
-    grid-template-columns: 25% 25% 25% 25%;
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 1px;
-    height: 60%;
-  }
-  
-  #tile1 {
-    grid-row-start: 1;
-    grid-row-end: 2; /* Corrected: end at row 2 */
-    grid-column-start: 1;
-    grid-column-end: 2; /* Corrected: end at column 2 */
-    cursor: pointer;
-    transition: background-color 0.5s ease;
-    z-index: 1;
-  }
-  
-  #tile1:hover {
-    background-color: rgba(48, 121, 97, 0.036);
-  }
-  
-  #projectMain:hover #tile1{
-    border-bottom: 2px solid rgba(90, 89, 89, 0.17);
-    border-right: 2px solid rgba(90, 89, 89, 0.17);
-  }
-  
-  #tile2 {
-    grid-row-start: 1;
-    grid-row-end: 2; /* Corrected: end at row 2 */
-    grid-column-start: 2;
-    grid-column-end: 3; /* Corrected: end at column 2 */
-    cursor: pointer;
-    transition: background-color 0.5s ease;
-    z-index: 1;
-  }
-  
-  #tile2:hover {
-    background-color: rgba(48, 121, 97, 0.036);
-  }
-  
-  #projectMain:hover #tile2{
-    border-bottom: 2px solid rgba(90, 89, 89, 0.17);
-  
-  }
-  
-  #tile3 {
-    grid-row-start: 1;
-    grid-row-end: 2; /* Corrected: end at row 2 */
-    grid-column-start: 3;
-    grid-column-end: 4; /* Corrected: end at column 2 */
-    cursor: pointer;
-    transition: background-color 0.5s ease;
-    z-index: 1;
-  }
-  
-  
-  #projectMain:hover #tile3{
-    border-bottom: 2px solid rgba(90, 89, 89, 0.17);
-    background-color: rgba(48, 121, 97, 0.036);
-  }
-  
-  #tile4 {
-    grid-row-start: 1;
-    grid-row-end: 3; /* Corrected: end at row 2 */
-    grid-column-start: 4;
-    grid-column-end: 5; /* Corrected: end at column 2 */
-    cursor: pointer;
-    transition: background-color 0.5s ease;
-    z-index: 1;
-  }
-  
-  #tile4:hover {
-    background-color: rgba(48, 121, 97, 0.036);
-  }
-  
-  
-  #tile5 {
-    grid-row-start: 2;
-    grid-row-end: 3; /* Corrected: end at row 2 */
-    grid-column-start: 1;
-    grid-column-end: 2; /* Corrected: end at column 2 */
-    cursor: pointer;
-    transition: background-color 0.5s ease;
-    z-index: 1;
-  }
-  
-  #tile5:hover {
-    background-color: rgba(48, 121, 97, 0.036);
-  }
-  
-  #projectMain:hover #tile5{
-    border-bottom: 2px solid rgba(90, 89, 89, 0.17);
-    border-right: 2px solid rgba(90, 89, 89, 0.17);
-    background-color: rgba(48, 121, 97, 0.036);
-  }
-  
-  #tile6 {
-    grid-row-start: 2;
-    grid-row-end: 3; /* Corrected: end at row 2 */
-    grid-column-start: 2;
-    grid-column-end: 3; /* Corrected: end at column 2 */
-    cursor: pointer;
-    transition: background-color 0.5s ease;
-    z-index: 1;
-  }
-  
-  #tile6:hover {
-    background-color: rgba(48, 121, 97, 0.036);
-  }
-  
-  #projectMain:hover #tile6{
-    border-bottom: 2px solid rgba(90, 89, 89, 0.17);
-  
-  }
-  
-  #tile7 {
-    grid-row-start: 2;
-    grid-row-end: 3; /* Corrected: end at row 2 */
-    grid-column-start: 3;
-    grid-column-end: 4; /* Corrected: end at column 2 */
-    cursor: pointer;
-    transition: background-color 0.5s ease;
-    z-index: 1;
-  }
-  
-  #tile7:hover {
-    background-color: rgba(48, 121, 97, 0.036);
-  }
-  
-  
-  #tile8 {
-    grid-row-start: 2;
-    grid-row-end: 3; /* Corrected: end at row 2 */
-    grid-column-start: 4;
-    grid-column-end: 5; /* Corrected: end at column 2 */
-    cursor: pointer;
-    transition: background-color 0.5s ease;
-    z-index: 1;
-  }
-  
-  #tile8:hover {
-    background-color: rgba(48, 121, 97, 0.036);
-  }
-  
-  
-  
-  #tile9 {
-    grid-row-start: 3;
-    grid-row-end: 4; /* Corrected: end at row 2 */
-    grid-column-start: 1;
-    grid-column-end: 2; /* Corrected: end at column 2 */
-    cursor: pointer;
-    transition: background-color 0.5s ease;
-    z-index: 1;
-  }
-  
-  #projectMain:hover #tile9{
-    border-bottom: 2px solid rgba(90, 89, 89, 0.17);
-    border-right: 2px solid rgba(90, 89, 89, 0.17);
-    background-color: rgba(48, 121, 97, 0.036);
-  }
-  
-  #tile10 {
-    grid-row-start: 3;
-    grid-row-end: 4; /* Corrected: end at row 2 */
-    grid-column-start: 2;
-    grid-column-end: 4; /* Corrected: end at column 2 */
-    cursor: pointer;
-    transition: background-color 0.5s ease;
-    z-index: 1;
-  }
-  
-  #tile10:hover {
-    background-color: rgba(48, 121, 97, 0.036);
-  }
-  
-  #projectMain:hover #tile10{
-    border-bottom: 2px solid rgba(90, 89, 89, 0.17);
-  }
-  
-  #tile11 {
-    grid-row-start: 3;
-    grid-row-end: 4; /* Corrected: end at row 2 */
-    grid-column-start: 3;
-    grid-column-end: 4; /* Corrected: end at column 2 */
-    cursor: pointer;
-    transition: background-color 0.5s ease;
-    z-index: 1;
-  }
-  
-  #tile11:hover {
-    background-color: rgba(48, 121, 97, 0.036);
-  }
-  
-  
-  #tile12 {
-    grid-row-start: 3;
-    grid-row-end: 4; /* Corrected: end at row 2 */
-    grid-column-start: 4;
-    grid-column-end: 5; /* Corrected: end at column 2 */
-    cursor: pointer;
-    transition: background-color 0.5s ease;
-    z-index: 1;
-  }
-  
-  #tile12:hover {
-    background-color: rgba(48, 121, 97, 0.036);
-  }
-  
-  
-  
-  #tile13 {
-    grid-row-start: 4;
-    grid-row-end: 5; /* Corrected: end at row 2 */
-    grid-column-start: 1;
-    grid-column-end: 2; /* Corrected: end at column 2 */
-    cursor: pointer;
-    transition: background-color 0.5s ease;
-    z-index: 1;
-  }
-  
-  #tile13:hover {
-    background-color: rgba(48, 121, 97, 0.036);
-  }
-  
-  
-  #tile15 {
-    grid-row-start: 4;
-    grid-row-end: 5; /* Corrected: end at row 2 */
-    grid-column-start: 3;
-    grid-column-end: 4; /* Corrected: end at column 2 */
-    cursor: pointer;
-    transition: background-color 0.5s ease;
-    z-index: 1;
-    height: 200%;
-  }
-  
-  #tile15:hover {
-    background-color: rgba(48, 121, 97, 0.036);
-  }
-  
-  #projectMain:hover #tile15{
-  
-  
-  }
-  
-  #loader{
-    grid-row-start: 1;
-    grid-column-start: 4;
-    grid-column-end: 5;
-    align-self: end;
-    margin-right: 23px;
-  }
-  
-  #projectMain:hover #loader {
-    animation: progress .3s linear forwards; /* Adjust duration (5s) as needed */
-  }
-  
-  @keyframes progress {
-    0% {
-        width: 0%;
-        border: 1px solid rgba(90, 89, 89, 0.17); /* Starting color (e.g., coral) */
-    }
-    100% {
-        width: 100%;
-        border: 1px solid rgba(90, 89, 89, 0.17); /* Ending color (e.g., deep sky blue) */
-    }
-  }
-  
-  @keyframes progress3 {
-    0% {
-        width: 0%;
-        border: 1px solid rgba(90, 89, 89, 0.17); /* Starting color (e.g., coral) */
-    }
-    100% {
-        width: 67%;
-        border: 1.5px solid rgba(90, 89, 89, 0.09); /* Ending color (e.g., deep sky blue) */
-    }
-  }
-  
-  
-  #loader2{
-    grid-row-start: 2;
-    grid-column-start: 3;
-    grid-column-end: 5;
-    align-self: end;
-    margin-right: 23px;
-  }
-  
-  #projectMain:hover #loader2 {
-    animation: progress .4s linear forwards; /* Adjust duration (5s) as needed */
-  }
-  
-  #loader3{
-    grid-row-start: 3;
-    grid-column-start: 4;
-    grid-column-end: 5;
-    align-self: end;
-    margin-right: 23px;
-  }
-  
-  #projectMain:hover #loader3 {
-    animation: progress3 .6s linear forwards; /* Adjust duration (5s) as needed */
-  }
-  
-  #loader4{
-    grid-row-start: 4;
-    grid-row-end: 5;
-    grid-column-start: 1;
-    grid-column-end: 2;
-    
-  }
-  
-  #projectMain:hover #loader4 {
-    animation: progress2 .1s linear forwards; /* Adjust duration (5s) as needed */
-  }
-  
-  @keyframes progress2 {
-    0% {
-        height: 0%;
-        border-right: 2px solid rgba(90, 89, 89, 0.17); /* Starting color (e.g., coral) */
-    }
-    100% {
-        height: 110%;
-        border-right: 3px solid rgba(104, 103, 103, 0.11); /* Ending color (e.g., deep sky blue) */
-    }
-  }
-  
-  #loader5{
-    grid-row-start: 1;
-    grid-row-end: 5;
-    grid-column-start: 2;
-    grid-column-end: 3;
-    
-  }
-  
-  #projectMain:hover #loader5 {
-    animation: progress2 .3s linear forwards; /* Adjust duration (5s) as needed */
-  }
-  
-  #loader6{
-    grid-row-start: 1;
-    grid-row-end: 5;
-    grid-column-start: 3;
-    grid-column-end: 4.4;
-    
-  }
-  
-  #projectMain:hover #loader6 {
-    animation: progress2 .3s linear forwards; /* Adjust duration (5s) as needed */
-  }
-
-  #projectMainTitle{
-    color: aliceblue;
-    margin-top: 20px;
-    margin-left: 13px;
-    background-color: black;
-  }
-  
-  #projectMainParagraphContainer{
-    position: relative;
-    width: 90%;
-    margin-left: 13px;
-    height: 100px;
-    z-index: 8;
-    color: grey;
-    margin-bottom: 2px;
-  }
-
-  #projectMainTagContainer{
-    display: flex;
-    flex-direction: row;
-    white-space: nowrap;   /* prevent text wrapping */
-    overflow: hidden;      /* hide overflow if text is too long */
-    text-overflow: ellipsis;
-    gap: 2px;
-    margin-left: 13px;
-    font-size: .85rem;
-    border: 1px solid slateblue;
-  }
-
-  #projectMainTag{
-    border-radius: .5rem;
-    background-color: gray;
-    padding: 2px;
-    margin-right: 1px;
-  }
-
-  .projectMainTagContainer {
   display: flex;
-  gap: 0.6rem;
-  padding: 0.5rem 0.25rem;
-  overflow-x: auto;
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
-  scroll-snap-type: x proximity;
-  border-radius: 12px;
-
-  scrollbar-width: thin;                   
-  scrollbar-color: aliceblue transparent;  
+  flex-wrap: wrap;
+  margin-left: 25px;
+  margin-right: 25px;
+  justify-content: space-evenly;
 }
 
-.projectMainTagContainer::-webkit-scrollbar {
-  height: 6px;
-}
-.projectMainTagContainer::-webkit-scrollbar-track {
-  background: transparent;
-}
-.projectMainTagContainer::-webkit-scrollbar-thumb {
-  background: aliceblue;
-  border-radius: 9999px;
-  border: 1px solid transparent;         
-  background-clip: padding-box;
-  box-shadow: inset 0 0 0 1px rgba(10,26,43,0.06);
-}
-
-/* Tag pill */
-.projectMainTag {
-  flex: 0 0 auto;               /* line up horizontally; no shrink */
-  scroll-snap-align: start;
-  padding: 2px;
-  border-radius: 9999px;
-  background: aliceblue;
-  color: black;
-  border: 1px solid rgba(10, 26, 43, 0.08);
-  box-shadow: 0 1px 2px rgba(10, 26, 43, 0.06);
-  font-size: 0.9rem;
-  line-height: 1;
-  user-select: none;
-  transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
-}
-
-.projectMainTag:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(10, 26, 43, 0.12);
-}
-
-.projectMainTag:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 6px rgba(10, 26, 43, 0.16);
-}
-
-/* Optional: reduce motion */
-@media (prefers-reduced-motion: reduce) {
-  .projectMainTag { transition: none; }
-}
-
-
-#projectButtonContainer{
+#bookCard{
+  width: 960px;
+  height: 380px;
+  cursor: pointer;
+  display: flex;
   
-  height: 25px;
+}
+
+.bookCardBacking{
+  width: 786px;
+  height: 324px;
+  background-color: rgba(48, 121, 97, 0.072);
+  border-radius: .5rem;
   position: absolute;
-  right: 0;
+  padding-right: 10px;
 }
 
-.deleteExperienceBtn {
-    color: aliceblue;
-    margin-top: 2px;
-    border: 2px solid rgba(90, 89, 89, 0.295);
-    margin-right: 10px;
-    border-radius: 6px;
-    z-index: 5;
-    position: relative;
-}
-
-.deleteExperienceBtn:hover{
-  border: 2px solid rgba(125, 54, 54, 0.295);
-  background-color: rgba(125, 54, 54, 0.295);
-}
-
-.notCompletedBtn{
-  color: aliceblue;
-  margin-top: 2px;
+#bookImageContainer{
   border: 2px solid rgba(90, 89, 89, 0.295);
-  margin-right: 10px;
-  border-radius: 6px;
-  z-index: 5;
-  position: relative;
-}
-
-.notCompletedBtn:hover{
-  border: 2px solid rgba(125, 54, 54, 0.295);
-  background-color: rgba(125, 54, 54, 0.295);
-}
-
-.completedBtn{
-  color: aliceblue;
-  margin-top: 2px;
-  border: 2px solid rgba(34, 197, 94, 0.30);   /* green border */
-  margin-right: 10px;
-  border-radius: 6px;
-  z-index: 5;
-  position: relative;
-  cursor: pointer;
-}
-
-.completedBtn:hover{
-  border: 2px solid rgba(34, 197, 94, 0.45);
-  background-color: rgba(34, 197, 94, 0.20);   /* soft green fill on hover */
-}
-
-.nullBtn{
-  color: aliceblue;
-  margin-top: 2px;
-  border: 2px solid rgba(107, 114, 128, 0.30); /* neutral gray */
-  margin-right: 10px;
-  border-radius: 6px;
-  z-index: 5;
-  position: relative;
-  cursor: pointer;
-}
-
-.nullBtn:hover{
-  border: 2px solid rgba(107, 114, 128, 0.45);
-  background-color: rgba(107, 114, 128, 0.20); /* soft gray fill on hover */
+  width: 295px;
+  margin-left: 44px;
+  margin-top: 32px;
+  height: 375px;
+  border-radius: .5rem;
 }

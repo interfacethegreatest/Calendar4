@@ -6,11 +6,13 @@ import Tilt from 'react-parallax-tilt';
 import { SyncLoader } from 'react-spinners';
 import { RiDeleteBin3Line } from 'react-icons/ri';
 import { RxCross1 } from "react-icons/rx";     
-import { IoMdCheckmark } from "react-icons/io"; 
+import { IoIosStar, IoMdCheckmark } from "react-icons/io"; 
 import { MdOutlineRemove } from "react-icons/md"; 
 import { useSession } from 'next-auth/react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import SlideButtonSubmit from '@/components/buttons/auth/slideButtonSubmit';
+import { AiFillLock } from 'react-icons/ai';
 
 interface IProjectsProps {
   setShowContentProjects: (v: boolean) => void;
@@ -104,13 +106,44 @@ const Projects: React.FunctionComponent<IProjectsProps> = (props) => {
                   </p>
                 ) : (
                   bookData.map((book, index) => (
-                    <div key={book._id ?? index} id={style.bookCard}>
-                      <div className={style.bookCardBacking}>
-                      </div>
-                      <div id={style.bookImageContainer}></div>
-                      <h1>The Great Gatsby</h1>
+                  <div key={book._id ?? index} id={style.bookCard}>
+                    <div className={style.bookCardBacking}>
+                    <div className={style.bookCardButtonWrapper}>
+                      <SlideButtonSubmit
+                        type="submit"
+                        slide_text="Save your details"
+                        text="Save"
+                        icon={<AiFillLock />}
+                        width="250px"
+                        disabled={null}
+                        setScene={() => null}
+                      />
                     </div>
-                  ))
+                    </div>
+                    <div id={style.bookImageContainer}>
+                      <img
+                        src={book.imageUrl}  // change to your image
+                        alt="Book"
+                        className={style.bookImage}
+                      />
+                    </div>
+                    <div style={{ display: "flex", flexDirection: "column" }}>
+                      <h1 id={style.bookTitle}>{book.bookTitle}</h1>
+                      <p id={style.bookDescription}>By {book.bookAuthor}</p>
+                      
+
+                      {/* ⭐ Rating stars */}
+                      <div style={{ whiteSpace: "nowrap", marginTop:"4%", marginLeft: "10px", marginBottom: "5%", display:"flex"}}>
+                        {Array.from({ length: book.rating }, (_, i) => (
+                          <IoIosStar size={15}/>
+                        ))}
+                      </div>
+                      <div id={style.bookDescriptionContainer}>
+                        <p id={style.bookDesc}>{book.bookDescription}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))
                 )}
               </div>
             </>

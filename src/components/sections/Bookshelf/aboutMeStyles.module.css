@@ -120,7 +120,7 @@
 
 .bookCardBacking{
   border: 2px solid rgba(90, 89, 89, 0.295);
-  width: 786px;
+  width: 766px;
   height: 324px;
   background-color: rgba(48, 121, 97, 0.072);
   border-radius: .5rem;
@@ -179,6 +179,7 @@ margin-left: 10px;
 
 /* This wrapper controls bottom + horizontal offset */
 .bookCardButtonWrapper {
+
   position: absolute;
   bottom: 10px;      /* stick to bottom of .bookCardBacking */
   left: 475PX; 

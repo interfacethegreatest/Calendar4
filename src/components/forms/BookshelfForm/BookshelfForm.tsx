@@ -92,7 +92,7 @@ const BookshelfForm: React.FC<BookshelfFormProps> = ({ closeWindow, getServerSid
       });
 
       toast.success(data.message || "Book saved successfully!");
-      getServerSideProps();
+      getServerSideProps(true);
       closeWindow();
     } catch (error) {
       console.error(error);

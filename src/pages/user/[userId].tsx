@@ -100,6 +100,7 @@ export default function user({
     var newSelection = [false, false, false,false]
     newSelection[arg0] = true;
     setSelection(newSelection);
+    
   }
   const [clicked, setClicked] = useState(false)
   useEffect(() => {
@@ -157,8 +158,21 @@ export default function user({
           <br />
           <div id={style.selector}>
             {
-              selection[0] ? <ul id={style.selectedText}>Bookshelf</ul> : <ul onClick={()=>handleClick(0)} id={style.selectorText}>Bookshelf</ul>
+              selection[0] 
+                ? <ul id={style.selectedText}>Bookshelf</ul> 
+                : (
+                  <ul
+                    onClick={() => {
+                      handleClick(0);
+                      getBookshelfServerSideProps(true);  // ✅ trigger refetch on next mount/effect
+                    }}
+                    id={style.selectorText}
+                  >
+                    Bookshelf
+                  </ul>
+                )
             }
+
             {
               selection[1] ? <ul id={style.selectedText}>Projects</ul> : <ul onClick={()=>{handleClick(1), getProjectServerSideProps(true) }} id={style.selectorText}>Projects</ul>
             }

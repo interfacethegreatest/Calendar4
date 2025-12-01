@@ -111,6 +111,17 @@ const userSchema = new mongoose.Schema({
     ],
     default: [],
   },
+
+  blogs: {
+    type: [
+      {
+        blogTitle: { type: String, required: true },
+        blogDescription: { type: String, required: true },
+        createdAt: { type: Date, default: Date.now },
+      },
+    ],
+    default: [],
+  },
 });
 
 const User = mongoose.models.User || mongoose.model("User", userSchema);

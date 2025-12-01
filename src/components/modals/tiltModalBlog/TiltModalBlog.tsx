@@ -8,9 +8,7 @@ import { motion } from "framer-motion";
 import { useState, forwardRef, useEffect } from "react";
 import { TbLetterC } from "react-icons/tb";
 import { MdOutlineClose } from "react-icons/md";
-import BookshelfForm from "@/components/forms/BlogForm/BlogForm";
-import BookshelfForm1 from "@/components/forms/BookshelfForm/BookshelfForm1";
-
+import BlogForm from "@/components/forms/BlogForm/BlogForm";
 
 
 const font = Poppins({
@@ -19,14 +17,14 @@ const font = Poppins({
 });
 
 
-interface ITiltModalBookshelfProps {
+interface ITiltModalBlogProps {
   setShowContent: Function;
   showContent: Boolean;
   getServerSideProps: Function;
 }
 
 // Use forwardRef to handle the `ref` prop
-const TiltModalBookshelf = forwardRef<HTMLDivElement, ITiltModalBookshelfProps>((props, ref) => {
+const TiltModalBlog = forwardRef<HTMLDivElement, ITiltModalBlogProps>((props, ref) => {
   const [clicked, setClicked] = useState(false); // State to track if the slide-out is triggered
   const { setShowContent,showContent, getServerSideProps} = props;
   //log user id for testing,
@@ -83,7 +81,7 @@ const TiltModalBookshelf = forwardRef<HTMLDivElement, ITiltModalBookshelfProps>(
             <motion.div id={styles.logo}>
               <TbLetterC style={{ position: "absolute", height: "100%", zIndex: "2", color: "aliceblue", cursor:"pointer" }} />
             </motion.div>
-           <BookshelfForm1 closeWindow={closeWindow} getServerSideProps={getServerSideProps}/>
+            <BlogForm closeWindow={closeWindow} getServerSideProps={getServerSideProps}/>
           </div>
         </div>
       </Tilt>
@@ -91,6 +89,6 @@ const TiltModalBookshelf = forwardRef<HTMLDivElement, ITiltModalBookshelfProps>(
   );
 });
 
-TiltModalBookshelf.displayName = "TiltModalBookshelf";
+TiltModalBlog.displayName = "TiltModalBlog";
 
-export default TiltModalBookshelf;
+export default TiltModalBlog;

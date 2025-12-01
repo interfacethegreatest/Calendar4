@@ -21,6 +21,8 @@ import Projects from '@/components/sections/Projects/Projects';
 import TiltModalProjects from '@/components/modals/TiltModalProjects/TiltModalProjects';
 import Bookshelf from '@/components/sections/Bookshelf/Bookshelf';
 import TiltModalBookshelf from '@/components/modals/TiltModalBookshelf/TiltModalBookshelf';
+import Blog from '@/components/sections/Blog/Blog';
+import TiltModalBlog from '@/components/modals/tiltModalBlog/TiltModalBlog';
 
 
 export default function user({
@@ -50,6 +52,7 @@ export default function user({
   const [showContentAboutMe, setShowContentAboutMe] = useState(false);
   const [showContentProjects, setShowContentProjects] = useState(false);
   const [showContentBookshelf, setShowContentBookshelf] = useState(false);
+  const [showContentBlog, setShowContentBlog] = useState(false);
   // Used in the modal to set and use a user defined image 
   const [ imageString, setImageString ] = useState(null);
   // Used in the modal to set and use a user defined username, 
@@ -67,6 +70,8 @@ export default function user({
   const [projectServerSideProps, getProjectServerSideProps] = useState(true);
   //Used in bookshelf to load content,
   const [bookshelfServerSideProps, getBookshelfServerSideProps] = useState(true);
+  //Used in Blog to load content,
+  const [blogServerSideProps, getBlogServerSideProps] = useState(true);
   //Variants for the profile component,
   const profileVariants = {
     initial: { scale: 1, opacity: 1 },
@@ -156,14 +161,18 @@ export default function user({
           </div>
           <br />
           <br />
+          
           <div id={style.selector}>
             {
-              selection[0] 
+            selection[0] ? <ul id={style.selectedText}>Blog</ul> : <ul onClick={()=>handleClick(0)} id={style.selectorText}>Blog</ul>
+            }
+            {
+              selection[1] 
                 ? <ul id={style.selectedText}>Bookshelf</ul> 
                 : (
                   <ul
                     onClick={() => {
-                      handleClick(0);
+                      handleClick(1);
                       getBookshelfServerSideProps(true);  // ✅ trigger refetch on next mount/effect
                     }}
                     id={style.selectorText}
@@ -174,19 +183,30 @@ export default function user({
             }
 
             {
-              selection[1] ? <ul id={style.selectedText}>Projects</ul> : <ul onClick={()=>{handleClick(1), getProjectServerSideProps(true) }} id={style.selectorText}>Projects</ul>
+              selection[2] ? <ul id={style.selectedText}>Projects</ul> : <ul onClick={()=>{handleClick(2), getProjectServerSideProps(true) }} id={style.selectorText}>Projects</ul>
             }
             {
-              selection[2] ? <ul id={style.selectedText}>About</ul> : <ul onClick={()=>handleClick(2)} id={style.selectorText}>About</ul>
+              selection[3] ? <ul id={style.selectedText}>About</ul> : <ul onClick={()=>handleClick(3)} id={style.selectorText}>About</ul>
             }
-            {
-              selection[3] ? <ul id={style.selectedText}>Blog</ul> : <ul onClick={()=>handleClick(3)} id={style.selectorText}>Blog</ul>
-            }
+            
           </div>
           <br />
           <div id={style.information}>
             {
               selection[0] ? 
+              <Blog 
+              setShowContentBlog={setShowContentBlog}
+              serverSideProps={blogServerSideProps}
+              getServerSideProps={getBlogServerSideProps}
+              userId={userId}
+              /> 
+               : null
+              
+            }
+          </div>
+          <div id={style.information}>
+            {
+              selection[1] ? 
               <Bookshelf 
               setShowContentProjects={setShowContentBookshelf}
               serverSideProps={bookshelfServerSideProps}
@@ -199,7 +219,7 @@ export default function user({
           </div>
           <div id={style.information}>
             {
-              selection[1] ? 
+              selection[2] ? 
               <Projects 
                setShowContentProjects={setShowContentProjects}
                serverSideProps={projectServerSideProps}
@@ -212,7 +232,7 @@ export default function user({
           </div>
           <div id={style.information}>
             {
-              selection[2] ? 
+              selection[3] ? 
               <AboutMe 
                isLoading={isAboutYouLoading} 
                setIsLoading={setIsAboutYouLoading} 
@@ -295,6 +315,23 @@ export default function user({
        showContent={showContentBookshelf}
        setShowContent={setShowContentBookshelf} 
        getServerSideProps={getBookshelfServerSideProps}
+      />
+    </motion.div>
+  </div>
+)}
+
+{showContentBlog && (
+      <div id={style.modalBacking}>
+    <motion.div
+      initial={{ x: "-100vw" }}
+      animate={{ x: 0 }} // Slides in
+      exit={{ x: "-100vw" }} // Slides out
+      transition={{ type: "spring", stiffness: 70, damping: 20 }}
+    >
+      <TiltModalBlog
+       showContent={showContentBlog}
+       setShowContent={setShowContentBlog} 
+       getServerSideProps={getBlogServerSideProps}
       />
     </motion.div>
   </div>

@@ -164,7 +164,19 @@ export default function user({
           
           <div id={style.selector}>
             {
-            selection[0] ? <ul id={style.selectedText}>Blog</ul> : <ul onClick={()=>handleClick(0)} id={style.selectorText}>Blog</ul>
+              selection[0] 
+                ? <ul id={style.selectedText}>Blog</ul> 
+                : (
+                  <ul
+                    onClick={() => {
+                      handleClick(0);
+                      getBlogServerSideProps(true);  // ✅ trigger refetch on next mount/effect
+                    }}
+                    id={style.selectorText}
+                  >
+                    Blog
+                  </ul>
+                )
             }
             {
               selection[1] 

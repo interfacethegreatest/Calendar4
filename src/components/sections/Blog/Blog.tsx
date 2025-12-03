@@ -20,7 +20,33 @@ const Blog: React.FunctionComponent<IBlogProps> = (props) => {
   const { data: session } = useSession();
   const { serverSideProps, getServerSideProps, userId, setShowContentBlog } = props;
   const [loading, setLoading] = useState<boolean>(false);
-
+  const [blogData, setBlogData] = useState<any>(null);
+  useEffect(() => {
+    const loadBackend = async () => {
+      if (serverSideProps && userId) {
+        setLoading(true);
+        try {
+          const response = await fetch(`/api/auth/getUserData?userId=${userId}`);
+          if (!response.ok) {
+            throw new Error('Failed to fetch data.');
+          }
+  
+          const data = await response.json();
+          const blogs = data?.user?.blogs || [];
+          setBlogData(blogs);
+          console.log(blogs)
+        } catch (error) {
+          console.error('Error fetching profile:', error);
+        } finally {
+          
+          getServerSideProps(false);
+          setTimeout(() => setLoading(false), 500);
+        }
+      }
+    };
+  
+    loadBackend();
+  }, [serverSideProps, userId, getServerSideProps]);
   return (
     <div id={style.about}>
       <div id={style.backing2}></div>

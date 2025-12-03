@@ -20,7 +20,7 @@ export const FormSchema = z.object({
   BlogDescription: z
     .string()
     .min(2, { message: "Book Description requires 2 or more characters." })
-    .max(50, { message: "Too many characters. (50 max)" }),
+    .max(500, { message: "Too many characters. (500 max)." }),
 });
 
 type FormSchemaType = z.infer<typeof FormSchema>;

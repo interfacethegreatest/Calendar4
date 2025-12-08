@@ -21,6 +21,8 @@ const Blog: React.FunctionComponent<IBlogProps> = (props) => {
   const { serverSideProps, getServerSideProps, userId, setShowContentBlog } = props;
   const [loading, setLoading] = useState<boolean>(false);
   const [blogData, setBlogData] = useState<any>(null);
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [exitAnimation, setExitAnimation] = useState(false);
   useEffect(() => {
     const loadBackend = async () => {
       if (serverSideProps && userId) {
@@ -47,6 +49,16 @@ const Blog: React.FunctionComponent<IBlogProps> = (props) => {
   
     loadBackend();
   }, [serverSideProps, userId, getServerSideProps]);
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
+
   return (
     <div id={style.about}>
       <div id={style.backing2}></div>
@@ -70,6 +82,43 @@ const Blog: React.FunctionComponent<IBlogProps> = (props) => {
                 <GenerateModal fields={'Edit Documents'} setShowContent={setShowContentBlog} />
               </div>
               <br /> 
+              <div
+                id={style.blogCardContainer}
+                className={exitAnimation ? style.exit : ''}
+              >
+                {blogData && blogData.length > 0 ? (
+                  blogData.map((blog: any, index: number) => (
+                    <div
+                      key={index}
+                      className={style.blogCard}
+                      onMouseEnter={() => setHoveredCard(index)}
+                      onMouseLeave={() => setHoveredCard(null)}
+                    >
+                      <div id={style.titleContainer}>
+                        <h3 className={style.blogTitle}>{blog.blogTitle}</h3>
+                        <h5 id={style.blogDate}>{formatDate(blog.createdAt)}</h5>
+                      </div>
+
+                      <p className={style.blogContent}>{blog.blogDescription}</p>
+
+                      {hoveredCard === index && (
+                        <a
+                          className={style.readMore}
+                          href="#"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setExitAnimation(true);
+                          }}
+                        >
+                          Read more →
+                        </a>
+                      )}
+                    </div>
+                  ))
+                ) : (
+                  <p className={style.noBlogs}>No blogs available.</p>
+                )}
+              </div>
             </>
           )}
         </div>

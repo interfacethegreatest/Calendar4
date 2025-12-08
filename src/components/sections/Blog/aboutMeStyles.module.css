@@ -110,80 +110,61 @@
   justify-content: space-evenly;
 }
 
-#bookCard{
-  width: 960px;
-  height: 380px;
-  cursor: pointer;
-  display: flex;
-  position: relative;
+#blogCardContainer{
+  display:flex;
+  flex-direction: column;
+  padding: 10px;
+  gap: 6px;
 }
 
-.bookCardBacking{
-  border: 2px solid rgba(90, 89, 89, 0.295);
-  width: 766px;
-  height: 324px;
-  background-color: rgba(48, 121, 97, 0.072);
-  border-radius: .5rem;
-  position: absolute;
-  padding-right: 10px;
-}
-
-#bookImageContainer {
-  /*border: 2px solid rgba(90, 89, 89, 0.295);*/
-  min-width: 295px;
-  margin-left: 44px;
-  margin-top: 32px;
-  height: 375px;
+.blogCard{
   border-radius: 1.5rem;
-  position: relative;
-  z-index: 6;
-  display: flex;
-  transition: transform 200ms ease, box-shadow 200ms ease;
+  height: 250px;
+  border: 2px solid rgba(90, 89, 89, 0);
 }
 
-#bookImageContainer:hover {
-  transform: scale(1.03);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+.blogCard:hover{
+  border: 2px solid rgba(90, 89, 89, 0.295);
+  background-color: rgba(38, 78, 65, 0.072);
 }
 
-#bookTitle{
+.blogTitle{
   margin-left: 10px;
-  margin-top: 3%;
+  margin-bottom: 0.5rem;
+  text-align: center;
   text-decoration: underline;
-  white-space: nowrap;
 }
 
-#bookDescription{
-  margin-left: 10px;
-  margin-bottom: 0;
+#titleContainer{
+  display: flex;
+  flex-direction: row;
 }
 
-#bookDescriptionContainer{
-margin-top: 16%;
-margin-left: 10px;
-}
-
-#bookDesc{
-
-}
-
-.bookImage {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;   /* fills and crops */
-  display: block;     
-  border-radius: .5rem; /* removes inline-gap spacing */
-}
-
-
-
-/* This wrapper controls bottom + horizontal offset */
-.bookCardButtonWrapper {
-
+#blogDate{
   position: absolute;
-  bottom: 10px;      /* stick to bottom of .bookCardBacking */
-  left: 475PX; 
-     /* shift to the right – tweak as needed */
-  /* optional: width: fit-content; if you don't want it to stretch */
+  right: 35px;
+  margin: 0;
+}
+
+.blogContent{
+ margin-top: 5px;
+ margin-left: 15px;
+}
+
+.readMore{
+  margin-left: 15px;
+  text-decoration: none;
+}
+
+#blogCardContainer {
+  transition: opacity 0.3s ease, transform 0.5s ease;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.exit {
+  opacity: 0;
+  transform: translateX(200px);
+  visibility: hidden;
 }
 

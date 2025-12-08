@@ -170,7 +170,7 @@ export default function user({
                   <ul
                     onClick={() => {
                       handleClick(0);
-                      getBlogServerSideProps(true);  // ✅ trigger refetch on next mount/effect
+                      getBlogServerSideProps(true);  // trigger refetch on next mount/effect
                     }}
                     id={style.selectorText}
                   >
@@ -185,7 +185,7 @@ export default function user({
                   <ul
                     onClick={() => {
                       handleClick(1);
-                      getBookshelfServerSideProps(true);  // ✅ trigger refetch on next mount/effect
+                      getBookshelfServerSideProps(true);  //trigger refetch on next mount/effect
                     }}
                     id={style.selectorText}
                   >

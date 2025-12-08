@@ -168,3 +168,41 @@
   visibility: hidden;
 }
 
+.selectedContainer{
+  position: absolute;
+  top: 120px;
+  left: 30px;
+}
+
+/* list container transition */
+#blogCardContainer {
+  transition: opacity 0.3s ease, transform 0.5s ease;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* removed visibility:hidden so it truly leaves the DOM after transition */
+.exit {
+  opacity: 0;
+  transform: translateX(200px);
+  pointer-events: none;
+}
+
+/* Selected / expanded view */
+.selectedContainer{
+  position: absolute;
+  top: 120px;
+  left: 30px;
+
+  /* prepare for transition when exiting */
+  transition: opacity 0.35s ease, transform 0.45s ease;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* when exiting selected view (Back clicked) */
+.selectedExit {
+  opacity: 0;
+  transform: translateX(200px);
+  pointer-events: none;
+}

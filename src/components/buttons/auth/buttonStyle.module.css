@@ -2,7 +2,7 @@
 
 #submitButton {
     position: absolute;
-    bottom: .5%;
+    bottom: .99%;
     left: 50%;
     transform: translateX(-50%);
     color: aliceblue;

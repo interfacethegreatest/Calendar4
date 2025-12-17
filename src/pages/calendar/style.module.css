@@ -1,0 +1,178 @@
+#main{
+    min-width: 100%;
+    min-height: 100%;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    z-index: 0;
+    margin: 0;
+    padding: 0;
+}
+
+#mainBannerText {
+    position: relative;
+    color: aliceblue;
+    min-width: fit-content;
+    text-align: center;
+    background-color: black;
+    top: 4%;
+
+}
+
+#calendar {
+  border: 2px solid rgba(90, 89, 89, 0.377);
+  background: rgba(0, 255, 255, 0.027);
+  border-radius: 1.5rem;
+  width: 1250px;
+  height: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  /* hover setup */
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+#calendar:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
+  border-color: rgba(90, 89, 89, 0.55);
+  background: rgba(0, 255, 0, 0.007);
+}
+
+
+#calendarHeader{
+    width: 100%;
+    height: 12%;
+    border-top-left-radius: 1.5rem;
+    border-top-right-radius: 1.5rem;
+    position: relative;
+    border-bottom: 2px solid rgba(90, 89, 89, 0.377);
+    background-color: rgba(240, 248, 255, 0.082);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#calendarMonth{
+    color: aliceblue;
+    font-size: 2rem;
+}
+
+.triangleBtn {
+  border: 0;
+  background: transparent;
+  padding: 0.25rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.6rem;
+  color: aliceblue;
+  transition: transform 160ms ease, background-color 160ms ease;
+}
+
+.triangleBtn:hover {
+  transform: scale(1.08); /* slight increase on hover */
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.triangleIcon {
+  transition: transform 200ms ease;
+  transform: rotate(0deg);
+  transform-origin: center;
+}
+
+.triangleOpen {
+  transform: rotate(90deg); /* rotate right 90° */
+}
+
+/* wraps month/year so menu can be positioned relative to it */
+.dropdownWrap {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* your existing inline flex rows -> use a class instead */
+.headerRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+/* menu container */
+.dropdownMenu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 50;
+
+  min-width: 180px;
+  max-height: 240px;
+  overflow: auto;
+
+  padding: 6px;
+  margin: 0;
+  list-style: none;
+
+  border-radius: 1.5rem;
+  border:  2px solid rgba(90, 89, 89, 0.17);
+  background: black;
+  backdrop-filter: blur(10px);
+
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* each option */
+.dropdownItem {
+  width: 100%;
+  text-align: left;
+  padding: 10px 10px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: aliceblue;
+
+  cursor: pointer;
+}
+
+.dropdownItem:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.dropdownItemActive {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+/* optional: keep your triangle rotation working */
+.triangleOpen {
+  transform: rotate(90deg);
+}
+
+/* Firefox */
+.dropdownMenu {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(170, 170, 170, 0.85) #000; /* thumb | track */
+}
+
+/* Chrome / Edge / Safari */
+.dropdownMenu::-webkit-scrollbar {
+  width: 8px;
+  height: 8px; /* if it ever becomes horizontal */
+  background: #000;
+}
+
+.dropdownMenu::-webkit-scrollbar-track {
+  background: #000;
+}
+
+.dropdownMenu::-webkit-scrollbar-corner {
+  background: #000;
+}
+
+

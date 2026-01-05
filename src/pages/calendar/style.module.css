@@ -22,7 +22,7 @@
 
 #calendar {
   border: 2px solid rgba(90, 89, 89, 0.377);
-  background: rgba(0, 255, 255, 0.027);
+  background: rgb(0, 0, 0);
   border-radius: 1.5rem;
   width: 1250px;
   height: 800px;
@@ -175,4 +175,7 @@
   background: #000;
 }
 
+#calendarYear{
+ margin: 0;
+}
 

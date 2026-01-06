@@ -138,6 +138,15 @@ const ComponentName: React.FC<Props> = () => {
             )}
           </div>
         </div>
+        <div id={style.calendarDaysHeader}>
+          <div id={style.calendarDayTitle}><b>MON</b></div>
+          <div id={style.calendarDayTitle}><b>TUE</b></div>
+          <div id={style.calendarDayTitle}><b>WED</b></div>
+          <div id={style.calendarDayTitle}><b>THU</b></div>
+          <div id={style.calendarDayTitle}><b>FRI</b></div>
+          <div id={style.calendarDayTitle}><b>SAT</b></div>
+          <div id={style.calendarDayTitle}><b>SUN</b></div>
+        </div>
       </div>
     </main>
   );

@@ -1,0 +1,21 @@
+.smallCalendar {
+  width: 86%;
+  min-height: 220px;
+  margin-top: 15px;
+  margin-left: 20px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* ✅ 7 equal columns */
+  grid-auto-rows: 28px;                 /* header row height */
+  align-items: center;                  /* vertical align */
+  text-align: center;                   /* center letters */               /* breathing room */
+  column-gap: 6px;                      /* optional spacing */
+}
+
+.dayName {
+  color: aliceblue;
+  font-size: 0.7rem;
+  display: flex;                        /* center inside cell */
+  align-items: center;
+  justify-content: center;
+  height: 24px;                         /* consistent header height */
+}

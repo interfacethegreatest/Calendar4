@@ -1,44 +1,72 @@
 "use client";
 
 import Scene from "@/components/backgrounds/starsBackground/Scene";
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import style from "./style.module.css";
-import { LuPanelRight } from "react-icons/lu";
-import Tooltip from "@/components/misc/Tooltip/Tooltip";
-import { MdOutlineKeyboardArrowRight } from "react-icons/md";
-import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
+import NavBar from "./NavBar/NavBar";
+
 const ComponentName: React.FC = () => {
   const [navCollapsed, setNavCollapsed] = useState(false);
+
+  // ✅ moved out of NavBar so it survives unmount/remount
+  const [monthMenuOpen, setMonthMenuOpen] = useState(false);
+
+  const [viewDate, setViewDate] = useState(() => {
+    const now = new Date();
+    return new Date(now.getFullYear(), now.getMonth(), 1);
+  });
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement | null;
+      const isEditable =
+        !!target &&
+        (target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.tagName === "SELECT" ||
+          target.isContentEditable);
+
+      if (isEditable) return;
+
+      if (e.key === "]" || e.code === "BracketRight") {
+        setNavCollapsed((v) => !v);
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
+
+  const shiftMonth = (delta: number) => {
+    setViewDate((prev) => new Date(prev.getFullYear(), prev.getMonth() + delta, 1));
+  };
+
+  const { monthLabel, yearLabel } = useMemo(() => {
+    return {
+      monthLabel: viewDate.toLocaleString("en-GB", { month: "short" }),
+      yearLabel: viewDate.toLocaleString("en-GB", { year: "numeric" }),
+    };
+  }, [viewDate]);
 
   return (
     <main className={style.main}>
       <Scene />
 
       {!navCollapsed && (
-        <div className={style.navBar}>
-          <div className={style.navBanner}>
-            <Tooltip label="Hide panel" symbol="]">
-              <button
-                type="button"
-                className={style.iconButton}
-                onClick={() => setNavCollapsed(true)}
-                aria-label="Hide panel"
-              >
-                <LuPanelRight className={style.Icon} size={18} />
-              </button>
-            </Tooltip>
-            <MdOutlineKeyboardArrowRight className={style.Icon} style={{marginRight:"60px", marginLeft:"2px"}} size={20}/>
-            <MdOutlineKeyboardArrowLeft className={style.Icon} size={20}/>
-          </div>
-          
-
+        <NavBar
+          onCollapse={() => setNavCollapsed(true)}
+          onNextMonth={() => shiftMonth(1)}
+          onPrevMonth={() => shiftMonth(-1)}
+          monthLabel={monthLabel}
+          yearLabel={yearLabel}
+          monthMenuOpen={monthMenuOpen}
+          onToggleMonthMenu={() => setMonthMenuOpen((v) => !v)}
+        >
           {/* other navbar children go here */}
-        </div>
+        </NavBar>
       )}
 
-      <div className={style.body}>
-        
-      </div>
+      <div className={style.body}></div>
     </main>
   );
 };

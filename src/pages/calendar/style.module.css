@@ -10,84 +10,9 @@
     padding: 0;
 }
 
-.navBar{
-  background-color: rgb(39, 40, 51);
-  height: 100vh;
-  width: 255px;
-  border-right: 2px solid rgba(90, 89, 89, 0.17);
-  z-index: 2; /* sits above the Scene */
-  display: flex;
-  flex-direction: column;
-}
-
 .body{
   flex: 1;              /* fills remaining width */
   height: 100vh;
   background-color: rgba(107, 107, 107, 0.359);
   
-}
-
-.navBanner{
-  height: 19px;
-  width: 215px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 25px;
-  display: flex;
-  flex-direction: row-reverse;
-  border: 1px solid aqua;
-}
-
-.Icon{
-  color: rgb(107, 110, 112);
-  margin-top: auto;
-  margin-bottom: auto;
-  cursor: pointer;
-}
-
-.Icon:hover{
-  color: aliceblue;
-}
-
-.iconWrap{
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-}
-
-.tooltip{
-  position: absolute;
-  left: calc(100% + 10px);
-  top: 50%;
-  transform: translateY(-50%);
-
-  padding: 6px 10px;
-  border-radius: 10px;
-  font-size: 12px;
-  white-space: nowrap;
-
-  background: rgba(20,20,25,0.95);
-  color: aliceblue;
-  border: 1px solid rgba(255,255,255,0.12);
-
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 120ms ease, transform 120ms ease;
-}
-
-.iconWrap:hover .tooltip{
-  opacity: 1;
-  transform: translateY(-50%) translateX(2px);
-}
-
-/* optional little arrow */
-.tooltip::before{
-  content: "";
-  position: absolute;
-  left: -6px;
-  top: 50%;
-  transform: translateY(-50%);
-  border-width: 6px;
-  border-style: solid;
-  border-color: transparent rgba(20,20,25,0.95) transparent transparent;
 }

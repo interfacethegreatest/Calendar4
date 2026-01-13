@@ -25,7 +25,6 @@ const ComponentName: React.FC = () => {
           target.tagName === "TEXTAREA" ||
           target.tagName === "SELECT" ||
           target.isContentEditable);
-
       if (isEditable) return;
 
       if (e.key === "]" || e.code === "BracketRight") {
@@ -47,7 +46,7 @@ const ComponentName: React.FC = () => {
       yearLabel: viewDate.toLocaleString("en-GB", { year: "numeric" }),
     };
   }, [viewDate]);
-
+  console.log(viewDate)
   return (
     <main className={style.main}>
       <Scene />
@@ -61,6 +60,7 @@ const ComponentName: React.FC = () => {
           yearLabel={yearLabel}
           monthMenuOpen={monthMenuOpen}
           onToggleMonthMenu={() => setMonthMenuOpen((v) => !v)}
+          viewDate={viewDate}   // ✅ add this
         >
           {/* other navbar children go here */}
         </NavBar>

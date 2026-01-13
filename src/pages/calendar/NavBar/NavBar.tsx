@@ -22,6 +22,8 @@ type NavBarProps = {
   monthMenuOpen: boolean;
   onToggleMonthMenu: () => void;
 
+  viewDate: Date;
+
   children?: React.ReactNode;
 };
 
@@ -33,6 +35,7 @@ const NavBar: React.FC<NavBarProps> = ({
   yearLabel,
   monthMenuOpen,
   onToggleMonthMenu,
+  viewDate,
   children,
 }) => {
   return (
@@ -88,7 +91,7 @@ const NavBar: React.FC<NavBarProps> = ({
         </button>
       </div>
       {/* ✅ smallCalendar toggles with the arrow */}
-      {!monthMenuOpen && <SmallCalendar />}
+      {!monthMenuOpen && <SmallCalendar viewDate={viewDate}/>}
 
       {children}
     </div>

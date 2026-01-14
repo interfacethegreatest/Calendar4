@@ -24,8 +24,13 @@ type NavBarProps = {
 
   viewDate: Date;
 
+  selectedDate: Date | null;
+  onSelectDate: (date: Date) => void;
+
   children?: React.ReactNode;
 };
+
+
 
 const NavBar: React.FC<NavBarProps> = ({
   onCollapse,
@@ -37,6 +42,8 @@ const NavBar: React.FC<NavBarProps> = ({
   onToggleMonthMenu,
   viewDate,
   children,
+  selectedDate,
+  onSelectDate,
 }) => {
   return (
     <div className={style.navBar}>
@@ -91,7 +98,13 @@ const NavBar: React.FC<NavBarProps> = ({
         </button>
       </div>
       {/* ✅ smallCalendar toggles with the arrow */}
-      {!monthMenuOpen && <SmallCalendar viewDate={viewDate}/>}
+      {!monthMenuOpen && (
+        <SmallCalendar
+          viewDate={viewDate}
+          selectedDate={selectedDate}
+          onSelectDate={onSelectDate}
+        />
+      )}
 
       {children}
     </div>

@@ -3,7 +3,8 @@
 import Scene from "@/components/backgrounds/starsBackground/Scene";
 import React, { useEffect, useMemo, useState } from "react";
 import style from "./style.module.css";
-import NavBar from "./NavBar/NavBar";
+import NavBar from "@/components/sections/NavBar/NavBar";
+
 
 const ComponentName: React.FC = () => {
   const [navCollapsed, setNavCollapsed] = useState(false);
@@ -46,7 +47,9 @@ const ComponentName: React.FC = () => {
       yearLabel: viewDate.toLocaleString("en-GB", { year: "numeric" }),
     };
   }, [viewDate]);
-  console.log(viewDate)
+  
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+
   return (
     <main className={style.main}>
       <Scene />
@@ -61,6 +64,8 @@ const ComponentName: React.FC = () => {
           monthMenuOpen={monthMenuOpen}
           onToggleMonthMenu={() => setMonthMenuOpen((v) => !v)}
           viewDate={viewDate}   // ✅ add this
+          selectedDate={selectedDate}                 // ✅ pass down
+          onSelectDate={(d) => {setSelectedDate(d), console.log(selectedDate)}}  
         >
           {/* other navbar children go here */}
         </NavBar>

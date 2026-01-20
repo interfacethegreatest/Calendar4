@@ -7,6 +7,7 @@ import NavBar from "@/components/sections/NavBar/NavBar";
 
 
 const ComponentName: React.FC = () => {
+  
   const [navCollapsed, setNavCollapsed] = useState(false);
 
   // ✅ moved out of NavBar so it survives unmount/remount

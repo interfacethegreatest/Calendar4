@@ -46,7 +46,7 @@
 }
 
 .selected {
-  background: rgba(240, 248, 255, 0.16);
+  background-color: rgba(48, 121, 97, 0.473);
   outline: 1px solid rgba(240, 248, 255, 0.4);
 }
 

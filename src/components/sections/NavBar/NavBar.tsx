@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import style from "./style.module.css";
 import Tooltip from "@/components/misc/Tooltip/Tooltip";
 import { LuPanelRight } from "react-icons/lu";
@@ -10,6 +10,7 @@ import {
   MdOutlineKeyboardArrowDown,
 } from "react-icons/md";
 import SmallCalendar from "./SmallCallendar/SmallCalendar";
+import SearchBar from "@/components/input/searchBar/SearchBar";
 
 type NavBarProps = {
   onCollapse: () => void;
@@ -45,6 +46,7 @@ const NavBar: React.FC<NavBarProps> = ({
   selectedDate,
   onSelectDate,
 }) => {
+  const [query, setQuery] = useState("");
   return (
     <div className={style.navBar}>
       <div className={style.navBanner}>
@@ -107,6 +109,9 @@ const NavBar: React.FC<NavBarProps> = ({
       )}
 
       {children}
+      <p className={style.clearSchedule}>Your schedule is clear!</p>
+      <p className={style.meetWith}>Meet With</p>
+      <SearchBar value={query} onChange={setQuery} />
     </div>
   );
 };

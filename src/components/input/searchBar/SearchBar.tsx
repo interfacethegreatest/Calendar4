@@ -59,6 +59,7 @@ const SearchBar: React.FC<Props> = ({
   return (
     <div className={styles.container}>
       <div className={`${styles.wrap} ${active ? styles.active : ""}`}>
+        
         <input
           className={styles.input}
           type="search"

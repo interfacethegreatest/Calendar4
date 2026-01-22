@@ -2,6 +2,7 @@
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./SearchBar.module.css";
+import Tooltip from "@/components/misc/Tooltip/Tooltip";
 
 export type PersonSuggestion = {
   id: string;
@@ -72,13 +73,14 @@ const SearchBar: React.FC<Props> = ({
           autoComplete="off"
           spellCheck={false}
         />
-
+        <Tooltip symbol={"Ctrl + J"} label={"Search modal"}>
         <div className={styles.inputCtrlIcon} aria-hidden={active}>
           Ctrl
         </div>
         <div className={styles.inputJIcon} aria-hidden={active}>
           J
         </div>
+        </Tooltip>
       </div>
 
       {showDropdown && (

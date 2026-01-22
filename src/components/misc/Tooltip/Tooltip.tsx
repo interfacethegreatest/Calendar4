@@ -12,7 +12,7 @@ type TooltipProps = {
 
 export default function Tooltip({
   label,
-  symbol = "]",            // ✅ default if user doesn’t pass one
+  symbol,            // ✅ default if user doesn’t pass one
   children,
   offset = 10,
 }: TooltipProps) {

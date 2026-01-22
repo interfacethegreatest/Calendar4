@@ -65,17 +65,17 @@ const NavBar: React.FC<NavBarProps> = ({
     }
   }, []);
 
-const onSelectSuggestion = (s: PersonSuggestion) => {
-  setQuery(s.name);
-  console.log("Selected user:", s.id, s.name, s.subtitle);
+  const onSelectSuggestion = (s: PersonSuggestion) => {
+    setQuery(s.name);
+    console.log("Selected user:", s.id, s.name, s.subtitle);
 
-  router.push({
-    pathname: `/user/${s.id}/calendar`,
-    query: {
-      userId: s.id,
-    },
-  });
-};
+    router.push({
+      pathname: `/user/${s.id}/calendar`,
+      query: {
+        userId: s.id,
+      },
+    });
+  };
 
   return (
     <div className={style.navBar}>
@@ -114,8 +114,7 @@ const onSelectSuggestion = (s: PersonSuggestion) => {
       {children}
       <p className={style.clearSchedule}>Your schedule is clear!</p>
       <p className={style.meetWith}>Meet With</p>
-
-      {/* ✅ NOW IT AUTOCOMPLETES FROM MONGODB */}
+      
       <SearchBar
         value={query}
         onChange={setQuery}
@@ -126,6 +125,7 @@ const onSelectSuggestion = (s: PersonSuggestion) => {
         placeholder="Search for people..."
         ariaLabel="Search for people"
       />
+      <hr />
     </div>
   );
 };

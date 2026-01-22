@@ -16,7 +16,7 @@
   display: flex;
   align-items: center;
 
-  padding: 6px 8px;
+  padding: 6px 16px;
   border-radius: 10px;
   font-size: 12px;
   white-space: nowrap;
@@ -44,7 +44,7 @@
 
 .bracketBox{
   flex: 0 0 auto;
-  width: 24px;
+  width: 44px;
   height: 24px;
 
   border: 1px solid rgba(255, 255, 255, 0.18);

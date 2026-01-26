@@ -70,7 +70,7 @@ const NavBar: React.FC<NavBarProps> = ({
     console.log("Selected user:", s.id, s.name, s.subtitle);
 
     router.push({
-      pathname: `/user/${s.id}/calendar`,
+      pathname: `/calendar/${s.id}`,
       query: {
         userId: s.id,
       },

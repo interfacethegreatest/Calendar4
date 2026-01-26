@@ -2,33 +2,28 @@
 
 import React from "react";
 import styles from "./style.module.css";
+import ProfileMenu from "../ProfileMenu/ProfileMenu";
+
 
 type Props = {
-  user: any; // replace with your User type when ready
-};
-
-const getInitials = (name?: string) => {
-  if (!name) return "?";
-  const parts = name.trim().split(/\s+/);
-  return (parts[0]?.[0] ?? "?") + (parts[1]?.[0] ?? "");
+  user: any;
 };
 
 const BodyHeader: React.FC<Props> = ({ user }) => {
   const img = user?.image as string | undefined;
-  const initials = getInitials(user?.name);
-
+  const email = user?.email as string | undefined;
+  const id = user?._id as string | undefined;
+  console.log(user)
   return (
     <div className={styles.wrap} role="banner">
-      <div className={styles.profile}>
-        <div className={styles.avatar} aria-label="Profile picture">
-          {img && (
-            <div
-              className={styles.avatarImg}
-              style={{ backgroundImage: `url("${img}")` }}
-            />
-          )} 
-        </div>
-      </div>
+      <ProfileMenu
+        img={img}
+        email={email}
+        id={id}
+        onProfile={() => console.log("profile")}
+        onSettings={() => console.log("settings")}
+        onSignOut={() => console.log("sign out")}
+      />
     </div>
   );
 };

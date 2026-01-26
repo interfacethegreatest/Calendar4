@@ -1,13 +1,19 @@
-"use client";
-
 import Scene from "@/components/backgrounds/starsBackground/Scene";
 import React, { useEffect, useMemo, useState } from "react";
 import style from "./style.module.css";
 import NavBar from "@/components/sections/NavBar/NavBar";
 import Modal from "@/components/modals/modal/modal";
+import BodyHeader from "@/components/sections/BodyHeader/BodyHeader";
 
+import type { InferGetServerSidePropsType, NextPageContext } from "next";
+import connectDB from "@/utils/connectDB";
+import User from "@/models/User";
+import { isValidObjectId } from "mongoose";
 
-const ComponentName: React.FC = () => {
+export default function ComponentName({
+  userId,
+  user,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [navCollapsed, setNavCollapsed] = useState(false);
   const [monthMenuOpen, setMonthMenuOpen] = useState(false);
 
@@ -29,7 +35,6 @@ const ComponentName: React.FC = () => {
 
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
-  // ✅ NEW: modal open state
   const [cmdJOpen, setCmdJOpen] = useState(false);
 
   useEffect(() => {
@@ -42,7 +47,6 @@ const ComponentName: React.FC = () => {
           target.tagName === "SELECT" ||
           target.isContentEditable);
 
-      // allow Esc to close modal even while focused in inputs
       if (e.key === "Escape") {
         setCmdJOpen(false);
         return;
@@ -50,12 +54,10 @@ const ComponentName: React.FC = () => {
 
       if (isEditable) return;
 
-      // ✅ Ctrl/⌘ + J opens modal
       const isCtrlOrCmd = e.ctrlKey || e.metaKey;
       const isJ = e.key.toLowerCase() === "j" || e.code === "KeyJ";
 
       if (isCtrlOrCmd && isJ) {
-        // may not override browser (Ctrl+J downloads), but this is correct to try
         e.preventDefault();
         setCmdJOpen(true);
         return;
@@ -85,22 +87,44 @@ const ComponentName: React.FC = () => {
           onToggleMonthMenu={() => setMonthMenuOpen((v) => !v)}
           viewDate={viewDate}
           selectedDate={selectedDate}
-          onSelectDate={(d) => {
-            setSelectedDate(d);
-            console.log("clicked:", d);
-          }}
+          onSelectDate={(d) => setSelectedDate(d)}
         />
       )}
 
-      <div className={style.body} />
+      <div className={style.body}>
+        <BodyHeader user={user} />
+      </div>
 
-      {/* ✅ Modal invoked by Ctrl/⌘ + J */}
+
       <Modal open={cmdJOpen} onClose={() => setCmdJOpen(false)}>
-
-        {/* put your “modal object component” content here */}
+        {/* modal content */}
       </Modal>
     </main>
   );
-};
+}
 
-export default ComponentName;
+export async function getServerSideProps(ctx: NextPageContext) {
+  const userIdRaw = ctx.query?.userId;
+  const userId = Array.isArray(userIdRaw) ? userIdRaw[0] : userIdRaw;
+
+  if (!userId || !isValidObjectId(userId)) {
+    return { notFound: true };
+  }
+
+  try {
+    await connectDB();
+
+    const user = await User.findById(userId);
+    if (!user) return { notFound: true };
+
+    return {
+      props: {
+        userId,
+        user: JSON.parse(JSON.stringify(user)),
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    return { notFound: true };
+  }
+}

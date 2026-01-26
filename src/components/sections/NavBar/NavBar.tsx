@@ -114,7 +114,7 @@ const NavBar: React.FC<NavBarProps> = ({
       {children}
       <p className={style.clearSchedule}>Your schedule is clear!</p>
       <p className={style.meetWith}>Meet With</p>
-      
+
       <SearchBar
         value={query}
         onChange={setQuery}
@@ -125,7 +125,6 @@ const NavBar: React.FC<NavBarProps> = ({
         placeholder="Search for people..."
         ariaLabel="Search for people"
       />
-      <hr />
     </div>
   );
 };

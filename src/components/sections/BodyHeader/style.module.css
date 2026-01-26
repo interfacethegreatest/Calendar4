@@ -1,0 +1,63 @@
+.wrap{
+  width: 100%;
+  height: 65px;
+
+  display: flex;
+  flex-direction: row-reverse;
+
+  align-items: center;
+  justify-content: space-between;
+
+  background: rgba(0, 0, 0, 0.404);
+  border-bottom: 1px solid rgba(240, 248, 255, 0.18);
+
+}
+
+.profile{
+  display: flex;
+  align-items: center;
+  z-index: 1;
+  gap: 12px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.avatar{
+  width: 35px;
+  height: 35px;
+  border-radius: 999px;
+
+  border: 1px solid rgba(240, 248, 255, 0.18);
+  background: rgba(255, 255, 255, 0.04);
+
+  overflow: hidden;
+  flex: 0 0 auto;
+  cursor: pointer;
+}
+
+.avatarImg{
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+.avatarFallback{
+  width: 100%;
+  height: 100%;
+
+  display: grid;
+  place-items: center;
+
+  color: rgba(240, 248, 255, 0.9);
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+
+  background: radial-gradient(
+    120px 60px at 30% 20%,
+    rgba(48,121,97,0.22),
+    rgba(0,0,0,0.4)
+  );
+}
+

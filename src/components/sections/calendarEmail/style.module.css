@@ -1,0 +1,10 @@
+.searchIcon{
+    color: grey;
+    cursor: pointer;
+    z-index: 1;
+    display: flex;
+}
+
+.searchIcon:hover{
+    color: aliceblue;
+}

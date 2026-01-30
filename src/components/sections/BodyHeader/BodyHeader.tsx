@@ -3,6 +3,8 @@
 import React from "react";
 import styles from "./style.module.css";
 import ProfileMenu from "../ProfileMenu/ProfileMenu";
+import CalendarEmail from "../calendarEmail/CalendarEmail";
+
 
 
 type Props = {
@@ -20,10 +22,8 @@ const BodyHeader: React.FC<Props> = ({ user }) => {
         img={img}
         email={email}
         id={id}
-        onProfile={() => console.log("profile")}
-        onSettings={() => console.log("settings")}
-        onSignOut={() => console.log("sign out")}
       />
+      <CalendarEmail/>
     </div>
   );
 };

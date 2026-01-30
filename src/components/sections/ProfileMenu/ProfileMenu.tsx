@@ -8,12 +8,9 @@ type Props = {
   img?: string;
   email?: string;
   id?:string;
-  onProfile?: () => void;
-  onSettings?: () => void;
-  onSignOut?: () => void;
 };
 
-const ProfileMenu: React.FC<Props> = ({ img,email,id, onProfile, onSettings, onSignOut }) => {
+const ProfileMenu: React.FC<Props> = ({ img,email,id,}) => {
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement | null>(null);
 

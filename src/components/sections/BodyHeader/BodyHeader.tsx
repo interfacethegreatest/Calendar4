@@ -4,6 +4,7 @@ import React from "react";
 import styles from "./style.module.css";
 import ProfileMenu from "../ProfileMenu/ProfileMenu";
 import CalendarEmail from "../calendarEmail/CalendarEmail";
+import LyDropdown from "@/components/dropdown/LyDropdown/LyDropdown";
 
 
 
@@ -24,6 +25,7 @@ const BodyHeader: React.FC<Props> = ({ user }) => {
         id={id}
       />
       <CalendarEmail/>
+      <LyDropdown/>
     </div>
   );
 };

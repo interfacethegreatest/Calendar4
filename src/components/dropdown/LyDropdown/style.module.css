@@ -1,0 +1,154 @@
+.root {
+  position: relative;
+  display: inline-block;
+}
+
+.popover {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: -112%;
+  z-index: 9999;
+
+  width: min(210px, 80vw);
+  border-radius: 7px;
+
+  border: 1px solid rgba(240, 248, 255, 0.18);
+  background: rgba(5, 5, 29, 0.226);;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+
+  padding: 10px;
+}
+
+/* Trigger (the closed dropdown) */
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-width: 90px;
+  margin-right: 15px;
+  padding: 5px 6px;
+  border-radius: 5px;
+  border: 1px solid rgba(240, 248, 255, 0.25);
+  background: rgba(0, 0, 0, 0.25);
+  color: rgba(240, 248, 255, 0.9);
+
+  cursor: pointer;
+}
+
+.trigger:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.triggerLabel {
+  /* easy to restyle label */
+  font-size: 0.85rem;
+}
+
+/* Arrow icon */
+.triggerArrow {
+  transition: transform 160ms ease;
+  opacity: 0.9;
+}
+
+.triggerArrowOpen {
+  transform: rotate(180deg);
+}
+
+/* Modal overlay */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  /* restyle backdrop */
+  background: rgba(0, 0, 0, 0.35);
+
+  display: grid;
+  place-items: center;
+}
+
+/* Modal panel */
+.panel {
+  width: min(350px, calc(100vw - 32px));
+  border-radius: 14px;
+
+  border: 1px solid rgba(240, 248, 255, 0.18);
+  background: rgba(10, 10, 10, 0.92);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+
+  padding: 10px;
+}
+
+/* Options container */
+.options {
+  display: flex;
+  flex-direction: column;
+  
+}
+
+/* Each option row */
+.option {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 6px 6px;
+  border-radius: 12px;
+
+  background: transparent;
+  color: rgba(240, 248, 255, 0.9);
+
+  cursor: pointer;
+  text-align: left;
+}
+
+.option:hover {
+  border-color: rgba(240, 248, 255, 0.16);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.option:focus {
+  outline: none;
+  border-color: rgba(240, 248, 255, 0.3);
+}
+
+/* Active selection */
+.optionActive {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(240, 248, 255, 0.22);
+}
+
+.optionLabel {
+  /* left text */
+  font-size: 0.85rem;
+}
+
+/* Right-side “icon” badge container */
+.optionBadgeWrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 24px;
+  height: 26px;
+  border-radius: 5px;
+
+  background: rgba(255, 255, 255, 0.212);
+}
+
+/* The bold letter/number */
+.optionBadgeText {
+  font-weight: 400;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+}
+
+/* Divider at the end */
+.divider {
+  margin: 8px 4px 2px;
+  border: 0;
+  border-top: 1px solid rgba(240, 248, 255, 0.12);
+}

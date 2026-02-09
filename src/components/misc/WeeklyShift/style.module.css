@@ -1,0 +1,36 @@
+
+.panel {
+  
+  height: 25px;
+  overflow: hidden;
+  margin-right: auto;
+  display: flex;
+  flex-direction: row;
+  color: gray;
+  cursor: pointer;
+  z-index: 33;
+  gap: 5px;
+}
+
+.panel.shrink {
+  width: 56px;
+}
+
+.arrow{
+    size: 15;
+    cursor: pointer;
+    margin-left: 338px;
+
+}
+
+.arrow:hover{
+    color: aliceblue;
+}
+
+.secondArrow{
+    size: 20;
+}
+
+.secondArrow:hover{
+    color: aliceblue;
+}

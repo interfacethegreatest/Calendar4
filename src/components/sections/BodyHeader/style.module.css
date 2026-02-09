@@ -90,3 +90,9 @@
 .dropdownDanger{
   color: rgba(255, 140, 140, 0.95);
 }
+
+.shiftLeft{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}

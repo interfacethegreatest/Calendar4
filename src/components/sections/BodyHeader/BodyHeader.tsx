@@ -5,6 +5,7 @@ import styles from "./style.module.css";
 import ProfileMenu from "../ProfileMenu/ProfileMenu";
 import CalendarEmail from "../calendarEmail/CalendarEmail";
 import LyDropdown from "@/components/dropdown/LyDropdown/LyDropdown";
+import WeeklyShift from "@/components/misc/WeeklyShift/WeeklyShift";
 
 
 
@@ -26,6 +27,10 @@ const BodyHeader: React.FC<Props> = ({ user }) => {
       />
       <CalendarEmail/>
       <LyDropdown/>
+      <div className={styles.shiftLeft}>
+        <WeeklyShift/>
+      </div>
+      
     </div>
   );
 };

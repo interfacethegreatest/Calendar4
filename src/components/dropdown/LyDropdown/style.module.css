@@ -95,8 +95,8 @@
   align-items: center;
   justify-content: space-between;
 
-  padding: 6px 6px;
-  border-radius: 12px;
+  padding: 6px 8px;
+  border-radius: 6px;
 
   background: transparent;
   color: rgba(240, 248, 255, 0.9);
@@ -107,7 +107,7 @@
 
 .option:hover {
   border-color: rgba(240, 248, 255, 0.16);
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.137);
 }
 
 .option:focus {

@@ -9,10 +9,10 @@ const WeeklyShift = (props: Props) => {
   return (
     <>
      <div className={style.panel}>
-      <Tooltip label={'Previous Week'} symbol='U' children={undefined}>
+      <Tooltip label={'Previous Week'} symbol='U'>
        <MdOutlineChevronLeft className={style.arrow} size={19}/>
       </Tooltip>
-      <Tooltip label={'Next Week'} symbol='I' children={undefined}>
+      <Tooltip label={'Next Week'} symbol='I'>
       <MdOutlineChevronRight className={style.secondArrow} size={19}/>
       </Tooltip>
      </div>

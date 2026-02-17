@@ -1,25 +1,31 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import style from "./style.module.css";
 
 type SmallCalendarProps = {
   viewDate: Date; // first of month
   selectedDate: Date | null;
   onSelectDate: (date: Date) => void;
+  onNextMonth: () => void;
+  onPrevMonth: () => void;
 };
 
-const DAY_NAMES = ["S", "M", "T", "W", "T", "F", "S"];
+const DAY_NAMES = ["S", "M", "T", "W", "T", "F", "S"] as const;
 
 const isSameDay = (a: Date, b: Date) =>
   a.getFullYear() === b.getFullYear() &&
   a.getMonth() === b.getMonth() &&
   a.getDate() === b.getDate();
 
+const monthIndex = (d: Date) => d.getFullYear() * 12 + d.getMonth();
+
 const SmallCalendar: React.FC<SmallCalendarProps> = ({
   viewDate,
   selectedDate,
   onSelectDate,
+  onNextMonth,
+  onPrevMonth,
 }) => {
   const { cells, monthStart, today } = useMemo(() => {
     const year = viewDate.getFullYear();
@@ -31,11 +37,10 @@ const SmallCalendar: React.FC<SmallCalendarProps> = ({
 
     const totalCells = 42;
 
-    // Start the grid on the Sunday before (or equal to) the 1st of the month
+    // Start grid on Sunday before (or equal to) the 1st
     const gridStart = new Date(year, month, 1 - firstDayIndex);
 
     const cells = Array.from({ length: totalCells }, (_, i) => {
-      // each cell is an actual date (prev/current/next month)
       return new Date(
         gridStart.getFullYear(),
         gridStart.getMonth(),
@@ -45,6 +50,26 @@ const SmallCalendar: React.FC<SmallCalendarProps> = ({
 
     return { cells, monthStart, today };
   }, [viewDate]);
+
+  const handleSelect = useCallback(
+    (dateObj: Date) => {
+      const current = monthIndex(monthStart);
+      const clicked = monthIndex(dateObj);
+
+      const diff = clicked - current;
+
+      // If user clicked outside the visible month, move the main month first
+      if (diff > 0) {
+        for (let i = 0; i < diff; i++) onNextMonth();
+      } else if (diff < 0) {
+        for (let i = 0; i < Math.abs(diff); i++) onPrevMonth();
+      }
+
+      // Always select the clicked date
+      onSelectDate(dateObj);
+    },
+    [monthStart, onNextMonth, onPrevMonth, onSelectDate]
+  );
 
   return (
     <div className={style.smallCalendar}>
@@ -72,7 +97,7 @@ const SmallCalendar: React.FC<SmallCalendarProps> = ({
               isToday ? style.today : "",
               isSelected ? style.selected : "",
             ].join(" ")}
-            onClick={() => onSelectDate(dateObj)}
+            onClick={() => handleSelect(dateObj)}
             aria-label={dateObj.toDateString()}
             aria-pressed={isSelected}
           >

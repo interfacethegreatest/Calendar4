@@ -108,7 +108,13 @@ const NavBar: React.FC<NavBarProps> = ({
       </div>
 
       {!monthMenuOpen && (
-        <SmallCalendar viewDate={viewDate} selectedDate={selectedDate} onSelectDate={onSelectDate} />
+        <SmallCalendar 
+         viewDate={viewDate} 
+         selectedDate={selectedDate} 
+         onSelectDate={onSelectDate}
+         onNextMonth={onNextMonth}
+         onPrevMonth={onPrevMonth} 
+        />
       )}
 
       {children}

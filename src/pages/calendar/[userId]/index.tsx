@@ -26,9 +26,10 @@ export default function ComponentName({
     setViewDate((prev) => new Date(prev.getFullYear(), prev.getMonth() + delta, 1));
   };
 
-  const { monthLabel, yearLabel } = useMemo(() => {
+  const { monthLabel, monthLabelLong, yearLabel } = useMemo(() => {
     return {
-      monthLabel: viewDate.toLocaleString("en-GB", { month: "short" }),
+      monthLabel: viewDate.toLocaleString("en-GB", { month: "short" }), // e.g. "Feb"
+      monthLabelLong: viewDate.toLocaleString("en-GB", { month: "long" }), // e.g. "February"
       yearLabel: viewDate.toLocaleString("en-GB", { year: "numeric" }),
     };
   }, [viewDate]);
@@ -92,7 +93,7 @@ export default function ComponentName({
       )}
 
       <div className={style.body}>
-        <BodyHeader user={user} />
+        <BodyHeader monthLabel={monthLabelLong} yearLabel={yearLabel} user={user} />
       </div>
 
 

@@ -103,8 +103,7 @@
   height: 33px;
   border-radius: 5px;
   border: 1px solid rgba(240, 248, 255, 0.25);
-  margin-left: 267px;
-  margin-right: 10px;
+  margin-left: 70px;
   padding: 5px;
   display: flex;
   justify-content: center;
@@ -117,4 +116,21 @@
 
 .today:hover{
   border: 1px solid aliceblue;
+}
+
+.dateContainer{
+  display: flex;
+  flex-direction: column;
+  margin-left: 70px;
+}
+
+.dateHeader{
+  color: aliceblue;
+  font-size: 1.15rem;
+  font-weight: 500;
+}
+
+.dateHeaderLower{
+  color: grey;
+  font-size: .75rem;
 }

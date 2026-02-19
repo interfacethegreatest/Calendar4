@@ -1,6 +1,7 @@
 
 .panel {
-  
+  margin-top: 10px;
+  margin-left: 18px;
   height: 25px;
   overflow: hidden;
   margin-right: auto;

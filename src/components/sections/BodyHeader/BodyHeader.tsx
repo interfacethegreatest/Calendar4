@@ -10,9 +10,11 @@ import Tooltip from "@/components/misc/Tooltip/Tooltip";
 
 type Props = {
   user: any;
+  monthLabel: any;
+  yearLabel:any;
 };
 
-const BodyHeader: React.FC<Props> = ({ user }) => {
+const BodyHeader: React.FC<Props> = ({ user, monthLabel, yearLabel }) => {
   const img = user?.image as string | undefined;
   const email = user?.email as string | undefined;
   const id = user?._id as string | undefined;
@@ -30,6 +32,18 @@ const BodyHeader: React.FC<Props> = ({ user }) => {
       <LyDropdown value={viewMode} onChange={setViewMode} />
 
       <div className={styles.shiftLeft}>
+
+        <div className={styles.dateContainer}>
+          <div className={styles.dateHeader}>
+          {monthLabel} {yearLabel}
+          </div>
+          <div className={styles.dateHeaderLower}>
+            (BST)Europe/London
+          </div>
+        </div>
+
+ 
+
         <Tooltip label={"Today"} symbol="T">
           <div className={styles.today}>Today</div>
         </Tooltip>

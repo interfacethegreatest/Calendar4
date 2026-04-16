@@ -8,12 +8,8 @@ import type { ViewMode } from "@/components/dropdown/LyDropdown/LyDropdown";
 
 type Props = {
   mode: ViewMode;
-
-  // optional hooks if you want the arrows to actually shift the view
   onPrev?: () => void;
   onNext?: () => void;
-
-  // keep your existing shortcuts by default
   prevSymbol?: string;
   nextSymbol?: string;
 };
@@ -26,7 +22,6 @@ const WeeklyShift: React.FC<Props> = ({
   nextSymbol = "I",
 }) => {
   const { prevLabel, nextLabel } = useMemo(() => {
-    // ✅ Map dropdown view mode -> tooltip wording
     switch (mode) {
       case "month":
         return { prevLabel: "Previous Month", nextLabel: "Next Month" };

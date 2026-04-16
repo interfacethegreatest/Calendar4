@@ -6,9 +6,30 @@ import Modal from "@/components/modals/modal/modal";
 import BodyHeader from "@/components/sections/BodyHeader/BodyHeader";
 
 import type { InferGetServerSidePropsType, NextPageContext } from "next";
+import type { ViewMode } from "@/components/dropdown/LyDropdown/LyDropdown";
 import connectDB from "@/utils/connectDB";
 import User from "@/models/User";
 import { isValidObjectId } from "mongoose";
+
+function addDays(date: Date, amount: number) {
+  const next = new Date(date);
+  next.setDate(next.getDate() + amount);
+  return next;
+}
+
+function addMonthsClamped(date: Date, amount: number) {
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const day = date.getDate();
+
+  const targetMonthStart = new Date(year, month + amount, 1);
+  const targetYear = targetMonthStart.getFullYear();
+  const targetMonth = targetMonthStart.getMonth();
+
+  const lastDayOfTargetMonth = new Date(targetYear, targetMonth + 1, 0).getDate();
+
+  return new Date(targetYear, targetMonth, Math.min(day, lastDayOfTargetMonth));
+}
 
 export default function ComponentName({
   userId,
@@ -22,21 +43,52 @@ export default function ComponentName({
     return new Date(now.getFullYear(), now.getMonth(), 1);
   });
 
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [viewMode, setViewMode] = useState<ViewMode>("month");
+  const [cmdJOpen, setCmdJOpen] = useState(false);
+
   const shiftMonth = (delta: number) => {
     setViewDate((prev) => new Date(prev.getFullYear(), prev.getMonth() + delta, 1));
   };
 
   const { monthLabel, monthLabelLong, yearLabel } = useMemo(() => {
     return {
-      monthLabel: viewDate.toLocaleString("en-GB", { month: "short" }), // e.g. "Feb"
-      monthLabelLong: viewDate.toLocaleString("en-GB", { month: "long" }), // e.g. "February"
+      monthLabel: viewDate.toLocaleString("en-GB", { month: "short" }),
+      monthLabelLong: viewDate.toLocaleString("en-GB", { month: "long" }),
       yearLabel: viewDate.toLocaleString("en-GB", { year: "numeric" }),
     };
   }, [viewDate]);
 
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const shiftSelectedDate = (direction: -1 | 1) => {
+    const baseDate = selectedDate ?? new Date();
+    let nextDate: Date;
 
-  const [cmdJOpen, setCmdJOpen] = useState(false);
+    switch (viewMode) {
+      case "month":
+        nextDate = addMonthsClamped(baseDate, direction);
+        break;
+
+      case "4days":
+        nextDate = addDays(baseDate, 4 * direction);
+        break;
+
+      case "7days":
+      case "week":
+        nextDate = addDays(baseDate, 7 * direction);
+        break;
+
+      case "day":
+        nextDate = addDays(baseDate, 1 * direction);
+        break;
+
+      default:
+        nextDate = addDays(baseDate, 1 * direction);
+        break;
+    }
+
+    setSelectedDate(nextDate);
+    setViewDate(new Date(nextDate.getFullYear(), nextDate.getMonth(), 1));
+  };
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -93,9 +145,16 @@ export default function ComponentName({
       )}
 
       <div className={style.body}>
-        <BodyHeader monthLabel={monthLabelLong} yearLabel={yearLabel} user={user} />
+        <BodyHeader
+          monthLabel={monthLabelLong}
+          yearLabel={yearLabel}
+          user={user}
+          viewMode={viewMode}
+          onChangeViewMode={setViewMode}
+          onShiftPrev={() => shiftSelectedDate(-1)}
+          onShiftNext={() => shiftSelectedDate(1)}
+        />
       </div>
-
 
       <Modal open={cmdJOpen} onClose={() => setCmdJOpen(false)}>
         {/* modal content */}

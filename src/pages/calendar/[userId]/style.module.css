@@ -14,5 +14,6 @@
   flex: 1;              /* fills remaining width */
   height: 100vh;
   background-color: rgba(107, 107, 107, 0.359);
+  position: relative;
   
 }

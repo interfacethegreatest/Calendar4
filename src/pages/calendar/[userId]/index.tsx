@@ -10,6 +10,7 @@ import type { ViewMode } from "@/components/dropdown/LyDropdown/LyDropdown";
 import connectDB from "@/utils/connectDB";
 import User from "@/models/User";
 import { isValidObjectId } from "mongoose";
+import BodyMain from "@/components/sections/BodyMain/BodyMain";
 
 function addDays(date: Date, amount: number) {
   const next = new Date(date);
@@ -154,6 +155,7 @@ export default function ComponentName({
           onShiftPrev={() => shiftSelectedDate(-1)}
           onShiftNext={() => shiftSelectedDate(1)}
         />
+        <BodyMain/>
       </div>
 
       <Modal open={cmdJOpen} onClose={() => setCmdJOpen(false)}>

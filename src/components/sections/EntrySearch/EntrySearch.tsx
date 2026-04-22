@@ -168,6 +168,7 @@ const EntrySearch: React.FC<EntrySearchProps> = ({
     <>
       <Tooltip label={tooltipLabel} symbol={tooltipSymbol}>
         <button
+          style={{display:"flex", zIndex:"inherit"}}
           type="button"
           className={styles.iconButton}
           onClick={() => setOpen(true)}

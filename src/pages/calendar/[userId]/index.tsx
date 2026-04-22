@@ -48,6 +48,9 @@ export default function ComponentName({
   const [viewMode, setViewMode] = useState<ViewMode>("month");
   const [cmdJOpen, setCmdJOpen] = useState(false);
 
+  // if selectedDate is null, use today's date instead
+  const effectiveDate = selectedDate ?? new Date();
+
   const shiftMonth = (delta: number) => {
     setViewDate((prev) => new Date(prev.getFullYear(), prev.getMonth() + delta, 1));
   };
@@ -140,7 +143,7 @@ export default function ComponentName({
           monthMenuOpen={monthMenuOpen}
           onToggleMonthMenu={() => setMonthMenuOpen((v) => !v)}
           viewDate={viewDate}
-          selectedDate={selectedDate}
+          selectedDate={effectiveDate}
           onSelectDate={(d) => setSelectedDate(d)}
         />
       )}
@@ -155,7 +158,8 @@ export default function ComponentName({
           onShiftPrev={() => shiftSelectedDate(-1)}
           onShiftNext={() => shiftSelectedDate(1)}
         />
-        <BodyMain/>
+
+        <BodyMain selectedDate={effectiveDate} />
       </div>
 
       <Modal open={cmdJOpen} onClose={() => setCmdJOpen(false)}>

@@ -19,9 +19,9 @@
   flex-shrink: 0;
 }
 
-.bodyMainHeaderLeft{
+.bodyMainHeaderLeft {
   height: 100%;
-  width: 85px;
+  min-width: 81px;
   border-right: 1px solid rgba(240, 248, 255, 0.18);
   border-bottom: 1px solid rgba(240, 248, 255, 0.18);
   display: flex;
@@ -29,7 +29,7 @@
   justify-content: center;
 }
 
-.timeZone{
+.timeZone {
   width: 66px;
   height: 33px;
   border-radius: 5px;
@@ -42,29 +42,24 @@
   color: white;
   cursor: pointer;
   z-index: 1;
-  font-size: .8rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  font-size: 0.8rem;
 }
 
-.timeZone:hover{
+.timeZone:hover {
   border: 1px solid aliceblue;
 }
 
-.timeZone h5{
+.timeZone h5 {
   margin-top: 5px;
-  font-size: .8rem;
+  font-size: 0.8rem;
   font-weight: 200;
 }
 
-.bodyMainHeaderRight{
+.bodyMainHeaderRight {
   height: 100%;
   width: 100%;
   border-bottom: 1px solid rgba(240, 248, 255, 0.18);
-}
 
-.bodyMainHeaderRight {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -78,7 +73,7 @@
   cursor: pointer;
 }
 
-.dayNumber:hover{
+.dayNumber:hover {
   border-radius: 5px;
   background-color: rgba(73, 73, 73, 0.404);
   padding-left: 10px;
@@ -86,7 +81,7 @@
 }
 
 .dayName {
-  font-size: .7rem;
+  font-size: 0.7rem;
   color: aliceblue;
 }
 
@@ -106,7 +101,6 @@
 .bodyLeft {
   width: 81px;
   flex-shrink: 0;
-
 }
 
 .timeSlot {
@@ -129,4 +123,108 @@
 .bodyRight {
   flex: 1;
   min-width: 0;
+  position: relative;
+  min-height: calc(64px * 24);
+  touch-action: none;
+}
+
+.bodyRightTimeSlot {
+  height: 64px;
+  box-sizing: border-box;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(240, 248, 255, 0.18);
+  background: rgba(0, 0, 0, 0.404);
+}
+
+.calendarBlock {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+
+  min-height: 16px;
+
+  background: rgba(48, 121, 97, 0.45);
+  border: 1px solid rgba(127, 255, 212, 0.45);
+  border-radius: 7px;
+
+  color: aliceblue;
+
+  padding: 12px 10px;
+  box-sizing: border-box;
+
+  z-index: 5;
+  overflow: hidden;
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+
+  pointer-events: auto;
+}
+
+.calendarBlockTitle {
+  font-size: 0.8rem;
+  font-weight: 300;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.calendarBlockInfo {
+  margin-top: 4px;
+  font-size: 0.755rem;
+  color: rgba(240, 248, 255, 0.7);
+}
+
+.resizeHandle {
+  position: absolute;
+  left: 0;
+  right: 0;
+
+  height: 10px;
+
+  cursor: ns-resize;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  touch-action: none;
+  z-index: 20;
+}
+
+.resizeHandle::after {
+  content: "";
+  width: 34px;
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(240, 248, 255, 0.45);
+}
+
+.resizeHandle:hover::after {
+  background: aliceblue;
+}
+
+.topResizeHandle {
+  top: 0;
+}
+
+.bottomResizeHandle {
+  bottom: 0;
+}
+
+.body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.body::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.404);
+}
+
+.body::-webkit-scrollbar-thumb {
+  background: rgba(240, 248, 255, 0.28);
+  border-radius: 999px;
+}
+
+.body::-webkit-scrollbar-thumb:hover {
+  background: rgba(240, 248, 255, 0.45);
 }

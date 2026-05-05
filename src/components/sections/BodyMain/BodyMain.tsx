@@ -1,8 +1,31 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./style.module.css";
 
 type BodyMainProps = {
   selectedDate: Date | null;
+};
+
+type CalendarBlock = {
+  id: number;
+  title: string;
+  startSlot: number;
+  duration: number;
+};
+
+type CreateDragState = {
+  id: number;
+
+  // The slot where the user first clicked.
+  // This stays as the anchor while the user drags up or down.
+  anchorSlot: number;
+};
+
+type ResizeDragState = {
+  id: number;
+  edge: "top" | "bottom";
+  startY: number;
+  originalStartSlot: number;
+  originalDuration: number;
 };
 
 const times = [
@@ -32,15 +55,306 @@ const times = [
   "11 PM",
 ];
 
+const SLOT_HEIGHT = 64;
+
+// 25% of one hour slot.
+// 0.25 slot = 15 minutes.
+const MIN_DURATION = 0.25;
+
+// Snap every quarter slot.
+// 0.25 = 15 minutes.
+const SNAP_AMOUNT = 0.25;
+
 const BodyMain: React.FC<BodyMainProps> = ({ selectedDate }) => {
+  const bodyRightRef = useRef<HTMLDivElement | null>(null);
+
+  const [calendarBlocks, setCalendarBlocks] = useState<CalendarBlock[]>([]);
+
+  const [createDragState, setCreateDragState] =
+    useState<CreateDragState | null>(null);
+
+  const [resizeDragState, setResizeDragState] =
+    useState<ResizeDragState | null>(null);
+
   const safeDate = selectedDate ?? new Date();
 
   const dayNumber = safeDate.getDate().toString();
+
   const dayName = safeDate
     .toLocaleDateString("en-GB", {
       weekday: "short",
     })
     .toUpperCase();
+
+  function clamp(value: number, min: number, max: number) {
+    return Math.min(Math.max(value, min), max);
+  }
+
+  function snap(value: number) {
+    return Math.round(value / SNAP_AMOUNT) * SNAP_AMOUNT;
+  }
+
+  function snapDown(value: number) {
+    return Math.floor(value / SNAP_AMOUNT) * SNAP_AMOUNT;
+  }
+
+  function snapUp(value: number) {
+    return Math.ceil(value / SNAP_AMOUNT) * SNAP_AMOUNT;
+  }
+
+  function createId() {
+    return Date.now() + Math.random();
+  }
+
+  function keepOnlyActiveBlock(
+    blocks: CalendarBlock[],
+    activeBlockId: number
+  ) {
+    return blocks.filter((block) => block.id === activeBlockId);
+  }
+
+  function formatSlotTime(slot: number) {
+    const totalMinutes = Math.round(slot * 60);
+
+    const hours24 = Math.floor(totalMinutes / 60) % 24;
+    const minutes = totalMinutes % 60;
+
+    const period = hours24 >= 12 ? "pm" : "am";
+
+    const hours12 = hours24 % 12 === 0 ? 12 : hours24 % 12;
+
+    const paddedMinutes = minutes.toString().padStart(2, "0");
+
+    if (minutes === 0) {
+      return `${hours12} ${period}`;
+    }
+
+    return `${hours12}:${paddedMinutes} ${period}`;
+  }
+
+  function getBlockTimeRange(block: CalendarBlock) {
+    const startTime = formatSlotTime(block.startSlot);
+
+    const endTime = formatSlotTime(block.startSlot + block.duration);
+
+    return `${startTime} - ${endTime}`;
+  }
+
+  function handleCalendarPointerDown(
+    event: React.PointerEvent<HTMLDivElement>
+  ) {
+    if (event.button !== 0) return;
+
+    const clickedElement = event.target as HTMLElement;
+
+    // Do not create a new event when the user is using a resize handle.
+    if (clickedElement.closest(`.${styles.resizeHandle}`)) {
+      return;
+    }
+
+    const bodyRight = bodyRightRef.current;
+
+    if (!bodyRight) return;
+
+    const rect = bodyRight.getBoundingClientRect();
+
+    const yPositionInsideCalendar = event.clientY - rect.top;
+
+    const rawSlot = yPositionInsideCalendar / SLOT_HEIGHT;
+
+    const anchorSlot = clamp(
+      snapDown(rawSlot),
+      0,
+      times.length - MIN_DURATION
+    );
+
+    const newBlock: CalendarBlock = {
+      id: createId(),
+      title: "(No title)",
+      startSlot: anchorSlot,
+      duration: MIN_DURATION,
+    };
+
+    // Keep the existing block while creating the new one.
+    // On pointer release, only the newly-created block remains.
+    setCalendarBlocks((currentBlocks) => [...currentBlocks, newBlock]);
+
+    setCreateDragState({
+      id: newBlock.id,
+      anchorSlot,
+    });
+  }
+
+  function handleResizePointerDown(
+    event: React.PointerEvent<HTMLDivElement>,
+    block: CalendarBlock,
+    edge: "top" | "bottom"
+  ) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    setResizeDragState({
+      id: block.id,
+      edge,
+      startY: event.clientY,
+      originalStartSlot: block.startSlot,
+      originalDuration: block.duration,
+    });
+  }
+
+  useEffect(() => {
+    if (!createDragState) return;
+
+    function handlePointerMove(event: PointerEvent) {
+      const bodyRight = bodyRightRef.current;
+
+      if (!bodyRight) return;
+
+      const rect = bodyRight.getBoundingClientRect();
+
+      const yPositionInsideCalendar = event.clientY - rect.top;
+
+      const rawCurrentSlot = yPositionInsideCalendar / SLOT_HEIGHT;
+
+      const anchorSlot = createDragState.anchorSlot;
+
+      const isDraggingDown = rawCurrentSlot >= anchorSlot;
+
+      setCalendarBlocks((currentBlocks) =>
+        currentBlocks.map((block) => {
+          if (block.id !== createDragState.id) {
+            return block;
+          }
+
+          if (isDraggingDown) {
+            const endSlot = clamp(
+              snapUp(rawCurrentSlot),
+              anchorSlot + MIN_DURATION,
+              times.length
+            );
+
+            return {
+              ...block,
+              startSlot: anchorSlot,
+              duration: endSlot - anchorSlot,
+            };
+          }
+
+          const startSlot = clamp(
+            snapDown(rawCurrentSlot),
+            0,
+            anchorSlot
+          );
+
+          const endSlot = anchorSlot + MIN_DURATION;
+
+          return {
+            ...block,
+            startSlot,
+            duration: endSlot - startSlot,
+          };
+        })
+      );
+    }
+
+    function handlePointerUp() {
+      // Once the user releases the mouse,
+      // keep only the newly-created block.
+      setCalendarBlocks((currentBlocks) =>
+        keepOnlyActiveBlock(currentBlocks, createDragState.id)
+      );
+
+      setCreateDragState(null);
+    }
+
+    document.body.style.userSelect = "none";
+
+    window.addEventListener("pointermove", handlePointerMove);
+    window.addEventListener("pointerup", handlePointerUp);
+
+    return () => {
+      document.body.style.userSelect = "";
+
+      window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("pointerup", handlePointerUp);
+    };
+  }, [createDragState]);
+
+  useEffect(() => {
+    if (!resizeDragState) return;
+
+    function handlePointerMove(event: PointerEvent) {
+      const distanceMoved = event.clientY - resizeDragState.startY;
+
+      const movedSlots = snap(distanceMoved / SLOT_HEIGHT);
+
+      setCalendarBlocks((currentBlocks) =>
+        currentBlocks.map((block) => {
+          if (block.id !== resizeDragState.id) {
+            return block;
+          }
+
+          const originalEndSlot =
+            resizeDragState.originalStartSlot +
+            resizeDragState.originalDuration;
+
+          if (resizeDragState.edge === "bottom") {
+            const maxDuration =
+              times.length - resizeDragState.originalStartSlot;
+
+            const newDuration = clamp(
+              resizeDragState.originalDuration + movedSlots,
+              MIN_DURATION,
+              maxDuration
+            );
+
+            return {
+              ...block,
+              duration: newDuration,
+            };
+          }
+
+          const maxStartSlot = originalEndSlot - MIN_DURATION;
+
+          const newStartSlot = clamp(
+            resizeDragState.originalStartSlot + movedSlots,
+            0,
+            maxStartSlot
+          );
+
+          const newDuration = originalEndSlot - newStartSlot;
+
+          return {
+            ...block,
+            startSlot: newStartSlot,
+            duration: newDuration,
+          };
+        })
+      );
+    }
+
+    function handlePointerUp() {
+      // Only one completed block should exist,
+      // so keep only the block being resized.
+      setCalendarBlocks((currentBlocks) =>
+        keepOnlyActiveBlock(currentBlocks, resizeDragState.id)
+      );
+
+      setResizeDragState(null);
+    }
+
+    document.body.style.userSelect = "none";
+
+    window.addEventListener("pointermove", handlePointerMove);
+    window.addEventListener("pointerup", handlePointerUp);
+
+    return () => {
+      document.body.style.userSelect = "";
+
+      window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("pointerup", handlePointerUp);
+    };
+  }, [resizeDragState]);
 
   return (
     <div className={styles.main}>
@@ -66,8 +380,54 @@ const BodyMain: React.FC<BodyMainProps> = ({ selectedDate }) => {
           ))}
         </div>
 
-        <div className={styles.bodyRight}>
-          {/* main content */}
+        <div
+          ref={bodyRightRef}
+          className={styles.bodyRight}
+          onPointerDown={handleCalendarPointerDown}
+        >
+          {times.map((time) => (
+            <div key={time} className={styles.bodyRightTimeSlot}>
+              {/* background time slot row */}
+            </div>
+          ))}
+
+          {calendarBlocks.map((block) => {
+            const top = block.startSlot * SLOT_HEIGHT;
+            const height = block.duration * SLOT_HEIGHT;
+
+            return (
+              <div
+                key={block.id}
+                className={styles.calendarBlock}
+                style={{
+                  top: `${top}px`,
+                  height: `${height}px`,
+                }}
+              >
+                <div
+                  className={`${styles.resizeHandle} ${styles.topResizeHandle}`}
+                  onPointerDown={(event) =>
+                    handleResizePointerDown(event, block, "top")
+                  }
+                />
+
+                <div className={styles.calendarBlockTitle}>
+                  {block.title}
+                </div>
+
+                <div className={styles.calendarBlockInfo}>
+                  {getBlockTimeRange(block)}
+                </div>
+
+                <div
+                  className={`${styles.resizeHandle} ${styles.bottomResizeHandle}`}
+                  onPointerDown={(event) =>
+                    handleResizePointerDown(event, block, "bottom")
+                  }
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

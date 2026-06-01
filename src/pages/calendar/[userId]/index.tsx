@@ -27,7 +27,11 @@ function addMonthsClamped(date: Date, amount: number) {
   const targetYear = targetMonthStart.getFullYear();
   const targetMonth = targetMonthStart.getMonth();
 
-  const lastDayOfTargetMonth = new Date(targetYear, targetMonth + 1, 0).getDate();
+  const lastDayOfTargetMonth = new Date(
+    targetYear,
+    targetMonth + 1,
+    0
+  ).getDate();
 
   return new Date(targetYear, targetMonth, Math.min(day, lastDayOfTargetMonth));
 }
@@ -48,11 +52,24 @@ export default function ComponentName({
   const [viewMode, setViewMode] = useState<ViewMode>("month");
   const [cmdJOpen, setCmdJOpen] = useState(false);
 
-  // if selectedDate is null, use today's date instead
+  /**
+   * Sidebar starts closed.
+   * It opens when a calendar block is created.
+   */
+  const [rightSidebarOpen, setRightSidebarOpen] = useState(false);
+
+  /**
+   * Every time this number increases,
+   * BodyMain clears its calendarBlocks.
+   */
+  const [clearCalendarBlocksSignal, setClearCalendarBlocksSignal] = useState(0);
+
   const effectiveDate = selectedDate ?? new Date();
 
   const shiftMonth = (delta: number) => {
-    setViewDate((prev) => new Date(prev.getFullYear(), prev.getMonth() + delta, 1));
+    setViewDate(
+      (prev) => new Date(prev.getFullYear(), prev.getMonth() + delta, 1)
+    );
   };
 
   const { monthLabel, monthLabelLong, yearLabel } = useMemo(() => {
@@ -94,9 +111,15 @@ export default function ComponentName({
     setViewDate(new Date(nextDate.getFullYear(), nextDate.getMonth(), 1));
   };
 
+  const closeRightSidebar = () => {
+    setRightSidebarOpen(false);
+    setClearCalendarBlocksSignal((current) => current + 1);
+  };
+
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement | null;
+
       const isEditable =
         !!target &&
         (target.tagName === "INPUT" ||
@@ -126,6 +149,7 @@ export default function ComponentName({
     };
 
     window.addEventListener("keydown", onKeyDown);
+
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
@@ -149,17 +173,39 @@ export default function ComponentName({
       )}
 
       <div className={style.body}>
-        <BodyHeader
-          monthLabel={monthLabelLong}
-          yearLabel={yearLabel}
-          user={user}
-          viewMode={viewMode}
-          onChangeViewMode={setViewMode}
-          onShiftPrev={() => shiftSelectedDate(-1)}
-          onShiftNext={() => shiftSelectedDate(1)}
-        />
+        <div className={style.calendarArea}>
+          <BodyHeader
+            monthLabel={monthLabelLong}
+            yearLabel={yearLabel}
+            user={user}
+            viewMode={viewMode}
+            onChangeViewMode={setViewMode}
+            onShiftPrev={() => shiftSelectedDate(-1)}
+            onShiftNext={() => shiftSelectedDate(1)}
+            rightSidebarOpen={rightSidebarOpen}
+          />
 
-        <BodyMain selectedDate={effectiveDate} />
+          <BodyMain
+            selectedDate={effectiveDate}
+            clearCalendarBlocksSignal={clearCalendarBlocksSignal}
+            onCalendarBlockCreated={(block) => {
+              console.log("Created calendar block:", block);
+              setRightSidebarOpen(true);
+            }}
+          />
+        </div>
+
+        {rightSidebarOpen && (
+          <aside className={style.rightSidebar}>
+            <button
+              type="button"
+              className={style.closeRightSidebarButton}
+              onClick={closeRightSidebar}
+            >
+              ×
+            </button>
+          </aside>
+        )}
       </div>
 
       <Modal open={cmdJOpen} onClose={() => setCmdJOpen(false)}>
@@ -181,6 +227,7 @@ export async function getServerSideProps(ctx: NextPageContext) {
     await connectDB();
 
     const user = await User.findById(userId);
+
     if (!user) return { notFound: true };
 
     return {
@@ -191,6 +238,7 @@ export async function getServerSideProps(ctx: NextPageContext) {
     };
   } catch (error) {
     console.error("Error fetching user:", error);
+
     return { notFound: true };
   }
 }

@@ -1,9 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./style.module.css";
-
-type BodyMainProps = {
-  selectedDate: Date | null;
-};
 
 type CalendarBlock = {
   id: number;
@@ -12,11 +8,19 @@ type CalendarBlock = {
   duration: number;
 };
 
+type BodyMainProps = {
+  selectedDate: Date | null;
+  clearCalendarBlocksSignal?: number;
+  onCalendarBlockCreated?: (block: CalendarBlock) => void;
+};
+
 type CreateDragState = {
   id: number;
 
-  // The slot where the user first clicked.
-  // This stays as the anchor while the user drags up or down.
+  /**
+   * The slot where the user first clicked.
+   * This stays as the anchor while the user drags up or down.
+   */
   anchorSlot: number;
 };
 
@@ -65,16 +69,48 @@ const MIN_DURATION = 0.25;
 // 0.25 = 15 minutes.
 const SNAP_AMOUNT = 0.25;
 
-const BodyMain: React.FC<BodyMainProps> = ({ selectedDate }) => {
+const BodyMain: React.FC<BodyMainProps> = ({
+  selectedDate,
+  clearCalendarBlocksSignal = 0,
+  onCalendarBlockCreated,
+}) => {
   const bodyRightRef = useRef<HTMLDivElement | null>(null);
 
   const [calendarBlocks, setCalendarBlocks] = useState<CalendarBlock[]>([]);
+
+  /**
+   * This ref always stores the latest blocks immediately.
+   * This fixes the issue where React state has not updated yet
+   * when pointerup runs.
+   */
+  const calendarBlocksRef = useRef<CalendarBlock[]>([]);
 
   const [createDragState, setCreateDragState] =
     useState<CreateDragState | null>(null);
 
   const [resizeDragState, setResizeDragState] =
     useState<ResizeDragState | null>(null);
+
+  const updateCalendarBlocks = useCallback(
+    (updater: (currentBlocks: CalendarBlock[]) => CalendarBlock[]) => {
+      const nextBlocks = updater(calendarBlocksRef.current);
+
+      calendarBlocksRef.current = nextBlocks;
+
+      setCalendarBlocks(nextBlocks);
+    },
+    []
+  );
+
+  useEffect(() => {
+    if (clearCalendarBlocksSignal === 0) return;
+
+    calendarBlocksRef.current = [];
+    setCalendarBlocks([]);
+
+    setCreateDragState(null);
+    setResizeDragState(null);
+  }, [clearCalendarBlocksSignal]);
 
   const safeDate = selectedDate ?? new Date();
 
@@ -134,7 +170,6 @@ const BodyMain: React.FC<BodyMainProps> = ({ selectedDate }) => {
 
   function getBlockTimeRange(block: CalendarBlock) {
     const startTime = formatSlotTime(block.startSlot);
-
     const endTime = formatSlotTime(block.startSlot + block.duration);
 
     return `${startTime} - ${endTime}`;
@@ -147,8 +182,17 @@ const BodyMain: React.FC<BodyMainProps> = ({ selectedDate }) => {
 
     const clickedElement = event.target as HTMLElement;
 
-    // Do not create a new event when the user is using a resize handle.
+    /**
+     * Do not create a new event when the user is using a resize handle.
+     */
     if (clickedElement.closest(`.${styles.resizeHandle}`)) {
+      return;
+    }
+
+    /**
+     * Do not create a new block when clicking an existing block.
+     */
+    if (clickedElement.closest(`.${styles.calendarBlock}`)) {
       return;
     }
 
@@ -175,9 +219,11 @@ const BodyMain: React.FC<BodyMainProps> = ({ selectedDate }) => {
       duration: MIN_DURATION,
     };
 
-    // Keep the existing block while creating the new one.
-    // On pointer release, only the newly-created block remains.
-    setCalendarBlocks((currentBlocks) => [...currentBlocks, newBlock]);
+    /**
+     * Keep the existing block while creating the new one.
+     * On pointer release, only the newly-created block remains.
+     */
+    updateCalendarBlocks((currentBlocks) => [...currentBlocks, newBlock]);
 
     setCreateDragState({
       id: newBlock.id,
@@ -220,7 +266,7 @@ const BodyMain: React.FC<BodyMainProps> = ({ selectedDate }) => {
 
       const isDraggingDown = rawCurrentSlot >= anchorSlot;
 
-      setCalendarBlocks((currentBlocks) =>
+      updateCalendarBlocks((currentBlocks) =>
         currentBlocks.map((block) => {
           if (block.id !== createDragState.id) {
             return block;
@@ -240,11 +286,7 @@ const BodyMain: React.FC<BodyMainProps> = ({ selectedDate }) => {
             };
           }
 
-          const startSlot = clamp(
-            snapDown(rawCurrentSlot),
-            0,
-            anchorSlot
-          );
+          const startSlot = clamp(snapDown(rawCurrentSlot), 0, anchorSlot);
 
           const endSlot = anchorSlot + MIN_DURATION;
 
@@ -258,11 +300,17 @@ const BodyMain: React.FC<BodyMainProps> = ({ selectedDate }) => {
     }
 
     function handlePointerUp() {
-      // Once the user releases the mouse,
-      // keep only the newly-created block.
-      setCalendarBlocks((currentBlocks) =>
+      const completedBlock = calendarBlocksRef.current.find(
+        (block) => block.id === createDragState.id
+      );
+
+      updateCalendarBlocks((currentBlocks) =>
         keepOnlyActiveBlock(currentBlocks, createDragState.id)
       );
+
+      if (completedBlock) {
+        onCalendarBlockCreated?.(completedBlock);
+      }
 
       setCreateDragState(null);
     }
@@ -278,7 +326,7 @@ const BodyMain: React.FC<BodyMainProps> = ({ selectedDate }) => {
       window.removeEventListener("pointermove", handlePointerMove);
       window.removeEventListener("pointerup", handlePointerUp);
     };
-  }, [createDragState]);
+  }, [createDragState, onCalendarBlockCreated, updateCalendarBlocks]);
 
   useEffect(() => {
     if (!resizeDragState) return;
@@ -288,7 +336,7 @@ const BodyMain: React.FC<BodyMainProps> = ({ selectedDate }) => {
 
       const movedSlots = snap(distanceMoved / SLOT_HEIGHT);
 
-      setCalendarBlocks((currentBlocks) =>
+      updateCalendarBlocks((currentBlocks) =>
         currentBlocks.map((block) => {
           if (block.id !== resizeDragState.id) {
             return block;
@@ -334,9 +382,7 @@ const BodyMain: React.FC<BodyMainProps> = ({ selectedDate }) => {
     }
 
     function handlePointerUp() {
-      // Only one completed block should exist,
-      // so keep only the block being resized.
-      setCalendarBlocks((currentBlocks) =>
+      updateCalendarBlocks((currentBlocks) =>
         keepOnlyActiveBlock(currentBlocks, resizeDragState.id)
       );
 
@@ -354,7 +400,7 @@ const BodyMain: React.FC<BodyMainProps> = ({ selectedDate }) => {
       window.removeEventListener("pointermove", handlePointerMove);
       window.removeEventListener("pointerup", handlePointerUp);
     };
-  }, [resizeDragState]);
+  }, [resizeDragState, updateCalendarBlocks]);
 
   return (
     <div className={styles.main}>
@@ -411,9 +457,7 @@ const BodyMain: React.FC<BodyMainProps> = ({ selectedDate }) => {
                   }
                 />
 
-                <div className={styles.calendarBlockTitle}>
-                  {block.title}
-                </div>
+                <div className={styles.calendarBlockTitle}>{block.title}</div>
 
                 <div className={styles.calendarBlockInfo}>
                   {getBlockTimeRange(block)}

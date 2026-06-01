@@ -4,7 +4,9 @@ import React from "react";
 import styles from "./style.module.css";
 import ProfileMenu from "../ProfileMenu/ProfileMenu";
 import CalendarEmail from "../calendarEmail/CalendarEmail";
-import LyDropdown, { type ViewMode } from "@/components/dropdown/LyDropdown/LyDropdown";
+import LyDropdown, {
+  type ViewMode,
+} from "@/components/dropdown/LyDropdown/LyDropdown";
 import WeeklyShift from "@/components/misc/WeeklyShift/WeeklyShift";
 import Tooltip from "@/components/misc/Tooltip/Tooltip";
 
@@ -16,6 +18,7 @@ type Props = {
   onChangeViewMode: (mode: ViewMode) => void;
   onShiftPrev: () => void;
   onShiftNext: () => void;
+  rightSidebarOpen: boolean;
 };
 
 const BodyHeader: React.FC<Props> = ({
@@ -26,6 +29,7 @@ const BodyHeader: React.FC<Props> = ({
   onChangeViewMode,
   onShiftPrev,
   onShiftNext,
+  rightSidebarOpen,
 }) => {
   const img = user?.image as string | undefined;
   const email = user?.email as string | undefined;
@@ -33,9 +37,9 @@ const BodyHeader: React.FC<Props> = ({
 
   return (
     <div className={styles.wrap} role="banner">
-      <ProfileMenu img={img} email={email} id={id} />
+      {!rightSidebarOpen && <ProfileMenu img={img} email={email} id={id} />}
 
-      <CalendarEmail />
+      {!rightSidebarOpen && <CalendarEmail />}
 
       <LyDropdown value={viewMode} onChange={onChangeViewMode} />
 
@@ -44,20 +48,15 @@ const BodyHeader: React.FC<Props> = ({
           <div className={styles.dateHeader}>
             {monthLabel} {yearLabel}
           </div>
-          <div className={styles.dateHeaderLower}>
-            (BST)Europe/London
-          </div>
+
+          <div className={styles.dateHeaderLower}>(BST)Europe/London</div>
         </div>
 
         <Tooltip label={"Today"} symbol="T">
           <div className={styles.today}>Today</div>
         </Tooltip>
 
-        <WeeklyShift
-          mode={viewMode}
-          onPrev={onShiftPrev}
-          onNext={onShiftNext}
-        />
+        <WeeklyShift mode={viewMode} onPrev={onShiftPrev} onNext={onShiftNext} />
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import style from "./style.module.css";
 import NavBar from "@/components/sections/NavBar/NavBar";
 import Modal from "@/components/modals/modal/modal";
 import BodyHeader from "@/components/sections/BodyHeader/BodyHeader";
-
+import RightSidebar from "@/components/sections/RightSidebar/RightSidebar";
 import type { InferGetServerSidePropsType, NextPageContext } from "next";
 import type { ViewMode } from "@/components/dropdown/LyDropdown/LyDropdown";
 import connectDB from "@/utils/connectDB";
@@ -153,27 +153,36 @@ export default function ComponentName({
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
-  return (
-    <main className={style.main}>
-      <Scene />
+return (
+  <main className={style.main}>
+    <Scene />
 
-      {!navCollapsed && (
-        <NavBar
-          onCollapse={() => setNavCollapsed(true)}
-          onNextMonth={() => shiftMonth(1)}
-          onPrevMonth={() => shiftMonth(-1)}
-          monthLabel={monthLabel}
-          yearLabel={yearLabel}
-          monthMenuOpen={monthMenuOpen}
-          onToggleMonthMenu={() => setMonthMenuOpen((v) => !v)}
-          viewDate={viewDate}
-          selectedDate={effectiveDate}
-          onSelectDate={(d) => setSelectedDate(d)}
-        />
-      )}
+    {!navCollapsed && (
+      <NavBar
+        onCollapse={() => setNavCollapsed(true)}
+        onNextMonth={() => shiftMonth(1)}
+        onPrevMonth={() => shiftMonth(-1)}
+        monthLabel={monthLabel}
+        yearLabel={yearLabel}
+        monthMenuOpen={monthMenuOpen}
+        onToggleMonthMenu={() => setMonthMenuOpen((v) => !v)}
+        viewDate={viewDate}
+        selectedDate={effectiveDate}
+        onSelectDate={(d) => setSelectedDate(d)}
+      />
+    )}
 
-      <div className={style.body}>
-        <div className={style.calendarArea}>
+    <div
+      className={style.body}
+      style={
+        {
+          "--nav-width": navCollapsed ? "0px" : "255px",
+          "--right-sidebar-width": rightSidebarOpen ? "363px" : "0px",
+        } as React.CSSProperties
+      }
+    >
+      <div className={style.calendarArea}>
+        <div className={style.calendarScrollContent}>
           <BodyHeader
             monthLabel={monthLabelLong}
             yearLabel={yearLabel}
@@ -194,25 +203,20 @@ export default function ComponentName({
             }}
           />
         </div>
-
-        {rightSidebarOpen && (
-          <aside className={style.rightSidebar}>
-            <button
-              type="button"
-              className={style.closeRightSidebarButton}
-              onClick={closeRightSidebar}
-            >
-              ×
-            </button>
-          </aside>
-        )}
       </div>
+    </div>
 
-      <Modal open={cmdJOpen} onClose={() => setCmdJOpen(false)}>
-        {/* modal content */}
-      </Modal>
-    </main>
-  );
+    {rightSidebarOpen && (
+      <div className={style.rightSidebarLayer}>
+        <RightSidebar onClose={closeRightSidebar} />
+      </div>
+    )}
+
+    <Modal open={cmdJOpen} onClose={() => setCmdJOpen(false)}>
+      {/* modal content */}
+    </Modal>
+  </main>
+);
 }
 
 export async function getServerSideProps(ctx: NextPageContext) {

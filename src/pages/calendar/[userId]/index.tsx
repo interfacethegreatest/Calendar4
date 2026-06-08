@@ -52,16 +52,7 @@ export default function ComponentName({
   const [viewMode, setViewMode] = useState<ViewMode>("month");
   const [cmdJOpen, setCmdJOpen] = useState(false);
 
-  /**
-   * Sidebar starts closed.
-   * It opens when a calendar block is created.
-   */
   const [rightSidebarOpen, setRightSidebarOpen] = useState(false);
-
-  /**
-   * Every time this number increases,
-   * BodyMain clears its calendarBlocks.
-   */
   const [clearCalendarBlocksSignal, setClearCalendarBlocksSignal] = useState(0);
 
   const effectiveDate = selectedDate ?? new Date();
@@ -153,70 +144,70 @@ export default function ComponentName({
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
-return (
-  <main className={style.main}>
-    <Scene />
+  return (
+    <main className={style.main}>
+      <Scene />
 
-    {!navCollapsed && (
-      <NavBar
-        onCollapse={() => setNavCollapsed(true)}
-        onNextMonth={() => shiftMonth(1)}
-        onPrevMonth={() => shiftMonth(-1)}
-        monthLabel={monthLabel}
-        yearLabel={yearLabel}
-        monthMenuOpen={monthMenuOpen}
-        onToggleMonthMenu={() => setMonthMenuOpen((v) => !v)}
-        viewDate={viewDate}
-        selectedDate={effectiveDate}
-        onSelectDate={(d) => setSelectedDate(d)}
-      />
-    )}
+      {!navCollapsed && (
+        <NavBar
+          onCollapse={() => setNavCollapsed(true)}
+          onNextMonth={() => shiftMonth(1)}
+          onPrevMonth={() => shiftMonth(-1)}
+          monthLabel={monthLabel}
+          yearLabel={yearLabel}
+          monthMenuOpen={monthMenuOpen}
+          onToggleMonthMenu={() => setMonthMenuOpen((v) => !v)}
+          viewDate={viewDate}
+          selectedDate={effectiveDate}
+          onSelectDate={(d) => setSelectedDate(d)}
+        />
+      )}
 
-    <div
-      className={style.body}
-      style={
-        {
-          "--nav-width": navCollapsed ? "0px" : "255px",
-          "--right-sidebar-width": rightSidebarOpen ? "363px" : "0px",
-        } as React.CSSProperties
-      }
-    >
-      <div className={style.calendarArea}>
-        <div className={style.calendarScrollContent}>
-          <BodyHeader
-            monthLabel={monthLabelLong}
-            yearLabel={yearLabel}
-            user={user}
-            viewMode={viewMode}
-            onChangeViewMode={setViewMode}
-            onShiftPrev={() => shiftSelectedDate(-1)}
-            onShiftNext={() => shiftSelectedDate(1)}
-            rightSidebarOpen={rightSidebarOpen}
-          />
+      <div
+        className={style.body}
+        style={
+          {
+            "--nav-width": navCollapsed ? "0px" : "255px",
+            "--right-sidebar-space": rightSidebarOpen ? "363px" : "0px",
+          } as React.CSSProperties
+        }
+      >
+        <div className={style.calendarArea}>
+          <div className={style.calendarScrollContent}>
+            <BodyHeader
+              monthLabel={monthLabelLong}
+              yearLabel={yearLabel}
+              user={user}
+              viewMode={viewMode}
+              onChangeViewMode={setViewMode}
+              onShiftPrev={() => shiftSelectedDate(-1)}
+              onShiftNext={() => shiftSelectedDate(1)}
+              rightSidebarOpen={rightSidebarOpen}
+            />
 
-          <BodyMain
-            selectedDate={effectiveDate}
-            clearCalendarBlocksSignal={clearCalendarBlocksSignal}
-            onCalendarBlockCreated={(block) => {
-              console.log("Created calendar block:", block);
-              setRightSidebarOpen(true);
-            }}
-          />
+            <BodyMain
+              selectedDate={effectiveDate}
+              clearCalendarBlocksSignal={clearCalendarBlocksSignal}
+              onCalendarBlockCreated={(block) => {
+                console.log("Created calendar block:", block);
+                setRightSidebarOpen(true);
+              }}
+            />
+          </div>
         </div>
       </div>
-    </div>
 
-    {rightSidebarOpen && (
-      <div className={style.rightSidebarLayer}>
-        <RightSidebar onClose={closeRightSidebar} />
-      </div>
-    )}
+      {rightSidebarOpen && (
+        <div className={style.rightSidebarLayer}>
+          <RightSidebar onClose={closeRightSidebar} />
+        </div>
+      )}
 
-    <Modal open={cmdJOpen} onClose={() => setCmdJOpen(false)}>
-      {/* modal content */}
-    </Modal>
-  </main>
-);
+      <Modal open={cmdJOpen} onClose={() => setCmdJOpen(false)}>
+        {/* modal content */}
+      </Modal>
+    </main>
+  );
 }
 
 export async function getServerSideProps(ctx: NextPageContext) {

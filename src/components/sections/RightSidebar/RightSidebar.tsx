@@ -71,6 +71,11 @@ const RightSidebar: React.FC<RightSidebarProps> = ({ onClose }) => {
           ×
         </button>
       </div>
+      <div className={styles.rightSidebarBannerTwo}>
+        <div className={styles.rightSidebarBannerTwoBookmark}>
+          
+        </div>
+      </div>
     </aside>
   );
 };
